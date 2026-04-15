@@ -1,283 +1,439 @@
-<!-- ====== Lesson 1: 컴퓨팅 시스템의 구성과 동작 원리 ====== -->
-<div id="lesson-content-1" class="space-y-12">
-    <div class="text-center py-8 border-b border-gray-200">
-        <span class="text-blue-600 font-black tracking-widest text-sm mb-3 block uppercase">I. 컴퓨팅 시스템 > 1. 컴퓨팅 시스템과 피지컬 컴퓨팅</span>
-        <h2 class="text-4xl font-extrabold text-gray-900 break-keep leading-tight">01. 컴퓨팅 시스템의 구성과 동작 원리</h2>
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>정보교과 학습 플랫폼 (Sungce Teacher Lab)</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- 폰트 설정 (Pretendard) -->
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard.css" />
+    
+    <!-- Chosen Palette: Light Gray, White, Deep Blue (Primary), Emerald, Orange, Pink, Purple (Accents) -->
+    <!-- Application Structure Plan: Master Dashboard Portal. This page serves as the entry point, authenticates the user, shows overall progress, and uses window.location to navigate to the individual unit/lesson HTML files that exist in the repository's folder structure. -->
+    <!-- Visualization & Content Choices: Dashboard Progress -> Goal: Show progress across 5 units -> Viz Method: Bar Chart -> Interaction: Tooltips on hover -> Library: Chart.js Canvas. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body { font-family: 'Pretendard', sans-serif; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .chart-container { position: relative; width: 100%; max-width: 800px; margin: 0 auto; height: 300px; }
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .feedback-animate { animation: slideDown 0.3s ease-out forwards; }
+        #toast-container { z-index: 9999; }
+    </style>
+</head>
+<body class="bg-gray-50 flex h-screen overflow-hidden text-gray-800 selection:bg-blue-100 selection:text-blue-900 relative">
+
+    <div id="toast-container" class="fixed top-4 right-4 flex flex-col gap-2"></div>
+
+    <!-- 첫 페이지: 로그인 화면 -->
+    <div id="login-screen" class="absolute inset-0 z-50 flex flex-col items-center justify-center bg-gray-50/80 backdrop-blur-sm">
+        <div class="bg-white p-10 rounded-3xl shadow-2xl border border-gray-200 w-full max-w-md text-center transform transition-all duration-500 animate-in zoom-in-95">
+            <div class="w-20 h-20 bg-blue-600 rounded-2xl mx-auto flex items-center justify-center mb-6 shadow-lg shadow-blue-200">
+                <i class="ph ph-terminal-window text-white text-4xl"></i>
+            </div>
+            <h1 class="text-3xl font-extrabold tracking-tight text-gray-900 mb-2">Sungce Teacher <span class="text-blue-600">Lab</span></h1>
+            <p class="text-gray-500 mb-10 font-medium">정보교과 학습 플랫폼</p>
+            
+            <button id="btn-google-login" onclick="loginGoogle()" class="w-full flex items-center justify-center gap-3 bg-white border border-gray-300 text-gray-700 font-bold py-3.5 px-6 rounded-xl hover:bg-gray-50 hover:shadow-md transition-all">
+                <i class="ph-fill ph-google-logo text-xl text-blue-500"></i>
+                Google 계정으로 시작하기
+            </button>
+            <p class="mt-6 text-xs text-gray-400">학교에서 발급받은 구글 워크스페이스 계정을 권장합니다.</p>
+        </div>
     </div>
 
-    <!-- 1-1. 단원 열기 -->
-    <section class="bg-white rounded-3xl shadow-sm border border-gray-200 p-8 flex flex-col md:flex-row gap-8 items-center">
-        <div class="flex-1 space-y-6">
-            <div>
-                <h3 class="text-2xl font-bold flex items-center gap-2 mb-3 text-gray-900"><i class="ph-fill ph-target text-blue-500"></i> 학습 목표</h3>
-                <ul class="space-y-2">
-                    <li class="flex items-start gap-2 text-gray-700">
-                        <i class="ph-bold ph-check text-blue-600 mt-1"></i>
-                        <span>컴퓨팅 시스템의 구성 요소와 동작 원리를 설명할 수 있다.</span>
-                    </li>
-                    <li class="flex items-start gap-2 text-gray-700">
-                        <i class="ph-bold ph-check text-blue-600 mt-1"></i>
-                        <span>운영 체제의 개념과 기능을 분석할 수 있다.</span>
-                    </li>
-                </ul>
-            </div>
-            <div class="bg-blue-50 p-4 rounded-xl border border-blue-100">
-                <h4 class="font-bold text-blue-800 text-sm mb-2 flex items-center gap-1.5"><i class="ph-fill ph-lightbulb"></i> 생각 열기</h4>
-                <p class="text-blue-900 text-sm">"내 손에는 스마트폰, 우리 교실에는 스마트 칠판!"<br>우리 학교에서 컴퓨팅 시스템이 적용된 것에는 어떤 것이 있는지 이야기해 볼까요?</p>
-            </div>
-        </div>
-        <div class="w-full md:w-1/3 bg-gray-100 rounded-2xl h-48 flex items-center justify-center border border-gray-200 overflow-hidden shadow-inner relative">
-            <div class="text-center p-4">
-                <i class="ph-fill ph-chalkboard-teacher text-5xl text-gray-400"></i>
-            </div>
-        </div>
-    </section>
-
-    <!-- 1-2. 핵심 개념: 구성 -->
-    <section class="space-y-6">
-        <div class="flex items-center justify-between">
-            <h3 class="text-2xl font-bold flex items-center gap-2"><i class="ph-fill ph-hard-drives text-blue-500"></i> 1. 컴퓨팅 시스템의 이해와 구성</h3>
-            <span class="text-xs font-bold text-gray-500 bg-white border border-gray-200 px-3 py-1.5 rounded-lg shadow-sm">교과서 9~11쪽</span>
-        </div>
-        
-        <div class="bg-white rounded-3xl shadow-sm border border-gray-200 p-8">
-            <p class="text-gray-700 mb-6 text-lg leading-relaxed">
-                <strong>컴퓨팅 시스템</strong>은 눈에 보이는 기계 장치인 <strong>하드웨어</strong>와 이를 동작시키는 <strong>소프트웨어</strong>가 유기적으로 결합하여 문제를 해결하는 장치입니다.
-            </p>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                <div class="bg-gray-50 border border-gray-200 rounded-2xl p-6">
-                    <h4 class="font-extrabold text-lg text-gray-900 mb-4 pb-2 border-b-2 border-blue-500 inline-block">하드웨어 (Hardware)</h4>
-                    <ul class="space-y-4">
-                        <li><div class="flex items-center gap-2 font-bold text-gray-800 mb-1"><i class="ph-fill ph-keyboard text-blue-500"></i> 입력 장치</div><p class="text-sm text-gray-600">외부 데이터를 입력받음 (키보드, 마우스, 카메라)</p></li>
-                        <li><div class="flex items-center gap-2 font-bold text-gray-800 mb-1"><i class="ph-fill ph-cpu text-blue-500"></i> 처리 장치</div><p class="text-sm text-gray-600">명령어 해석 및 데이터 처리 (CPU, GPU, SoC)</p></li>
-                        <li><div class="flex items-center gap-2 font-bold text-gray-800 mb-1"><i class="ph-fill ph-hard-drive text-blue-500"></i> 기억 장치</div><p class="text-sm text-gray-600">명령어와 데이터 저장 (RAM, 하드 디스크, SSD)</p></li>
-                        <li><div class="flex items-center gap-2 font-bold text-gray-800 mb-1"><i class="ph-fill ph-monitor text-blue-500"></i> 출력 장치</div><p class="text-sm text-gray-600">처리 결과를 제공 (모니터, 프린터, 스피커)</p></li>
-                        <li><div class="flex items-center gap-2 font-bold text-gray-800 mb-1"><i class="ph-fill ph-wifi-high text-blue-500"></i> 통신 장치</div><p class="text-sm text-gray-600">데이터를 주고받음 (무선 공유기, 블루투스)</p></li>
-                    </ul>
+    <!-- 앱 래퍼 -->
+    <div id="app-wrapper" class="flex h-full w-full hidden animate-in fade-in duration-500">
+        <!-- 좌측 고정 사이드바 -->
+        <aside class="w-72 bg-white border-r border-gray-200 flex flex-col h-full flex-shrink-0 z-20 shadow-[4px_0_24px_rgba(0,0,0,0.02)]">
+            <div class="h-16 flex items-center px-6 border-b border-gray-100 cursor-pointer hover:bg-gray-50 transition-colors" onclick="switchView('dashboard')">
+                <div class="bg-blue-600 p-1.5 rounded-lg mr-3 shadow-md shadow-blue-200">
+                    <i class="ph ph-terminal-window text-white text-xl"></i>
                 </div>
-                <div class="bg-gray-50 border border-gray-200 rounded-2xl p-6">
-                    <h4 class="font-extrabold text-lg text-gray-900 mb-4 pb-2 border-b-2 border-green-500 inline-block">소프트웨어 (Software)</h4>
-                    <ul class="space-y-6">
-                        <li>
-                            <div class="flex items-center gap-2 font-bold text-gray-800 mb-2"><i class="ph-fill ph-gear text-green-600"></i> 시스템 소프트웨어 (운영 체제)</div>
-                            <p class="text-sm text-gray-600 bg-white p-3 rounded-lg border border-gray-100">하드웨어를 관리/운영하고 응용 소프트웨어가 동작할 수 있도록 기본적인 기능을 제공합니다.<br><span class="text-xs text-green-600 mt-2 block">예: Windows, macOS, 안드로이드, iOS</span></p>
-                        </li>
-                    </ul>
+                <h1 class="text-xl font-extrabold tracking-tight text-gray-900">InfoTech <span class="text-blue-600">Lab</span></h1>
+            </div>
+
+            <div class="p-6 pb-2">
+                <div class="flex justify-between items-end mb-2">
+                    <span class="text-xs font-bold text-gray-400 uppercase tracking-widest">전체 진도율</span>
+                    <span class="text-sm font-bold text-blue-600">32%</span>
+                </div>
+                <div class="w-full bg-gray-100 rounded-full h-2 overflow-hidden">
+                    <div class="bg-blue-500 h-full rounded-full transition-all duration-1000" style="width: 32%"></div>
                 </div>
             </div>
 
-            <!-- AI 개념 도우미 영역 -->
-            <div class="mt-8 p-6 bg-gradient-to-r from-purple-50 to-indigo-50 rounded-2xl border border-purple-100 shadow-inner">
-                <h4 class="font-bold text-purple-900 mb-3 flex items-center gap-2">
-                    <i class="ph-fill ph-robot text-xl"></i> 잘 모르는 개념이 있나요? AI 선생님에게 물어보세요!
-                </h4>
-                <div class="flex flex-col sm:flex-row gap-3">
-                    <input type="text" id="ai-question-input" placeholder="예) SoC가 정확히 뭐야?, 운영체제가 왜 필요해?" class="flex-1 bg-white border border-purple-200 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-purple-500 shadow-sm text-sm">
-                    <button onclick="askAITeacher()" id="btn-ai-ask" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded-xl transition-all shadow-md flex items-center justify-center gap-2 shrink-0">
-                        ✨ 질문하기
+            <!-- 네비게이션 메뉴 (업로드된 폴더 구조 반영) -->
+            <nav class="flex-1 overflow-y-auto px-4 py-4 space-y-1 custom-scrollbar">
+                <button onclick="switchView('dashboard')" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-blue-700 bg-blue-50 transition-colors" id="nav-dashboard">
+                    <i class="ph-fill ph-squares-four text-lg"></i> 학습 대시보드
+                </button>
+                <button onclick="switchView('submissions')" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors" id="nav-submissions">
+                    <i class="ph-fill ph-archive-box text-lg"></i> 나의 학습 기록 <span class="ml-auto bg-blue-100 text-blue-600 text-[10px] px-2 py-0.5 rounded-full font-bold" id="sidebar-sub-count">0</span>
+                </button>
+                
+                <div class="my-4 border-t border-gray-100"></div>
+                <p class="px-3 text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2">학습 자료실</p>
+                
+                <!-- I. 컴퓨팅 시스템 -->
+                <div class="space-y-1">
+                    <button onclick="toggleFolder('folder-unit1', this)" class="w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-bold text-gray-800 bg-blue-50/50 hover:bg-blue-50 transition-colors">
+                        <div class="flex items-center gap-2"><i class="ph-fill ph-folder-open text-blue-500 text-lg folder-icon"></i> I. 컴퓨팅 시스템</div>
+                        <i class="ph ph-caret-down text-gray-500 transition-transform duration-200 chevron-icon" style="transform: rotate(0deg);"></i>
                     </button>
-                </div>
-                <div id="ai-answer-result" class="hidden mt-4 p-5 bg-white border border-purple-100 rounded-xl text-gray-800 text-sm leading-relaxed shadow-sm"></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 1-3. 핵심 개념: 동작 원리 -->
-    <section class="space-y-6">
-        <div class="flex items-center justify-between">
-            <h3 class="text-2xl font-bold flex items-center gap-2"><i class="ph-fill ph-arrows-clockwise text-blue-500"></i> 2. 운영 체제와 컴퓨팅 시스템의 동작 원리</h3>
-            <span class="text-xs font-bold text-gray-500 bg-white border border-gray-200 px-3 py-1.5 rounded-lg shadow-sm">교과서 12쪽</span>
-        </div>
-
-        <div class="bg-white rounded-3xl shadow-sm border border-gray-200 p-8">
-            <p class="text-gray-700 mb-6">
-                운영 체제(OS)는 입·출력 관리, 처리 장치 및 메모리 관리, 통신 장치 관리 기능을 수행합니다. 
-                <strong>동영상 재생 앱의 실행 과정</strong>을 통해 동작 원리를 알아봅시다.
-            </p>
-
-            <div class="relative bg-slate-900 rounded-2xl p-8 mb-4 overflow-hidden shadow-inner">
-                <div class="absolute inset-0 opacity-20 bg-[linear-gradient(#ffffff33_1px,transparent_1px),linear-gradient(90deg,#ffffff33_1px,transparent_1px)] bg-[size:20px_20px]"></div>
-                <div class="grid grid-cols-1 md:grid-cols-5 gap-4 relative z-10 items-center">
-                    <div class="bg-slate-800 border border-slate-700 p-4 rounded-xl text-center">
-                        <div class="w-10 h-10 bg-blue-500/20 rounded-full flex items-center justify-center mx-auto mb-2 text-blue-400"><i class="ph-fill ph-hand-pointing text-xl"></i></div>
-                        <p class="font-bold text-white text-sm">1. 입력</p>
-                    </div>
-                    <div class="hidden md:flex justify-center text-slate-600"><i class="ph-bold ph-arrow-right text-xl"></i></div>
-                    <div class="bg-indigo-600 border border-indigo-400 p-4 rounded-xl text-center shadow-[0_0_15px_rgba(99,102,241,0.4)]">
-                        <p class="text-[10px] font-bold text-indigo-200 mb-2 uppercase">운영 체제 (OS)</p>
-                        <p class="font-bold text-white text-sm">2. 처리</p>
-                    </div>
-                    <div class="hidden md:flex justify-center text-slate-600"><i class="ph-bold ph-arrow-right text-xl"></i></div>
-                    <div class="flex flex-col gap-3">
-                        <div class="bg-slate-800 border border-slate-700 p-3 rounded-xl text-center flex items-center gap-3"><i class="ph-fill ph-wifi-high text-emerald-400 text-xl"></i><div class="text-left"><p class="font-bold text-white text-xs">3. 통신</p></div></div>
-                        <div class="bg-slate-800 border border-slate-700 p-3 rounded-xl text-center flex items-center gap-3"><i class="ph-fill ph-monitor-play text-pink-400 text-xl"></i><div class="text-left"><p class="font-bold text-white text-xs">4. 출력</p></div></div>
+                    <div id="folder-unit1" class="pl-6 space-y-1 overflow-hidden transition-all duration-300 block">
+                        <button onclick="navigateTo(1, 1)" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-blue-50 hover:text-blue-700 transition-colors"><i class="ph-fill ph-file-text text-gray-400"></i> 01. 구성과 동작 원리</button>
+                        <button onclick="navigateTo(1, 2)" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-blue-50 hover:text-blue-700 transition-colors"><i class="ph-fill ph-file-text text-gray-400"></i> 02. 피지컬 컴퓨팅 이해</button>
+                        <button onclick="navigateTo(1, 3)" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-blue-50 hover:text-blue-700 transition-colors"><i class="ph-fill ph-file-text text-gray-400"></i> 03. 피지컬 프로그래밍 1</button>
+                        <button onclick="navigateTo(1, 4)" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-blue-50 hover:text-blue-700 transition-colors"><i class="ph-fill ph-file-text text-gray-400"></i> 04. 피지컬 프로그래밍 2</button>
+                        <button onclick="navigateTo(1, 5)" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-blue-50 hover:text-blue-700 transition-colors"><i class="ph-fill ph-file-text text-gray-400"></i> 05. 피지컬 프로그래밍 3</button>
+                        <button onclick="navigateTo(1, 6)" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-blue-50 hover:text-blue-700 transition-colors"><i class="ph-fill ph-file-text text-gray-400"></i> 06. 응용 장치 만들기</button>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- 1-4. 해보기 (수행평가 폼) -->
-    <section class="space-y-6">
-        <div class="flex items-center justify-between mb-2">
-            <h3 class="text-2xl font-bold flex items-center gap-2"><i class="ph-fill ph-clipboard-text text-blue-500"></i> 해보기 (수행평가)</h3>
-            <span class="text-xs font-bold text-gray-500 bg-white border border-gray-200 px-3 py-1.5 rounded-lg shadow-sm">교과서 12쪽</span>
-        </div>
-
-        <div class="bg-white rounded-3xl shadow-sm border border-gray-200 overflow-hidden">
-            <div class="bg-blue-50 p-6 border-b border-blue-100 flex gap-4 items-start">
-                <div class="bg-white p-2 rounded-lg shadow-sm text-blue-600"><i class="ph-fill ph-magnifying-glass text-2xl"></i></div>
-                <div>
-                    <h4 class="font-bold text-lg text-gray-900 mb-1">컴퓨팅 시스템의 동작 원리 분석하기</h4>
-                    <p class="text-sm text-gray-600">내가 스마트폰에서 자주 사용하는 앱을 선택하고, 그 앱이 동작하기 위한 컴퓨팅 시스템의 동작 원리를 분석해 보세요.</p>
+                <!-- II. 데이터 -->
+                <div class="space-y-1">
+                    <button onclick="toggleFolder('folder-unit2', this)" class="w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-bold text-gray-800 bg-green-50/50 hover:bg-green-50 transition-colors mt-1">
+                        <div class="flex items-center gap-2"><i class="ph-fill ph-folder text-green-500 text-lg folder-icon"></i> II. 데이터</div>
+                        <i class="ph ph-caret-down text-gray-500 transition-transform duration-200 chevron-icon" style="transform: rotate(-90deg);"></i>
+                    </button>
+                    <div id="folder-unit2" class="pl-6 space-y-1 overflow-hidden transition-all duration-300 hidden">
+                        <button onclick="navigateTo(2, 1)" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-green-50 hover:text-green-700 transition-colors"><i class="ph-fill ph-file-text text-gray-400"></i> 01. 디지털 형태 데이터</button>
+                        <button onclick="navigateTo(2, 2)" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-green-50 hover:text-green-700 transition-colors"><i class="ph-fill ph-file-text text-gray-400"></i> 02. 다양한 데이터 표현</button>
+                        <button onclick="navigateTo(2, 3)" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-green-50 hover:text-green-700 transition-colors"><i class="ph-fill ph-file-text text-gray-400"></i> 03. 설문 조사</button>
+                        <button onclick="navigateTo(2, 4)" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-green-50 hover:text-green-700 transition-colors"><i class="ph-fill ph-file-text text-gray-400"></i> 04. 설문 자료 분석</button>
+                        <button onclick="navigateTo(2, 5)" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-green-50 hover:text-green-700 transition-colors"><i class="ph-fill ph-file-text text-gray-400"></i> 05. 데이터 시각화 1</button>
+                        <button onclick="navigateTo(2, 6)" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-green-50 hover:text-green-700 transition-colors"><i class="ph-fill ph-file-text text-gray-400"></i> 06. 데이터 시각화 2</button>
+                    </div>
                 </div>
-            </div>
-            
-            <div class="p-8 bg-white">
-                <form id="activity-form-1" onsubmit="submitActivity1(event)" class="space-y-5">
-                    <div>
-                        <label class="block text-sm font-bold text-gray-800 mb-2">내가 선택한 스마트폰 앱</label>
-                        <input type="text" id="app-name-1" required placeholder="예) 카메라 앱, 배달 앱, 지도 앱 등" class="w-full bg-gray-50 border border-gray-200 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all">
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-                        <div><label class="block text-sm font-bold text-gray-800 mb-2">입력 과정</label><textarea id="app-input-1" required placeholder="무엇을 입력하나요? (예: 화면 터치, 마이크 음성 등)" class="w-full bg-gray-50 border border-gray-200 rounded-xl p-3 h-20 resize-none focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea></div>
-                        <div><label class="block text-sm font-bold text-gray-800 mb-2">처리 과정</label><textarea id="app-process-1" required placeholder="어떻게 처리하나요? (예: 입력된 데이터를 분석하고 연산)" class="w-full bg-gray-50 border border-gray-200 rounded-xl p-3 h-20 resize-none focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea></div>
-                        <div><label class="block text-sm font-bold text-gray-800 mb-2">통신 과정</label><textarea id="app-comm-1" required placeholder="외부와 무엇을 주고받나요? (예: 인터넷을 통해 서버와 데이터 교환)" class="w-full bg-gray-50 border border-gray-200 rounded-xl p-3 h-20 resize-none focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea></div>
-                        <div><label class="block text-sm font-bold text-gray-800 mb-2">출력 과정</label><textarea id="app-output-1" required placeholder="어떻게 결과를 보여주나요? (예: 화면에 정보 표시, 스피커로 소리 출력)" class="w-full bg-gray-50 border border-gray-200 rounded-xl p-3 h-20 resize-none focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea></div>
-                    </div>
-                    
-                    <!-- AI 피드백 결과 영역 -->
-                    <div id="ai-feedback-result" class="hidden mt-4 p-5 bg-purple-50 border border-purple-200 rounded-xl text-purple-900 text-sm leading-relaxed"></div>
 
-                    <div class="pt-4 border-t border-gray-100 flex flex-col sm:flex-row justify-between items-center gap-4">
-                        <button type="button" id="btn-ai-feedback" onclick="getAIFeedback()" class="w-full sm:w-auto bg-purple-100 hover:bg-purple-200 text-purple-700 font-bold py-3 px-6 rounded-xl transition-all flex items-center justify-center gap-2">
-                            ✨ AI 피드백 받기
-                        </button>
-                        <button type="submit" id="btn-submit-1" class="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-xl shadow-md transition-all flex items-center justify-center gap-2">
-                            <i class="ph-bold ph-google-drive-logo"></i> Google Drive에 제출
-                        </button>
+                <!-- III. 알고리즘과 프로그래밍 -->
+                <div class="space-y-1">
+                    <button onclick="toggleFolder('folder-unit3', this)" class="w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-bold text-gray-800 bg-pink-50/50 hover:bg-pink-50 transition-colors mt-1">
+                        <div class="flex items-center gap-2"><i class="ph-fill ph-folder text-pink-500 text-lg folder-icon"></i> III. 알고리즘과 프로그래밍</div>
+                        <i class="ph ph-caret-down text-gray-500 transition-transform duration-200 chevron-icon" style="transform: rotate(-90deg);"></i>
+                    </button>
+                    <div id="folder-unit3" class="pl-6 space-y-1 overflow-hidden transition-all duration-300 hidden">
+                        <button onclick="navigateTo(3, 1)" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-pink-50 hover:text-pink-700 transition-colors"><i class="ph-fill ph-file-text text-gray-400"></i> 01. 상태와 구조화</button>
+                        <button onclick="navigateTo(3, 2)" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-pink-50 hover:text-pink-700 transition-colors"><i class="ph-fill ph-file-text text-gray-400"></i> 02. 문제의 추상화</button>
+                        <button onclick="navigateTo(3, 3)" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-pink-50 hover:text-pink-700 transition-colors"><i class="ph-fill ph-file-text text-gray-400"></i> 03. 이해와 표현</button>
+                        <button onclick="navigateTo(3, 4)" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-pink-50 hover:text-pink-700 transition-colors"><i class="ph-fill ph-file-text text-gray-400"></i> 04. 분석과 설계</button>
+                        <button onclick="navigateTo(3, 5)" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-pink-50 hover:text-pink-700 transition-colors"><i class="ph-fill ph-file-text text-gray-400"></i> 05. 프로그래밍 시작</button>
+                        <button onclick="navigateTo(3, 6)" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-pink-50 hover:text-pink-700 transition-colors"><i class="ph-fill ph-file-text text-gray-400"></i> 06. 논리 연산</button>
+                        <button onclick="navigateTo(3, 7)" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-pink-50 hover:text-pink-700 transition-colors"><i class="ph-fill ph-file-text text-gray-400"></i> 07. 중첩 제어 구조</button>
+                        <button onclick="navigateTo(3, 8)" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-pink-50 hover:text-pink-700 transition-colors"><i class="ph-fill ph-file-text text-gray-400"></i> 08. 리스트 활용</button>
+                        <button onclick="navigateTo(3, 9)" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-pink-50 hover:text-pink-700 transition-colors"><i class="ph-fill ph-file-text text-gray-400"></i> 09. 함수 활용</button>
+                        <button onclick="navigateTo(3, 10)" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-pink-50 hover:text-pink-700 transition-colors"><i class="ph-fill ph-file-text text-gray-400"></i> 10. 실생활 문제 해결</button>
                     </div>
-                </form>
-            </div>
-        </div>
-    </section>
+                </div>
 
-    <section class="space-y-6">
-        <div class="bg-white rounded-3xl shadow-sm border border-gray-200 overflow-hidden p-8">
-            <div class="mt-4 flex justify-end">
-                <button onclick="showLesson(2)" class="flex items-center gap-2 bg-gray-900 hover:bg-gray-800 text-white font-bold py-3 px-6 rounded-xl transition-all shadow-md">
-                    다음 차시: 02. 피지컬 컴퓨팅의 이해 <i class="ph-bold ph-arrow-right"></i>
+                <!-- IV. 인공지능 -->
+                <div class="space-y-1">
+                    <button onclick="toggleFolder('folder-unit4', this)" class="w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-bold text-gray-800 bg-orange-50/50 hover:bg-orange-50 transition-colors mt-1">
+                        <div class="flex items-center gap-2"><i class="ph-fill ph-folder text-orange-500 text-lg folder-icon"></i> IV. 인공지능</div>
+                        <i class="ph ph-caret-down text-gray-500 transition-transform duration-200 chevron-icon" style="transform: rotate(-90deg);"></i>
+                    </button>
+                    <div id="folder-unit4" class="pl-6 space-y-1 overflow-hidden transition-all duration-300 hidden">
+                        <button onclick="navigateTo(4, 1)" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-orange-50 hover:text-orange-700 transition-colors"><i class="ph-fill ph-file-text text-gray-400"></i> 01. AI 개념과 특성</button>
+                        <button onclick="navigateTo(4, 2)" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-orange-50 hover:text-orange-700 transition-colors"><i class="ph-fill ph-file-text text-gray-400"></i> 02. 데이터와 학습</button>
+                        <button onclick="navigateTo(4, 3)" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-orange-50 hover:text-orange-700 transition-colors"><i class="ph-fill ph-file-text text-gray-400"></i> 03. 이미지 데이터 모델</button>
+                        <button onclick="navigateTo(4, 4)" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-orange-50 hover:text-orange-700 transition-colors"><i class="ph-fill ph-file-text text-gray-400"></i> 04. 소리 데이터 모델</button>
+                        <button onclick="navigateTo(4, 5)" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-orange-50 hover:text-orange-700 transition-colors"><i class="ph-fill ph-file-text text-gray-400"></i> 05. 텍스트 데이터 모델</button>
+                        <button onclick="navigateTo(4, 6)" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-orange-50 hover:text-orange-700 transition-colors"><i class="ph-fill ph-file-text text-gray-400"></i> 06. 윤리적 문제 해결</button>
+                    </div>
+                </div>
+
+            </nav>
+
+            <div class="p-4 border-t border-gray-100 bg-gray-50/50 flex justify-between items-center">
+                <div class="flex items-center gap-3 overflow-hidden">
+                    <div id="user-profile-img" class="w-10 h-10 rounded-full bg-gradient-to-tr from-blue-100 to-blue-200 flex items-center justify-center font-bold text-blue-700 border border-blue-300 shrink-0">
+                        <i class="ph-fill ph-user"></i>
+                    </div>
+                    <div class="overflow-hidden">
+                        <p class="text-sm font-bold text-gray-900 truncate" id="user-name-display">로그인 중...</p>
+                        <p class="text-[10px] font-bold text-gray-500 uppercase tracking-widest truncate" id="user-email-display">Student</p>
+                    </div>
+                </div>
+                <button onclick="logoutGoogle()" class="text-gray-400 hover:text-red-500 transition-colors p-2 rounded-lg hover:bg-red-50" title="로그아웃">
+                    <i class="ph-bold ph-sign-out text-lg"></i>
                 </button>
             </div>
-        </div>
-    </section>
-</div>
+        </aside>
 
-<script>
-    const apiKey = ""; // Gemini API Key is automatically injected in the execution environment
-    
-    // 유틸리티: 마크다운 굵은 글씨, 줄바꿈 처리
-    function parseSimpleMarkdown(text) {
-        return text
-            .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-            .replace(/\n/g, '<br>');
-    }
+        <!-- 메인 컨텐츠 영역 -->
+        <main class="flex-1 flex flex-col h-full overflow-hidden bg-white/50 relative">
+            
+            <header class="h-16 bg-white/80 backdrop-blur-md border-b border-gray-200 px-8 flex items-center justify-between z-10 sticky top-0">
+                <div class="flex items-center text-sm font-medium text-gray-500 transition-all" id="breadcrumb">
+                    <i class="ph-fill ph-squares-four mr-2 text-blue-600 text-lg"></i> <span class="font-bold text-gray-900">학습 대시보드</span>
+                </div>
+                <div class="flex items-center gap-3">
+                    <button onclick="switchView('submissions')" class="flex items-center gap-2 text-sm font-semibold text-gray-600 hover:text-gray-900 bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded-lg transition-colors">
+                        <i class="ph-fill ph-archive-box text-blue-600"></i> 과제함 가기
+                    </button>
+                </div>
+            </header>
 
-    // Gemini API 호출 헬퍼
-    async function fetchGeminiAPI(prompt, systemInstruction) {
-        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
-        const payload = {
-            contents: [{ parts: [{ text: prompt }] }]
-        };
+            <div class="flex-1 overflow-y-auto p-8 custom-scrollbar scroll-smooth" id="main-scroll-area">
+
+                <!-- 대시보드 뷰 -->
+                <div id="view-dashboard" class="max-w-6xl mx-auto space-y-8 block animate-in fade-in duration-500">
+                    <div class="flex justify-between items-end pb-4 border-b border-gray-200">
+                        <div>
+                            <h2 class="text-3xl font-extrabold tracking-tight text-gray-900">학습 코스</h2>
+                            <p class="text-gray-500 mt-2 font-medium">2022 개정 교육과정 기반 정보 교과 학습을 시작하세요.</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-8 mb-8">
+                        <h3 class="text-xl font-bold mb-6 text-gray-900 flex items-center gap-2"><i class="ph-fill ph-chart-bar text-blue-500"></i> 단원별 학습 진행률</h3>
+                        <div class="chart-container">
+                            <canvas id="unitProgressChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                        <!-- I 단원 -->
+                        <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden flex flex-col h-[400px] hover:shadow-lg transition-all group cursor-pointer" onclick="toggleFolder('folder-unit1', document.querySelector('[onclick*=\\\'folder-unit1\\\']'))">
+                            <div class="h-1.5 bg-blue-500 w-full group-hover:h-2 transition-all"></div>
+                            <div class="p-6 flex-1 flex flex-col">
+                                <div class="flex justify-between items-start mb-4">
+                                    <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center text-2xl group-hover:scale-110 transition-transform"><i class="ph-fill ph-cpu"></i></div>
+                                    <span class="bg-blue-100 text-blue-700 text-[10px] font-black px-2 py-1 rounded">학습 중</span>
+                                </div>
+                                <h3 class="text-xl font-bold mb-2">I. 컴퓨팅 시스템</h3>
+                                <div class="flex items-center gap-3 mb-4">
+                                    <div class="flex-1 bg-gray-100 h-2 rounded-full overflow-hidden"><div class="bg-blue-500 h-full rounded-full" style="width: 40%"></div></div>
+                                    <span class="text-xs font-bold text-gray-500">40%</span>
+                                </div>
+                                <p class="text-sm text-gray-500 flex-1">하드웨어와 소프트웨어의 역할을 이해하고 피지컬 컴퓨팅 장치를 만듭니다.</p>
+                                <button class="w-full mt-auto text-blue-600 font-bold bg-blue-50 py-2 rounded-lg text-sm hover:bg-blue-100">단원 폴더 열기</button>
+                            </div>
+                        </div>
+
+                        <!-- II 단원 -->
+                        <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden flex flex-col h-[400px] hover:shadow-lg transition-all group cursor-pointer" onclick="toggleFolder('folder-unit2', document.querySelector('[onclick*=\\\'folder-unit2\\\']'))">
+                            <div class="h-1.5 bg-green-500 w-full group-hover:h-2 transition-all"></div>
+                            <div class="p-6 flex-1 flex flex-col">
+                                <div class="flex justify-between items-start mb-4">
+                                    <div class="w-12 h-12 bg-green-50 text-green-600 rounded-xl flex items-center justify-center text-2xl group-hover:scale-110 transition-transform"><i class="ph-fill ph-database"></i></div>
+                                    <span class="bg-gray-100 text-gray-500 text-[10px] font-black px-2 py-1 rounded">대기 중</span>
+                                </div>
+                                <h3 class="text-xl font-bold mb-2">II. 데이터</h3>
+                                <div class="flex items-center gap-3 mb-4">
+                                    <div class="flex-1 bg-gray-100 h-2 rounded-full overflow-hidden"><div class="bg-green-500 h-full rounded-full" style="width: 10%"></div></div>
+                                    <span class="text-xs font-bold text-gray-500">10%</span>
+                                </div>
+                                <p class="text-sm text-gray-500 flex-1">실생활 데이터를 수집, 분석, 시각화하여 유용한 정보를 추출합니다.</p>
+                                <button class="w-full mt-auto text-green-600 font-bold bg-green-50 py-2 rounded-lg text-sm hover:bg-green-100">단원 폴더 열기</button>
+                            </div>
+                        </div>
+                        
+                        <!-- III 단원 -->
+                        <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden flex flex-col h-[400px] hover:shadow-lg transition-all group cursor-pointer" onclick="toggleFolder('folder-unit3', document.querySelector('[onclick*=\\\'folder-unit3\\\']'))">
+                            <div class="h-1.5 bg-pink-500 w-full group-hover:h-2 transition-all"></div>
+                            <div class="p-6 flex-1 flex flex-col">
+                                <div class="flex justify-between items-start mb-4">
+                                    <div class="w-12 h-12 bg-pink-50 text-pink-600 rounded-xl flex items-center justify-center text-2xl group-hover:scale-110 transition-transform"><i class="ph-fill ph-code"></i></div>
+                                    <span class="bg-gray-100 text-gray-500 text-[10px] font-black px-2 py-1 rounded">대기 중</span>
+                                </div>
+                                <h3 class="text-xl font-bold mb-2">III. 알고리즘과 프로그래밍</h3>
+                                <div class="flex items-center gap-3 mb-4">
+                                    <div class="flex-1 bg-gray-100 h-2 rounded-full overflow-hidden"><div class="bg-pink-500 h-full rounded-full" style="width: 0%"></div></div>
+                                    <span class="text-xs font-bold text-gray-400">0%</span>
+                                </div>
+                                <p class="text-sm text-gray-500 flex-1">복잡한 문제를 분해하고 알고리즘을 설계하여 코드로 구현합니다.</p>
+                                <button class="w-full mt-auto text-pink-600 font-bold bg-pink-50 py-2 rounded-lg text-sm hover:bg-pink-100">단원 폴더 열기</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 뷰 2: 기록함 -->
+                <div id="view-submissions" class="max-w-5xl mx-auto hidden pb-24 animate-in fade-in duration-500 space-y-8">
+                    <div class="border-b border-gray-200 pb-6">
+                        <h2 class="text-3xl font-extrabold tracking-tight text-gray-900 flex items-center gap-3">
+                            <i class="ph-fill ph-google-drive-logo text-blue-600"></i> 나의 학습 기록
+                        </h2>
+                        <p class="text-gray-500 mt-2 font-medium">제출한 수행평가 및 과제 내역이 학생의 Google Drive에 안전하게 보관됩니다.</p>
+                    </div>
+                    <div id="submissions-list" class="space-y-4">
+                        <div class="p-8 text-center bg-white rounded-2xl border border-gray-200 shadow-sm">
+                            <i class="ph ph-spinner animate-spin text-3xl text-gray-400 mx-auto mb-4 block"></i>
+                            <p class="text-gray-500 font-medium">데이터를 불러오는 중입니다...</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Firebase & Google Drive Logic -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signInWithPopup, GoogleAuthProvider, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+
+        // (Firebase 연동 설정이 비어있으면 로컬 모드로 작동합니다)
+        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
+        let app, auth;
+        try { app = initializeApp(firebaseConfig); auth = getAuth(app); } catch(e) { console.warn("Firebase 미설정, 로컬 모드 진입"); }
         
-        if (systemInstruction) {
-            payload.systemInstruction = { parts: [{ text: systemInstruction }] };
-        }
+        let currentUser = null;
+        const provider = auth ? new GoogleAuthProvider() : null;
+        if (provider) provider.addScope('https://www.googleapis.com/auth/drive.file');
 
-        let retries = 0;
-        const maxRetries = 5;
-        const delays = [1000, 2000, 4000, 8000, 16000];
-
-        while (retries <= maxRetries) {
-            try {
-                const response = await fetch(url, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-                
-                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-                
-                const data = await response.json();
-                return data.candidates?.[0]?.content?.parts?.[0]?.text || "결과를 가져오지 못했습니다.";
-            } catch (error) {
-                if (retries === maxRetries) {
-                    console.error("Gemini API Error:", error);
-                    return "AI 서버와 연결하는 중 문제가 발생했습니다. 잠시 후 다시 시도해주세요.";
-                }
-                await new Promise(res => setTimeout(res, delays[retries]));
-                retries++;
+        window.loginGoogle = async function() {
+            if(!auth) {
+                // Firebase가 없으면 강제로 UI를 넘김 (포트폴리오 등 확인용)
+                document.getElementById('login-screen').classList.add('hidden');
+                document.getElementById('app-wrapper').classList.remove('hidden');
+                currentUser = { displayName: "학생 (Local Test)" };
+                document.getElementById('user-name-display').textContent = currentUser.displayName;
+                initCharts(); loadSubmissions();
+                showToast("로컬 모드로 시작합니다.", true);
+                return;
             }
+            
+            const btn = document.getElementById('btn-google-login');
+            btn.innerHTML = '<i class="ph ph-spinner animate-spin text-xl"></i> 로그인 중...';
+            try {
+                const res = await signInWithPopup(auth, provider);
+                const cred = GoogleAuthProvider.credentialFromResult(res);
+                if(cred?.accessToken) sessionStorage.setItem('gDriveToken', cred.accessToken);
+            } catch(e) { 
+                btn.innerHTML = 'Google 계정으로 시작하기'; 
+                showToast("로그인 실패", false); 
+            }
+        };
+
+        window.logoutGoogle = async function() {
+            if(auth) await signOut(auth);
+            sessionStorage.removeItem('gDriveToken');
+            location.reload(); // 로그아웃 시 새로고침
+        };
+
+        window.showToast = function(msg, success = true) {
+            const cont = document.getElementById('toast-container');
+            const t = document.createElement('div');
+            t.className = `${success?'bg-gray-900':'bg-red-500'} text-white px-5 py-3 rounded-xl shadow-lg font-bold text-sm flex gap-3 transition-all duration-300 transform -translate-y-5 opacity-0`;
+            t.innerHTML = `<i class="ph-fill ${success?'ph-check-circle':'ph-warning-circle'} text-xl"></i> ${msg}`;
+            cont.appendChild(t);
+            requestAnimationFrame(() => { t.classList.remove('-translate-y-5','opacity-0'); });
+            setTimeout(() => { t.classList.add('-translate-y-5','opacity-0'); setTimeout(()=>t.remove(),300); }, 3000);
+        };
+
+        if(auth) {
+            onAuthStateChanged(auth, (user) => {
+                currentUser = user;
+                if (user && !user.isAnonymous) {
+                    document.getElementById('login-screen').classList.add('hidden');
+                    document.getElementById('app-wrapper').classList.remove('hidden');
+                    document.getElementById('user-name-display').textContent = user.displayName;
+                    document.getElementById('user-email-display').textContent = user.email;
+                    initCharts(); loadSubmissions();
+                } else {
+                    document.getElementById('login-screen').classList.remove('hidden');
+                    document.getElementById('app-wrapper').classList.add('hidden');
+                }
+            });
         }
-    }
 
-    // 기능 1: AI 개념 도우미
-    window.askAITeacher = async function() {
-        const inputEl = document.getElementById('ai-question-input');
-        const question = inputEl.value.trim();
-        const btnAsk = document.getElementById('btn-ai-ask');
-        const resultDiv = document.getElementById('ai-answer-result');
+        // 과제 로드 
+        window.loadSubmissions = async function() {
+            const listContainer = document.getElementById('submissions-list');
+            let subs = JSON.parse(localStorage.getItem('t_subs')||'[]');
+            
+            subs.sort((a,b) => new Date(b.submitted_at) - new Date(a.submitted_at));
+            document.getElementById('sidebar-sub-count').textContent = subs.length;
+            
+            if(subs.length===0) listContainer.innerHTML = '<div class="p-8 text-center bg-white border rounded-xl text-gray-500">제출된 학습 기록이 없습니다. 차시를 진행해 주세요.</div>';
+            else {
+                let h = '';
+                subs.forEach(s => {
+                    const d = new Date(s.submitted_at).toLocaleString('ko-KR');
+                    h += `<div class="bg-white p-6 rounded-2xl border shadow-sm mb-4">
+                        <div class="text-xs font-bold text-blue-600 mb-1">${s.lesson_info.unit}</div>
+                        <div class="font-bold text-lg mb-2">${s.lesson_info.title}</div>
+                        <div class="text-sm text-gray-500 mb-4">${d}</div>
+                        <div class="bg-gray-50 p-4 rounded-xl text-sm break-all">`;
+                    for(const [k,v] of Object.entries(s.content)) h+= `<div class="mb-2"><span class="font-bold text-gray-600 w-24 inline-block">${k}</span> ${v}</div>`;
+                    h += `</div></div>`;
+                });
+                listContainer.innerHTML = h;
+            }
+        };
+    </script>
 
-        if (!question) {
-            alert("질문을 입력해주세요!");
-            return;
+    <!-- UI View 전환 및 인터랙션 스크립트 -->
+    <script>
+        // 차트 초기화
+        function initCharts() {
+            if(window.myChart) window.myChart.destroy();
+            const ctx = document.getElementById('unitProgressChart');
+            if(!ctx) return;
+            window.myChart = new Chart(ctx, {
+                type: 'bar',
+                data: { 
+                    labels: ['컴퓨팅 시스템', '데이터', '알고리즘', '인공지능', '디지털 문화'], 
+                    datasets: [{ label: '진행률(%)', data: [40, 10, 0, 0, 0], backgroundColor: 'rgba(59, 130, 246, 0.7)', borderRadius: 6 }] 
+                },
+                options: { responsive: true, maintainAspectRatio: false, scales: { y: { max: 100 } }, plugins: { legend: { display: false } } }
+            });
         }
 
-        btnAsk.innerHTML = '<i class="ph ph-spinner animate-spin"></i> 생각 중...';
-        btnAsk.disabled = true;
-        resultDiv.classList.add('hidden');
+        // 라우팅 (실제 업로드된 파일 경로로 이동)
+        window.navigateTo = function(unitNum, lessonNum) {
+            // 예: 1단원 1차시 -> unit-01/lesson-01/index.html
+            const unitStr = String(unitNum).padStart(2, '0');
+            const lessonStr = String(lessonNum).padStart(2, '0');
+            const targetUrl = `unit-${unitStr}/lesson-${lessonStr}/index.html`;
+            
+            // 페이지 이동
+            window.location.href = targetUrl;
+        };
 
-        const systemPrompt = "너는 중학교 정보교과 선생님이야. 친절하고 이해하기 쉽게 학생의 질문에 답변해줘. 존댓말을 사용하고, 전문 용어나 영어 약자가 있다면 중학생 수준에서 쉽게 풀어서 비유를 들어 설명해줘. 너무 길지 않게 3~4문장 이내로 핵심만 짚어줘.";
-        
-        const answer = await fetchGeminiAPI(`학생의 질문: ${question}`, systemPrompt);
-        
-        resultDiv.innerHTML = `<div class="flex gap-3"><i class="ph-fill ph-robot text-2xl text-purple-600 mt-1 shrink-0"></i><div>${parseSimpleMarkdown(answer)}</div></div>`;
-        resultDiv.classList.remove('hidden');
-        
-        btnAsk.innerHTML = '✨ 질문하기';
-        btnAsk.disabled = false;
-    };
+        window.switchView = function(view) {
+            document.getElementById('view-dashboard').style.display = view === 'dashboard' ? 'block' : 'none';
+            document.getElementById('view-submissions').style.display = view === 'submissions' ? 'block' : 'none';
+            
+            ['nav-dashboard', 'nav-submissions'].forEach(id => {
+                document.getElementById(id).classList.remove('bg-blue-50','text-blue-700');
+                document.getElementById(id).classList.add('text-gray-600');
+            });
+            document.getElementById('nav-'+view).classList.add('bg-blue-50','text-blue-700');
+            document.getElementById('main-scroll-area').scrollTop = 0;
+        };
 
-    // 기능 2: 수행평가 AI 피드백
-    window.getAIFeedback = async function() {
-        const appName = document.getElementById('app-name-1').value.trim();
-        const input = document.getElementById('app-input-1').value.trim();
-        const process = document.getElementById('app-process-1').value.trim();
-        const comm = document.getElementById('app-comm-1').value.trim();
-        const output = document.getElementById('app-output-1').value.trim();
-        
-        const btnFeedback = document.getElementById('btn-ai-feedback');
-        const resultDiv = document.getElementById('ai-feedback-result');
-
-        if (!appName || !input || !process || !comm || !output) {
-            alert("앱 이름과 모든 분석 과정을 입력한 후 피드백을 받아보세요!");
-            return;
-        }
-
-        btnFeedback.innerHTML = '<i class="ph ph-spinner animate-spin"></i> 피드백 생성 중...';
-        btnFeedback.disabled = true;
-        resultDiv.classList.add('hidden');
-
-        const systemPrompt = "너는 중학교 정보교과 수행평가를 채점하는 선생님이야. 학생이 스마트폰 앱의 동작 원리를 '입력', '처리', '통신', '출력' 4단계로 나누어 분석했어. 학생의 분석 내용이 컴퓨팅 시스템의 원리에 맞게 논리적으로 작성되었는지 확인하고, 잘한 점과 보완하면 좋을 점을 따뜻하고 격려하는 어조로 2~3문장으로 피드백해줘. 각 단계에 알맞은 하드웨어나 기능이 잘 연결되었는지 중점적으로 봐줘.";
-        
-        const studentData = `선택한 앱: ${appName}\n- 입력 과정: ${input}\n- 처리 과정: ${process}\n- 통신 과정: ${comm}\n- 출력 과정: ${output}`;
-        
-        const feedback = await fetchGeminiAPI(studentData, systemPrompt);
-
-        resultDiv.innerHTML = `<div class="flex gap-3"><i class="ph-fill ph-magic-wand text-2xl text-purple-600 mt-1 shrink-0"></i><div><strong>AI 선생님의 피드백:</strong><br><br>${parseSimpleMarkdown(feedback)}</div></div>`;
-        resultDiv.classList.remove('hidden');
-
-        btnFeedback.innerHTML = '✨ AI 피드백 받기';
-        btnFeedback.disabled = false;
-    };
-</script>
+        // 폴더 아코디언 메뉴 토글
+        window.toggleFolder = function(id, btn) {
+            const folder = document.getElementById(id);
+            const icon = btn.querySelector('.folder-icon');
+            const chev = btn.querySelector('.chevron-icon');
+            if (folder.classList.contains('hidden')) {
+                folder.classList.remove('hidden');
+                if(icon) icon.classList.replace('ph-folder','ph-folder-open');
+                if(chev) chev.style.transform = 'rotate(0deg)';
+            } else {
+                folder.classList.add('hidden');
+                if(icon) icon.classList.replace('ph-folder-open','ph-folder');
+                if(chev) chev.style.transform = 'rotate(-90deg)';
+            }
+        };
+    </script>
+</body>
+</html>
