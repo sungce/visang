@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>정보교과 학습 플랫폼 (Sungce Teacher Lab)</title>
+    <title>정보교과 학습 플랫폼</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Phosphor Icons -->
@@ -14,8 +13,8 @@
     <!-- 폰트 설정 (Pretendard) -->
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard.css" />
     
-    <!-- Chosen Palette: Light Gray, White, Deep Blue (Primary), Emerald, Orange, Pink, Purple (Accents) -->
-    <!-- Application Structure Plan: Master Dashboard Portal. This page serves as the entry point, authenticates the user, shows overall progress, and uses window.location to navigate to the individual unit/lesson HTML files that exist in the repository's folder structure. -->
+    <!-- Chosen Palette: Slate Gray, White, Deep Blue (Primary), Emerald, Orange, Pink, Purple (Accents) -->
+    <!-- Application Structure Plan: Master Dashboard Portal. This page serves as the entry point, authenticates the user, shows overall progress, and uses window.location to navigate to the individual unit/lesson HTML files that exist in the repository's folder structure. The sidebar structure has been updated to strictly follow the provided curriculum mapping plan. -->
     <!-- Visualization & Content Choices: Dashboard Progress -> Goal: Show progress across 5 units -> Viz Method: Bar Chart -> Interaction: Tooltips on hover -> Library: Chart.js Canvas. -->
     <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
@@ -44,8 +43,8 @@
             <div class="w-20 h-20 bg-blue-600 rounded-2xl mx-auto flex items-center justify-center mb-6 shadow-lg shadow-blue-200">
                 <i class="ph ph-terminal-window text-white text-4xl"></i>
             </div>
-            <h1 class="text-3xl font-extrabold tracking-tight text-gray-900 mb-2">Sungce Teacher <span class="text-blue-600">Lab</span></h1>
-            <p class="text-gray-500 mb-10 font-medium">정보교과 학습 플랫폼</p>
+            <h1 class="text-3xl font-extrabold tracking-tight text-gray-900 mb-2">정보교과 <span class="text-blue-600">학습 플랫폼</span></h1>
+            <p class="text-gray-500 mb-10 font-medium">스스로 탐구하고 배우는 맞춤형 학습 공간</p>
             
             <button id="btn-google-login" onclick="loginGoogle()" class="w-full flex items-center justify-center gap-3 bg-white border border-gray-300 text-gray-700 font-bold py-3.5 px-6 rounded-xl hover:bg-gray-50 hover:shadow-md transition-all">
                 <i class="ph-fill ph-google-logo text-xl text-blue-500"></i>
@@ -57,13 +56,14 @@
 
     <!-- 앱 래퍼 -->
     <div id="app-wrapper" class="flex h-full w-full hidden animate-in fade-in duration-500">
+        
         <!-- 좌측 고정 사이드바 -->
         <aside class="w-72 bg-white border-r border-gray-200 flex flex-col h-full flex-shrink-0 z-20 shadow-[4px_0_24px_rgba(0,0,0,0.02)]">
             <div class="h-16 flex items-center px-6 border-b border-gray-100 cursor-pointer hover:bg-gray-50 transition-colors" onclick="switchView('dashboard')">
                 <div class="bg-blue-600 p-1.5 rounded-lg mr-3 shadow-md shadow-blue-200">
                     <i class="ph ph-terminal-window text-white text-xl"></i>
                 </div>
-                <h1 class="text-xl font-extrabold tracking-tight text-gray-900">InfoTech <span class="text-blue-600">Lab</span></h1>
+                <h1 class="text-lg font-extrabold tracking-tight text-gray-900 leading-tight">정보교과<br><span class="text-blue-600">학습 플랫폼</span></h1>
             </div>
 
             <div class="p-6 pb-2">
@@ -76,7 +76,7 @@
                 </div>
             </div>
 
-            <!-- 네비게이션 메뉴 (업로드된 폴더 구조 반영) -->
+            <!-- 네비게이션 메뉴 (단원 지도 계획 반영) -->
             <nav class="flex-1 overflow-y-auto px-4 py-4 space-y-1 custom-scrollbar">
                 <button onclick="switchView('dashboard')" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-blue-700 bg-blue-50 transition-colors" id="nav-dashboard">
                     <i class="ph-fill ph-squares-four text-lg"></i> 학습 대시보드
@@ -86,7 +86,7 @@
                 </button>
                 
                 <div class="my-4 border-t border-gray-100"></div>
-                <p class="px-3 text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2">학습 자료실</p>
+                <p class="px-3 text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2">단원 학습실</p>
                 
                 <!-- I. 컴퓨팅 시스템 -->
                 <div class="space-y-1">
@@ -94,13 +94,27 @@
                         <div class="flex items-center gap-2"><i class="ph-fill ph-folder-open text-blue-500 text-lg folder-icon"></i> I. 컴퓨팅 시스템</div>
                         <i class="ph ph-caret-down text-gray-500 transition-transform duration-200 chevron-icon" style="transform: rotate(0deg);"></i>
                     </button>
-                    <div id="folder-unit1" class="pl-6 space-y-1 overflow-hidden transition-all duration-300 block">
-                        <button onclick="navigateTo(1, 1)" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-blue-50 hover:text-blue-700 transition-colors"><i class="ph-fill ph-file-text text-gray-400"></i> 01. 구성과 동작 원리</button>
-                        <button onclick="navigateTo(1, 2)" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-blue-50 hover:text-blue-700 transition-colors"><i class="ph-fill ph-file-text text-gray-400"></i> 02. 피지컬 컴퓨팅 이해</button>
-                        <button onclick="navigateTo(1, 3)" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-blue-50 hover:text-blue-700 transition-colors"><i class="ph-fill ph-file-text text-gray-400"></i> 03. 피지컬 프로그래밍 1</button>
-                        <button onclick="navigateTo(1, 4)" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-blue-50 hover:text-blue-700 transition-colors"><i class="ph-fill ph-file-text text-gray-400"></i> 04. 피지컬 프로그래밍 2</button>
-                        <button onclick="navigateTo(1, 5)" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-blue-50 hover:text-blue-700 transition-colors"><i class="ph-fill ph-file-text text-gray-400"></i> 05. 피지컬 프로그래밍 3</button>
-                        <button onclick="navigateTo(1, 6)" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-blue-50 hover:text-blue-700 transition-colors"><i class="ph-fill ph-file-text text-gray-400"></i> 06. 응용 장치 만들기</button>
+                    <div id="folder-unit1" class="pl-4 space-y-1 overflow-hidden transition-all duration-300 block">
+                        <!-- 중단원 1 -->
+                        <button onclick="toggleFolder('folder-unit1-1', this)" class="w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm font-semibold text-gray-700 hover:bg-gray-100 transition-colors mt-1">
+                            <div class="flex items-center gap-2"><i class="ph-fill ph-folder-open text-blue-400 folder-icon"></i> 1. 시스템과 피지컬 컴퓨팅</div>
+                            <i class="ph ph-caret-down text-gray-400 text-xs transition-transform duration-200 chevron-icon" style="transform: rotate(0deg);"></i>
+                        </button>
+                        <div id="folder-unit1-1" class="pl-6 space-y-1 block">
+                            <button onclick="navigateTo(1, 1)" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-blue-50 hover:text-blue-700 transition-colors"><i class="ph-fill ph-file-text text-gray-400"></i> 01. 구성과 동작 원리</button>
+                            <button onclick="navigateTo(1, 2)" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-blue-50 hover:text-blue-700 transition-colors"><i class="ph-fill ph-file-text text-gray-400"></i> 02. 피지컬 컴퓨팅의 이해</button>
+                        </div>
+                        <!-- 중단원 2 -->
+                        <button onclick="toggleFolder('folder-unit1-2', this)" class="w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm font-semibold text-gray-700 hover:bg-gray-100 transition-colors mt-1">
+                            <div class="flex items-center gap-2"><i class="ph-fill ph-folder text-blue-400 folder-icon"></i> 2. 피지컬 프로그래밍</div>
+                            <i class="ph ph-caret-down text-gray-400 text-xs transition-transform duration-200 chevron-icon" style="transform: rotate(-90deg);"></i>
+                        </button>
+                        <div id="folder-unit1-2" class="pl-6 space-y-1 hidden">
+                            <button onclick="navigateTo(1, 3)" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-blue-50 hover:text-blue-700 transition-colors"><i class="ph-fill ph-file-text text-gray-400"></i> 01. 운동 횟수 표시 장치</button>
+                            <button onclick="navigateTo(1, 4)" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-blue-50 hover:text-blue-700 transition-colors"><i class="ph-fill ph-file-text text-gray-400"></i> 02. 수면 온도 알림이</button>
+                            <button onclick="navigateTo(1, 5)" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-blue-50 hover:text-blue-700 transition-colors"><i class="ph-fill ph-file-text text-gray-400"></i> 03. 소리 반응 애니메이션</button>
+                            <button onclick="navigateTo(1, 6)" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-blue-50 hover:text-blue-700 transition-colors"><i class="ph-fill ph-file-text text-gray-400"></i> 04. 이심전심 게임 장치</button>
+                        </div>
                     </div>
                 </div>
 
@@ -110,13 +124,27 @@
                         <div class="flex items-center gap-2"><i class="ph-fill ph-folder text-green-500 text-lg folder-icon"></i> II. 데이터</div>
                         <i class="ph ph-caret-down text-gray-500 transition-transform duration-200 chevron-icon" style="transform: rotate(-90deg);"></i>
                     </button>
-                    <div id="folder-unit2" class="pl-6 space-y-1 overflow-hidden transition-all duration-300 hidden">
-                        <button onclick="navigateTo(2, 1)" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-green-50 hover:text-green-700 transition-colors"><i class="ph-fill ph-file-text text-gray-400"></i> 01. 디지털 형태 데이터</button>
-                        <button onclick="navigateTo(2, 2)" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-green-50 hover:text-green-700 transition-colors"><i class="ph-fill ph-file-text text-gray-400"></i> 02. 다양한 데이터 표현</button>
-                        <button onclick="navigateTo(2, 3)" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-green-50 hover:text-green-700 transition-colors"><i class="ph-fill ph-file-text text-gray-400"></i> 03. 설문 조사</button>
-                        <button onclick="navigateTo(2, 4)" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-green-50 hover:text-green-700 transition-colors"><i class="ph-fill ph-file-text text-gray-400"></i> 04. 설문 자료 분석</button>
-                        <button onclick="navigateTo(2, 5)" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-green-50 hover:text-green-700 transition-colors"><i class="ph-fill ph-file-text text-gray-400"></i> 05. 데이터 시각화 1</button>
-                        <button onclick="navigateTo(2, 6)" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-green-50 hover:text-green-700 transition-colors"><i class="ph-fill ph-file-text text-gray-400"></i> 06. 데이터 시각화 2</button>
+                    <div id="folder-unit2" class="pl-4 space-y-1 overflow-hidden transition-all duration-300 hidden">
+                        <!-- 중단원 1 -->
+                        <button onclick="toggleFolder('folder-unit2-1', this)" class="w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm font-semibold text-gray-700 hover:bg-gray-100 transition-colors mt-1">
+                            <div class="flex items-center gap-2"><i class="ph-fill ph-folder text-green-400 folder-icon"></i> 1. 데이터의 표현</div>
+                            <i class="ph ph-caret-down text-gray-400 text-xs transition-transform duration-200 chevron-icon" style="transform: rotate(-90deg);"></i>
+                        </button>
+                        <div id="folder-unit2-1" class="pl-6 space-y-1 hidden">
+                            <button onclick="navigateTo(2, 1)" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-green-50 hover:text-green-700 transition-colors"><i class="ph-fill ph-file-text text-gray-400"></i> 01. 디지털 형태의 데이터</button>
+                            <button onclick="navigateTo(2, 2)" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-green-50 hover:text-green-700 transition-colors"><i class="ph-fill ph-file-text text-gray-400"></i> 02. 다양한 데이터의 표현</button>
+                        </div>
+                        <!-- 중단원 2 -->
+                        <button onclick="toggleFolder('folder-unit2-2', this)" class="w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm font-semibold text-gray-700 hover:bg-gray-100 transition-colors mt-1">
+                            <div class="flex items-center gap-2"><i class="ph-fill ph-folder text-green-400 folder-icon"></i> 2. 데이터 분석</div>
+                            <i class="ph ph-caret-down text-gray-400 text-xs transition-transform duration-200 chevron-icon" style="transform: rotate(-90deg);"></i>
+                        </button>
+                        <div id="folder-unit2-2" class="pl-6 space-y-1 hidden">
+                            <button onclick="navigateTo(2, 3)" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-green-50 hover:text-green-700 transition-colors"><i class="ph-fill ph-file-text text-gray-400"></i> 01. 데이터의 수집과 관리</button>
+                            <button onclick="navigateTo(2, 4)" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-green-50 hover:text-green-700 transition-colors"><i class="ph-fill ph-file-text text-gray-400"></i> 02. 데이터의 구조화와 분석</button>
+                            <button onclick="navigateTo(2, 5)" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-green-50 hover:text-green-700 transition-colors"><i class="ph-fill ph-file-text text-gray-400"></i> 03. 프로젝트 1</button>
+                            <button onclick="navigateTo(2, 6)" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-green-50 hover:text-green-700 transition-colors"><i class="ph-fill ph-file-text text-gray-400"></i> 04. 프로젝트 2</button>
+                        </div>
                     </div>
                 </div>
 
@@ -126,17 +154,31 @@
                         <div class="flex items-center gap-2"><i class="ph-fill ph-folder text-pink-500 text-lg folder-icon"></i> III. 알고리즘과 프로그래밍</div>
                         <i class="ph ph-caret-down text-gray-500 transition-transform duration-200 chevron-icon" style="transform: rotate(-90deg);"></i>
                     </button>
-                    <div id="folder-unit3" class="pl-6 space-y-1 overflow-hidden transition-all duration-300 hidden">
-                        <button onclick="navigateTo(3, 1)" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-pink-50 hover:text-pink-700 transition-colors"><i class="ph-fill ph-file-text text-gray-400"></i> 01. 상태와 구조화</button>
-                        <button onclick="navigateTo(3, 2)" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-pink-50 hover:text-pink-700 transition-colors"><i class="ph-fill ph-file-text text-gray-400"></i> 02. 문제의 추상화</button>
-                        <button onclick="navigateTo(3, 3)" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-pink-50 hover:text-pink-700 transition-colors"><i class="ph-fill ph-file-text text-gray-400"></i> 03. 이해와 표현</button>
-                        <button onclick="navigateTo(3, 4)" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-pink-50 hover:text-pink-700 transition-colors"><i class="ph-fill ph-file-text text-gray-400"></i> 04. 분석과 설계</button>
-                        <button onclick="navigateTo(3, 5)" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-pink-50 hover:text-pink-700 transition-colors"><i class="ph-fill ph-file-text text-gray-400"></i> 05. 프로그래밍 시작</button>
-                        <button onclick="navigateTo(3, 6)" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-pink-50 hover:text-pink-700 transition-colors"><i class="ph-fill ph-file-text text-gray-400"></i> 06. 논리 연산</button>
-                        <button onclick="navigateTo(3, 7)" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-pink-50 hover:text-pink-700 transition-colors"><i class="ph-fill ph-file-text text-gray-400"></i> 07. 중첩 제어 구조</button>
-                        <button onclick="navigateTo(3, 8)" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-pink-50 hover:text-pink-700 transition-colors"><i class="ph-fill ph-file-text text-gray-400"></i> 08. 리스트 활용</button>
-                        <button onclick="navigateTo(3, 9)" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-pink-50 hover:text-pink-700 transition-colors"><i class="ph-fill ph-file-text text-gray-400"></i> 09. 함수 활용</button>
-                        <button onclick="navigateTo(3, 10)" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-pink-50 hover:text-pink-700 transition-colors"><i class="ph-fill ph-file-text text-gray-400"></i> 10. 실생활 문제 해결</button>
+                    <div id="folder-unit3" class="pl-4 space-y-1 overflow-hidden transition-all duration-300 hidden">
+                        <!-- 중단원 1 -->
+                        <button onclick="toggleFolder('folder-unit3-1', this)" class="w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm font-semibold text-gray-700 hover:bg-gray-100 transition-colors mt-1">
+                            <div class="flex items-center gap-2"><i class="ph-fill ph-folder text-pink-400 folder-icon"></i> 1. 추상화와 알고리즘</div>
+                            <i class="ph ph-caret-down text-gray-400 text-xs transition-transform duration-200 chevron-icon" style="transform: rotate(-90deg);"></i>
+                        </button>
+                        <div id="folder-unit3-1" class="pl-6 space-y-1 hidden">
+                            <button onclick="navigateTo(3, 1)" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-pink-50 hover:text-pink-700 transition-colors"><i class="ph-fill ph-file-text text-gray-400"></i> 01. 문제의 상태와 구조화</button>
+                            <button onclick="navigateTo(3, 2)" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-pink-50 hover:text-pink-700 transition-colors"><i class="ph-fill ph-file-text text-gray-400"></i> 02. 문제의 추상화</button>
+                            <button onclick="navigateTo(3, 3)" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-pink-50 hover:text-pink-700 transition-colors"><i class="ph-fill ph-file-text text-gray-400"></i> 03. 알고리즘의 이해와 표현</button>
+                            <button onclick="navigateTo(3, 4)" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-pink-50 hover:text-pink-700 transition-colors"><i class="ph-fill ph-file-text text-gray-400"></i> 04. 알고리즘의 분석과 설계</button>
+                        </div>
+                        <!-- 중단원 2 -->
+                        <button onclick="toggleFolder('folder-unit3-2', this)" class="w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm font-semibold text-gray-700 hover:bg-gray-100 transition-colors mt-1">
+                            <div class="flex items-center gap-2"><i class="ph-fill ph-folder text-pink-400 folder-icon"></i> 2. 프로그래밍</div>
+                            <i class="ph ph-caret-down text-gray-400 text-xs transition-transform duration-200 chevron-icon" style="transform: rotate(-90deg);"></i>
+                        </button>
+                        <div id="folder-unit3-2" class="pl-6 space-y-1 hidden">
+                            <button onclick="navigateTo(3, 5)" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-pink-50 hover:text-pink-700 transition-colors"><i class="ph-fill ph-file-text text-gray-400"></i> 01. 프로그래밍 시작하기</button>
+                            <button onclick="navigateTo(3, 6)" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-pink-50 hover:text-pink-700 transition-colors"><i class="ph-fill ph-file-text text-gray-400"></i> 02. 논리 연산 프로그래밍</button>
+                            <button onclick="navigateTo(3, 7)" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-pink-50 hover:text-pink-700 transition-colors"><i class="ph-fill ph-file-text text-gray-400"></i> 03. 중첩 제어 구조</button>
+                            <button onclick="navigateTo(3, 8)" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-pink-50 hover:text-pink-700 transition-colors"><i class="ph-fill ph-file-text text-gray-400"></i> 04. 리스트와 프로그래밍</button>
+                            <button onclick="navigateTo(3, 9)" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-pink-50 hover:text-pink-700 transition-colors"><i class="ph-fill ph-file-text text-gray-400"></i> 05. 함수와 디버깅</button>
+                            <button onclick="navigateTo(3, 10)" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-pink-50 hover:text-pink-700 transition-colors"><i class="ph-fill ph-file-text text-gray-400"></i> 06. 실생활 문제 해결</button>
+                        </div>
                     </div>
                 </div>
 
@@ -146,13 +188,54 @@
                         <div class="flex items-center gap-2"><i class="ph-fill ph-folder text-orange-500 text-lg folder-icon"></i> IV. 인공지능</div>
                         <i class="ph ph-caret-down text-gray-500 transition-transform duration-200 chevron-icon" style="transform: rotate(-90deg);"></i>
                     </button>
-                    <div id="folder-unit4" class="pl-6 space-y-1 overflow-hidden transition-all duration-300 hidden">
-                        <button onclick="navigateTo(4, 1)" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-orange-50 hover:text-orange-700 transition-colors"><i class="ph-fill ph-file-text text-gray-400"></i> 01. AI 개념과 특성</button>
-                        <button onclick="navigateTo(4, 2)" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-orange-50 hover:text-orange-700 transition-colors"><i class="ph-fill ph-file-text text-gray-400"></i> 02. 데이터와 학습</button>
-                        <button onclick="navigateTo(4, 3)" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-orange-50 hover:text-orange-700 transition-colors"><i class="ph-fill ph-file-text text-gray-400"></i> 03. 이미지 데이터 모델</button>
-                        <button onclick="navigateTo(4, 4)" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-orange-50 hover:text-orange-700 transition-colors"><i class="ph-fill ph-file-text text-gray-400"></i> 04. 소리 데이터 모델</button>
-                        <button onclick="navigateTo(4, 5)" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-orange-50 hover:text-orange-700 transition-colors"><i class="ph-fill ph-file-text text-gray-400"></i> 05. 텍스트 데이터 모델</button>
-                        <button onclick="navigateTo(4, 6)" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-orange-50 hover:text-orange-700 transition-colors"><i class="ph-fill ph-file-text text-gray-400"></i> 06. 윤리적 문제 해결</button>
+                    <div id="folder-unit4" class="pl-4 space-y-1 overflow-hidden transition-all duration-300 hidden">
+                        <!-- 중단원 1 -->
+                        <button onclick="toggleFolder('folder-unit4-1', this)" class="w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm font-semibold text-gray-700 hover:bg-gray-100 transition-colors mt-1">
+                            <div class="flex items-center gap-2"><i class="ph-fill ph-folder text-orange-400 folder-icon"></i> 1. 인공지능과 학습</div>
+                            <i class="ph ph-caret-down text-gray-400 text-xs transition-transform duration-200 chevron-icon" style="transform: rotate(-90deg);"></i>
+                        </button>
+                        <div id="folder-unit4-1" class="pl-6 space-y-1 hidden">
+                            <button onclick="navigateTo(4, 1)" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-orange-50 hover:text-orange-700 transition-colors"><i class="ph-fill ph-file-text text-gray-400"></i> 01. 인공지능 개념과 특성</button>
+                            <button onclick="navigateTo(4, 2)" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-orange-50 hover:text-orange-700 transition-colors"><i class="ph-fill ph-file-text text-gray-400"></i> 02. 데이터와 학습</button>
+                        </div>
+                        <!-- 중단원 2 -->
+                        <button onclick="toggleFolder('folder-unit4-2', this)" class="w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm font-semibold text-gray-700 hover:bg-gray-100 transition-colors mt-1">
+                            <div class="flex items-center gap-2"><i class="ph-fill ph-folder text-orange-400 folder-icon"></i> 2. 인공지능과 문제 해결</div>
+                            <i class="ph ph-caret-down text-gray-400 text-xs transition-transform duration-200 chevron-icon" style="transform: rotate(-90deg);"></i>
+                        </button>
+                        <div id="folder-unit4-2" class="pl-6 space-y-1 hidden">
+                            <button onclick="navigateTo(4, 3)" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-orange-50 hover:text-orange-700 transition-colors"><i class="ph-fill ph-file-text text-gray-400"></i> 01. 팔 이미지 (운동 도우미)</button>
+                            <button onclick="navigateTo(4, 4)" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-orange-50 hover:text-orange-700 transition-colors"><i class="ph-fill ph-file-text text-gray-400"></i> 02. 소리 데이터 (웃음 계수)</button>
+                            <button onclick="navigateTo(4, 5)" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-orange-50 hover:text-orange-700 transition-colors"><i class="ph-fill ph-file-text text-gray-400"></i> 03. 텍스트 (영화 평가)</button>
+                            <button onclick="navigateTo(4, 6)" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-orange-50 hover:text-orange-700 transition-colors"><i class="ph-fill ph-file-text text-gray-400"></i> 04. 윤리적 문제 해결</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- V. 디지털 문화 -->
+                <div class="space-y-1">
+                    <button onclick="toggleFolder('folder-unit5', this)" class="w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-bold text-gray-800 bg-purple-50/50 hover:bg-purple-50 transition-colors mt-1">
+                        <div class="flex items-center gap-2"><i class="ph-fill ph-folder text-purple-500 text-lg folder-icon"></i> V. 디지털 문화</div>
+                        <i class="ph ph-caret-down text-gray-500 transition-transform duration-200 chevron-icon" style="transform: rotate(-90deg);"></i>
+                    </button>
+                    <div id="folder-unit5" class="pl-4 space-y-1 overflow-hidden transition-all duration-300 hidden">
+                        <!-- 중단원 1 -->
+                        <button onclick="toggleFolder('folder-unit5-1', this)" class="w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm font-semibold text-gray-700 hover:bg-gray-100 transition-colors mt-1">
+                            <div class="flex items-center gap-2"><i class="ph-fill ph-folder text-purple-400 folder-icon"></i> 1. 디지털 사회</div>
+                            <i class="ph ph-caret-down text-gray-400 text-xs transition-transform duration-200 chevron-icon" style="transform: rotate(-90deg);"></i>
+                        </button>
+                        <div id="folder-unit5-1" class="pl-6 space-y-1 hidden">
+                            <button onclick="navigateTo(5, 1)" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-purple-50 hover:text-purple-700 transition-colors"><i class="ph-fill ph-file-text text-gray-400"></i> 01. 디지털 사회 특성</button>
+                        </div>
+                        <!-- 중단원 2 -->
+                        <button onclick="toggleFolder('folder-unit5-2', this)" class="w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm font-semibold text-gray-700 hover:bg-gray-100 transition-colors mt-1">
+                            <div class="flex items-center gap-2"><i class="ph-fill ph-folder text-purple-400 folder-icon"></i> 2. 디지털 윤리</div>
+                            <i class="ph ph-caret-down text-gray-400 text-xs transition-transform duration-200 chevron-icon" style="transform: rotate(-90deg);"></i>
+                        </button>
+                        <div id="folder-unit5-2" class="pl-6 space-y-1 hidden">
+                            <button onclick="navigateTo(5, 2)" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-purple-50 hover:text-purple-700 transition-colors"><i class="ph-fill ph-file-text text-gray-400"></i> 01. 사이버 폭력 예방</button>
+                            <button onclick="navigateTo(5, 3)" class="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-purple-50 hover:text-purple-700 transition-colors"><i class="ph-fill ph-file-text text-gray-400"></i> 02. 개인 정보 보호</button>
+                        </div>
                     </div>
                 </div>
 
@@ -190,7 +273,7 @@
 
             <div class="flex-1 overflow-y-auto p-8 custom-scrollbar scroll-smooth" id="main-scroll-area">
 
-                <!-- 대시보드 뷰 -->
+                <!-- 뷰 1: 대시보드 -->
                 <div id="view-dashboard" class="max-w-6xl mx-auto space-y-8 block animate-in fade-in duration-500">
                     <div class="flex justify-between items-end pb-4 border-b border-gray-200">
                         <div>
@@ -199,6 +282,7 @@
                         </div>
                     </div>
 
+                    <!-- 차트 영역 -->
                     <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-8 mb-8">
                         <h3 class="text-xl font-bold mb-6 text-gray-900 flex items-center gap-2"><i class="ph-fill ph-chart-bar text-blue-500"></i> 단원별 학습 진행률</h3>
                         <div class="chart-container">
@@ -206,58 +290,77 @@
                         </div>
                     </div>
 
+                    <!-- 단원 카드 그리드 -->
                     <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
                         <!-- I 단원 -->
-                        <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden flex flex-col h-[400px] hover:shadow-lg transition-all group cursor-pointer" onclick="toggleFolder('folder-unit1', document.querySelector('[onclick*=\\\'folder-unit1\\\']'))">
+                        <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden flex flex-col h-[400px] hover:shadow-lg transition-all group">
                             <div class="h-1.5 bg-blue-500 w-full group-hover:h-2 transition-all"></div>
                             <div class="p-6 flex-1 flex flex-col">
                                 <div class="flex justify-between items-start mb-4">
                                     <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center text-2xl group-hover:scale-110 transition-transform"><i class="ph-fill ph-cpu"></i></div>
                                     <span class="bg-blue-100 text-blue-700 text-[10px] font-black px-2 py-1 rounded">학습 중</span>
                                 </div>
-                                <h3 class="text-xl font-bold mb-2">I. 컴퓨팅 시스템</h3>
+                                <h3 class="text-xl font-bold mb-2 text-gray-900">I. 컴퓨팅 시스템</h3>
+                                
                                 <div class="flex items-center gap-3 mb-4">
                                     <div class="flex-1 bg-gray-100 h-2 rounded-full overflow-hidden"><div class="bg-blue-500 h-full rounded-full" style="width: 40%"></div></div>
                                     <span class="text-xs font-bold text-gray-500">40%</span>
                                 </div>
-                                <p class="text-sm text-gray-500 flex-1">하드웨어와 소프트웨어의 역할을 이해하고 피지컬 컴퓨팅 장치를 만듭니다.</p>
-                                <button class="w-full mt-auto text-blue-600 font-bold bg-blue-50 py-2 rounded-lg text-sm hover:bg-blue-100">단원 폴더 열기</button>
+
+                                <div class="space-y-4 flex-1 overflow-y-auto pr-2 custom-scrollbar border-t border-gray-50 pt-4">
+                                    <div>
+                                        <p class="text-[11px] font-bold text-gray-400 mb-2 flex items-center gap-1 uppercase"><i class="ph-fill ph-folder text-blue-300"></i> 1. 시스템과 피지컬 컴퓨팅</p>
+                                        <button onclick="navigateTo(1, 1)" class="w-full text-left px-3 py-2.5 rounded-lg text-sm font-semibold bg-blue-50 text-blue-700 border border-blue-100 flex justify-between items-center transition-colors mb-1">
+                                            01. 구성과 동작 원리 <i class="ph-bold ph-arrow-right opacity-100 text-blue-500"></i>
+                                        </button>
+                                        <button onclick="navigateTo(1, 2)" class="w-full text-left px-3 py-2.5 rounded-lg text-sm font-semibold bg-gray-50 text-gray-700 hover:bg-gray-100 hover:text-blue-600 flex justify-between items-center transition-colors mb-1">
+                                            02. 피지컬 컴퓨팅 이해 <i class="ph-bold ph-arrow-right opacity-0 text-blue-500"></i>
+                                        </button>
+                                    </div>
+                                    <div>
+                                        <p class="text-[11px] font-bold text-gray-400 mb-2 flex items-center gap-1 uppercase"><i class="ph-fill ph-folder text-blue-300"></i> 2. 피지컬 컴퓨팅 프로그래밍</p>
+                                        <button onclick="navigateTo(1, 3)" class="w-full text-left px-3 py-2.5 rounded-lg text-sm font-semibold bg-gray-50 text-gray-700 hover:bg-gray-100 hover:text-blue-600 flex justify-between items-center transition-colors">
+                                            01. 운동 횟수 표시 장치 <i class="ph-bold ph-arrow-right opacity-0 text-blue-500"></i>
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
                         <!-- II 단원 -->
-                        <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden flex flex-col h-[400px] hover:shadow-lg transition-all group cursor-pointer" onclick="toggleFolder('folder-unit2', document.querySelector('[onclick*=\\\'folder-unit2\\\']'))">
+                        <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden flex flex-col h-[400px] hover:shadow-lg transition-all group">
                             <div class="h-1.5 bg-green-500 w-full group-hover:h-2 transition-all"></div>
                             <div class="p-6 flex-1 flex flex-col">
                                 <div class="flex justify-between items-start mb-4">
                                     <div class="w-12 h-12 bg-green-50 text-green-600 rounded-xl flex items-center justify-center text-2xl group-hover:scale-110 transition-transform"><i class="ph-fill ph-database"></i></div>
-                                    <span class="bg-gray-100 text-gray-500 text-[10px] font-black px-2 py-1 rounded">대기 중</span>
+                                    <span class="bg-green-100 text-green-700 text-[10px] font-black px-2 py-1 rounded">학습 중</span>
                                 </div>
-                                <h3 class="text-xl font-bold mb-2">II. 데이터</h3>
+                                <h3 class="text-xl font-bold mb-2 text-gray-900">II. 데이터</h3>
                                 <div class="flex items-center gap-3 mb-4">
                                     <div class="flex-1 bg-gray-100 h-2 rounded-full overflow-hidden"><div class="bg-green-500 h-full rounded-full" style="width: 10%"></div></div>
-                                    <span class="text-xs font-bold text-gray-500">10%</span>
+                                    <span class="text-xs font-bold text-gray-400">10%</span>
                                 </div>
-                                <p class="text-sm text-gray-500 flex-1">실생활 데이터를 수집, 분석, 시각화하여 유용한 정보를 추출합니다.</p>
-                                <button class="w-full mt-auto text-green-600 font-bold bg-green-50 py-2 rounded-lg text-sm hover:bg-green-100">단원 폴더 열기</button>
+                                <div class="space-y-4 flex-1 overflow-y-auto pr-2 custom-scrollbar border-t border-gray-50 pt-4">
+                                    <button onclick="navigateTo(2, 1)" class="w-full text-left px-3 py-2.5 rounded-lg text-sm font-semibold bg-gray-50 text-gray-700 hover:bg-gray-100 hover:text-green-600 flex justify-between items-center transition-colors">
+                                        01. 디지털 형태의 데이터 <i class="ph-bold ph-arrow-right opacity-0 text-green-500"></i>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                         
                         <!-- III 단원 -->
-                        <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden flex flex-col h-[400px] hover:shadow-lg transition-all group cursor-pointer" onclick="toggleFolder('folder-unit3', document.querySelector('[onclick*=\\\'folder-unit3\\\']'))">
+                        <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden flex flex-col h-[400px] hover:shadow-lg transition-all group opacity-80 hover:opacity-100">
                             <div class="h-1.5 bg-pink-500 w-full group-hover:h-2 transition-all"></div>
                             <div class="p-6 flex-1 flex flex-col">
                                 <div class="flex justify-between items-start mb-4">
                                     <div class="w-12 h-12 bg-pink-50 text-pink-600 rounded-xl flex items-center justify-center text-2xl group-hover:scale-110 transition-transform"><i class="ph-fill ph-code"></i></div>
                                     <span class="bg-gray-100 text-gray-500 text-[10px] font-black px-2 py-1 rounded">대기 중</span>
                                 </div>
-                                <h3 class="text-xl font-bold mb-2">III. 알고리즘과 프로그래밍</h3>
+                                <h3 class="text-xl font-bold mb-2 text-gray-900">III. 알고리즘과 프로그래밍</h3>
                                 <div class="flex items-center gap-3 mb-4">
                                     <div class="flex-1 bg-gray-100 h-2 rounded-full overflow-hidden"><div class="bg-pink-500 h-full rounded-full" style="width: 0%"></div></div>
                                     <span class="text-xs font-bold text-gray-400">0%</span>
                                 </div>
-                                <p class="text-sm text-gray-500 flex-1">복잡한 문제를 분해하고 알고리즘을 설계하여 코드로 구현합니다.</p>
-                                <button class="w-full mt-auto text-pink-600 font-bold bg-pink-50 py-2 rounded-lg text-sm hover:bg-pink-100">단원 폴더 열기</button>
                             </div>
                         </div>
                     </div>
@@ -353,7 +456,7 @@
             });
         }
 
-        // 과제 로드 
+        // Google Drive 연동용 과제 데이터 로드 함수
         window.loadSubmissions = async function() {
             const listContainer = document.getElementById('submissions-list');
             let subs = JSON.parse(localStorage.getItem('t_subs')||'[]');
@@ -379,7 +482,7 @@
         };
     </script>
 
-    <!-- UI View 전환 및 인터랙션 스크립트 -->
+    <!-- UI View 전환 및 라우팅 스크립트 -->
     <script>
         // 차트 초기화
         function initCharts() {
