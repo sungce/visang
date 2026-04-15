@@ -50,38 +50,41 @@
             <p class="mt-6 text-xs text-gray-400">학교에서 발급받은 구글 워크스페이스 계정을 권장합니다.</p>
         </div>
 
-        <!-- 모의 구글 계정 선택 박스 (초기 숨김) -->
+        <!-- 구글 계정 선택 박스 (초기 숨김) -->
         <div id="account-chooser-box" class="hidden bg-white p-8 rounded-3xl shadow-2xl border border-gray-200 w-full max-w-sm text-center transform transition-all duration-300 animate-in zoom-in-95">
             <i class="ph-fill ph-google-logo text-4xl text-blue-500 mb-4 block"></i>
             <h2 class="text-2xl font-bold mb-2 text-gray-900">계정 선택</h2>
             <p class="text-gray-500 text-sm mb-6">정보교과 학습 플랫폼으로 이동하여 계속하세요</p>
             
             <div class="space-y-3">
+                <!-- 기존 로그인된 계정 1 -->
                 <button onclick="selectAccount('홍길동', 'student1@school.edu', 'student')" class="w-full flex items-center gap-4 p-3 border border-gray-200 rounded-xl hover:bg-blue-50 hover:border-blue-200 transition-colors text-left group">
                     <div class="w-10 h-10 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center group-hover:shadow-md transition-all shrink-0">
                         <i class="ph-fill ph-graduation-cap text-xl"></i>
                     </div>
-                    <div class="overflow-hidden">
+                    <div class="overflow-hidden flex-1">
                         <p class="font-bold text-gray-900 text-sm truncate">홍길동 (학생)</p>
                         <p class="text-xs text-gray-500 truncate">student1@school.edu</p>
                     </div>
                 </button>
 
+                <!-- 기존 로그인된 계정 2 -->
                 <button onclick="selectAccount('김정보', 'teacher@school.edu', 'teacher')" class="w-full flex items-center gap-4 p-3 border border-gray-200 rounded-xl hover:bg-blue-50 hover:border-blue-200 transition-colors text-left group">
                     <div class="w-10 h-10 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center group-hover:shadow-md transition-all shrink-0">
                         <i class="ph-fill ph-chalkboard-teacher text-xl"></i>
                     </div>
-                    <div class="overflow-hidden">
+                    <div class="overflow-hidden flex-1">
                         <p class="font-bold text-gray-900 text-sm truncate">김정보 (선생님)</p>
                         <p class="text-xs text-gray-500 truncate">teacher@school.edu</p>
                     </div>
                 </button>
 
-                <button onclick="showToast('다른 계정 추가 기능은 연동 준비 중입니다.', false)" class="w-full flex items-center gap-4 p-3 border border-gray-200 rounded-xl hover:bg-gray-50 transition-colors text-left group">
+                <!-- 다른 계정 사용 (신규 추가 연동) -->
+                <button onclick="useAnotherAccount()" class="w-full flex items-center gap-4 p-3 border border-gray-200 rounded-xl hover:bg-gray-50 transition-colors text-left group">
                     <div class="w-10 h-10 rounded-full bg-gray-100 text-gray-600 flex items-center justify-center shrink-0">
                         <i class="ph-bold ph-user-circle-plus text-xl"></i>
                     </div>
-                    <div class="overflow-hidden">
+                    <div class="overflow-hidden flex-1">
                         <p class="font-bold text-gray-700 text-sm">다른 계정 사용</p>
                     </div>
                 </button>
@@ -373,7 +376,7 @@
                                     <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center text-2xl group-hover:scale-110 transition-transform"><i class="ph-fill ph-cpu"></i></div>
                                     <span class="bg-blue-100 text-blue-700 text-[10px] font-black px-2 py-1 rounded">학습 중</span>
                                 </div>
-                                <h3 class="text-xl font-bold mb-2">I. 컴퓨팅 시스템</h3>
+                                <h3 class="text-xl font-bold mb-2 text-gray-900">I. 컴퓨팅 시스템</h3>
                                 <div class="flex items-center gap-3 mb-4">
                                     <div class="flex-1 bg-gray-100 h-2 rounded-full overflow-hidden"><div class="bg-blue-500 h-full rounded-full" style="width: 40%"></div></div>
                                     <span class="text-xs font-bold text-gray-500">40%</span>
@@ -453,7 +456,9 @@
         
         let currentUser = null;
         const provider = auth ? new GoogleAuthProvider() : null;
-        if (provider) provider.addScope('https://www.googleapis.com/auth/drive.file');
+        if (provider) {
+            provider.addScope('https://www.googleapis.com/auth/drive.file');
+        }
 
         window.showAccountChooser = function() {
             document.getElementById('login-main-box').classList.add('hidden');
@@ -486,6 +491,37 @@
             showToast(`${name}님, 환영합니다!`, true);
         };
 
+        // 실제 구글 로그인 및 수동 계정 입력 처리 (다른 계정 사용)
+        window.useAnotherAccount = async function() {
+            if(auth) {
+                // Firebase가 연결된 경우 실제 구글 로그인 계정 선택창 강제 호출
+                try {
+                    provider.setCustomParameters({ prompt: 'select_account' });
+                    const res = await signInWithPopup(auth, provider);
+                    const cred = GoogleAuthProvider.credentialFromResult(res);
+                    if(cred?.accessToken) sessionStorage.setItem('gDriveToken', cred.accessToken);
+                    hideAccountChooser();
+                } catch(e) {
+                    console.error("Popup Error:", e);
+                    fallbackPromptLogin(); // 팝업 차단 등의 경우 모의 프롬프트로 넘어감
+                }
+            } else {
+                fallbackPromptLogin();
+            }
+        };
+
+        // 모의 프롬프트 (수동 로그인 처리용)
+        function fallbackPromptLogin() {
+            const email = prompt("사용할 구글 이메일 주소를 입력하세요:", "");
+            if (email) {
+                const defaultName = email.split('@')[0];
+                const name = prompt("이름을 입력하세요:", defaultName);
+                if (name) {
+                    selectAccount(name, email, 'student');
+                }
+            }
+        }
+
         window.loginGoogle = async function() {
             if(!auth) {
                 showAccountChooser();
@@ -495,6 +531,8 @@
             const btn = document.getElementById('btn-google-login');
             btn.innerHTML = '<i class="ph ph-spinner animate-spin text-xl"></i> 로그인 중...';
             try {
+                // 기본 로그인 시도 (계정 선택창 호출)
+                provider.setCustomParameters({ prompt: 'select_account' });
                 const res = await signInWithPopup(auth, provider);
                 const cred = GoogleAuthProvider.credentialFromResult(res);
                 if(cred?.accessToken) sessionStorage.setItem('gDriveToken', cred.accessToken);
@@ -506,9 +544,9 @@
         };
 
         window.logoutGoogle = async function() {
-            if(auth && currentUser && !currentUser.role) await signOut(auth);
+            if(auth && currentUser && !currentUser.role) await signOut(auth); // 실제 Firebase 연동 계정인 경우만
             sessionStorage.removeItem('gDriveToken');
-            location.reload();
+            location.reload(); // 로그아웃 시 새로고침
         };
 
         window.showToast = function(msg, success = true) {
@@ -523,6 +561,7 @@
 
         if(auth) {
             onAuthStateChanged(auth, (user) => {
+                // 이미 모의 계정으로 로그인한 경우 무시
                 if (currentUser && currentUser.role) return;
 
                 currentUser = user;
@@ -539,6 +578,7 @@
             });
         }
 
+        // Google Drive 연동용 과제 데이터 로드 함수 (로컬 대체 포함)
         window.loadSubmissions = async function() {
             const listContainer = document.getElementById('submissions-list');
             let subs = JSON.parse(localStorage.getItem('t_subs')||'[]');
@@ -566,6 +606,7 @@
 
     <!-- UI View 전환 및 라우팅 스크립트 -->
     <script>
+        // 차트 초기화
         function initCharts() {
             if(window.myChart) window.myChart.destroy();
             const ctx = document.getElementById('unitProgressChart');
@@ -580,8 +621,7 @@
             });
         }
 
-        // 라우팅 (실제 업로드된 파일/폴더 경로로 이동)
-        // 수행활동의 경우 lessonNum 파라미터로 'activity'라는 문자열을 전달받음.
+        // 라우팅 (실제 업로드된 파일 경로로 이동)
         window.navigateTo = function(unitNum, lessonNum) {
             const unitStr = String(unitNum).padStart(2, '0');
             const lessonStr = typeof lessonNum === 'number' ? String(lessonNum).padStart(2, '0') : lessonNum;
@@ -602,6 +642,7 @@
             document.getElementById('main-scroll-area').scrollTop = 0;
         };
 
+        // 폴더 아코디언 메뉴 토글
         window.toggleFolder = function(id, btn) {
             const folder = document.getElementById(id);
             const icon = btn.querySelector('.folder-icon');
