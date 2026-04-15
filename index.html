@@ -369,17 +369,17 @@
                     <!-- 단원 카드 그리드 -->
                     <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
                         <!-- I 단원 -->
-                        <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden flex flex-col h-[400px] hover:shadow-lg transition-all group cursor-pointer" onclick="toggleFolder('folder-unit1', document.querySelector('[onclick*=\\\'folder-unit1\\\']'))">
+                        <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden flex flex-col h-[400px] hover:shadow-lg transition-all group cursor-pointer opacity-80 hover:opacity-100" onclick="toggleFolder('folder-unit1', document.querySelector('[onclick*=\\\'folder-unit1\\\']'))">
                             <div class="h-1.5 bg-blue-500 w-full group-hover:h-2 transition-all"></div>
                             <div class="p-6 flex-1 flex flex-col">
                                 <div class="flex justify-between items-start mb-4">
                                     <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center text-2xl group-hover:scale-110 transition-transform"><i class="ph-fill ph-cpu"></i></div>
-                                    <span class="bg-blue-100 text-blue-700 text-[10px] font-black px-2 py-1 rounded">학습 중</span>
+                                    <span class="bg-gray-100 text-gray-500 text-[10px] font-black px-2 py-1 rounded">대기 중</span>
                                 </div>
                                 <h3 class="text-xl font-bold mb-2 text-gray-900">I. 컴퓨팅 시스템</h3>
                                 <div class="flex items-center gap-3 mb-4">
-                                    <div class="flex-1 bg-gray-100 h-2 rounded-full overflow-hidden"><div class="bg-blue-500 h-full rounded-full" style="width: 40%"></div></div>
-                                    <span class="text-xs font-bold text-gray-500">40%</span>
+                                    <div class="flex-1 bg-gray-100 h-2 rounded-full overflow-hidden"><div class="bg-blue-500 h-full rounded-full" style="width: 0%"></div></div>
+                                    <span class="text-xs font-bold text-gray-400">0%</span>
                                 </div>
                                 <p class="text-sm text-gray-500 flex-1">하드웨어와 소프트웨어의 역할을 이해하고 피지컬 컴퓨팅 장치를 만듭니다.</p>
                                 <button class="w-full mt-auto text-blue-600 font-bold bg-blue-50 py-2 rounded-lg text-sm hover:bg-blue-100">단원 폴더 열기</button>
@@ -387,17 +387,17 @@
                         </div>
 
                         <!-- II 단원 -->
-                        <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden flex flex-col h-[400px] hover:shadow-lg transition-all group cursor-pointer" onclick="toggleFolder('folder-unit2', document.querySelector('[onclick*=\\\'folder-unit2\\\']'))">
+                        <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden flex flex-col h-[400px] hover:shadow-lg transition-all group cursor-pointer opacity-80 hover:opacity-100" onclick="toggleFolder('folder-unit2', document.querySelector('[onclick*=\\\'folder-unit2\\\']'))">
                             <div class="h-1.5 bg-green-500 w-full group-hover:h-2 transition-all"></div>
                             <div class="p-6 flex-1 flex flex-col">
                                 <div class="flex justify-between items-start mb-4">
                                     <div class="w-12 h-12 bg-green-50 text-green-600 rounded-xl flex items-center justify-center text-2xl group-hover:scale-110 transition-transform"><i class="ph-fill ph-database"></i></div>
                                     <span class="bg-gray-100 text-gray-500 text-[10px] font-black px-2 py-1 rounded">대기 중</span>
                                 </div>
-                                <h3 class="text-xl font-bold mb-2">II. 데이터</h3>
+                                <h3 class="text-xl font-bold mb-2 text-gray-900">II. 데이터</h3>
                                 <div class="flex items-center gap-3 mb-4">
-                                    <div class="flex-1 bg-gray-100 h-2 rounded-full overflow-hidden"><div class="bg-green-500 h-full rounded-full" style="width: 10%"></div></div>
-                                    <span class="text-xs font-bold text-gray-500">10%</span>
+                                    <div class="flex-1 bg-gray-100 h-2 rounded-full overflow-hidden"><div class="bg-green-500 h-full rounded-full" style="width: 0%"></div></div>
+                                    <span class="text-xs font-bold text-gray-400">0%</span>
                                 </div>
                                 <p class="text-sm text-gray-500 flex-1">실생활 데이터를 수집, 분석, 시각화하여 유용한 정보를 추출합니다.</p>
                                 <button class="w-full mt-auto text-green-600 font-bold bg-green-50 py-2 rounded-lg text-sm hover:bg-green-100">단원 폴더 열기</button>
@@ -405,20 +405,56 @@
                         </div>
                         
                         <!-- III 단원 -->
-                        <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden flex flex-col h-[400px] hover:shadow-lg transition-all group cursor-pointer" onclick="toggleFolder('folder-unit3', document.querySelector('[onclick*=\\\'folder-unit3\\\']'))">
+                        <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden flex flex-col h-[400px] hover:shadow-lg transition-all group cursor-pointer opacity-80 hover:opacity-100" onclick="toggleFolder('folder-unit3', document.querySelector('[onclick*=\\\'folder-unit3\\\']'))">
                             <div class="h-1.5 bg-pink-500 w-full group-hover:h-2 transition-all"></div>
                             <div class="p-6 flex-1 flex flex-col">
                                 <div class="flex justify-between items-start mb-4">
                                     <div class="w-12 h-12 bg-pink-50 text-pink-600 rounded-xl flex items-center justify-center text-2xl group-hover:scale-110 transition-transform"><i class="ph-fill ph-code"></i></div>
                                     <span class="bg-gray-100 text-gray-500 text-[10px] font-black px-2 py-1 rounded">대기 중</span>
                                 </div>
-                                <h3 class="text-xl font-bold mb-2">III. 알고리즘과 프로그래밍</h3>
+                                <h3 class="text-xl font-bold mb-2 text-gray-900">III. 알고리즘과 프로그래밍</h3>
                                 <div class="flex items-center gap-3 mb-4">
                                     <div class="flex-1 bg-gray-100 h-2 rounded-full overflow-hidden"><div class="bg-pink-500 h-full rounded-full" style="width: 0%"></div></div>
                                     <span class="text-xs font-bold text-gray-400">0%</span>
                                 </div>
                                 <p class="text-sm text-gray-500 flex-1">복잡한 문제를 분해하고 알고리즘을 설계하여 코드로 구현합니다.</p>
                                 <button class="w-full mt-auto text-pink-600 font-bold bg-pink-50 py-2 rounded-lg text-sm hover:bg-pink-100">단원 폴더 열기</button>
+                            </div>
+                        </div>
+
+                        <!-- IV 단원 -->
+                        <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden flex flex-col h-[400px] hover:shadow-lg transition-all group cursor-pointer opacity-80 hover:opacity-100" onclick="toggleFolder('folder-unit4', document.querySelector('[onclick*=\\\'folder-unit4\\\']'))">
+                            <div class="h-1.5 bg-orange-500 w-full group-hover:h-2 transition-all"></div>
+                            <div class="p-6 flex-1 flex flex-col">
+                                <div class="flex justify-between items-start mb-4">
+                                    <div class="w-12 h-12 bg-orange-50 text-orange-600 rounded-xl flex items-center justify-center text-2xl group-hover:scale-110 transition-transform"><i class="ph-fill ph-brain"></i></div>
+                                    <span class="bg-gray-100 text-gray-500 text-[10px] font-black px-2 py-1 rounded">대기 중</span>
+                                </div>
+                                <h3 class="text-xl font-bold mb-2 text-gray-900">IV. 인공지능</h3>
+                                <div class="flex items-center gap-3 mb-4">
+                                    <div class="flex-1 bg-gray-100 h-2 rounded-full overflow-hidden"><div class="bg-orange-500 h-full rounded-full" style="width: 0%"></div></div>
+                                    <span class="text-xs font-bold text-gray-400">0%</span>
+                                </div>
+                                <p class="text-sm text-gray-500 flex-1">인공지능의 원리를 이해하고, 실생활 데이터를 활용해 다양한 인공지능 모델을 만들어 봅니다.</p>
+                                <button class="w-full mt-auto text-orange-600 font-bold bg-orange-50 py-2 rounded-lg text-sm hover:bg-orange-100">단원 폴더 열기</button>
+                            </div>
+                        </div>
+
+                        <!-- V 단원 -->
+                        <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden flex flex-col h-[400px] hover:shadow-lg transition-all group cursor-pointer opacity-80 hover:opacity-100" onclick="toggleFolder('folder-unit5', document.querySelector('[onclick*=\\\'folder-unit5\\\']'))">
+                            <div class="h-1.5 bg-purple-500 w-full group-hover:h-2 transition-all"></div>
+                            <div class="p-6 flex-1 flex flex-col">
+                                <div class="flex justify-between items-start mb-4">
+                                    <div class="w-12 h-12 bg-purple-50 text-purple-600 rounded-xl flex items-center justify-center text-2xl group-hover:scale-110 transition-transform"><i class="ph-fill ph-globe-hemisphere-west"></i></div>
+                                    <span class="bg-gray-100 text-gray-500 text-[10px] font-black px-2 py-1 rounded">대기 중</span>
+                                </div>
+                                <h3 class="text-xl font-bold mb-2 text-gray-900">V. 디지털 문화</h3>
+                                <div class="flex items-center gap-3 mb-4">
+                                    <div class="flex-1 bg-gray-100 h-2 rounded-full overflow-hidden"><div class="bg-purple-500 h-full rounded-full" style="width: 0%"></div></div>
+                                    <span class="text-xs font-bold text-gray-400">0%</span>
+                                </div>
+                                <p class="text-sm text-gray-500 flex-1">디지털 사회의 특성과 직업의 변화를 이해하고, 올바른 디지털 윤리 의식을 함양합니다.</p>
+                                <button class="w-full mt-auto text-purple-600 font-bold bg-purple-50 py-2 rounded-lg text-sm hover:bg-purple-100">단원 폴더 열기</button>
                             </div>
                         </div>
                     </div>
