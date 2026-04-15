@@ -28,16 +28,16 @@
     <!-- 상단 네비게이션 바 -->
     <nav class="bg-white/80 backdrop-blur-md border-b border-gray-200 sticky top-0 z-50 h-16 flex items-center justify-between px-6 shadow-sm">
         <div class="flex items-center gap-4">
-            <button onclick="window.location.href='../../index.html'" class="p-2 rounded-lg hover:bg-gray-100 text-gray-500 transition-colors" title="대시보드로 돌아가기">
+            <button onclick="window.parent.postMessage('goDashboard', '*')" class="p-2 rounded-lg hover:bg-gray-100 text-gray-500 transition-colors" title="대시보드로 돌아가기">
                 <i class="ph-bold ph-arrow-left text-xl"></i>
             </button>
             <div class="flex flex-col">
                 <span class="text-[10px] font-black text-blue-600 uppercase tracking-widest">I. 컴퓨팅 시스템 > 1. 시스템과 피지컬 컴퓨팅</span>
-                <h1 class="text-lg font-bold text-gray-900 leading-none">01. 컴퓨팅 시스템의 구성과 동작 원리</h1>
+                <h1 class="text-lg font-bold text-gray-900 leading-none mt-0.5">01. 컴퓨팅 시스템의 구성과 동작 원리</h1>
             </div>
         </div>
         <div class="flex items-center gap-3">
-            <span class="text-xs font-bold text-gray-400 bg-gray-100 px-3 py-1.5 rounded-full">교과서 9~12쪽</span>
+            <span class="text-xs font-bold text-gray-500 bg-gray-100 px-4 py-1.5 rounded-full border border-gray-200">교과서 9~12쪽</span>
         </div>
     </nav>
 
@@ -50,38 +50,40 @@
                 <i class="ph-fill ph-cpu text-3xl"></i>
             </div>
             <h2 class="text-4xl font-extrabold text-gray-900 break-keep leading-tight mb-4">컴퓨팅 시스템의 구성과 동작 원리</h2>
-            <p class="text-gray-500 text-lg">우리가 매일 사용하는 스마트폰과 컴퓨터는 어떻게 움직이는 걸까요?</p>
+            <p class="text-gray-500 text-lg">소프트웨어와 하드웨어는 어떻게 서로 소통하며 문제를 해결할까요?</p>
         </header>
 
         <!-- 1. 단원 열기 및 학습 목표 -->
-        <section class="bg-white rounded-3xl shadow-sm border border-gray-200 p-8 flex flex-col md:flex-row gap-8 items-center hover:shadow-md transition-shadow">
-            <div class="flex-1 space-y-6">
+        <section class="bg-white rounded-3xl shadow-sm border border-gray-200 p-8 flex flex-col md:flex-row gap-8 items-stretch hover:shadow-md transition-shadow">
+            <div class="flex-1 flex flex-col justify-between space-y-6">
                 <div>
                     <h3 class="text-2xl font-bold flex items-center gap-2 mb-4 text-gray-900"><i class="ph-fill ph-target text-blue-500"></i> 이번 시간 학습 목표</h3>
                     <ul class="space-y-3">
-                        <li class="flex items-start gap-3 text-gray-700 bg-blue-50/50 p-3 rounded-xl border border-blue-100/50">
-                            <i class="ph-bold ph-check-circle text-blue-600 mt-0.5 text-lg"></i>
-                            <span class="font-medium">컴퓨팅 시스템의 <strong>구성 요소</strong>와 <strong>동작 원리</strong>를 설명할 수 있다.</span>
+                        <li class="flex items-start gap-3 text-gray-700 bg-blue-50/50 p-4 rounded-xl border border-blue-100/50">
+                            <i class="ph-bold ph-check-circle text-blue-600 mt-0.5 text-lg shrink-0"></i>
+                            <span class="font-medium leading-snug">컴퓨팅 시스템의 <strong>구성 요소</strong>와 <strong>동작 원리</strong>를 설명할 수 있다.</span>
                         </li>
-                        <li class="flex items-start gap-3 text-gray-700 bg-blue-50/50 p-3 rounded-xl border border-blue-100/50">
-                            <i class="ph-bold ph-check-circle text-blue-600 mt-0.5 text-lg"></i>
-                            <span class="font-medium"><strong>운영 체제</strong>의 개념과 기능을 분석할 수 있다.</span>
+                        <li class="flex items-start gap-3 text-gray-700 bg-blue-50/50 p-4 rounded-xl border border-blue-100/50">
+                            <i class="ph-bold ph-check-circle text-blue-600 mt-0.5 text-lg shrink-0"></i>
+                            <span class="font-medium leading-snug"><strong>운영 체제의 개념</strong>을 설명하고 그 기능을 분석할 수 있다.</span>
                         </li>
                     </ul>
                 </div>
-                <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-5 rounded-2xl border border-blue-100 shadow-sm">
-                    <h4 class="font-bold text-blue-900 text-sm mb-2 flex items-center gap-1.5"><i class="ph-fill ph-lightbulb text-yellow-500 text-lg"></i> 생각 열기</h4>
-                    <p class="text-blue-800 text-sm leading-relaxed">"내 손에는 스마트폰, 우리 교실에는 스마트 칠판!"<br>우리 학교에서 컴퓨팅 시스템이 적용된 것에는 어떤 것이 있는지 이야기해 볼까요?</p>
+                <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-5 rounded-2xl border border-blue-100 shadow-sm mt-auto">
+                    <h4 class="font-bold text-blue-900 text-sm mb-2 flex items-center gap-1.5"><i class="ph-fill ph-lightbulb text-yellow-500 text-lg"></i> 생각 나누기</h4>
+                    <p class="text-blue-800 text-sm leading-relaxed">
+                        교실의 에어컨과 스마트 칠판, 도서관의 도서 대출 시스템, 급식실의 안내 전광판 등 우리 학교에서 컴퓨팅 시스템이 적용된 사례를 더 찾아 이야기해 볼까요?
+                    </p>
                 </div>
             </div>
-            <div class="w-full md:w-1/3 bg-gray-900 rounded-3xl h-56 flex items-center justify-center border border-gray-800 overflow-hidden shadow-2xl relative">
+            <div class="w-full md:w-1/3 bg-gray-900 rounded-3xl min-h-[240px] flex items-center justify-center border border-gray-800 overflow-hidden shadow-2xl relative">
                 <div class="absolute inset-0 opacity-20 bg-[linear-gradient(45deg,transparent_25%,rgba(255,255,255,.2)_50%,transparent_75%,transparent_100%)] bg-[length:20px_20px]"></div>
-                <div class="text-center p-4 relative z-10">
-                    <p class="text-xs text-gray-400 mb-3 font-mono"></p>
-                    <div class="flex gap-4 text-gray-300">
-                        <i class="ph-fill ph-device-mobile text-5xl hover:text-blue-400 transition-colors"></i>
-                        <i class="ph-fill ph-chalkboard-teacher text-5xl hover:text-blue-400 transition-colors"></i>
-                        <i class="ph-fill ph-laptop text-5xl hover:text-blue-400 transition-colors"></i>
+                <div class="text-center p-4 relative z-10 w-full">
+                    <p class="text-xs text-gray-400 mb-4 font-mono tracking-widest"></p>
+                    <div class="flex gap-5 justify-center text-gray-300">
+                        <i class="ph-fill ph-thermometer text-5xl hover:text-blue-400 transition-colors cursor-pointer transform hover:-translate-y-1" title="스마트 에어컨"></i>
+                        <i class="ph-fill ph-chalkboard-teacher text-5xl hover:text-blue-400 transition-colors cursor-pointer transform hover:-translate-y-1" title="스마트 칠판"></i>
+                        <i class="ph-fill ph-books text-5xl hover:text-blue-400 transition-colors cursor-pointer transform hover:-translate-y-1" title="도서 대출 시스템"></i>
                     </div>
                 </div>
             </div>
@@ -92,64 +94,73 @@
             <h3 class="text-2xl font-bold flex items-center gap-2"><i class="ph-fill ph-hard-drives text-blue-500"></i> 1. 컴퓨팅 시스템의 이해와 구성</h3>
             
             <div class="bg-white rounded-3xl shadow-sm border border-gray-200 p-8">
-                <p class="text-gray-700 mb-8 text-lg leading-relaxed border-l-4 border-blue-500 pl-4 bg-gray-50 py-3 rounded-r-xl">
-                    <strong>컴퓨팅 시스템</strong>은 눈에 보이는 기계 장치인 <strong>하드웨어</strong>와 이를 동작시키는 <strong>소프트웨어</strong>가 유기적으로 결합하여 문제를 해결하는 장치입니다.
-                </p>
+                <!-- 추가된 컴퓨팅 시스템의 확장 개념 -->
+                <div class="mb-8">
+                    <p class="text-gray-700 text-lg leading-relaxed border-l-4 border-blue-500 pl-5 bg-gray-50 py-4 rounded-r-xl mb-3">
+                        <strong>컴퓨팅 시스템</strong>은 소프트웨어와 하드웨어가 유기적으로 결합하여 문제 해결에 활용되는 장치입니다.
+                    </p>
+                    <p class="text-sm text-gray-500 px-2">
+                        💡 예전에는 책상 위 '컴퓨터'만을 지칭했으나, 최근 기술의 발달로 크기가 작아지고 성능이 향상되면서 스마트워치, 자동차, 가전제품 등으로 그 범위가 크게 확장되고 있습니다.
+                    </p>
+                </div>
                 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8 items-stretch">
                     <!-- 하드웨어 -->
-                    <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow">
-                        <div class="flex items-center gap-3 mb-6 border-b-2 border-slate-200 pb-3">
-                            <div class="bg-slate-800 text-white p-2 rounded-lg"><i class="ph-fill ph-cpu text-xl"></i></div>
+                    <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow flex flex-col h-full">
+                        <div class="flex items-center gap-3 mb-6 border-b-2 border-slate-200 pb-4">
+                            <div class="bg-slate-800 text-white p-2.5 rounded-lg"><i class="ph-fill ph-cpu text-xl"></i></div>
                             <h4 class="font-extrabold text-xl text-slate-900">하드웨어 (Hardware)</h4>
                         </div>
-                        <ul class="space-y-5">
-                            <li class="flex items-start gap-3">
-                                <div class="bg-white p-2 rounded shadow-sm shrink-0 border border-slate-100"><i class="ph-fill ph-keyboard text-slate-600"></i></div>
-                                <div><span class="font-bold text-slate-800 block text-sm">입력 장치</span><p class="text-xs text-slate-500 mt-1">외부 데이터를 입력받음 (키보드, 마우스, 카메라)</p></div>
+                        <ul class="space-y-5 flex-1">
+                            <li class="flex items-start gap-4">
+                                <div class="bg-white p-2.5 rounded-lg shadow-sm shrink-0 border border-slate-100"><i class="ph-fill ph-keyboard text-slate-600 text-lg"></i></div>
+                                <div class="pt-0.5"><span class="font-bold text-slate-800 block text-sm mb-0.5">입력 장치</span><p class="text-xs text-slate-500 leading-snug">외부 데이터를 입력받음<br>(키보드, 마우스, 카메라 등)</p></div>
                             </li>
-                            <li class="flex items-start gap-3">
-                                <div class="bg-white p-2 rounded shadow-sm shrink-0 border border-slate-100"><i class="ph-fill ph-microchip text-slate-600"></i></div>
-                                <div><span class="font-bold text-slate-800 block text-sm">처리 장치</span><p class="text-xs text-slate-500 mt-1">명령어 해석 및 데이터 연산 (CPU, GPU)</p></div>
+                            <li class="flex items-start gap-4">
+                                <div class="bg-white p-2.5 rounded-lg shadow-sm shrink-0 border border-slate-100"><i class="ph-fill ph-microchip text-slate-600 text-lg"></i></div>
+                                <div class="pt-0.5"><span class="font-bold text-slate-800 block text-sm mb-0.5">처리 장치</span><p class="text-xs text-slate-500 leading-snug">명령어 해석 및 데이터 연산<br>(CPU, GPU 등)</p></div>
                             </li>
-                            <li class="flex items-start gap-3">
-                                <div class="bg-white p-2 rounded shadow-sm shrink-0 border border-slate-100"><i class="ph-fill ph-hard-drive text-slate-600"></i></div>
-                                <div><span class="font-bold text-slate-800 block text-sm">기억 장치</span><p class="text-xs text-slate-500 mt-1">명령어와 데이터 저장 (RAM, SSD, HDD)</p></div>
+                            <li class="flex items-start gap-4">
+                                <div class="bg-white p-2.5 rounded-lg shadow-sm shrink-0 border border-slate-100"><i class="ph-fill ph-hard-drive text-slate-600 text-lg"></i></div>
+                                <div class="pt-0.5"><span class="font-bold text-slate-800 block text-sm mb-0.5">기억 장치</span><p class="text-xs text-slate-500 leading-snug">명령어와 데이터 저장<br>(RAM, SSD, HDD 등)</p></div>
                             </li>
-                            <li class="flex items-start gap-3">
-                                <div class="bg-white p-2 rounded shadow-sm shrink-0 border border-slate-100"><i class="ph-fill ph-monitor text-slate-600"></i></div>
-                                <div><span class="font-bold text-slate-800 block text-sm">출력 장치</span><p class="text-xs text-slate-500 mt-1">처리 결과를 사용자에게 제공 (모니터, 스피커)</p></div>
+                            <li class="flex items-start gap-4">
+                                <div class="bg-white p-2.5 rounded-lg shadow-sm shrink-0 border border-slate-100"><i class="ph-fill ph-monitor text-slate-600 text-lg"></i></div>
+                                <div class="pt-0.5"><span class="font-bold text-slate-800 block text-sm mb-0.5">출력 장치</span><p class="text-xs text-slate-500 leading-snug">처리 결과를 사용자에게 제공<br>(모니터, 스피커 등)</p></div>
                             </li>
-                            <li class="flex items-start gap-3">
-                                <div class="bg-white p-2 rounded shadow-sm shrink-0 border border-slate-100"><i class="ph-fill ph-wifi-high text-slate-600"></i></div>
-                                <div><span class="font-bold text-slate-800 block text-sm">통신 장치</span><p class="text-xs text-slate-500 mt-1">데이터를 주고받음 (무선 공유기, 랜카드)</p></div>
+                            <li class="flex items-start gap-4">
+                                <div class="bg-white p-2.5 rounded-lg shadow-sm shrink-0 border border-slate-100"><i class="ph-fill ph-wifi-high text-slate-600 text-lg"></i></div>
+                                <div class="pt-0.5"><span class="font-bold text-slate-800 block text-sm mb-0.5">통신 장치</span><p class="text-xs text-slate-500 leading-snug">기기 간 데이터를 주고받음<br>(무선 공유기, 랜카드 등)</p></div>
                             </li>
                         </ul>
                     </div>
 
                     <!-- 소프트웨어 -->
-                    <div class="bg-green-50 border border-green-200 rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow">
-                        <div class="flex items-center gap-3 mb-6 border-b-2 border-green-200 pb-3">
-                            <div class="bg-green-600 text-white p-2 rounded-lg"><i class="ph-fill ph-code text-xl"></i></div>
+                    <div class="bg-green-50 border border-green-200 rounded-2xl p-6 md:p-8 shadow-sm hover:shadow-md transition-shadow flex flex-col h-full">
+                        <div class="flex items-center gap-3 mb-4 border-b-2 border-green-200 pb-4">
+                            <div class="bg-green-600 text-white p-2.5 rounded-lg"><i class="ph-fill ph-code text-xl"></i></div>
                             <h4 class="font-extrabold text-xl text-green-900">소프트웨어 (Software)</h4>
                         </div>
-                        <ul class="space-y-6">
-                            <li class="bg-white p-4 rounded-xl shadow-sm border border-green-100">
+                        <p class="text-xs text-green-800 font-medium mb-4 bg-white p-2 rounded border border-green-100 text-center">
+                            "하드웨어를 이용하여 사용자가 요구하는 작업을 수행하기 위한 명령어와 데이터의 집합"
+                        </p>
+                        
+                        <ul class="space-y-4 flex-1 flex flex-col">
+                            <li class="bg-white p-5 rounded-xl shadow-sm border border-green-100 flex-1 flex flex-col">
                                 <div class="flex items-center gap-2 font-bold text-green-800 mb-2"><i class="ph-fill ph-gear text-green-600 text-lg"></i> 시스템 소프트웨어 (운영 체제)</div>
-                                <p class="text-sm text-gray-600 leading-relaxed">하드웨어를 효율적으로 관리하고 응용 소프트웨어가 잘 동작할 수 있도록 돕는 가장 기본적인 프로그램입니다.</p>
-                                <div class="mt-3 flex gap-2">
-                                    <span class="bg-gray-100 text-gray-500 text-[10px] px-2 py-1 rounded font-bold">Windows</span>
-                                    <span class="bg-gray-100 text-gray-500 text-[10px] px-2 py-1 rounded font-bold">macOS</span>
-                                    <span class="bg-gray-100 text-gray-500 text-[10px] px-2 py-1 rounded font-bold">Android</span>
+                                <p class="text-sm text-gray-600 leading-relaxed mb-4">하드웨어를 관리하고 운영하며 응용 소프트웨어가 동작할 수 있도록 기본적인 기능을 제공합니다.</p>
+                                <div class="flex gap-2 flex-wrap mt-auto">
+                                    <span class="bg-gray-100 text-gray-600 text-[11px] px-2.5 py-1 rounded font-bold border border-gray-200">Windows</span>
+                                    <span class="bg-gray-100 text-gray-600 text-[11px] px-2.5 py-1 rounded font-bold border border-gray-200">macOS</span>
+                                    <span class="bg-gray-100 text-gray-600 text-[11px] px-2.5 py-1 rounded font-bold border border-gray-200">Android</span>
                                 </div>
                             </li>
-                            <li class="bg-white p-4 rounded-xl shadow-sm border border-green-100">
+                            <li class="bg-white p-5 rounded-xl shadow-sm border border-green-100 flex-1 flex flex-col">
                                 <div class="flex items-center gap-2 font-bold text-green-800 mb-2"><i class="ph-fill ph-app-window text-green-600 text-lg"></i> 응용 소프트웨어</div>
-                                <p class="text-sm text-gray-600 leading-relaxed">사용자가 특정한 목적을 달성하기 위해 사용하는 프로그램입니다.</p>
-                                <div class="mt-3 flex gap-2">
-                                    <span class="bg-gray-100 text-gray-500 text-[10px] px-2 py-1 rounded font-bold">웹 브라우저</span>
-                                    <span class="bg-gray-100 text-gray-500 text-[10px] px-2 py-1 rounded font-bold">메신저</span>
-                                    <span class="bg-gray-100 text-gray-500 text-[10px] px-2 py-1 rounded font-bold">게임</span>
+                                <p class="text-sm text-gray-600 leading-relaxed mb-4">사용자가 특정한 목적에 따라 작업(문서 작성, 편집 등)을 할 수 있도록 도와주는 프로그램입니다.</p>
+                                <div class="flex gap-2 flex-wrap mt-auto">
+                                    <span class="bg-gray-100 text-gray-600 text-[11px] px-2.5 py-1 rounded font-bold border border-gray-200">문서 프로그램</span>
+                                    <span class="bg-gray-100 text-gray-600 text-[11px] px-2.5 py-1 rounded font-bold border border-gray-200">동영상 편집앱</span>
                                 </div>
                             </li>
                         </ul>
@@ -158,13 +169,13 @@
 
                 <!-- AI 개념 도우미 영역 -->
                 <div class="p-6 bg-gradient-to-r from-purple-50 to-indigo-50 rounded-2xl border border-purple-100 shadow-inner">
-                    <h4 class="font-bold text-purple-900 mb-3 flex items-center gap-2">
+                    <h4 class="font-bold text-purple-900 mb-2 flex items-center gap-2">
                         <i class="ph-fill ph-robot text-2xl"></i> 궁금한 개념이 있나요? AI 선생님에게 물어보세요!
                     </h4>
-                    <p class="text-xs text-purple-700 mb-4">예) "운영체제가 왜 꼭 필요한 거야?", "스마트폰 카메라는 입력 장치야 출력 장치야?"</p>
+                    <p class="text-xs text-purple-700 mb-4 ml-8">예) "운영체제가 왜 꼭 필요한 거야?", "스마트폰 카메라는 입력 장치야 출력 장치야?"</p>
                     <div class="flex flex-col sm:flex-row gap-3">
-                        <input type="text" id="ai-question-input" placeholder="질문을 입력하세요..." class="flex-1 bg-white border border-purple-200 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-purple-500 shadow-sm text-sm">
-                        <button onclick="askAITeacher()" id="btn-ai-ask" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded-xl transition-all shadow-md flex items-center justify-center gap-2 shrink-0">
+                        <input type="text" id="ai-question-input" placeholder="질문을 입력하세요..." class="flex-1 bg-white border border-purple-200 rounded-xl p-3.5 focus:outline-none focus:ring-2 focus:ring-purple-500 shadow-sm text-sm">
+                        <button onclick="askAITeacher()" id="btn-ai-ask" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3.5 px-8 rounded-xl transition-all shadow-md flex items-center justify-center gap-2 shrink-0">
                             ✨ AI 답변 받기
                         </button>
                     </div>
@@ -173,59 +184,75 @@
             </div>
         </section>
 
-        <!-- 3. 핵심 개념: 동작 원리 -->
+        <!-- 3. 핵심 개념: 동작 원리 (OS의 역할 강조) -->
         <section class="space-y-6">
             <h3 class="text-2xl font-bold flex items-center gap-2"><i class="ph-fill ph-arrows-clockwise text-blue-500"></i> 2. 운영 체제와 컴퓨팅 시스템의 동작 원리</h3>
 
             <div class="bg-white rounded-3xl shadow-sm border border-gray-200 p-8">
-                <p class="text-gray-700 mb-6 text-lg">
-                    운영 체제(OS)는 입·출력 관리, 처리 장치 및 메모리 관리, 통신 장치 관리 기능을 수행합니다. 
-                    <strong>스마트폰의 동영상 재생 앱 실행 과정</strong>을 통해 전체 동작 원리를 살펴봅시다.
+                
+                <!-- 인터페이스 강조 박스 -->
+                <div class="bg-indigo-50 border border-indigo-200 p-5 rounded-2xl mb-8 flex items-start gap-4">
+                    <div class="bg-indigo-600 text-white p-2 rounded-full shrink-0"><i class="ph-bold ph-plugs text-xl"></i></div>
+                    <div>
+                        <h4 class="font-bold text-indigo-900 text-lg mb-1">운영 체제의 핵심 역할: 인터페이스(Interface)</h4>
+                        <p class="text-indigo-800 text-sm leading-relaxed">
+                            운영 체제는 <strong>사용자와 하드웨어 간의 중개 역할(인터페이스)</strong>을 담당합니다. 사용자의 명령을 받아 하드웨어를 제어하고 조작할 수 있도록 도와주며, 각종 입출력, 처리, 메모리, 통신 장치를 관리합니다.
+                        </p>
+                    </div>
+                </div>
+
+                <p class="text-gray-700 mb-6 text-lg text-center font-bold">
+                    [ 동영상 재생 앱의 실행 과정 분석 ]
                 </p>
 
-                <div class="relative bg-slate-900 rounded-2xl p-8 overflow-hidden shadow-inner flex flex-col items-center">
+                <div class="relative bg-slate-900 rounded-2xl p-8 md:p-12 overflow-hidden shadow-inner flex flex-col items-center">
                     <div class="absolute inset-0 opacity-20 bg-[linear-gradient(#ffffff33_1px,transparent_1px),linear-gradient(90deg,#ffffff33_1px,transparent_1px)] bg-[size:20px_20px]"></div>
                     
-                    <div class="w-full max-w-3xl grid grid-cols-1 md:grid-cols-5 gap-4 relative z-10 items-stretch">
+                    <!-- 정렬이 개선된 Flexbox 프로세스 래퍼 -->
+                    <div class="w-full flex flex-col md:flex-row items-center justify-center gap-6 relative z-10">
+                        
                         <!-- 1. 입력 -->
-                        <div class="bg-slate-800 border border-slate-700 p-5 rounded-xl text-center flex flex-col justify-center transform hover:-translate-y-1 transition-transform">
-                            <div class="w-12 h-12 bg-blue-500/20 rounded-full flex items-center justify-center mx-auto mb-3 text-blue-400"><i class="ph-fill ph-hand-pointing text-2xl"></i></div>
+                        <div class="bg-slate-800 border border-slate-700 p-6 rounded-2xl text-center flex flex-col items-center justify-center w-full md:w-48 h-40 transform hover:-translate-y-1 transition-transform shadow-lg">
+                            <div class="w-14 h-14 bg-blue-500/20 rounded-full flex items-center justify-center mb-3 text-blue-400"><i class="ph-fill ph-hand-pointing text-3xl"></i></div>
                             <p class="font-black text-white text-base mb-1">1. 입력</p>
                             <p class="text-xs text-slate-400">화면 터치로 앱 실행</p>
                         </div>
                         
                         <!-- 화살표 -->
-                        <div class="hidden md:flex justify-center items-center text-slate-500"><i class="ph-bold ph-arrow-right text-3xl"></i></div>
+                        <div class="hidden md:block text-slate-500"><i class="ph-bold ph-arrow-right text-3xl"></i></div>
+                        <div class="block md:hidden text-slate-500"><i class="ph-bold ph-arrow-down text-3xl"></i></div>
                         
-                        <!-- 2. 처리 (OS) -->
-                        <div class="bg-indigo-600 border border-indigo-400 p-5 rounded-xl text-center shadow-[0_0_20px_rgba(99,102,241,0.5)] flex flex-col justify-center relative transform hover:-translate-y-1 transition-transform">
-                            <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-indigo-900 text-indigo-200 text-[10px] font-bold px-3 py-1 rounded-full border border-indigo-500 whitespace-nowrap">운영 체제 (OS)</div>
-                            <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-3 text-white"><i class="ph-fill ph-cpu text-2xl"></i></div>
-                            <p class="font-black text-white text-base mb-1">2. 처리</p>
-                            <p class="text-xs text-indigo-200">명령 해석 및 메모리 할당</p>
+                        <!-- 2. 처리 (OS 중개 역할 강조) -->
+                        <div class="bg-indigo-600 border border-indigo-400 p-6 rounded-2xl text-center shadow-[0_0_20px_rgba(99,102,241,0.5)] flex flex-col items-center justify-center w-full md:w-56 h-48 relative transform hover:-translate-y-1 transition-transform z-10">
+                            <div class="absolute -top-3.5 left-1/2 transform -translate-x-1/2 bg-indigo-900 text-indigo-200 text-[11px] font-bold px-4 py-1.5 rounded-full border border-indigo-400 whitespace-nowrap shadow-md">운영 체제 (OS)</div>
+                            <div class="w-14 h-14 bg-white/20 rounded-full flex items-center justify-center mb-3 text-white"><i class="ph-fill ph-arrows-left-right text-3xl"></i></div>
+                            <p class="font-black text-white text-lg mb-1">2. 처리</p>
+                            <p class="text-xs text-indigo-200 leading-snug">사용자 명령 해석<br>& 하드웨어 제어</p>
                         </div>
 
                         <!-- 화살표 -->
-                        <div class="hidden md:flex justify-center items-center text-slate-500"><i class="ph-bold ph-arrow-right text-3xl"></i></div>
+                        <div class="hidden md:block text-slate-500"><i class="ph-bold ph-arrow-right text-3xl"></i></div>
+                        <div class="block md:hidden text-slate-500"><i class="ph-bold ph-arrow-down text-3xl"></i></div>
                         
                         <!-- 3,4. 통신/출력 -->
-                        <div class="flex flex-col gap-3 justify-center">
-                            <div class="bg-slate-800 border border-slate-700 p-4 rounded-xl flex items-center gap-3 transform hover:-translate-x-1 transition-transform">
-                                <div class="bg-emerald-500/20 p-2 rounded-lg text-emerald-400"><i class="ph-fill ph-wifi-high text-xl"></i></div>
+                        <div class="flex flex-col gap-4 w-full md:w-56 justify-center">
+                            <div class="bg-slate-800 border border-slate-700 p-4 rounded-xl flex items-center gap-4 transform hover:-translate-x-1 transition-transform shadow-lg">
+                                <div class="bg-emerald-500/20 p-2.5 rounded-lg text-emerald-400 shrink-0"><i class="ph-fill ph-wifi-high text-2xl"></i></div>
                                 <div class="text-left">
                                     <p class="font-bold text-white text-sm">3. 통신</p>
-                                    <p class="text-[10px] text-slate-400">서버에서 영상 다운로드</p>
+                                    <p class="text-[11px] text-slate-400 leading-tight mt-0.5">인터넷 서버에서<br>영상 데이터 수신</p>
                                 </div>
                             </div>
-                            <div class="bg-slate-800 border border-slate-700 p-4 rounded-xl flex items-center gap-3 transform hover:-translate-x-1 transition-transform">
-                                <div class="bg-pink-500/20 p-2 rounded-lg text-pink-400"><i class="ph-fill ph-monitor-play text-xl"></i></div>
+                            <div class="bg-slate-800 border border-slate-700 p-4 rounded-xl flex items-center gap-4 transform hover:-translate-x-1 transition-transform shadow-lg">
+                                <div class="bg-pink-500/20 p-2.5 rounded-lg text-pink-400 shrink-0"><i class="ph-fill ph-monitor-play text-2xl"></i></div>
                                 <div class="text-left">
                                     <p class="font-bold text-white text-sm">4. 출력</p>
-                                    <p class="text-[10px] text-slate-400">화면 재생 및 소리 출력</p>
+                                    <p class="text-[11px] text-slate-400 leading-tight mt-0.5">디스플레이 재생 및<br>스피커 소리 출력</p>
                                 </div>
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
         </section>
@@ -236,8 +263,8 @@
 
             <div class="bg-white rounded-3xl shadow-sm border border-gray-200 overflow-hidden">
                 <div class="bg-blue-50 p-6 border-b border-blue-100 flex gap-4 items-start">
-                    <div class="bg-white p-3 rounded-xl shadow-sm text-blue-600"><i class="ph-fill ph-magnifying-glass text-2xl"></i></div>
-                    <div>
+                    <div class="bg-white p-3 rounded-xl shadow-sm text-blue-600 shrink-0"><i class="ph-fill ph-magnifying-glass text-2xl"></i></div>
+                    <div class="pt-1">
                         <h4 class="font-bold text-xl text-gray-900 mb-2">스마트폰 앱 동작 원리 분석하기</h4>
                         <p class="text-sm text-gray-600 leading-relaxed">내가 스마트폰에서 가장 자주 사용하는 앱을 하나 선택하고, 그 앱이 동작하기 위한 컴퓨팅 시스템의 4단계(입력, 처리, 통신, 출력) 동작 원리를 분석하여 작성해 보세요.</p>
                     </div>
@@ -247,35 +274,35 @@
                     <form id="activity-form" class="space-y-6">
                         <div>
                             <label class="block text-sm font-bold text-gray-800 mb-2">선택한 앱 이름</label>
-                            <input type="text" id="app-name" required placeholder="예) 인스타그램, 배달의민족, 카카오맵 등" class="w-full bg-gray-50 border border-gray-200 rounded-xl p-4 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all font-medium">
+                            <input type="text" id="app-name" required placeholder="예) 인스타그램, 배달의민족, 카카오맵 등" class="w-full bg-gray-50 border border-gray-200 rounded-xl p-4 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all font-medium text-gray-800">
                         </div>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div>
-                                <label class="flex items-center gap-2 text-sm font-bold text-gray-800 mb-2"><i class="ph-fill ph-hand-pointing text-blue-500"></i> 입력 과정</label>
-                                <textarea id="app-input" required placeholder="무엇을 어떻게 입력하나요?&#10;(예: 화면 터치, 마이크 음성, 카메라 촬영 등)" class="w-full bg-gray-50 border border-gray-200 rounded-xl p-4 h-24 resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 custom-scrollbar text-sm"></textarea>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
+                            <div class="flex flex-col">
+                                <label class="flex items-center gap-2 text-sm font-bold text-gray-800 mb-2"><i class="ph-fill ph-hand-pointing text-blue-500 text-lg"></i> 입력 과정</label>
+                                <textarea id="app-input" required placeholder="무엇을 어떻게 입력하나요?&#10;(예: 화면 터치, 마이크 음성, 카메라 촬영 등)" class="w-full bg-gray-50 border border-gray-200 rounded-xl p-4 flex-1 resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 custom-scrollbar text-sm min-h-[100px]"></textarea>
                             </div>
-                            <div>
-                                <label class="flex items-center gap-2 text-sm font-bold text-gray-800 mb-2"><i class="ph-fill ph-cpu text-indigo-500"></i> 처리 과정</label>
-                                <textarea id="app-process" required placeholder="스마트폰 내부에서 어떻게 처리할까요?&#10;(예: 검색어 분석, GPS 위치 연산 등)" class="w-full bg-gray-50 border border-gray-200 rounded-xl p-4 h-24 resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 custom-scrollbar text-sm"></textarea>
+                            <div class="flex flex-col">
+                                <label class="flex items-center gap-2 text-sm font-bold text-gray-800 mb-2"><i class="ph-fill ph-cpu text-indigo-500 text-lg"></i> 처리 과정</label>
+                                <textarea id="app-process" required placeholder="운영체제가 어떻게 처리할까요?&#10;(예: 검색어 분석, GPS 위치 연산 등)" class="w-full bg-gray-50 border border-gray-200 rounded-xl p-4 flex-1 resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 custom-scrollbar text-sm min-h-[100px]"></textarea>
                             </div>
-                            <div>
-                                <label class="flex items-center gap-2 text-sm font-bold text-gray-800 mb-2"><i class="ph-fill ph-wifi-high text-emerald-500"></i> 통신 과정</label>
-                                <textarea id="app-comm" required placeholder="외부와 어떤 데이터를 주고받나요?&#10;(예: 인터넷을 통해 서버와 지도 데이터 교환)" class="w-full bg-gray-50 border border-gray-200 rounded-xl p-4 h-24 resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 custom-scrollbar text-sm"></textarea>
+                            <div class="flex flex-col">
+                                <label class="flex items-center gap-2 text-sm font-bold text-gray-800 mb-2"><i class="ph-fill ph-wifi-high text-emerald-500 text-lg"></i> 통신 과정</label>
+                                <textarea id="app-comm" required placeholder="외부와 어떤 데이터를 주고받나요?&#10;(예: 인터넷을 통해 서버와 지도 데이터 교환)" class="w-full bg-gray-50 border border-gray-200 rounded-xl p-4 flex-1 resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 custom-scrollbar text-sm min-h-[100px]"></textarea>
                             </div>
-                            <div>
-                                <label class="flex items-center gap-2 text-sm font-bold text-gray-800 mb-2"><i class="ph-fill ph-monitor-play text-pink-500"></i> 출력 과정</label>
-                                <textarea id="app-output" required placeholder="어떻게 결과를 보여주나요?&#10;(예: 화면에 길 안내 표시, 스피커로 알림음)" class="w-full bg-gray-50 border border-gray-200 rounded-xl p-4 h-24 resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 custom-scrollbar text-sm"></textarea>
+                            <div class="flex flex-col">
+                                <label class="flex items-center gap-2 text-sm font-bold text-gray-800 mb-2"><i class="ph-fill ph-monitor-play text-pink-500 text-lg"></i> 출력 과정</label>
+                                <textarea id="app-output" required placeholder="어떻게 결과를 보여주나요?&#10;(예: 화면에 길 안내 표시, 스피커로 알림음)" class="w-full bg-gray-50 border border-gray-200 rounded-xl p-4 flex-1 resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 custom-scrollbar text-sm min-h-[100px]"></textarea>
                             </div>
                         </div>
                         
                         <!-- AI 피드백 결과 영역 -->
-                        <div id="ai-feedback-result" class="hidden mt-4 p-6 bg-purple-50 border border-purple-200 rounded-2xl text-purple-900 text-sm leading-relaxed shadow-sm"></div>
+                        <div id="ai-feedback-result" class="hidden mt-6 p-6 bg-purple-50 border border-purple-200 rounded-2xl text-purple-900 text-sm leading-relaxed shadow-sm"></div>
 
-                        <div class="pt-6 border-t border-gray-100 flex flex-col sm:flex-row justify-end items-center gap-3">
-                            <button type="button" id="btn-ai-feedback" onclick="getAIFeedback()" class="w-full sm:w-auto bg-purple-100 hover:bg-purple-200 text-purple-700 font-bold py-3 px-6 rounded-xl transition-all flex items-center justify-center gap-2">
+                        <div class="pt-8 border-t border-gray-100 flex flex-col sm:flex-row justify-end items-center gap-4">
+                            <button type="button" id="btn-ai-feedback" onclick="getAIFeedback()" class="w-full sm:w-auto bg-purple-100 hover:bg-purple-200 text-purple-700 font-bold py-3.5 px-6 rounded-xl transition-all flex items-center justify-center gap-2 shadow-sm">
                                 ✨ AI 피드백 받기
                             </button>
-                            <button type="button" onclick="submitToDrive()" id="btn-submit" class="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-xl shadow-md transition-all flex items-center justify-center gap-2">
+                            <button type="button" onclick="submitToDrive()" id="btn-submit" class="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white font-bold py-3.5 px-8 rounded-xl shadow-md transition-all flex items-center justify-center gap-2">
                                 <i class="ph-bold ph-google-drive-logo text-lg"></i> Google Drive에 제출
                             </button>
                         </div>
@@ -285,12 +312,12 @@
         </section>
 
         <!-- 네비게이션 하단 -->
-        <div class="flex justify-between items-center pt-8">
-            <button onclick="window.location.href='../../index.html'" class="text-gray-500 hover:text-gray-900 font-bold flex items-center gap-2 transition-colors">
-                <i class="ph-bold ph-squares-four"></i> 대시보드
+        <div class="flex justify-between items-center pt-8 border-t border-gray-200">
+            <button onclick="window.parent.postMessage('goDashboard', '*')" class="text-gray-500 hover:text-gray-900 font-bold flex items-center gap-2 transition-colors py-2 px-4 rounded-lg hover:bg-gray-100">
+                <i class="ph-bold ph-squares-four text-xl"></i> 대시보드
             </button>
-            <button onclick="window.location.href='../lesson-02/index.html'" class="bg-gray-900 hover:bg-gray-800 text-white font-bold py-3 px-6 rounded-xl transition-all shadow-md flex items-center gap-2">
-                다음 차시: 02. 피지컬 컴퓨팅 이해 <i class="ph-bold ph-arrow-right"></i>
+            <button onclick="window.location.href='../lesson-02/index.html'" class="bg-gray-900 hover:bg-gray-800 text-white font-bold py-3.5 px-6 rounded-xl transition-all shadow-md flex items-center gap-2">
+                다음 차시: 02. 피지컬 컴퓨팅 이해 <i class="ph-bold ph-arrow-right text-lg"></i>
             </button>
         </div>
 
@@ -385,8 +412,7 @@
             btnFeedback.disabled = false;
         };
 
-        // 3. 구글 드라이브 제출 (포털의 saveSubmission 로직을 흉내낸 로컬 저장 또는 부모 창 연동)
-        // 개별 파일 구조이므로, 제출 내역을 localStorage에 저장하여 메인 포털에서 읽을 수 있도록 함
+        // 3. 구글 드라이브 제출 시뮬레이션
         window.submitToDrive = function() {
             const appName = document.getElementById('app-name').value.trim();
             const input = document.getElementById('app-input').value.trim();
@@ -416,7 +442,6 @@
                 status: "submitted"
             };
 
-            // localStorage를 통해 메인 포털과 데이터 공유 시뮬레이션
             setTimeout(() => {
                 let tempSubs = JSON.parse(localStorage.getItem('t_subs') || '[]');
                 tempSubs.push(submissionData);
@@ -426,7 +451,6 @@
                 btn.classList.replace('bg-blue-600', 'bg-green-600');
                 btn.classList.replace('hover:bg-blue-700', 'hover:bg-green-700');
                 
-                // 알림 표시
                 const toast = document.createElement('div');
                 toast.className = `fixed top-4 right-4 bg-gray-900 text-white px-5 py-3 rounded-xl shadow-xl font-bold text-sm flex items-center gap-3 z-[9999] feedback-animate`;
                 toast.innerHTML = `<i class="ph-fill ph-check-circle text-xl text-green-400"></i> 과제가 성공적으로 저장되었습니다. (대시보드에서 확인 가능)`;
