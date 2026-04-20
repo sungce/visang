@@ -1,70 +1,3223 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>소리 반응 애니메이션 — Lab</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
-<style>
-:root{--bg:#F5F4F0;--sf:#FFF;--br:#E2DFD6;--u:#6C65CC;--udk:#4E48A8;--ult:#ECEAFE;--tx:#1C1C1C;--mt:#696760;--umd:#C8C4F0;}
-body{font-family:'Noto Sans KR',sans-serif;margin:0;padding:0;background:var(--bg);color:var(--tx);display:flex;flex-direction:column;height:100vh;}
-.header{height:54px;background:var(--sf);border-bottom:1px solid var(--br);display:flex;align-items:center;padding:0 24px;flex-shrink:0;}
-.header h1{font-size:16px;margin:0;display:flex;align-items:center;gap:10px;font-weight:700;color:var(--tx);}
-.back{text-decoration:none;color:var(--mt);font-size:13px;border:1px solid var(--br);padding:6px 12px;border-radius:6px;transition:all 0.2s;font-weight:500;}
-.back:hover{background:var(--bg);color:var(--tx);}
-.content{display:flex;flex:1;overflow:hidden;}
-.panel-left{width:380px;background:var(--sf);border-right:1px solid var(--br);padding:28px;overflow-y:auto;box-shadow:2px 0 10px rgba(0,0,0,0.02);z-index:10;}
-.panel-right{flex:1;background:var(--bg);position:relative;}
-iframe{width:100%;height:100%;border:none;display:block;}
-.step{margin-bottom:20px;padding:16px;background:var(--bg);border-radius:10px;border:1px solid var(--br);}
-.step-num{display:inline-block;width:24px;height:24px;background:var(--u);color:#fff;border-radius:50%;text-align:center;line-height:24px;font-size:12px;font-weight:700;margin-bottom:8px;}
-.step h3{margin:0 0 10px 0;font-size:14px;color:var(--tx);}
-.step p{margin:0;font-size:13px;color:var(--mt);line-height:1.65;}
-code{background:var(--ult);padding:2px 6px;border-radius:4px;color:var(--u);font-size:12px;font-family:monospace;border:1px solid var(--umd);}
-::-webkit-scrollbar { width: 8px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: #ddd; border-radius: 4px; }
-::-webkit-scrollbar-thumb:hover { background: #ccc; }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>소리 반응 애니메이션 장치 만들기 | 정보 Ⅰ-2-03</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=IBM+Plex+Mono:wght@400;600&display=swap');
+
+    :root {
+      --navy: #0f1b2d;
+      --navy2: #1a2d45;
+      --navy3: #243d5e;
+      --pink: #ec4899;
+      --pink-l: #fce7f3;
+      --pink-d: #9d174d;
+      --fuchsia: #d946ef;
+      --fuchsia-l: #fae8ff;
+      --fuchsia-d: #86198f;
+      --violet: #7c3aed;
+      --violet-l: #ede9fe;
+      --blue: #2d7dd2;
+      --blue-l: #d0e8ff;
+      --sky: #0ea5e9;
+      --sky-l: #e0f2fe;
+      --green: #10b981;
+      --green-l: #d1fae5;
+      --green-d: #065f46;
+      --teal: #0d9488;
+      --teal-l: #ccfbf1;
+      --amber: #f59e0b;
+      --amber-l: #fef3c7;
+      --orange: #f97316;
+      --orange-l: #ffedd5;
+      --red: #ef4444;
+      --red-l: #fee2e2;
+      --red-d: #991b1b;
+      --text: #1a1a2e;
+      --text2: #4a5568;
+      --text3: #718096;
+      --border: #e2e8f0;
+      --bg: #f8fafc;
+      --white: #fff;
+      --radius: 12px;
+      --radius-sm: 8px;
+      --shadow: 0 4px 24px rgba(15, 27, 45, .08);
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
+
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      font-size: 15px
+    }
+
+    /* ── HERO ── */
+    .hero {
+      background: var(--navy);
+      color: white;
+      position: relative;
+      overflow: hidden
+    }
+
+    .hero-inner {
+      max-width: 940px;
+      margin: 0 auto;
+      padding: 52px 28px 44px;
+      position: relative;
+      z-index: 1
+    }
+
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image: linear-gradient(rgba(236, 72, 153, .07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(236, 72, 153, .07) 1px, transparent 1px);
+      background-size: 40px 40px
+    }
+
+    .hero-wave {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none
+    }
+
+    .hero-wave canvas {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 60px;
+      opacity: .18
+    }
+
+    .hero-glow {
+      position: absolute;
+      width: 320px;
+      height: 320px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(236, 72, 153, .22), transparent 70%);
+      right: -80px;
+      top: -80px;
+      pointer-events: none
+    }
+
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: rgba(255, 255, 255, .45);
+      margin-bottom: 18px
+    }
+
+    .breadcrumb span {
+      color: rgba(255, 255, 255, .8)
+    }
+
+    .unit-badge {
+      display: inline-block;
+      background: rgba(236, 72, 153, .22);
+      border: 1px solid rgba(236, 72, 153, .45);
+      color: #f9a8d4;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 20px;
+      margin-bottom: 12px;
+      letter-spacing: .05em
+    }
+
+    .hero h1 {
+      font-size: clamp(20px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 12px
+    }
+
+    .hero h1 em {
+      color: #f9a8d4;
+      font-style: normal
+    }
+
+    .hero-desc {
+      font-size: 13px;
+      color: rgba(255, 255, 255, .6);
+      max-width: 520px;
+      margin-bottom: 24px
+    }
+
+    .meta-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px
+    }
+
+    .chip {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(255, 255, 255, .08);
+      border: 1px solid rgba(255, 255, 255, .12);
+      border-radius: 20px;
+      padding: 5px 12px;
+      font-size: 12px;
+      color: rgba(255, 255, 255, .7)
+    }
+
+    .chip .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--pink)
+    }
+
+    /* ── STICKY NAV ── */
+    .sticky-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--navy2);
+      border-bottom: 1px solid rgba(255, 255, 255, .07);
+      box-shadow: 0 2px 12px rgba(0, 0, 0, .25)
+    }
+
+    .nav-inner {
+      max-width: 940px;
+      margin: 0 auto;
+      display: flex;
+      overflow-x: auto;
+      scrollbar-width: none
+    }
+
+    .nav-inner::-webkit-scrollbar {
+      display: none
+    }
+
+    .nav-btn {
+      flex-shrink: 0;
+      padding: 13px 14px;
+      font-size: 12px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, .4);
+      border: none;
+      background: none;
+      border-bottom: 2px solid transparent;
+      cursor: pointer;
+      transition: all .2s;
+      white-space: nowrap;
+      font-family: 'Noto Sans KR', sans-serif
+    }
+
+    .nav-btn:hover {
+      color: rgba(255, 255, 255, .7)
+    }
+
+    .nav-btn.active {
+      color: #f9a8d4;
+      border-bottom-color: #f9a8d4
+    }
+
+    /* ── MAIN & ACCORDION ── */
+    .main {
+      max-width: 940px;
+      margin: 0 auto;
+      padding: 20px 28px 80px
+    }
+
+    .acc-section {
+      margin-bottom: 12px;
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      background: var(--white)
+    }
+
+    .acc-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 18px 20px;
+      cursor: pointer;
+      user-select: none;
+      transition: background .15s
+    }
+
+    .acc-header:hover {
+      background: #fdf2f8
+    }
+
+    .acc-header.open {
+      background: #fce7f3;
+      border-bottom: 1px solid var(--border)
+    }
+
+    .acc-num {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 13px;
+      font-weight: 600;
+      flex-shrink: 0;
+      color: white;
+      transition: transform .3s
+    }
+
+    .acc-header.open .acc-num {
+      transform: scale(1.05)
+    }
+
+    .acc-text {
+      flex: 1
+    }
+
+    .acc-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text)
+    }
+
+    .acc-sub {
+      font-size: 12px;
+      color: var(--text3);
+      margin-top: 2px
+    }
+
+    .acc-arrow {
+      font-size: 16px;
+      color: var(--text3);
+      transition: transform .3s;
+      flex-shrink: 0
+    }
+
+    .acc-header.open .acc-arrow {
+      transform: rotate(90deg)
+    }
+
+    .acc-body {
+      display: none;
+      padding: 24px 20px
+    }
+
+    .acc-body.open {
+      display: block;
+      animation: fadeUp .25s ease
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(-8px)
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0)
+      }
+    }
+
+    /* SHARED */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px
+    }
+
+    .three-col {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px
+    }
+
+    @media(max-width:600px) {
+
+      .two-col,
+      .three-col {
+        grid-template-columns: 1fr
+      }
+    }
+
+    .info-card {
+      border-radius: var(--radius-sm);
+      padding: 16px;
+      background: var(--bg);
+      border: 1px solid var(--border)
+    }
+
+    .info-card h4 {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 7px;
+      display: flex;
+      align-items: center;
+      gap: 7px
+    }
+
+    .info-card p {
+      font-size: 13px;
+      color: var(--text2);
+      line-height: 1.6
+    }
+
+    .obj-box {
+      background: linear-gradient(135deg, #fdf2f8, #fce7f3);
+      border: 1px solid #fbcfe8;
+      border-radius: var(--radius);
+      padding: 20px 24px
+    }
+
+    .achievement-tag {
+      display: inline-block;
+      background: #fbcfe8;
+      color: var(--pink-d);
+      border-radius: 4px;
+      font-size: 10px;
+      font-weight: 600;
+      padding: 2px 6px;
+      margin-bottom: 8px;
+      font-family: 'IBM Plex Mono', monospace
+    }
+
+    .obj-list {
+      list-style: none
+    }
+
+    .obj-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 14px;
+      padding: 6px 0;
+      border-bottom: 1px solid rgba(236, 72, 153, .1)
+    }
+
+    .obj-list li:last-child {
+      border-bottom: none
+    }
+
+    .obj-list li::before {
+      content: '✓';
+      color: var(--pink);
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 1px
+    }
+
+    .dark-panel {
+      background: var(--navy);
+      border-radius: var(--radius);
+      padding: 22px 24px;
+      color: white
+    }
+
+    .dp-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: #f9a8d4;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      margin-bottom: 14px
+    }
+
+    /* ═══════════════════════════════
+   §1 SOUND SCIENCE
+═══════════════════════════════ */
+    .sound-intro-banner {
+      background: var(--navy);
+      border-radius: var(--radius);
+      padding: 22px 24px;
+      color: white;
+      margin-bottom: 16px
+    }
+
+    .wave-canvas-box {
+      background: rgba(0, 0, 0, .3);
+      border-radius: var(--radius-sm);
+      padding: 8px 12px;
+      margin: 14px 0
+    }
+
+    canvas.wave-c {
+      width: 100%;
+      height: 100px;
+      display: block
+    }
+
+    .wave-controls {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 8px
+    }
+
+    .btn-wave {
+      background: rgba(236, 72, 153, .25);
+      border: 1px solid rgba(236, 72, 153, .4);
+      color: #f9a8d4;
+      border-radius: var(--radius-sm);
+      padding: 7px 14px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: 'Noto Sans KR', sans-serif;
+      transition: all .2s
+    }
+
+    .btn-wave.active {
+      background: rgba(236, 72, 153, .5);
+      border-color: #f9a8d4
+    }
+
+    .btn-wave:hover {
+      background: rgba(236, 72, 153, .4)
+    }
+
+    .sound-facts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+      gap: 10px
+    }
+
+    .snd-fact {
+      background: rgba(255, 255, 255, .05);
+      border: 1px solid rgba(255, 255, 255, .08);
+      border-radius: var(--radius-sm);
+      padding: 13px;
+      cursor: pointer;
+      transition: all .2s
+    }
+
+    .snd-fact:hover {
+      background: rgba(236, 72, 153, .12);
+      border-color: rgba(249, 168, 212, .35)
+    }
+
+    .snd-fact.open {
+      background: rgba(236, 72, 153, .18);
+      border-color: #f9a8d4
+    }
+
+    .sfi-icon {
+      font-size: 22px;
+      display: block;
+      margin-bottom: 5px
+    }
+
+    .sfi-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: rgba(255, 255, 255, .9);
+      margin-bottom: 3px
+    }
+
+    .sfi-brief {
+      font-size: 11px;
+      color: rgba(255, 255, 255, .5)
+    }
+
+    .sfi-detail {
+      display: none;
+      margin-top: 8px;
+      font-size: 12px;
+      color: rgba(255, 255, 255, .7);
+      line-height: 1.65;
+      padding-top: 8px;
+      border-top: 1px solid rgba(255, 255, 255, .08)
+    }
+
+    .snd-fact.open .sfi-detail {
+      display: block;
+      animation: fadeUp .2s ease
+    }
+
+    /* ═══════════════════════════════
+   §2 PROBLEM ANALYSIS
+═══════════════════════════════ */
+    .prob-step-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 12px;
+      margin-bottom: 16px
+    }
+
+    .prob-step {
+      border-radius: var(--radius-sm);
+      border: 1.5px solid var(--border);
+      padding: 16px;
+      cursor: pointer;
+      transition: all .2s
+    }
+
+    .prob-step:hover {
+      border-color: var(--pink);
+      background: var(--pink-l)
+    }
+
+    .prob-step.open {
+      border-color: var(--pink);
+      background: var(--pink-l);
+      box-shadow: 0 0 0 2px rgba(236, 72, 153, .15)
+    }
+
+    .ps-num {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--pink);
+      letter-spacing: .08em;
+      margin-bottom: 6px
+    }
+
+    .ps-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 4px
+    }
+
+    .ps-brief {
+      font-size: 12px;
+      color: var(--text3);
+      line-height: 1.5
+    }
+
+    .ps-detail {
+      display: none;
+      margin-top: 10px;
+      font-size: 13px;
+      color: var(--pink-d);
+      line-height: 1.65;
+      padding-top: 10px;
+      border-top: 1px solid #fbcfe8
+    }
+
+    .prob-step.open .ps-detail {
+      display: block;
+      animation: fadeUp .2s ease
+    }
+
+    /* ═══════════════════════════════
+   §3 SOUND SENSOR
+═══════════════════════════════ */
+    .sensor-tab-bar {
+      display: flex;
+      background: #f8fafc;
+      border-bottom: 1px solid var(--border)
+    }
+
+    .sensor-tab {
+      flex: 1;
+      padding: 11px 8px;
+      text-align: center;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      color: var(--text3);
+      border: none;
+      background: none;
+      border-bottom: 3px solid transparent;
+      transition: all .2s;
+      font-family: 'Noto Sans KR', sans-serif
+    }
+
+    .sensor-tab.active {
+      color: var(--pink);
+      border-bottom-color: var(--pink);
+      background: white
+    }
+
+    .sensor-panel {
+      padding: 20px;
+      display: none
+    }
+
+    .sensor-panel.active {
+      display: block;
+      animation: fadeUp .2s ease
+    }
+
+    .mic-anatomy {
+      background: var(--navy);
+      border-radius: var(--radius-sm);
+      padding: 20px;
+      color: white;
+      margin-bottom: 14px
+    }
+
+    .ma-parts {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 12px
+    }
+
+    .ma-part {
+      background: rgba(255, 255, 255, .06);
+      border: 1px solid rgba(255, 255, 255, .1);
+      border-radius: var(--radius-sm);
+      padding: 10px 14px;
+      flex: 1;
+      min-width: 140px
+    }
+
+    .map-num {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      font-weight: 700;
+      color: #f9a8d4;
+      margin-bottom: 3px
+    }
+
+    .map-name {
+      font-size: 13px;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 3px
+    }
+
+    .map-desc {
+      font-size: 11px;
+      color: rgba(255, 255, 255, .55);
+      line-height: 1.5
+    }
+
+    .sensor-compare {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 10px
+    }
+
+    .sc-card {
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 14px;
+      background: var(--bg);
+      cursor: pointer;
+      transition: all .2s
+    }
+
+    .sc-card:hover {
+      border-color: var(--pink);
+      background: var(--pink-l)
+    }
+
+    .sc-card.pick {
+      border-color: var(--pink);
+      background: var(--pink-l);
+      box-shadow: 0 0 0 2px rgba(236, 72, 153, .2)
+    }
+
+    .sc-card.no-pick {
+      border-color: var(--red);
+      background: var(--red-l);
+      opacity: .75
+    }
+
+    .sc-icon {
+      font-size: 26px;
+      display: block;
+      margin-bottom: 6px;
+      text-align: center
+    }
+
+    .sc-name {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text);
+      text-align: center;
+      margin-bottom: 4px
+    }
+
+    .sc-spec {
+      font-size: 11px;
+      color: var(--text3);
+      text-align: center;
+      line-height: 1.6
+    }
+
+    .sc-verdict {
+      margin-top: 14px;
+      border-radius: var(--radius-sm);
+      padding: 13px 15px;
+      font-size: 13px;
+      line-height: 1.65;
+      display: none;
+      animation: fadeUp .2s ease
+    }
+
+    .sc-verdict.show {
+      display: block
+    }
+
+    /* ADC explanation */
+    .adc-flow {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin: 14px 0
+    }
+
+    .adc-box {
+      background: rgba(255, 255, 255, .06);
+      border: 1px solid rgba(255, 255, 255, .1);
+      border-radius: var(--radius-sm);
+      padding: 12px 14px;
+      text-align: center;
+      flex: 1;
+      min-width: 100px
+    }
+
+    .adc-icon {
+      font-size: 22px;
+      display: block;
+      margin-bottom: 4px
+    }
+
+    .adc-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: rgba(255, 255, 255, .5);
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      margin-bottom: 3px
+    }
+
+    .adc-value {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 13px;
+      font-weight: 700;
+      color: #f9a8d4
+    }
+
+    .adc-arrow {
+      color: rgba(236, 72, 153, .5);
+      font-size: 18px;
+      font-weight: 700;
+      flex-shrink: 0
+    }
+
+    /* ═══════════════════════════════
+   §4 SYSTEM DESIGN
+═══════════════════════════════ */
+    .sys-flow {
+      display: flex;
+      align-items: stretch;
+      gap: 0;
+      overflow-x: auto;
+      padding-bottom: 4px
+    }
+
+    .sys-node {
+      flex-shrink: 0;
+      background: rgba(255, 255, 255, .05);
+      border: 1px solid rgba(255, 255, 255, .1);
+      border-radius: var(--radius-sm);
+      padding: 14px 12px;
+      text-align: center;
+      min-width: 120px;
+      cursor: pointer;
+      transition: all .2s
+    }
+
+    .sys-node:hover {
+      background: rgba(236, 72, 153, .14);
+      border-color: rgba(249, 168, 212, .4)
+    }
+
+    .sys-node.active {
+      background: rgba(236, 72, 153, .25);
+      border-color: #f9a8d4;
+      box-shadow: 0 0 14px rgba(236, 72, 153, .25)
+    }
+
+    .sn-icon {
+      font-size: 24px;
+      display: block;
+      margin-bottom: 5px
+    }
+
+    .sn-type {
+      font-size: 9px;
+      font-weight: 700;
+      color: rgba(255, 255, 255, .35);
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      margin-bottom: 2px
+    }
+
+    .sn-name {
+      font-size: 11px;
+      font-weight: 700;
+      color: rgba(255, 255, 255, .85)
+    }
+
+    .sn-sub {
+      font-size: 10px;
+      color: rgba(255, 255, 255, .4);
+      margin-top: 2px
+    }
+
+    .sys-arr {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      padding: 0 5px;
+      color: rgba(236, 72, 153, .5);
+      font-size: 18px
+    }
+
+    .sys-det {
+      background: rgba(0, 0, 0, .25);
+      border-radius: var(--radius-sm);
+      padding: 13px 16px;
+      margin-top: 14px;
+      font-size: 13px;
+      color: rgba(255, 255, 255, .75);
+      line-height: 1.7;
+      border-left: 3px solid #f9a8d4;
+      display: none;
+      animation: fadeUp .2s ease
+    }
+
+    .sys-det.show {
+      display: block
+    }
+
+    /* ═══════════════════════════════
+   §5 ALGORITHM
+═══════════════════════════════ */
+    .algo-panel {
+      background: var(--navy);
+      border-radius: var(--radius);
+      padding: 22px;
+      color: white
+    }
+
+    .algo-legend {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 14px
+    }
+
+    .al-dot {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11px;
+      color: rgba(255, 255, 255, .55)
+    }
+
+    .al-sq {
+      width: 18px;
+      height: 14px;
+      border-radius: 2px;
+      flex-shrink: 0
+    }
+
+    .fc-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0
+    }
+
+    .fc-node {
+      padding: 9px 18px;
+      border-radius: var(--radius-sm);
+      font-size: 12px;
+      font-weight: 700;
+      text-align: center;
+      margin: 2px 0;
+      min-width: 220px;
+      cursor: pointer;
+      transition: all .2s;
+      white-space: pre-line
+    }
+
+    .fc-node:hover {
+      filter: brightness(1.1)
+    }
+
+    .fc-node.hl {
+      box-shadow: 0 0 0 3px rgba(249, 168, 212, .5)
+    }
+
+    .fc-term {
+      background: #334155;
+      color: #e2e8f0;
+      border-radius: 40px
+    }
+
+    .fc-proc {
+      background: rgba(14, 165, 233, .25);
+      border: 1.5px solid rgba(14, 165, 233, .5);
+      color: #7dd3fc
+    }
+
+    .fc-dec {
+      background: rgba(236, 72, 153, .2);
+      border: 1.5px solid rgba(236, 72, 153, .5);
+      color: #f9a8d4;
+      clip-path: polygon(12px 0%, calc(100% - 12px) 0%, 100% 50%, calc(100% - 12px) 100%, 12px 100%, 0% 50%);
+      padding: 10px 30px
+    }
+
+    .fc-io {
+      background: rgba(16, 185, 129, .2);
+      border: 1.5px solid rgba(16, 185, 129, .5);
+      color: #86efac;
+      transform: skew(-5deg)
+    }
+
+    .fc-io span {
+      display: inline-block;
+      transform: skew(5deg)
+    }
+
+    .fc-arr {
+      color: rgba(255, 255, 255, .3);
+      font-size: 16px;
+      line-height: 1;
+      margin: 1px 0;
+      text-align: center
+    }
+
+    .fc-branch {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      width: 100%;
+      max-width: 680px;
+      margin: 2px 0
+    }
+
+    .fc-bcol {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex: 1
+    }
+
+    .fc-blbl {
+      font-size: 10px;
+      font-weight: 700;
+      color: rgba(255, 255, 255, .4);
+      margin-bottom: 2px
+    }
+
+    .fc-small {
+      font-size: 11px;
+      min-width: 150px
+    }
+
+    .fc-ndesc {
+      display: none;
+      margin-top: 12px;
+      background: rgba(0, 0, 0, .3);
+      border-radius: var(--radius-sm);
+      padding: 12px 14px;
+      font-size: 12px;
+      color: rgba(255, 255, 255, .7);
+      line-height: 1.7;
+      border-left: 3px solid #f9a8d4
+    }
+
+    .fc-ndesc.show {
+      display: block;
+      animation: fadeUp .2s ease
+    }
+
+    /* ═══════════════════════════════
+   §6 SOUND REACTIVE SIMULATOR
+═══════════════════════════════ */
+    .sound-sim {
+      background: var(--navy);
+      border-radius: var(--radius);
+      overflow: hidden
+    }
+
+    /* Volume meter */
+    .ss-vol-panel {
+      padding: 20px 24px;
+      border-bottom: 1px solid rgba(255, 255, 255, .07)
+    }
+
+    .ss-vol-bar-wrap {
+      position: relative;
+      height: 28px;
+      background: rgba(255, 255, 255, .07);
+      border-radius: 14px;
+      overflow: hidden;
+      margin: 10px 0
+    }
+
+    .ss-vol-fill {
+      height: 100%;
+      border-radius: 14px;
+      transition: width .1s;
+      width: 0
+    }
+
+    .ss-vol-markers {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 12px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      color: rgba(255, 255, 255, .4);
+      pointer-events: none
+    }
+
+    .ss-vol-val {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 28px;
+      font-weight: 900;
+      color: #f9a8d4;
+      text-align: center;
+      line-height: 1;
+      transition: all .1s
+    }
+
+    .ss-vol-unit {
+      font-size: 13px;
+      color: rgba(255, 255, 255, .45)
+    }
+
+    .ss-state-badge {
+      display: inline-block;
+      padding: 4px 16px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 700;
+      margin-top: 6px;
+      transition: all .2s
+    }
+
+    /* LED stage */
+    .ss-stage {
+      padding: 20px 24px;
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      flex-wrap: wrap
+    }
+
+    .ss-mb-wrap {
+      flex-shrink: 0
+    }
+
+    .ss-mb {
+      width: 200px;
+      height: 165px;
+      background: #1a1a2e;
+      border-radius: 14px;
+      border: 3px solid #2a2a4e;
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      cursor: pointer;
+      user-select: none
+    }
+
+    .ss-mb::before {
+      content: 'BBC micro:bit';
+      position: absolute;
+      top: 6px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px;
+      color: rgba(255, 255, 255, .25);
+      white-space: nowrap
+    }
+
+    .ss-mb-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 4px
+    }
+
+    .ss-led {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #0f0f1a;
+      transition: background .08s, box-shadow .08s
+    }
+
+    .ss-led.on {
+      box-shadow: 0 0 8px currentColor, 0 0 16px color-mix(in srgb, currentColor 50%, transparent)
+    }
+
+    .ss-mb:active {
+      transform: scale(.97)
+    }
+
+    .ss-info {
+      flex: 1;
+      min-width: 200px
+    }
+
+    .ss-anim-name {
+      font-size: 16px;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 4px
+    }
+
+    .ss-anim-desc {
+      font-size: 13px;
+      color: rgba(255, 255, 255, .55);
+      line-height: 1.55;
+      margin-bottom: 10px
+    }
+
+    .ss-sound-level-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: rgba(255, 255, 255, .4);
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      margin-bottom: 6px
+    }
+
+    .ss-level-bars {
+      display: flex;
+      flex-direction: column;
+      gap: 5px
+    }
+
+    .ss-lvl-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px
+    }
+
+    .ss-lvl-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0
+    }
+
+    .ss-lvl-label {
+      color: rgba(255, 255, 255, .6);
+      min-width: 50px
+    }
+
+    .ss-lvl-range {
+      font-family: 'IBM Plex Mono', monospace;
+      color: rgba(255, 255, 255, .4);
+      font-size: 11px
+    }
+
+    .ss-lvl-row.active-level .ss-lvl-label {
+      color: white;
+      font-weight: 700
+    }
+
+    .ss-lvl-row.active-level .ss-lvl-range {
+      color: #f9a8d4
+    }
+
+    /* Controls */
+    .ss-controls {
+      padding: 20px 24px;
+      border-top: 1px solid rgba(255, 255, 255, .07)
+    }
+
+    .ss-input-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 14px
+    }
+
+    .btn-clap {
+      background: var(--pink);
+      color: white;
+      border: none;
+      border-radius: var(--radius-sm);
+      padding: 14px 24px;
+      font-size: 15px;
+      font-weight: 900;
+      cursor: pointer;
+      font-family: 'Noto Sans KR', sans-serif;
+      transition: all .15s;
+      flex: 1;
+      min-width: 120px
+    }
+
+    .btn-clap:active {
+      transform: scale(.94);
+      background: var(--pink-d)
+    }
+
+    .btn-whisper {
+      background: rgba(255, 255, 255, .08);
+      border: 1px solid rgba(255, 255, 255, .2);
+      color: rgba(255, 255, 255, .7);
+      border-radius: var(--radius-sm);
+      padding: 14px 20px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: 'Noto Sans KR', sans-serif;
+      transition: all .15s
+    }
+
+    .btn-whisper:active {
+      transform: scale(.94)
+    }
+
+    .btn-noise {
+      background: rgba(239, 68, 68, .2);
+      border: 1px solid rgba(239, 68, 68, .4);
+      color: #fca5a5;
+      border-radius: var(--radius-sm);
+      padding: 14px 20px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: 'Noto Sans KR', sans-serif;
+      transition: all .15s
+    }
+
+    .btn-noise:active {
+      transform: scale(.94)
+    }
+
+    .ss-thr-wrap {
+      margin-bottom: 10px
+    }
+
+    .ss-thr-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: rgba(255, 255, 255, .45);
+      letter-spacing: .06em;
+      margin-bottom: 6px
+    }
+
+    .ss-thr-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap
+    }
+
+    .ss-thr-slider {
+      flex: 1;
+      min-width: 120px;
+      accent-color: #ec4899
+    }
+
+    .ss-thr-val {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 12px;
+      font-weight: 700;
+      color: #f9a8d4;
+      min-width: 100px
+    }
+
+    .ss-log {
+      background: rgba(0, 0, 0, .3);
+      border-radius: var(--radius-sm);
+      padding: 10px 14px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      color: rgba(249, 168, 212, .8);
+      min-height: 52px;
+      max-height: 90px;
+      overflow-y: auto;
+      line-height: 1.9;
+      margin-top: 8px
+    }
+
+    /* ═══════════════════════════════
+   §7 LED ANIMATION EDITOR
+═══════════════════════════════ */
+    .led-editor {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden
+    }
+
+    .led-editor-header {
+      background: var(--navy);
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between
+    }
+
+    .led-editor-header h3 {
+      font-size: 14px;
+      font-weight: 700;
+      color: white
+    }
+
+    .led-editor-body {
+      padding: 20px;
+      background: white;
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      align-items: flex-start
+    }
+
+    .led-canvas-wrap {
+      flex-shrink: 0
+    }
+
+    .led-canvas-wrap h4 {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text3);
+      margin-bottom: 8px;
+      text-align: center
+    }
+
+    .led-grid-editor {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 5px;
+      cursor: crosshair;
+      user-select: none
+    }
+
+    .led-cell {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #e2e8f0;
+      border: 2px solid #cbd5e1;
+      transition: all .1s;
+      cursor: pointer
+    }
+
+    .led-cell:hover {
+      filter: brightness(.9)
+    }
+
+    .led-cell.active {
+      border-color: transparent;
+      box-shadow: 0 0 10px currentColor
+    }
+
+    .led-editor-controls {
+      flex: 1;
+      min-width: 200px
+    }
+
+    .lec-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text3);
+      letter-spacing: .06em;
+      margin-bottom: 8px;
+      margin-top: 12px
+    }
+
+    .lec-label:first-child {
+      margin-top: 0
+    }
+
+    .color-palette {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 4px
+    }
+
+    .cp-color {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      cursor: pointer;
+      border: 3px solid transparent;
+      transition: all .15s;
+      flex-shrink: 0
+    }
+
+    .cp-color.active {
+      border-color: var(--text);
+      transform: scale(1.15)
+    }
+
+    .preset-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+      gap: 6px;
+      margin-bottom: 8px
+    }
+
+    .preset-btn {
+      border-radius: var(--radius-sm);
+      padding: 6px;
+      border: 1.5px solid var(--border);
+      background: var(--bg);
+      cursor: pointer;
+      text-align: center;
+      transition: all .15s;
+      font-size: 11px;
+      color: var(--text3)
+    }
+
+    .preset-btn:hover {
+      border-color: var(--pink);
+      background: var(--pink-l);
+      color: var(--pink-d)
+    }
+
+    .preset-mb {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 2px;
+      margin-bottom: 4px
+    }
+
+    .pm-led {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #e2e8f0
+    }
+
+    .pm-led.on {
+      background: currentColor
+    }
+
+    .led-binary-out {
+      margin-top: 12px;
+      background: var(--navy);
+      border-radius: var(--radius-sm);
+      padding: 10px 12px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      color: rgba(255, 255, 255, .7);
+      line-height: 1.9
+    }
+
+    .led-code-out {
+      margin-top: 8px;
+      background: #0d1117;
+      border-radius: var(--radius-sm);
+      padding: 10px 12px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      color: #e6edf3;
+      line-height: 1.9
+    }
+
+    .btn-small {
+      background: var(--pink);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: 'Noto Sans KR', sans-serif;
+      margin-right: 6px;
+      transition: background .2s
+    }
+
+    .btn-small:hover {
+      background: var(--pink-d)
+    }
+
+    .btn-small-outline {
+      background: var(--bg);
+      color: var(--pink-d);
+      border: 1.5px solid var(--pink);
+      border-radius: 6px;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: 'Noto Sans KR', sans-serif;
+      transition: all .2s
+    }
+
+    .btn-small-outline:hover {
+      background: var(--pink-l)
+    }
+
+    /* ═══════════════════════════════
+   §8 BLOCK CODING
+═══════════════════════════════ */
+    .code-viewer {
+      background: #0d1117;
+      border-radius: var(--radius);
+      overflow: hidden
+    }
+
+    .cv-tabs {
+      display: flex;
+      background: #161b22;
+      border-bottom: 1px solid rgba(255, 255, 255, .06)
+    }
+
+    .cv-tab {
+      padding: 10px 18px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      color: rgba(255, 255, 255, .4);
+      border: none;
+      background: none;
+      transition: all .2s;
+      font-family: 'IBM Plex Mono', monospace
+    }
+
+    .cv-tab.active {
+      color: #f9a8d4;
+      border-bottom: 2px solid #f9a8d4
+    }
+
+    .cv-panel {
+      display: none;
+      padding: 20px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 12px;
+      color: #e6edf3;
+      line-height: 2;
+      overflow-x: auto
+    }
+
+    .cv-panel.active {
+      display: block;
+      animation: fadeUp .2s ease
+    }
+
+    .pk {
+      color: #ff7b72
+    }
+
+    .pf {
+      color: #d2a8ff
+    }
+
+    .ps {
+      color: #a5d6ff
+    }
+
+    .pc {
+      color: #8b949e
+    }
+
+    .pn {
+      color: #79c0ff
+    }
+
+    .pv {
+      color: #ffa657
+    }
+
+    .po {
+      color: #ff9f0a
+    }
+
+    /* block styling */
+    .blk-row {
+      margin-bottom: 3px
+    }
+
+    .blk {
+      display: inline-block;
+      border-radius: 5px;
+      padding: 7px 11px;
+      font-size: 12px;
+      font-weight: 600;
+      color: white;
+      font-family: 'Noto Sans KR', sans-serif
+    }
+
+    .blk-ind {
+      padding-left: 22px
+    }
+
+    .blk-ind2 {
+      padding-left: 44px
+    }
+
+    /* ═══════════════════════════════
+   §9 EXTENSIONS
+═══════════════════════════════ */
+    .ext-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      gap: 12px
+    }
+
+    .ext-card {
+      border-radius: var(--radius-sm);
+      border: 1.5px solid var(--border);
+      background: white;
+      padding: 16px;
+      cursor: pointer;
+      transition: all .2s;
+      border-top: 3px solid var(--ec)
+    }
+
+    .ext-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow)
+    }
+
+    .ext-card.open {
+      box-shadow: 0 0 0 2px var(--ec)
+    }
+
+    .ec-icon {
+      font-size: 26px;
+      margin-bottom: 8px;
+      display: block
+    }
+
+    .ec-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 3px
+    }
+
+    .ec-tag {
+      font-size: 10px;
+      padding: 2px 7px;
+      border-radius: 10px;
+      font-weight: 600;
+      display: inline-block;
+      margin-bottom: 5px
+    }
+
+    .ec-brief {
+      font-size: 12px;
+      color: var(--text3);
+      line-height: 1.5
+    }
+
+    .ec-detail {
+      display: none;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid var(--border);
+      font-size: 13px;
+      color: var(--text2);
+      line-height: 1.6
+    }
+
+    .ext-card.open .ec-detail {
+      display: block;
+      animation: fadeUp .2s ease
+    }
+
+    .ec-code {
+      margin-top: 8px;
+      background: var(--navy);
+      border-radius: var(--radius-sm);
+      padding: 10px 12px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      color: #f9a8d4;
+      line-height: 1.9;
+      white-space: pre-wrap
+    }
+
+    /* QUIZ */
+    .quiz-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden
+    }
+
+    .quiz-header {
+      background: var(--navy);
+      color: white;
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between
+    }
+
+    .quiz-header h3 {
+      font-size: 15px;
+      font-weight: 700
+    }
+
+    .quiz-body {
+      padding: 22px
+    }
+
+    .quiz-q {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      line-height: 1.55
+    }
+
+    .quiz-options {
+      display: flex;
+      flex-direction: column;
+      gap: 7px
+    }
+
+    .quiz-opt {
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 11px 16px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: all .15s;
+      background: var(--bg);
+      display: flex;
+      align-items: center;
+      gap: 10px
+    }
+
+    .quiz-opt:hover:not(.disabled) {
+      border-color: var(--pink);
+      background: var(--pink-l)
+    }
+
+    .quiz-opt.correct {
+      border-color: var(--green);
+      background: var(--green-l);
+      color: #065f46
+    }
+
+    .quiz-opt.wrong {
+      border-color: var(--red);
+      background: var(--red-l);
+      color: #991b1b
+    }
+
+    .quiz-opt.disabled {
+      cursor: default
+    }
+
+    .opt-num {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--border);
+      color: var(--text3);
+      font-size: 12px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0
+    }
+
+    .quiz-opt.correct .opt-num {
+      background: var(--green);
+      color: white
+    }
+
+    .quiz-opt.wrong .opt-num {
+      background: var(--red);
+      color: white
+    }
+
+    .quiz-feedback {
+      margin-top: 12px;
+      padding: 12px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      display: none
+    }
+
+    .quiz-feedback.show {
+      display: block;
+      animation: fadeUp .2s ease
+    }
+
+    .quiz-feedback.ok {
+      background: var(--green-l);
+      color: #065f46;
+      border-left: 3px solid var(--green)
+    }
+
+    .quiz-feedback.ng {
+      background: var(--red-l);
+      color: #991b1b;
+      border-left: 3px solid var(--red)
+    }
+
+    .quiz-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 16px
+    }
+
+    .btn-qnext {
+      background: var(--pink);
+      color: white;
+      border: none;
+      border-radius: var(--radius-sm);
+      padding: 10px 22px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      font-family: 'Noto Sans KR', sans-serif;
+      display: none
+    }
+
+    .btn-qnext.show {
+      display: block
+    }
+
+    /* SUMMARY */
+    .summary-box {
+      background: var(--navy);
+      border-radius: var(--radius);
+      padding: 26px
+    }
+
+    .summary-box h3 {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, .1);
+      color: #f9a8d4
+    }
+
+    .kw-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(195px, 1fr));
+      gap: 10px
+    }
+
+    .kw-item {
+      background: rgba(255, 255, 255, .05);
+      border: 1px solid rgba(255, 255, 255, .08);
+      border-radius: var(--radius-sm);
+      padding: 12px 14px
+    }
+
+    .kw-term {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 12px;
+      font-weight: 600;
+      color: #f9a8d4;
+      margin-bottom: 4px
+    }
+
+    .kw-def {
+      font-size: 12px;
+      color: rgba(255, 255, 255, .6);
+      line-height: 1.5
+    }
+
+    @media(max-width:600px) {
+
+      .hero-inner,
+      .main {
+        padding-left: 16px;
+        padding-right: 16px
+      }
+
+      .ss-vol-val {
+        font-size: 20px
+      }
+
+      .kw-grid {
+        grid-template-columns: 1fr
+      }
+
+      .led-cell {
+        width: 28px;
+        height: 28px
+      }
+    }
+  </style>
 </head>
+
 <body>
-<div class="header">
-  <a href="index.html" class="back">← 목록으로</a>
-  <div style="flex:1"></div>
-  <h1>🎵 소리 반응 애니메이션</h1>
-</div>
-<div class="content">
-  <div class="panel-left">
-    <div style="display:inline-block;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:700;background:var(--ult);color:var(--u);margin-bottom:12px;">소리 센서 및 음악 활용</div>
-    <h2 style="font-size:20px;margin-top:0;margin-bottom:12px;font-weight:700;">미션: 박수 소리 애니메이션</h2>
-    <p style="font-size:13px;color:var(--mt);line-height:1.6;margin-bottom:24px;">박수 소리 등 큰 소리가 나면 마이크로비트가 신나게 춤을 추며 멜로디를 재생하는 장치입니다.</p>
-    
-    <div class="step">
-      <div class="step-num">1</div>
-      <h3>소리 감지하기</h3>
-      <p>입력 카테고리의 <code>'큰 소리 감지하면 실행'</code> 이벤트 블록을 사용합니다. 큰 소리가 났을 때 장치가 작동 중인지 기억하기 위해 <code>작동시작</code> 변수를 1로 설정하세요.</p>
-    </div>
-    
-    <div class="step">
-      <div class="step-num">2</div>
-      <h3>무한 반복 애니메이션</h3>
-      <p>기본 탭의 <code>무한반복</code> 블록 안에서 조건을 검사합니다. <code>작동시작</code> 변수가 1일 때만 재미있는 LED 애니메이션을 만들고, 멜로디를 재생시킵니다.</p>
-    </div>
-    
-    <div class="step">
-      <div class="step-num">3</div>
-      <h3>완료 후 대기 상태로</h3>
-      <p>애니메이션 재생이 한 번 완료되면, 다시 <code>작동시작</code> 변수를 0으로 되돌리고 화면을 비워 다음 박수 소리를 기다리게 만드세요.</p>
-    </div>
-    
-    <div style="margin-top:30px;padding:16px;background:#FDEAF4;border-radius:10px;border:1px solid #F8B4D9;font-size:12px;color:#A0005D;line-height:1.6;">
-      <strong>💡 힌트:</strong> 무한 반복 블록을 이용하면 작동 상태(1일 때)에만 특정 동작을 계속하거나 한 번만 동작하게 세밀하게 설계할 수 있죠. 멜로디 재생 블록을 애니메이션 블록 사이에 넣는 것도 좋습니다!
+  <div id="__topnav__"
+    style="position:sticky;top:0;z-index:9999;background:#0f1b2d;border-bottom:2px solid #84cc16;font-family:'Noto Sans KR',sans-serif">
+    <div style="max-width:1200px;margin:0 auto;padding:0 20px;display:flex;align-items:center;gap:12px;height:48px">
+      <a href="../../index.html"
+        style="display:flex;align-items:center;gap:6px;font-size:11px;color:#84cc16;text-decoration:none;font-weight:700;letter-spacing:.06em;white-space:nowrap;opacity:.9;transition:opacity .15s"
+        onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.9">
+        ← 단원 목차
+      </a>
+      <span style="color:#243d5e;font-size:14px">|</span>
+      <a href="index.html"
+        style="display:flex;align-items:center;gap:6px;font-size:11px;color:#7dd3fc;text-decoration:none;font-weight:600;white-space:nowrap;opacity:.9;transition:opacity .15s"
+        onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.9">
+        ↑ 피지컬 컴퓨팅
+      </a>
+      <span style="color:#243d5e;font-size:14px">|</span>
+      <span
+        style="font-size:10px;color:#84cc16;font-weight:700;font-family:'IBM Plex Mono',monospace;flex-shrink:0">Ⅰ-2-03</span>
+      <span
+        style="font-size:12px;color:#e2e8f0;font-weight:500;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">🎵
+        소리 반응 애니메이션 장치 만들기</span>
+      <div style="display:flex;gap:6px;margin-left:auto;flex-shrink:0">
+        <a href="sleep-temp.html"
+          style="font-size:11px;padding:4px 10px;background:#243d5e;color:#84cc16;border-radius:6px;text-decoration:none;font-weight:600;transition:background .15s"
+          onmouseover="this.style.background='#2d4a6e'" onmouseout="this.style.background='#243d5e'">← Ⅰ-2-02</a>
+        <a href="telepathy-game.html"
+          style="font-size:11px;padding:4px 10px;background:#243d5e;color:#84cc16;border-radius:6px;text-decoration:none;font-weight:600;transition:background .15s"
+          onmouseover="this.style.background='#2d4a6e'" onmouseout="this.style.background='#243d5e'">Ⅰ-2-04 →</a>
+      </div>
     </div>
   </div>
-  <div class="panel-right">
-    <iframe src="https://makecode.microbit.org/---editor?nested=1"></iframe>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-grid"></div>
+    <div class="hero-glow"></div>
+    <div class="hero-wave"><canvas id="hero-wave-canvas"></canvas></div>
+    <div class="hero-inner">
+      <div class="breadcrumb">정보 <span>›</span> <span>Ⅰ. 컴퓨팅 시스템</span> <span>›</span> <span>2. 피지컬 컴퓨팅 프로그래밍</span>
+      </div>
+      <div class="unit-badge">UNIT Ⅰ — 2-03</div>
+      <h1>🎤 <em>소리 반응 애니메이션 장치</em> 만들기</h1>
+      <p class="hero-desc">소리의 크기를 감지하여 마이크로비트 LED 매트릭스에 다양한 애니메이션을 표시합니다. 소리가 클수록 더 화려한 패턴이 나타나는 피지컬 컴퓨팅 장치를 설계하고
+        프로그래밍해봅시다.</p>
+      <div class="meta-chips">
+        <div class="chip">
+          <div class="dot"></div>2차시 · 90분
+        </div>
+        <div class="chip">
+          <div class="dot"></div>교과서 28~32쪽
+        </div>
+        <div class="chip">
+          <div class="dot"></div>마이크로비트 v2 권장
+        </div>
+      </div>
+    </div>
   </div>
-</div>
+
+  <!-- STICKY NAV -->
+  <nav class="sticky-nav">
+    <div class="nav-inner">
+      <button class="nav-btn active" onclick="openSec(0)">01 학습 목표</button>
+      <button class="nav-btn" onclick="openSec(1)">02 소리와 디지털</button>
+      <button class="nav-btn" onclick="openSec(2)">03 문제 분석</button>
+      <button class="nav-btn" onclick="openSec(3)">04 마이크 센서</button>
+      <button class="nav-btn" onclick="openSec(4)">05 시스템 설계</button>
+      <button class="nav-btn" onclick="openSec(5)">06 알고리즘</button>
+      <button class="nav-btn" onclick="openSec(6)">07 소리 반응 시뮬레이터</button>
+      <button class="nav-btn" onclick="openSec(7)">08 LED 패턴 편집기</button>
+      <button class="nav-btn" onclick="openSec(8)">09 코딩</button>
+      <button class="nav-btn" onclick="openSec(9)">10 확장 프로젝트</button>
+      <button class="nav-btn" onclick="openSec(10)">11 확인 문제</button>
+      <button class="nav-btn" onclick="openSec(11)">12 핵심 정리</button>
+    </div>
+  </nav>
+
+  <div class="main">
+
+    <!-- §0 학습 목표 -->
+    <div class="acc-section" id="sec-0">
+      <div class="acc-header open" id="hdr-0" onclick="toggleSec(0)">
+        <div class="acc-num" style="background:#ec4899">01</div>
+        <div class="acc-text">
+          <div class="acc-title">학습 목표</div>
+          <div class="acc-sub">2차시 · 이 소단원을 마치면 할 수 있어요</div>
+        </div>
+        <span class="acc-arrow">▶</span>
+      </div>
+      <div class="acc-body open" id="body-0">
+        <div class="obj-box">
+          <div class="achievement-tag">[9정01-04] 2022 개정 성취기준</div>
+          <ul class="obj-list">
+            <li><strong>소리의 물리적 성질</strong>(진폭·주파수)과 마이크 센서의 동작 원리(음압 → 전기 신호 → ADC 변환)를 설명할 수 있다.</li>
+            <li>소리 크기에 따라 서로 다른 LED 애니메이션이 실행되는 <strong>다중 조건 알고리즘</strong>을 설계하고, 이전 단원의 if~elif~else와 비교·설명할 수 있다.
+            </li>
+            <li>마이크로비트 내장 마이크(v2)를 활용해 소리 입력을 읽고, <strong>LED 매트릭스에 맞춤형 패턴</strong>을 표시하는 프로그램을 작성할 수 있다.</li>
+            <li><strong>Image 객체</strong>와 <strong>display.show()</strong>를 사용해 5×5 LED 패턴을 직접 설계하고 애니메이션 효과를 구현할 수 있다.
+            </li>
+          </ul>
+        </div>
+        <div class="three-col" style="margin-top:14px">
+          <div class="info-card" style="border-top:3px solid var(--pink)">
+            <h4><span>🔗</span>이전 단원과의 연계</h4>
+            <p>운동 카운터(단순 if)·온도 알림(if~elif~else)에 이어 이번 단원은 소리 레벨에 따른 <strong>다단계 조건 + LED 커스텀 패턴</strong>을 구현합니다.</p>
+          </div>
+          <div class="info-card" style="border-top:3px solid var(--fuchsia)">
+            <h4><span>🆕</span>이번 단원의 핵심 개념</h4>
+            <p>소리(아날로그) → ADC → 정수값 / <strong>Image 객체</strong>로 LED 패턴 설계 / display.show() vs display.scroll() 차이 / 조건별
+              애니메이션 분기</p>
+          </div>
+          <div class="info-card" style="border-top:3px solid var(--violet)">
+            <h4><span>🎨</span>창작 활동 포함</h4>
+            <p>LED 패턴 편집기로 나만의 아이콘을 직접 그리고 MicroPython 코드로 변환하는 <strong>창의적 설계 활동</strong>이 포함됩니다.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- §1 소리와 디지털 -->
+    <div class="acc-section" id="sec-1">
+      <div class="acc-header" id="hdr-1" onclick="toggleSec(1)">
+        <div class="acc-num" style="background:#ec4899">02</div>
+        <div class="acc-text">
+          <div class="acc-title">소리의 물리적 성질과 디지털 변환</div>
+          <div class="acc-sub">소리 파형 시각화 + 진폭·주파수·dB 개념 탐구</div>
+        </div>
+        <span class="acc-arrow">▶</span>
+      </div>
+      <div class="acc-body" id="body-1">
+        <div class="sound-intro-banner">
+          <div class="dp-title">▸ 소리 파형 시각화 — 버튼을 눌러 다른 소리를 비교하세요</div>
+          <div class="wave-canvas-box">
+            <canvas class="wave-c" id="sound-wave-canvas" height="100"></canvas>
+          </div>
+          <div class="wave-controls">
+            <button class="btn-wave active" onclick="setWaveMode('quiet',this)">🤫 조용한 속삭임</button>
+            <button class="btn-wave" onclick="setWaveMode('normal',this)">🗣 보통 대화</button>
+            <button class="btn-wave" onclick="setWaveMode('loud',this)">📢 큰 박수</button>
+            <button class="btn-wave" onclick="setWaveMode('noise',this)">🎸 소음 (불규칙)</button>
+          </div>
+          <div class="sound-facts-grid" id="sound-facts-grid" style="margin-top:14px"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- §2 문제 분석 -->
+    <div class="acc-section" id="sec-2">
+      <div class="acc-header" id="hdr-2" onclick="toggleSec(2)">
+        <div class="acc-num" style="background:#ec4899">03</div>
+        <div class="acc-text">
+          <div class="acc-title">문제 분석 — 무엇을 만들고 어떻게 동작해야 하나?</div>
+          <div class="acc-sub">4단계 문제 분석 카드를 클릭해 확인하세요</div>
+        </div>
+        <span class="acc-arrow">▶</span>
+      </div>
+      <div class="acc-body" id="body-2">
+        <div class="prob-step-grid" id="prob-step-grid"></div>
+        <div class="dark-panel">
+          <div class="dp-title">▸ 소리 레벨별 기대 동작 (행동 명세표)</div>
+          <div style="overflow-x:auto">
+            <table style="width:100%;border-collapse:collapse;font-size:12px;color:rgba(255,255,255,.8)">
+              <thead>
+                <tr style="border-bottom:1px solid rgba(255,255,255,.1)">
+                  <th style="padding:10px 12px;text-align:left;color:rgba(255,255,255,.5)">소리 레벨</th>
+                  <th style="padding:10px 12px;text-align:center;color:rgba(255,255,255,.5)">측정값 범위</th>
+                  <th style="padding:10px 12px;text-align:center;color:rgba(255,255,255,.5)">LED 애니메이션</th>
+                  <th style="padding:10px 12px;text-align:center;color:rgba(255,255,255,.5)">갱신 속도</th>
+                </tr>
+              </thead>
+              <tbody id="level-table-body"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- §3 마이크 센서 -->
+    <div class="acc-section" id="sec-3">
+      <div class="acc-header" id="hdr-3" onclick="toggleSec(3)">
+        <div class="acc-num" style="background:#ec4899">04</div>
+        <div class="acc-text">
+          <div class="acc-title">마이크 센서 — 소리를 숫자로 바꾸는 원리</div>
+          <div class="acc-sub">마이크 구조 · 마이크로비트 v2 내장 마이크 · ADC 변환 과정</div>
+        </div>
+        <span class="acc-arrow">▶</span>
+      </div>
+      <div class="acc-body" id="body-3">
+        <div style="border:1px solid var(--border);border-radius:var(--radius);overflow:hidden">
+          <div class="sensor-tab-bar">
+            <button class="sensor-tab active" onclick="switchSensorTab('anatomy',this)">🔬 마이크 구조</button>
+            <button class="sensor-tab" onclick="switchSensorTab('types',this)">📊 마이크 종류 비교</button>
+            <button class="sensor-tab" onclick="switchSensorTab('adc',this)">🔢 ADC 변환 원리</button>
+          </div>
+          <div class="sensor-panel active" id="spanel-anatomy">
+            <div class="mic-anatomy">
+              <div class="dp-title">▸ 마이크 동작 원리 (콘덴서 마이크 기준)</div>
+              <p style="font-size:13px;color:rgba(255,255,255,.7);line-height:1.65">소리(공기 진동) → 진동판이 떨림 → 전기 신호 발생 →
+                마이크로비트 ADC가 0~1023 숫자로 변환</p>
+              <div class="ma-parts">
+                <div class="ma-part">
+                  <div class="map-num">① 음압</div>
+                  <div class="map-name">소리(공기 진동)</div>
+                  <div class="map-desc">소리는 공기가 압축·팽창하는 파동입니다. 소리가 클수록 압축의 강도(진폭)가 커집니다.</div>
+                </div>
+                <div class="ma-part">
+                  <div class="map-num">② 진동판</div>
+                  <div class="map-name">Diaphragm (막)</div>
+                  <div class="map-desc">아주 얇은 막이 소리 파동에 맞춰 앞뒤로 진동합니다. 소리가 클수록 더 많이 흔들립니다.</div>
+                </div>
+                <div class="ma-part">
+                  <div class="map-num">③ 전기 변환</div>
+                  <div class="map-name">정전 용량 변화</div>
+                  <div class="map-desc">진동판이 움직이면 두 전극 사이의 거리가 변해 전기 신호(전압)가 발생합니다.</div>
+                </div>
+                <div class="ma-part">
+                  <div class="map-num">④ ADC</div>
+                  <div class="map-name">아날로그→디지털</div>
+                  <div class="map-desc">마이크의 연속적 전압 신호를 마이크로비트가 읽을 수 있는 0~1023 정수로 변환합니다.</div>
+                </div>
+              </div>
+            </div>
+            <div class="two-col">
+              <div class="info-card" style="border-top:3px solid var(--pink)">
+                <h4><span>💙</span>마이크로비트 v2 내장 마이크</h4>
+                <p>BBC 마이크로비트 v2(2020년 이후)에는 <strong>MEMS 마이크</strong>가 내장되어 있습니다. <code
+                    style="background:var(--pink-l);color:var(--pink-d);padding:1px 5px;border-radius:3px">microphone.sound_level()</code>
+                  함수로 소리 크기를 0~255 범위로 즉시 읽을 수 있습니다.</p>
+              </div>
+              <div class="info-card" style="border-top:3px solid var(--fuchsia)">
+                <h4><span>🎤</span>v1에서의 대안</h4>
+                <p>마이크로비트 v1에는 마이크가 없습니다. 외부 <strong>소리 감지 모듈</strong>(KY-037 등)을 P0 아날로그 핀에 연결하면 동일하게 사용할 수 있습니다. <code
+                    style="background:var(--fuchsia-l);color:var(--fuchsia-d);padding:1px 5px;border-radius:3px">pin0.read_analog()</code>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="sensor-panel" id="spanel-types">
+            <div class="sensor-compare" id="sensor-compare-grid"></div>
+            <div class="sc-verdict" id="sc-verdict"></div>
+          </div>
+          <div class="sensor-panel" id="spanel-adc">
+            <p style="font-size:13px;color:var(--text2);margin-bottom:14px;line-height:1.65">소리는 연속적인 아날로그 파동입니다.
+              마이크로비트는 ADC(아날로그-디지털 변환)를 통해 이를 정수값으로 바꿉니다.</p>
+            <div class="dark-panel" style="margin-bottom:14px">
+              <div class="dp-title">▸ ADC 변환 흐름 — 클릭해 각 단계를 확인하세요</div>
+              <div class="adc-flow" id="adc-flow"></div>
+            </div>
+            <div class="two-col">
+              <div class="info-card" style="border-top:3px solid var(--amber)">
+                <h4><span>📊</span>마이크로비트 소리 측정값 범위</h4>
+                <p>microphone.sound_level() 반환값: <strong>0~255</strong><br>pin0.read_analog() (외부 마이크):
+                  <strong>0~1023</strong><br>조용한 환경: 약 0~50 / 보통 대화: 약 50~150 / 큰 소리: 150~255</p>
+              </div>
+              <div class="info-card" style="border-top:3px solid var(--green)">
+                <h4><span>⏱</span>샘플링 속도</h4>
+                <p>마이크로비트는 초당 수백~수천 번 소리를 측정합니다. 반응 속도가 빠를수록 순간적인 박수·손뼉 소리를 정확하게 감지할 수 있습니다.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- §4 시스템 설계 -->
+    <div class="acc-section" id="sec-4">
+      <div class="acc-header" id="hdr-4" onclick="toggleSec(4)">
+        <div class="acc-num" style="background:#ec4899">05</div>
+        <div class="acc-text">
+          <div class="acc-title">시스템 구성 설계</div>
+          <div class="acc-sub">블록을 클릭해 각 구성 요소의 세부 역할을 확인하세요</div>
+        </div>
+        <span class="acc-arrow">▶</span>
+      </div>
+      <div class="acc-body" id="body-4">
+        <div class="dark-panel">
+          <div class="dp-title">▸ 소리 반응 애니메이션 장치 구성도</div>
+          <div class="sys-flow" id="sys-flow"></div>
+          <div class="sys-det" id="sys-det"></div>
+          <div
+            style="margin-top:16px;background:rgba(255,255,255,.04);border-radius:var(--radius-sm);padding:14px;font-size:12px;color:rgba(255,255,255,.6);line-height:1.8">
+            <strong style="color:#f9a8d4">💡 이번 단원의 출력이 이전 단원과 다른 점:</strong><br>
+            운동 카운터 → 숫자(count) 표시 / 온도 알림 → 아이콘(♥ ❄ ☀) + 부저 / <strong>소리 반응</strong> → <strong>커스텀 Image 패턴 + 애니메이션
+              반복</strong><br>
+            소리 크기가 변할 때마다 다른 패턴이 실시간으로 표시되는 연속적 반응 시스템입니다.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- §5 알고리즘 -->
+    <div class="acc-section" id="sec-5">
+      <div class="acc-header" id="hdr-5" onclick="toggleSec(5)">
+        <div class="acc-num" style="background:#ec4899">06</div>
+        <div class="acc-text">
+          <div class="acc-title">알고리즘 설계 — 소리 레벨별 분기 처리</div>
+          <div class="acc-sub">순서도 노드를 클릭해 각 단계의 상세 설명을 확인하세요</div>
+        </div>
+        <span class="acc-arrow">▶</span>
+      </div>
+      <div class="acc-body" id="body-5">
+        <div
+          style="background:var(--pink-l);border:1px solid #fbcfe8;border-radius:var(--radius-sm);padding:12px 15px;margin-bottom:14px;font-size:13px;color:var(--pink-d)">
+          💡 <strong>이번 단원의 알고리즘 특징:</strong> 이전 단원의 조건(if~elif~else)과 동일한 구조를 사용하지만, 소리는 <strong>빠르게 변하는 연속값</strong>이라
+          30초 대기 없이 매우 짧은 간격으로 반복 측정합니다.
+        </div>
+        <div class="algo-panel">
+          <div class="dp-title">▸ 소리 반응 애니메이션 알고리즘</div>
+          <div class="algo-legend">
+            <div class="al-dot">
+              <div class="al-sq" style="background:#334155;border-radius:8px"></div>시작/끝
+            </div>
+            <div class="al-dot">
+              <div class="al-sq" style="background:rgba(14,165,233,.4);border:1px solid rgba(14,165,233,.6)"></div>처리
+            </div>
+            <div class="al-dot">
+              <div class="al-sq" style="background:rgba(236,72,153,.3);border:1px solid rgba(236,72,153,.6)"></div>조건
+            </div>
+            <div class="al-dot">
+              <div class="al-sq" style="background:rgba(16,185,129,.25);border:1px solid rgba(16,185,129,.5)"></div>입출력
+            </div>
+          </div>
+          <div class="fc-col" id="algo-col"></div>
+          <div class="fc-ndesc" id="fc-ndesc"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- §6 소리 반응 시뮬레이터 -->
+    <div class="acc-section" id="sec-6">
+      <div class="acc-header" id="hdr-6" onclick="toggleSec(6)">
+        <div class="acc-num" style="background:#ec4899">07</div>
+        <div class="acc-text">
+          <div class="acc-title">🎤 소리 반응 애니메이션 시뮬레이터</div>
+          <div class="acc-sub">버튼을 눌러 소리 크기를 만들어보고 LED 패턴이 바뀌는 것을 확인하세요!</div>
+        </div>
+        <span class="acc-arrow">▶</span>
+      </div>
+      <div class="acc-body" id="body-6">
+        <div class="sound-sim">
+          <!-- Volume panel -->
+          <div class="ss-vol-panel">
+            <div class="dp-title">▸ 현재 소리 크기 (Sound Level)</div>
+            <div class="ss-vol-bar-wrap">
+              <div class="ss-vol-fill" id="ss-vol-fill"></div>
+              <div class="ss-vol-markers">
+                <span>0</span><span>조용</span><span>64</span><span>보통</span><span>128</span><span>큰소리</span><span>200</span><span>매우
+                  큰</span><span>255</span>
+              </div>
+            </div>
+            <div style="text-align:center;margin-top:4px">
+              <span class="ss-vol-val" id="ss-vol-val">0</span>
+              <span class="ss-vol-unit"> / 255</span>
+              <br>
+              <span class="ss-state-badge" id="ss-state-badge"
+                style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.5)">🔇 무음</span>
+            </div>
+          </div>
+
+          <!-- Stage: LED + info -->
+          <div class="ss-stage">
+            <div class="ss-mb-wrap">
+              <div
+                style="font-size:11px;color:rgba(255,255,255,.4);font-family:'IBM Plex Mono',monospace;text-align:center;margin-bottom:6px">
+                마이크로비트 LED</div>
+              <div class="ss-mb" id="ss-mb" onclick="triggerSound('clap')" title="클릭 = 박수">
+                <div class="ss-mb-grid" id="ss-mb-grid"></div>
+              </div>
+              <div style="font-size:10px;color:rgba(255,255,255,.3);text-align:center;margin-top:6px">클릭 = 박수</div>
+            </div>
+            <div class="ss-info">
+              <div class="ss-anim-name" id="ss-anim-name">🔇 대기 중</div>
+              <div class="ss-anim-desc" id="ss-anim-desc">소리가 없으면 LED가 꺼져 있습니다. 버튼을 눌러 소리를 만들어보세요!</div>
+              <div style="margin-top:14px">
+                <div class="ss-sound-level-label">소리 레벨 기준표</div>
+                <div class="ss-level-bars" id="ss-level-bars"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Controls -->
+          <div class="ss-controls">
+            <div class="ss-input-row">
+              <button class="btn-whisper" onclick="triggerSound('quiet')">🤫 속삭임 (조용)</button>
+              <button class="btn-clap" onclick="triggerSound('clap')">👏 박수! (보통)</button>
+              <button class="btn-noise" onclick="triggerSound('loud')">📢 큰 소리!</button>
+              <button class="btn-noise"
+                style="background:rgba(220,38,166,.25);border-color:rgba(220,38,166,.5);color:#f0abfc"
+                onclick="triggerSound('max')">🎸 매우 큰 소리!</button>
+            </div>
+            <!-- Thresholds -->
+            <div class="ss-thr-wrap">
+              <div class="ss-thr-label">임계값 조절 — 소리 구간 경계를 직접 설정해보세요</div>
+              <div class="ss-thr-row">
+                <span style="font-size:12px;color:rgba(255,255,255,.5)">Lv1↔Lv2 경계</span>
+                <input class="ss-thr-slider" id="thr1-slider" type="range" min="10" max="100" value="30"
+                  oninput="updateThresholds()">
+                <span class="ss-thr-val" id="thr1-val">30</span>
+              </div>
+              <div class="ss-thr-row">
+                <span style="font-size:12px;color:rgba(255,255,255,.5)">Lv2↔Lv3 경계</span>
+                <input class="ss-thr-slider" id="thr2-slider" type="range" min="60" max="180" value="100"
+                  oninput="updateThresholds()">
+                <span class="ss-thr-val" id="thr2-val">100</span>
+              </div>
+              <div class="ss-thr-row">
+                <span style="font-size:12px;color:rgba(255,255,255,.5)">Lv3↔Lv4 경계</span>
+                <input class="ss-thr-slider" id="thr3-slider" type="range" min="130" max="240" value="180"
+                  oninput="updateThresholds()">
+                <span class="ss-thr-val" id="thr3-val">180</span>
+              </div>
+            </div>
+            <div
+              style="font-size:11px;color:rgba(255,255,255,.4);font-family:'IBM Plex Mono',monospace;margin-bottom:4px">
+              ▸ 시스템 로그</div>
+            <div class="ss-log" id="ss-log">[시스템] 소리 반응 애니메이션 장치 대기 중...</div>
+          </div>
+        </div>
+        <div class="two-col" style="margin-top:14px">
+          <div class="info-card" style="border-top:3px solid var(--pink)">
+            <h4><span>🎯</span>임계값 조정의 중요성</h4>
+            <p>사용 환경(조용한 교실 vs 시끄러운 복도)에 따라 기준 소음이 다릅니다. 임계값이 너무 낮으면 배경 소음에도 반응하고, 너무 높으면 실제 박수에도 반응하지 않습니다. 직접 조절해보세요!
+            </p>
+          </div>
+          <div class="info-card" style="border-top:3px solid var(--fuchsia)">
+            <h4><span>⏱</span>반응 속도의 비밀</h4>
+            <p>소리는 순간적으로 변합니다. 박수는 약 50~100ms 동안만 큰 소리가 납니다. sleep() 대기 시간이 너무 길면 박수를 놓칩니다. 이번 단원에서는 sleep(50) — 50ms
+              간격을 권장합니다.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- §7 LED 패턴 편집기 -->
+    <div class="acc-section" id="sec-7">
+      <div class="acc-header" id="hdr-7" onclick="toggleSec(7)">
+        <div class="acc-num" style="background:#7c3aed">08</div>
+        <div class="acc-text">
+          <div class="acc-title">🎨 나만의 LED 패턴 편집기</div>
+          <div class="acc-sub">5×5 LED 그리드에 직접 그리고 MicroPython Image 코드로 변환해보세요</div>
+        </div>
+        <span class="acc-arrow">▶</span>
+      </div>
+      <div class="acc-body" id="body-7">
+        <div class="led-editor">
+          <div class="led-editor-header">
+            <h3>🎨 LED 패턴 디자이너 — 셀을 클릭해 ON/OFF, 색상 선택 후 그려보세요</h3>
+            <span style="font-size:12px;color:rgba(255,255,255,.5)">5×5 = 25픽셀</span>
+          </div>
+          <div class="led-editor-body">
+            <!-- Grid -->
+            <div class="led-canvas-wrap">
+              <h4>편집 캔버스</h4>
+              <div class="led-grid-editor" id="led-grid-editor"></div>
+              <div style="margin-top:10px;display:flex;gap:6px;flex-wrap:wrap">
+                <button class="btn-small" onclick="clearLED()">🗑 지우기</button>
+                <button class="btn-small" onclick="invertLED()">◑ 반전</button>
+                <button class="btn-small-outline" onclick="generateLEDCode()">💻 코드 변환</button>
+              </div>
+            </div>
+            <!-- Controls -->
+            <div class="led-editor-controls">
+              <div class="lec-label">LED 색상 선택 (밝기 표현)</div>
+              <div class="color-palette" id="color-palette"></div>
+              <div class="lec-label" style="margin-top:14px">프리셋 패턴 불러오기</div>
+              <div class="preset-grid" id="preset-grid"></div>
+              <div class="lec-label">이진수 표현</div>
+              <div class="led-binary-out" id="led-binary-out">패턴을 그리면 이진수가 표시됩니다.</div>
+              <div class="lec-label">MicroPython Image 코드</div>
+              <div class="led-code-out" id="led-code-out">위 "💻 코드 변환" 버튼을 클릭하세요.</div>
+            </div>
+          </div>
+        </div>
+        <div class="info-card" style="border-top:3px solid var(--pink);margin-top:12px">
+          <h4><span>📖</span>MicroPython Image 객체 사용법</h4>
+          <p>LED 패턴은 9자리 밝기(0~9)로 표현합니다. <code
+              style="background:var(--pink-l);color:var(--pink-d);padding:1px 5px;border-radius:3px">Image('09090:90909:09090:90909:09090')</code>
+            형식으로 5행 5열을 콜론(:)으로 구분합니다. 0=꺼짐, 9=최대 밝기.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- §8 코딩 -->
+    <div class="acc-section" id="sec-8">
+      <div class="acc-header" id="hdr-8" onclick="toggleSec(8)">
+        <div class="acc-num" style="background:#7c3aed">09</div>
+        <div class="acc-text">
+          <div class="acc-title">코딩 구현 — 블록 코딩 & MicroPython</div>
+          <div class="acc-sub">탭으로 블록 코딩 시각화 / Python 전체 코드 / 3단원 코드 비교 확인</div>
+        </div>
+        <span class="acc-arrow">▶</span>
+      </div>
+      <div class="acc-body" id="body-8">
+        <div class="code-viewer">
+          <div class="cv-tabs">
+            <button class="cv-tab active" onclick="switchCvTab('block',this)">🧩 블록 코딩</button>
+            <button class="cv-tab" onclick="switchCvTab('python',this)">🐍 MicroPython</button>
+            <button class="cv-tab" onclick="switchCvTab('compare',this)">📊 3단원 비교</button>
+          </div>
+          <div class="cv-panel active" id="cvpanel-block" style="padding:0">
+            <div style="padding:16px" id="block-code-view"></div>
+          </div>
+          <div class="cv-panel" id="cvpanel-python" id="python-code-view"></div>
+          <div class="cv-panel" id="cvpanel-compare">
+            <div style="color:rgba(255,255,255,.8)">
+              <div style="font-size:14px;font-weight:700;color:#f9a8d4;margin-bottom:16px">📊 피지컬 컴퓨팅 프로그래밍 3단원 코드 비교
+              </div>
+              <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
+                <div>
+                  <div style="font-size:11px;color:rgba(255,255,255,.45);margin-bottom:6px">Ⅰ-2-01 운동 카운터</div>
+                  <div
+                    style="background:#0a0a1a;border-radius:var(--radius-sm);padding:12px;font-family:'IBM Plex Mono',monospace;font-size:11px;line-height:1.9">
+                    <span class="pc">accel = strength()</span>
+                    <span class="pk">if</span> accel > <span class="pn">700</span>:
+                    count += <span class="pn">1</span>
+                    display.<span class="pf">show</span>(count)
+                    <span class="pc"># 단순 if 1개</span>
+                  </div>
+                </div>
+                <div>
+                  <div style="font-size:11px;color:rgba(255,255,255,.45);margin-bottom:6px">Ⅰ-2-02 온도 알림</div>
+                  <div
+                    style="background:#0a0a1a;border-radius:var(--radius-sm);padding:12px;font-family:'IBM Plex Mono',monospace;font-size:11px;line-height:1.9">
+                    <span class="pk">if</span> temp < <span class="pn">18</span>:
+                      display.<span class="pf">show</span>(Image.DIAMOND)
+                      <span class="pk">elif</span> temp <= <span class="pn">22</span>:
+                        display.<span class="pf">show</span>(Image.HEART)
+                        <span class="pk">else</span>:
+                        display.<span class="pf">show</span>(Image.CHESSBOARD)
+                  </div>
+                </div>
+                <div>
+                  <div style="font-size:11px;color:rgba(255,255,255,.45);margin-bottom:6px">Ⅰ-2-03 소리 애니메이션</div>
+                  <div
+                    style="background:#0a0a1a;border-radius:var(--radius-sm);padding:12px;font-family:'IBM Plex Mono',monospace;font-size:11px;line-height:1.9">
+                    <span class="pk">if</span> snd < <span class="pn">30</span>:
+                      display.clear()
+                      <span class="pk">elif</span> snd < <span class="pn">100</span>:
+                        display.<span class="pf">show</span>(small)
+                        <span class="pk">elif</span> snd < <span class="pn">180</span>:
+                          display.<span class="pf">show</span>(medium)
+                          <span class="pk">else</span>:
+                          display.<span class="pf">show</span>(big)
+                  </div>
+                </div>
+              </div>
+              <div
+                style="margin-top:14px;background:rgba(236,72,153,.12);border-radius:var(--radius-sm);padding:14px;border-left:3px solid #f9a8d4;font-size:13px;line-height:1.7;color:rgba(255,255,255,.75)">
+                <strong style="color:#f9a8d4">🔑 핵심 발전 포인트:</strong> 단원이 진행될수록 조건 분기 수가 늘어나고(1→3→4), 출력이 단순 숫자에서 아이콘,
+                그리고 <strong>커스텀 Image 패턴</strong>으로 복잡해집니다. 세 단원 모두 "센서 읽기 → 조건 판단 → 출력"이라는 같은 구조를 사용합니다.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- §9 확장 프로젝트 -->
+    <div class="acc-section" id="sec-9">
+      <div class="acc-header" id="hdr-9" onclick="toggleSec(9)">
+        <div class="acc-num" style="background:#f59e0b">10</div>
+        <div class="acc-text">
+          <div class="acc-title">확장 프로젝트</div>
+          <div class="acc-sub">소리 반응 장치를 더 스마트하게 업그레이드하는 6가지 아이디어</div>
+        </div>
+        <span class="acc-arrow">▶</span>
+      </div>
+      <div class="acc-body" id="body-9">
+        <div class="ext-grid" id="ext-grid"></div>
+      </div>
+    </div>
+
+    <!-- §10 확인 문제 -->
+    <div class="acc-section" id="sec-10">
+      <div class="acc-header" id="hdr-10" onclick="toggleSec(10)">
+        <div class="acc-num" style="background:#ef4444">11</div>
+        <div class="acc-text">
+          <div class="acc-title">확인 문제</div>
+          <div class="acc-sub">학습한 내용을 점검해보세요 (5문항)</div>
+        </div>
+        <span class="acc-arrow">▶</span>
+      </div>
+      <div class="acc-body" id="body-10">
+        <div class="quiz-card">
+          <div class="quiz-header">
+            <h3 id="quiz-title">문제 1 / 5</h3>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:rgba(255,255,255,.6)">
+              <span id="qscore" style="color:#f9a8d4;font-weight:700">0</span> / <span id="qtotal">5</span> 정답
+            </div>
+          </div>
+          <div class="quiz-body">
+            <div class="quiz-q" id="quiz-q"></div>
+            <div class="quiz-options" id="quiz-opts"></div>
+            <div class="quiz-feedback" id="quiz-fb"></div>
+            <div class="quiz-nav">
+              <div style="font-size:12px;color:var(--text3)" id="quiz-hint"></div>
+              <button class="btn-qnext" id="quiz-next" onclick="nextQ()">다음 문제 →</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- §11 핵심 정리 -->
+    <div class="acc-section" id="sec-11">
+      <div class="acc-header" id="hdr-11" onclick="toggleSec(11)">
+        <div class="acc-num" style="background:#0f1b2d">12</div>
+        <div class="acc-text">
+          <div class="acc-title">핵심 콕콕 정리</div>
+          <div class="acc-sub">이 단원의 핵심 용어 10가지</div>
+        </div>
+        <span class="acc-arrow">▶</span>
+      </div>
+      <div class="acc-body" id="body-11">
+        <div class="summary-box">
+          <h3>핵심 용어 정리</h3>
+          <div class="kw-grid" id="kw-grid"></div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /main -->
+  <script>
+    /* ══ ACCORDION ══ */
+    const TOTAL = 12;
+    function toggleSec(i) { const h = document.getElementById('hdr-' + i), b = document.getElementById('body-' + i); const op = !b.classList.contains('open'); h.classList.toggle('open', op); b.classList.toggle('open', op); syncNav(); }
+    function openSec(i) { for (let j = 0; j < TOTAL; j++) { const op = j === i; document.getElementById('hdr-' + j).classList.toggle('open', op); document.getElementById('body-' + j).classList.toggle('open', op); } syncNav(); setTimeout(() => document.getElementById('sec-' + i)?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 60); }
+    function syncNav() { document.querySelectorAll('.nav-btn').forEach((b, i) => b.classList.toggle('active', document.getElementById('body-' + i)?.classList.contains('open') ?? false)); }
+
+    /* ══ HERO WAVE ══ */
+    (function () {
+      const c = document.getElementById('hero-wave-canvas'); if (!c) return;
+      const ctx = c.getContext('2d'); let t = 0;
+      function draw() {
+        c.width = c.offsetWidth; c.height = 60;
+        ctx.clearRect(0, 0, c.width, 60);
+        ctx.beginPath(); ctx.strokeStyle = 'rgba(236,72,153,.6)'; ctx.lineWidth = 2;
+        for (let x = 0; x < c.width; x++) { const y = 30 + Math.sin(x * .03 + t) * 18 + Math.sin(x * .07 + t * 1.3) * 8; x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y); }
+        ctx.stroke();
+        ctx.beginPath(); ctx.strokeStyle = 'rgba(217,70,239,.35)'; ctx.lineWidth = 1.5;
+        for (let x = 0; x < c.width; x++) { const y = 30 + Math.sin(x * .05 + t * .8) * 12 + Math.sin(x * .11 + t * 1.7) * 6; x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y); }
+        ctx.stroke();
+        t += 0.03; requestAnimationFrame(draw);
+      }
+      draw();
+    })();
+
+    /* ══ §1 SOUND WAVE ══ */
+    let waveMode = 'quiet', waveT = 0, waveAnim = null;
+    const WAVE_MODES = {
+      quiet: { amp: 8, freq: .04, noise: .3, color: '#a5b4fc', label: '속삭임' },
+      normal: { amp: 22, freq: .05, noise: 1.2, color: '#f9a8d4', label: '보통 대화' },
+      loud: { amp: 40, freq: .06, noise: 3, color: '#fb923c', label: '큰 박수' },
+      noise: { amp: 30, freq: .04, noise: 12, color: '#ef4444', label: '소음' }
+    };
+    function drawSoundWave() {
+      const canvas = document.getElementById('sound-wave-canvas'); if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      canvas.width = canvas.offsetWidth; canvas.height = 100;
+      ctx.clearRect(0, 0, canvas.width, 100);
+      const m = WAVE_MODES[waveMode];
+      ctx.beginPath(); ctx.strokeStyle = m.color; ctx.lineWidth = 2;
+      for (let x = 0; x < canvas.width; x++) {
+        const noise = (Math.random() - .5) * m.noise * 2;
+        const y = 50 - Math.sin(x * m.freq + waveT) * m.amp - Math.sin(x * m.freq * 2.3 + waveT * 1.4) * (m.amp * .4) + noise;
+        x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+      }
+      ctx.stroke();
+      ctx.fillStyle = 'rgba(255,255,255,.3)'; ctx.font = '10px IBM Plex Mono';
+      ctx.fillText(`${m.label} — 진폭: ${m.amp}  잡음: ${m.noise}`, 10, 14);
+      waveT += 0.04;
+      waveAnim = requestAnimationFrame(drawSoundWave);
+    }
+    function setWaveMode(mode, btn) {
+      waveMode = mode;
+      document.querySelectorAll('.btn-wave').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    }
+    drawSoundWave();
+    window.addEventListener('resize', () => { const c = document.getElementById('sound-wave-canvas'); if (c) c.width = c.offsetWidth; });
+
+    /* ══ §1 SOUND FACTS ══ */
+    const SOUND_FACTS = [
+      { icon: '〰️', title: '진폭 (Amplitude)', brief: '소리의 크기를 결정합니다', detail: '파형의 위아래 최대 높이. 진폭이 클수록 소리가 크고, 데시벨(dB) 수치가 높아집니다. 마이크가 감지하는 전기 신호의 크기도 진폭에 비례합니다.' },
+      { icon: '📻', title: '주파수 (Frequency)', brief: '소리의 높낮이를 결정합니다', detail: '1초에 파동이 몇 번 반복되는지 (단위: Hz). 높은 주파수=높은 음(소프라노), 낮은 주파수=낮은 음(베이스). 사람 가청 범위: 20Hz~20,000Hz.' },
+      { icon: '🔊', title: '데시벨 (dB)', brief: '소리 크기의 단위', detail: '조용한 도서관 ~30dB / 보통 대화 ~60dB / 지하철 ~80dB / 콘서트 ~110dB / 고통 역치 ~130dB. 10dB 증가 = 체감 소리 2배.' },
+      { icon: '🌊', title: '디지털 변환 (ADC)', brief: '연속 파형 → 이산 숫자', detail: '마이크의 연속적 전압(아날로그)을 일정 간격으로 측정(표본화)하고 0~255 또는 0~1023 범위의 정수(디지털)로 변환합니다. 이 값으로 소리 크기를 판단합니다.' },
+    ];
+    const sfg = document.getElementById('sound-facts-grid');
+    SOUND_FACTS.forEach(f => {
+      const d = document.createElement('div'); d.className = 'snd-fact';
+      d.innerHTML = `<span class="sfi-icon">${f.icon}</span><div class="sfi-title">${f.title}</div><div class="sfi-brief">${f.brief}</div><div class="sfi-detail">${f.detail}</div>`;
+      d.addEventListener('click', () => d.classList.toggle('open'));
+      sfg.appendChild(d);
+    });
+
+    /* ══ §2 PROBLEM STEPS ══ */
+    const PROB_STEPS = [
+      { step: 'STEP 01', title: '🔍 문제 상황 파악', brief: '무엇이 불편하거나 재미있을까?', detail: '음악 공연이나 DJ 무대에서 소리 크기에 맞춰 조명이 변합니다. 스마트폰 음악 앱의 음파 시각화 효과도 마찬가지입니다. 교실에서 소리가 커지면 경고 표시가 나타나는 소음 알림기도 있습니다. 소리에 반응하는 시각 장치를 직접 만들 수 있을까요?' },
+      { step: 'STEP 02', title: '🎯 목표 정의', brief: '어떤 장치를 만들 것인가?', detail: '소리의 크기를 실시간으로 감지하여 마이크로비트의 5×5 LED에 소리 크기에 비례한 애니메이션 패턴을 표시합니다. 조용하면 LED가 꺼지고, 소리가 클수록 더 많은 LED가 켜지거나 더 화려한 패턴이 표시됩니다.' },
+      { step: 'STEP 03', title: '📋 기능 분석', brief: '어떤 기능들이 필요한가?', detail: '① 소리 크기 감지 기능 → 마이크 센서\n② 소리 레벨 분류 기능 → 다중 조건(if~elif~else)\n③ 레벨별 패턴 표시 기능 → Image 객체 + display.show()\n④ 빠른 반복 갱신 → 짧은 sleep() (50ms 이하)' },
+      { step: 'STEP 04', title: '🔧 구현 방법 선택', brief: '어떤 도구와 방법을 쓸 것인가?', detail: '마이크로비트 v2의 내장 마이크(microphone.sound_level())를 사용합니다. 4단계 소리 레벨을 정의하고 각 레벨에 맞는 5×5 LED 패턴을 미리 Image 객체로 만들어 둡니다. MakeCode 블록 또는 MicroPython으로 구현합니다.' },
+    ];
+    const psg = document.getElementById('prob-step-grid');
+    PROB_STEPS.forEach((s, i) => {
+      const card = document.createElement('div'); card.className = 'prob-step';
+      card.innerHTML = `<div class="ps-num">${s.step}</div><div class="ps-title">${s.title}</div><div class="ps-brief">${s.brief}</div><div class="ps-detail" style="white-space:pre-line">${s.detail}</div>`;
+      card.addEventListener('click', () => card.classList.toggle('open'));
+      psg.appendChild(card);
+    });
+    // Level table
+    const LEVELS = [
+      { name: 'Lv.0 무음', range: '0~29', anim: 'LED 꺼짐 (display.clear())', speed: '—', color: '#334155' },
+      { name: 'Lv.1 조용', range: '30~99', anim: '작은 점 패턴 (중앙 1~4픽셀)', speed: '200ms', color: '#0ea5e9' },
+      { name: 'Lv.2 보통', range: '100~179', anim: '중간 패턴 (원형·다이아몬드)', speed: '100ms', color: '#84cc16' },
+      { name: 'Lv.3 큰 소리', range: '180~229', anim: '큰 패턴 (대부분 ON)', speed: '50ms', color: '#f97316' },
+      { name: 'Lv.4 최대', range: '230~255', anim: '전체 점멸 + 화살표 회전', speed: '30ms', color: '#ec4899' },
+    ];
+    const ltb = document.getElementById('level-table-body');
+    LEVELS.forEach((l, i) => {
+      const tr = document.createElement('tr'); tr.style.background = i % 2 === 0 ? 'rgba(255,255,255,.04)' : 'transparent';
+      tr.innerHTML = `<td style="padding:10px 12px;color:${l.color};font-weight:700">${l.name}</td><td style="padding:10px 12px;text-align:center;font-family:'IBM Plex Mono',monospace;font-size:12px">${l.range}</td><td style="padding:10px 12px;text-align:center;font-size:12px;color:rgba(255,255,255,.7)">${l.anim}</td><td style="padding:10px 12px;text-align:center;font-family:'IBM Plex Mono',monospace;font-size:12px;color:${l.color}">${l.speed}</td>`;
+      ltb.appendChild(tr);
+    });
+
+    /* ══ §3 SENSOR TYPES ══ */
+    function switchSensorTab(tab, btn) {
+      document.querySelectorAll('.sensor-panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.sensor-tab').forEach(b => b.classList.remove('active'));
+      document.getElementById('spanel-' + tab).classList.add('active');
+      btn.classList.add('active');
+    }
+    const SENSOR_TYPES = [
+      { icon: '💙', name: '마이크로비트 v2\n내장 마이크', spec: 'MEMS 마이크 내장\nsound_level() 0~255\n별도 연결 불필요', pick: true, msg: '✅ 가장 간단! 마이크로비트 v2(2020년 이후)에 이미 내장. sound_level() 함수 한 줄로 소리 크기를 0~255 범위로 즉시 읽을 수 있습니다.' },
+      { icon: '🎤', name: '소리 감지 모듈\n(KY-037)', spec: '아날로그+디지털 출력\nPin.read_analog() 0~1023\nv1 사용 시 대안', pick: true, msg: '✅ v1에서도 사용 가능. 아날로그 핀(P0)에 연결하면 pin0.read_analog()로 0~1023 값 읽기 가능. 약 500원~1,000원 수준.' },
+      { icon: '🎙', name: 'USB 마이크', spec: 'PC 연결 전용\n마이크로비트 직접 연결 불가\n별도 ADC 변환 필요', pick: false, msg: '❌ 마이크로비트에 직접 연결 불가. USB 마이크는 USB 인터페이스를 사용하며 마이크로비트의 GPIO 핀과 직접 연결할 수 없습니다.' },
+      { icon: '📟', name: '사운드카드\n라인 입력', spec: 'PC 내부 하드웨어\n마이크로비트 연결 불가\n라즈베리파이와 사용', pick: false, msg: '❌ 마이크로비트와 직접 호환 불가. 사운드카드는 PC·라즈베리파이 수준의 장치에 적합합니다.' },
+    ];
+    const scg2 = document.getElementById('sensor-compare-grid');
+    const scVerd = document.getElementById('sc-verdict');
+    let selSc = -1;
+    SENSOR_TYPES.forEach((s, i) => {
+      const card = document.createElement('div'); card.className = 'sc-card';
+      card.innerHTML = `<span class="sc-icon">${s.icon}</span><div class="sc-name" style="white-space:pre-line">${s.name}</div><div class="sc-spec" style="white-space:pre-line">${s.spec}</div>`;
+      card.addEventListener('click', () => {
+        document.querySelectorAll('.sc-card').forEach(c => { c.classList.remove('pick', 'no-pick'); });
+        card.classList.add(s.pick ? 'pick' : 'no-pick'); selSc = i;
+        scVerd.innerHTML = `<strong>${s.icon} ${s.name.replace('\n', ' ')}</strong><br><br>${s.msg}`;
+        scVerd.className = 'sc-verdict show';
+        scVerd.style.background = s.pick ? 'var(--green-l)' : 'var(--red-l)';
+        scVerd.style.borderLeft = s.pick ? '4px solid var(--green)' : '4px solid var(--red)';
+        scVerd.style.color = s.pick ? '#065f46' : '#991b1b';
+      });
+      scg2.appendChild(card);
+    });
+
+    /* ADC Flow */
+    const ADC_STEPS = [
+      { icon: '🎤', label: '소리(음압)', value: '공기 파동' },
+      { icon: '〰️', label: '진동판', value: '기계 진동' },
+      { icon: '⚡', label: '전기 신호', value: '0~3.3V 아날로그' },
+      { icon: '🔢', label: 'ADC 변환', value: '표본화·양자화' },
+      { icon: '💻', label: '디지털값', value: '0~255 정수' },
+    ];
+    const adcFlow = document.getElementById('adc-flow');
+    ADC_STEPS.forEach((s, i) => {
+      if (i > 0) { const arr = document.createElement('div'); arr.className = 'adc-arrow'; arr.textContent = '→'; arr.style.cssText = 'color:rgba(236,72,153,.5);font-size:18px;font-weight:700;flex-shrink:0'; adcFlow.appendChild(arr); }
+      const box = document.createElement('div'); box.className = 'adc-box';
+      box.innerHTML = `<span class="adc-icon">${s.icon}</span><div class="adc-label">${s.label}</div><div class="adc-value">${s.value}</div>`;
+      adcFlow.appendChild(box);
+    });
+
+    /* ══ §4 SYSTEM ══ */
+    const SYS_NODES = [
+      { icon: '🎤', type: '센서', name: '내장 마이크', sub: 'MEMS (v2)' },
+      { icon: '🔢', type: 'ADC', name: '디지털 변환', sub: '0~255 정수' },
+      { icon: '💙', type: 'MCU', name: '마이크로비트', sub: '조건 판단' },
+      { icon: '📟', type: '출력', name: 'LED 매트릭스', sub: '5×5 패턴' },
+    ];
+    const SYS_DETAILS = [
+      'MEMS(마이크로전기기계시스템) 마이크. 마이크로비트 v2 앞면 우측에 위치. microphone.sound_level()로 0~255 소리 크기 반환. v1은 외부 모듈(KY-037) P0 핀 연결.',
+      'MEMS 마이크 내장 ADC가 아날로그 음압을 디지털 정수(0~255)로 변환. 샘플링 속도 빠름 → 순간적인 박수도 감지 가능.',
+      '읽은 소리값(0~255)을 if~elif~else로 4단계 분류 → 각 단계에 해당하는 Image 패턴을 display.show()로 출력. sleep(50)으로 50ms마다 갱신.',
+      '5×5=25개 LED. 각 LED 밝기 0~9 조절 가능. Image 객체로 패턴 정의: Image("09090:90909:09090:90909:09090"). 소리 레벨에 따라 다른 패턴 표시.',
+    ];
+    const sysFl = document.getElementById('sys-flow');
+    const sysDet = document.getElementById('sys-det');
+    let selSys = -1;
+    SYS_NODES.forEach((n, i) => {
+      if (i > 0) { const arr = document.createElement('div'); arr.className = 'sys-arr'; arr.textContent = '→'; sysFl.appendChild(arr); }
+      const node = document.createElement('div'); node.className = 'sys-node';
+      node.innerHTML = `<span class="sn-icon">${n.icon}</span><div class="sn-type">${n.type}</div><div class="sn-name">${n.name}</div><div class="sn-sub">${n.sub}</div>`;
+      node.addEventListener('click', () => {
+        document.querySelectorAll('.sys-node').forEach(x => x.classList.remove('active'));
+        if (selSys === i) { selSys = -1; sysDet.classList.remove('show'); return; }
+        selSys = i; node.classList.add('active');
+        sysDet.innerHTML = `<strong style="color:#f9a8d4">${n.icon} ${n.name}</strong><br>${SYS_DETAILS[i]}`;
+        sysDet.classList.add('show');
+      });
+      sysFl.appendChild(node);
+    });
+
+    /* ══ §5 ALGORITHM ══ */
+    const ALGO_NODES = [
+      { t: 'fc-term', txt: '🟢 시작' },
+      { t: 'fc-proc', txt: '소리 레벨별 Image 패턴 정의\nsmall / medium / big / max_anim' },
+      { t: 'fc-io', txt: '<span>display.scroll("GO!") — 시작 알림</span>' },
+      { t: 'fc-proc', txt: '🔁 무한 반복 (while True)' },
+      { t: 'fc-io', txt: '<span>snd = microphone.sound_level()</span>' },
+      { t: 'fc-dec', txt: 'snd < 30 ?' },
+    ];
+    const algoCol = document.getElementById('algo-col');
+    const fcNdesc = document.getElementById('fc-ndesc');
+    const ALGO_DESCS = [
+      '프로그램 시작. 마이크로비트 전원 ON.',
+      '4개의 소리 레벨에 해당하는 Image 패턴을 변수에 미리 저장. 루프 안에서 매번 생성하면 느려지므로 시작 시 한 번만 정의합니다.',
+      '사용자에게 준비됐다는 신호를 표시합니다.',
+      '이후 측정-판단-표시 과정을 전원이 켜져 있는 동안 계속 반복.',
+      'microphone.sound_level()로 현재 소리 크기를 0~255 범위의 정수로 읽습니다.',
+      '소리가 30 미만 → 무음 처리(display.clear()). 아니면 다음 조건으로.',
+    ];
+    ALGO_NODES.forEach((n, i) => {
+      if (i > 0) { const arr = document.createElement('div'); arr.className = 'fc-arr'; arr.textContent = '↓'; algoCol.appendChild(arr); }
+      const el = document.createElement('div'); el.className = 'fc-node ' + n.t;
+      if (n.t === 'fc-io') el.innerHTML = n.txt; else el.textContent = n.txt;
+      el.style.whiteSpace = 'pre-line';
+      el.addEventListener('click', () => {
+        document.querySelectorAll('.fc-node').forEach(a => a.classList.remove('hl')); el.classList.add('hl');
+        fcNdesc.textContent = ALGO_DESCS[i] || ''; fcNdesc.classList.add('show');
+      });
+      algoCol.appendChild(el);
+    });
+    // Branch
+    const arr1 = document.createElement('div'); arr1.className = 'fc-arr'; arr1.textContent = '↓'; algoCol.appendChild(arr1);
+    const br = document.createElement('div'); br.className = 'fc-branch';
+    [
+      { lbl: '예 → 무음', nodes: [{ t: 'fc-io', txt: '<span>display.clear()</span>' }] },
+      {
+        lbl: '아니오 → elif~else', nodes: [
+          { t: 'fc-dec', txt: 'snd < 100 ?' },
+          { t: 'fc-io', txt: '<span>예: display.show(small)</span>' },
+          { t: 'fc-dec', txt: 'snd < 180 ?' },
+          { t: 'fc-io', txt: '<span>예: show(medium) / else: show(big)</span>' },
+        ]
+      },
+    ].forEach(col => {
+      const colEl = document.createElement('div'); colEl.className = 'fc-bcol';
+      const lbl = document.createElement('div'); lbl.className = 'fc-blbl'; lbl.textContent = col.lbl; colEl.appendChild(lbl);
+      col.nodes.forEach(n => {
+        const el = document.createElement('div'); el.className = 'fc-node fc-small ' + n.t;
+        if (n.t === 'fc-io') el.innerHTML = n.txt; else el.textContent = n.txt;
+        el.addEventListener('click', () => { fcNdesc.textContent = `[${n.t.toUpperCase()}] ${n.txt.replace(/<[^>]+>/g, '')}`; fcNdesc.classList.add('show'); });
+        colEl.appendChild(el); const arr = document.createElement('div'); arr.className = 'fc-arr'; arr.textContent = '↓'; colEl.appendChild(arr);
+      });
+      br.appendChild(colEl);
+    });
+    algoCol.appendChild(br);
+    [{ t: 'fc-proc', txt: 'sleep(50) — 50ms 대기' }, { t: 'fc-term', txt: '🔁 반복 (처음으로)' }].forEach((n, i) => {
+      const arr = document.createElement('div'); arr.className = 'fc-arr'; arr.textContent = '↓'; algoCol.appendChild(arr);
+      const el = document.createElement('div'); el.className = 'fc-node ' + n.t; el.textContent = n.txt; algoCol.appendChild(el);
+    });
+
+    /* ══ §6 SOUND SIMULATOR ══ */
+    // LED Patterns (5x5 = 25 cells, 0=off, color code)
+    const SS_PATTERNS = {
+      off: Array(25).fill(0),
+      small: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      dot4: [0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0],
+      ring: [0, 1, 1, 1, 0, 1, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 1, 1, 1, 0],
+      diamond: [0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0],
+      big: [1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1],
+      full: Array(25).fill(1),
+      arrows: [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
+    };
+    const SS_LEVELS = [
+      { min: 0, max: 29, name: '🔇 무음', color: '#334155', bg: 'rgba(51,65,85,.15)', pattern: 'off', ledColor: '#f9a8d4' },
+      { min: 30, max: 99, name: '🤫 조용', color: '#0ea5e9', bg: 'rgba(14,165,233,.15)', pattern: 'dot4', ledColor: '#93c5fd' },
+      { min: 100, max: 179, name: '🗣 보통 소리', color: '#84cc16', bg: 'rgba(132,204,22,.15)', pattern: 'diamond', ledColor: '#bef264' },
+      { min: 180, max: 229, name: '📢 큰 소리!', color: '#f97316', bg: 'rgba(249,115,22,.15)', pattern: 'big', ledColor: '#fdba74' },
+      { min: 230, max: 255, name: '🎸 최대!', color: '#ec4899', bg: 'rgba(236,72,153,.15)', pattern: 'full', ledColor: '#f9a8d4' },
+    ];
+    let thresholds = [30, 100, 180, 230];
+    let curSoundLevel = 0;
+    let ssAnimId = null;
+    let ssAnimFrame = 0;
+
+    function buildSSLeds() {
+      const g = document.getElementById('ss-mb-grid'); g.innerHTML = '';
+      for (let i = 0; i < 25; i++) { const d = document.createElement('div'); d.className = 'ss-led'; d.id = 'ssled-' + i; g.appendChild(d); }
+    }
+    function setSSLeds(pattern, color) {
+      for (let i = 0; i < 25; i++) {
+        const el = document.getElementById('ssled-' + i); if (!el) return;
+        el.classList.toggle('on', !!pattern[i]);
+        el.style.color = color;
+        el.style.background = pattern[i] ? color : '#0f0f1a';
+      }
+    }
+    function buildSSLevelBars() {
+      const bars = document.getElementById('ss-level-bars'); bars.innerHTML = '';
+      SS_LEVELS.forEach((l, i) => {
+        const row = document.createElement('div'); row.className = 'ss-lvl-row'; row.id = 'ss-lvl-' + i;
+        row.innerHTML = `<div class="ss-lvl-dot" style="background:${l.color}"></div><span class="ss-lvl-label">${l.name}</span><span class="ss-lvl-range">${l.min}~${l.max}</span>`;
+        bars.appendChild(row);
+      });
+    }
+    function updateSSDisplay(level) {
+      const lv = SS_LEVELS[level];
+      const fill = document.getElementById('ss-vol-fill');
+      fill.style.width = (curSoundLevel / 255 * 100) + '%';
+      fill.style.background = `linear-gradient(to right,${lv.color},${lv.color}aa)`;
+      document.getElementById('ss-vol-val').textContent = curSoundLevel;
+      const badge = document.getElementById('ss-state-badge');
+      badge.textContent = lv.name; badge.style.background = lv.bg; badge.style.color = lv.color;
+      document.getElementById('ss-anim-name').textContent = lv.name;
+      const descs = ['소리가 없습니다. LED가 꺼져 있습니다.', '조용한 소리 감지. 중앙 점 4개가 약하게 켜집니다.', '보통 소리 감지. 다이아몬드 패턴이 표시됩니다.', '큰 소리 감지! 대부분의 LED가 켜집니다.', '최대 소리! 전체 LED가 최고 밝기로 점멸합니다.'];
+      document.getElementById('ss-anim-desc').textContent = descs[level];
+      document.querySelectorAll('.ss-lvl-row').forEach((r, i) => r.classList.toggle('active-level', i === level));
+      setSSLeds(SS_PATTERNS[lv.pattern], lv.ledColor);
+    }
+    function triggerSound(type) {
+      clearTimeout(ssAnimId);
+      const vals = { quiet: Math.floor(Math.random() * 40 + 20), clap: Math.floor(Math.random() * 60 + 80), loud: Math.floor(Math.random() * 50 + 180), max: Math.floor(Math.random() * 25 + 230) };
+      curSoundLevel = Math.min(255, vals[type] || 0);
+      const level = thresholds.findIndex(t => curSoundLevel < t);
+      const lv = level === -1 ? SS_LEVELS.length - 1 : Math.max(0, level - 1);
+      // Actually compute level
+      let lvIdx = 0;
+      for (let i = 0; i < thresholds.length; i++) { if (curSoundLevel >= thresholds[i]) lvIdx = i + 1; }
+      lvIdx = Math.min(lvIdx, SS_LEVELS.length - 1);
+      updateSSDisplay(lvIdx);
+      addSSLog(`[소리 감지] level=${curSoundLevel} → ${SS_LEVELS[lvIdx].name}`);
+      // microbit shake effect
+      const mb = document.getElementById('ss-mb');
+      mb.style.transform = type === 'max' ? 'scale(.92) rotate(-3deg)' : type === 'loud' ? 'scale(.95)' : 'scale(.97)';
+      setTimeout(() => { mb.style.transform = ''; }, 150);
+      // Decay
+      let decay = curSoundLevel;
+      function decayStep() {
+        decay = Math.max(0, decay - Math.ceil(decay * .15 + 3));
+        curSoundLevel = decay;
+        const di = SS_LEVELS.findIndex((l, i) => decay >= l.min && decay <= l.max);
+        updateSSDisplay(di >= 0 ? di : 0);
+        if (decay > 0) ssAnimId = setTimeout(decayStep, 80);
+      }
+      ssAnimId = setTimeout(decayStep, 200);
+    }
+    let ssLogLines = [];
+    function addSSLog(msg) {
+      const now = new Date(); const t = now.toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+      ssLogLines.push(`[${t}] ${msg}`); if (ssLogLines.length > 10) ssLogLines.shift();
+      const logEl = document.getElementById('ss-log'); logEl.textContent = ssLogLines.join('\n'); logEl.scrollTop = logEl.scrollHeight;
+    }
+    function updateThresholds() {
+      thresholds[0] = parseInt(document.getElementById('thr1-slider').value);
+      thresholds[1] = parseInt(document.getElementById('thr2-slider').value);
+      thresholds[2] = parseInt(document.getElementById('thr3-slider').value);
+      document.getElementById('thr1-val').textContent = `${thresholds[0]} (Lv1/Lv2 경계)`;
+      document.getElementById('thr2-val').textContent = `${thresholds[1]} (Lv2/Lv3 경계)`;
+      document.getElementById('thr3-val').textContent = `${thresholds[2]} (Lv3/Lv4 경계)`;
+      // update level bar ranges
+      SS_LEVELS[0].max = thresholds[0] - 1; SS_LEVELS[1].min = thresholds[0]; SS_LEVELS[1].max = thresholds[1] - 1;
+      SS_LEVELS[2].min = thresholds[1]; SS_LEVELS[2].max = thresholds[2] - 1; SS_LEVELS[3].min = thresholds[2];
+      buildSSLevelBars();
+    }
+    buildSSLeds(); buildSSLevelBars(); updateSSDisplay(0);
+
+    /* ══ §7 LED EDITOR ══ */
+    const LED_COLORS = ['#000000', '#f9a8d4', '#ec4899', '#d946ef', '#7c3aed', '#60a5fa', '#86efac', '#fcd34d', '#ffffff'];
+    let ledGrid = Array(25).fill(0);
+    let ledColor = LED_COLORS[1];
+    let isDrawing = false;
+
+    // Presets
+    const LED_PRESETS = [
+      { name: '하트', label: '❤', pattern: [0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0, 0, 1, 0, 0] },
+      { name: '음표', label: '🎵', pattern: [0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0] },
+      { name: '별', label: '⭐', pattern: [0, 0, 1, 0, 0, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0, 0, 1, 0, 0] },
+      { name: '웃음', label: '😊', pattern: [0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0] },
+      { name: '화살', label: '⬆', pattern: [0, 0, 1, 0, 0, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0] },
+      { name: '마름', label: '◆', pattern: [0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0] },
+      { name: '체스', label: '⬛', pattern: [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1] },
+      { name: '비움', label: '○', pattern: [0, 1, 1, 1, 0, 1, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 1, 1, 1, 0] },
+    ];
+    function buildLEDEditor() {
+      const grid = document.getElementById('led-grid-editor'); grid.innerHTML = '';
+      for (let i = 0; i < 25; i++) {
+        const cell = document.createElement('div'); cell.className = 'led-cell'; cell.id = 'ledc-' + i;
+        const paint = () => {
+          ledGrid[i] = ledGrid[i] ? 0 : 1;
+          cell.style.background = ledGrid[i] ? ledColor : '#e2e8f0';
+          cell.style.color = ledColor;
+          cell.classList.toggle('active', !!ledGrid[i]);
+          updateLEDBinary();
+        };
+        cell.addEventListener('mousedown', () => { isDrawing = true; paint(); });
+        cell.addEventListener('mouseenter', () => { if (isDrawing) paint(); });
+        grid.appendChild(cell);
+      }
+      document.addEventListener('mouseup', () => isDrawing = false);
+    }
+    function buildColorPalette() {
+      const pal = document.getElementById('color-palette');
+      LED_COLORS.forEach(c => {
+        const btn = document.createElement('div'); btn.className = 'cp-color' + (c === ledColor ? ' active' : '');
+        btn.style.background = c; btn.style.border = c === '#000000' ? '2px solid #ccc' : '';
+        btn.addEventListener('click', () => { ledColor = c; document.querySelectorAll('.cp-color').forEach(b => b.classList.remove('active')); btn.classList.add('active'); });
+        pal.appendChild(btn);
+      });
+    }
+    function buildPresets() {
+      const pg = document.getElementById('preset-grid');
+      LED_PRESETS.forEach(p => {
+        const btn = document.createElement('div'); btn.className = 'preset-btn';
+        const mini = `<div class="preset-mb">${p.pattern.map(v => `<div class="pm-led${v ? ' on' : ''}" style="color:#ec4899"></div>`).join('')}</div><div>${p.name}</div>`;
+        btn.innerHTML = mini;
+        btn.addEventListener('click', () => { ledGrid = [...p.pattern]; renderLEDGrid(); updateLEDBinary(); });
+        pg.appendChild(btn);
+      });
+    }
+    function renderLEDGrid() {
+      for (let i = 0; i < 25; i++) {
+        const el = document.getElementById('ledc-' + i); if (!el) return;
+        el.style.background = ledGrid[i] ? ledColor : '#e2e8f0';
+        el.style.color = ledColor;
+        el.classList.toggle('active', !!ledGrid[i]);
+      }
+    }
+    function updateLEDBinary() {
+      const rows = [];
+      for (let r = 0; r < 5; r++) {
+        rows.push(ledGrid.slice(r * 5, r * 5 + 5).map(v => v ? 1 : 0).join(''));
+      }
+      document.getElementById('led-binary-out').innerHTML = `<span style="color:#f9a8d4">▸ 이진수 표현 (1=켜짐, 0=꺼짐)</span>\n${rows.join(' | ')}`;
+    }
+    function generateLEDCode() {
+      const rows = [];
+      for (let r = 0; r < 5; r++) {
+        rows.push(ledGrid.slice(r * 5, r * 5 + 5).map(v => v ? 9 : 0).join(''));
+      }
+      const imgStr = rows.join(':');
+      document.getElementById('led-code-out').innerHTML = `<span style="color:#f9a8d4">from microbit import *</span>\n\n<span style="color:#d2a8ff">my_image</span> = Image(<span style="color:#a5d6ff">'${imgStr}'</span>)\ndisplay.show(<span style="color:#d2a8ff">my_image</span>)`;
+    }
+    function clearLED() { ledGrid = Array(25).fill(0); renderLEDGrid(); updateLEDBinary(); document.getElementById('led-code-out').innerHTML = '위 "💻 코드 변환" 버튼을 클릭하세요.'; }
+    function invertLED() { ledGrid = ledGrid.map(v => v ? 0 : 1); renderLEDGrid(); updateLEDBinary(); }
+    buildLEDEditor(); buildColorPalette(); buildPresets(); updateLEDBinary();
+
+    /* ══ §8 CODE VIEWER ══ */
+    function switchCvTab(tab, btn) {
+      document.querySelectorAll('.cv-panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.cv-tab').forEach(b => b.classList.remove('active'));
+      document.getElementById('cvpanel-' + tab).classList.add('active');
+      btn.classList.add('active');
+    }
+    // Block code
+    const blockArea = document.getElementById('block-code-view');
+    const BLOCKS = [
+      { color: '#0f172a', txt: '▶ 시작할 때 (on_start)' },
+      { color: '#7c3aed', txt: 'small_img = Image("00000:00000:00100:00000:00000")', ind: 1 },
+      { color: '#7c3aed', txt: 'medium_img = Image("00100:01110:11111:01110:00100")', ind: 1 },
+      { color: '#ec4899', txt: 'big_img = Image("09090:90909:09090:90909:09090")', ind: 1 },
+      { color: '#0ea5e9', txt: 'display.scroll("GO!")', ind: 1 },
+      { color: '', txt: '' },
+      { color: '#1d4ed8', txt: '🔁 무한 반복 (while True)' },
+      { color: '#7c3aed', txt: 'snd = microphone.sound_level()', ind: 1 },
+      { color: '#ec4899', txt: '🔷 만약 (if) snd < 30 이라면', ind: 1 },
+      { color: '#334155', txt: 'display.clear()', ind: 2 },
+      { color: '#ec4899', txt: '🔷 아니고 만약 (elif) snd < 100 이라면', ind: 1 },
+      { color: '#60a5fa', txt: 'display.show(small_img)', ind: 2 },
+      { color: '#ec4899', txt: '🔷 아니고 만약 (elif) snd < 180 이라면', ind: 1 },
+      { color: '#84cc16', txt: 'display.show(medium_img)', ind: 2 },
+      { color: '#ec4899', txt: '🔷 그렇지 않으면 (else)', ind: 1 },
+      { color: '#f97316', txt: 'display.show(big_img)', ind: 2 },
+      { color: '#0ea5e9', txt: 'sleep(50)  ← 50ms 대기', ind: 1 },
+    ];
+    BLOCKS.forEach(b => {
+      if (!b.color) { blockArea.appendChild(document.createElement('div')); return; }
+      const wrap = document.createElement('div'); wrap.className = 'blk-row'; wrap.style.paddingLeft = (b.ind || 0) * 20 + 'px';
+      const el = document.createElement('div'); el.className = 'blk'; el.textContent = b.txt; el.style.background = b.color;
+      wrap.appendChild(el); blockArea.appendChild(wrap);
+    });
+    // Python code
+    document.getElementById('cvpanel-python').innerHTML = `<span class="pc"># 소리 반응 애니메이션 장치 — MicroPython for micro:bit v2</span>
+<span class="pk">from</span> microbit <span class="pk">import</span> *
+
+<span class="pc"># ① 소리 레벨별 LED 패턴 정의 (Image 객체)</span>
+<span class="pv">QUIET</span>  = Image(<span class="ps">'00000:00000:00100:00000:00000'</span>)  <span class="pc"># 중앙 점 1개</span>
+<span class="pv">SMALL</span>  = Image(<span class="ps">'00000:01010:00000:01010:00000'</span>)  <span class="pc"># 점 4개</span>
+<span class="pv">MEDIUM</span> = Image(<span class="ps">'00100:01110:11111:01110:00100'</span>)  <span class="pc"># 다이아몬드</span>
+<span class="pv">BIG</span>    = Image(<span class="ps">'09090:90909:09090:90909:09090'</span>)  <span class="pc"># 체커 패턴</span>
+<span class="pv">MAX</span>    = Image(<span class="ps">'99999:99999:99999:99999:99999'</span>)  <span class="pc"># 전체 켜짐</span>
+
+<span class="pc"># ② 임계값 설정</span>
+<span class="pv">T1</span>, <span class="pv">T2</span>, <span class="pv">T3</span>, <span class="pv">T4</span> = <span class="pn">30</span>, <span class="pn">100</span>, <span class="pn">180</span>, <span class="pn">230</span>
+
+display.<span class="pf">scroll</span>(<span class="ps">'GO!'</span>)
+
+<span class="pc"># ③ 무한 반복</span>
+<span class="pk">while</span> <span class="pk">True</span>:
+    <span class="pv">snd</span> = microphone.<span class="pf">sound_level</span>()   <span class="pc"># 0~255</span>
+
+    <span class="pc"># ④ 다중 조건 — 소리 레벨 분류</span>
+    <span class="pk">if</span> <span class="pv">snd</span> < <span class="pv">T1</span>:         <span class="pc"># 무음</span>
+        display.<span class="pf">clear</span>()
+    <span class="pk">elif</span> <span class="pv">snd</span> < <span class="pv">T2</span>:       <span class="pc"># 조용 → 작은 패턴</span>
+        display.<span class="pf">show</span>(<span class="pv">QUIET</span>)
+    <span class="pk">elif</span> <span class="pv">snd</span> < <span class="pv">T3</span>:       <span class="pc"># 보통 → 중간 패턴</span>
+        display.<span class="pf">show</span>(<span class="pv">MEDIUM</span>)
+    <span class="pk">elif</span> <span class="pv">snd</span> < <span class="pv">T4</span>:       <span class="pc"># 큰소리 → 큰 패턴</span>
+        display.<span class="pf">show</span>(<span class="pv">BIG</span>)
+    <span class="pk">else</span>:                 <span class="pc"># 최대 → 전체 켜짐</span>
+        display.<span class="pf">show</span>(<span class="pv">MAX</span>)
+
+    <span class="pc"># ⑤ 버튼 A: 임계값 낮추기 (더 민감하게)</span>
+    <span class="pk">if</span> button_a.<span class="pf">was_pressed</span>():
+        <span class="pv">T1</span> = <span class="pf">max</span>(<span class="pn">5</span>, <span class="pv">T1</span> - <span class="pn">5</span>)
+        <span class="pv">T2</span> = <span class="pf">max</span>(<span class="pv">T1</span>+<span class="pn">5</span>, <span class="pv">T2</span> - <span class="pn">10</span>)
+        display.<span class="pf">scroll</span>(<span class="ps">'- '</span>+<span class="pf">str</span>(<span class="pv">T1</span>))
+
+    <span class="pc"># ⑥ 버튼 B: 임계값 높이기 (덜 민감하게)</span>
+    <span class="pk">if</span> button_b.<span class="pf">was_pressed</span>():
+        <span class="pv">T1</span> = <span class="pf">min</span>(<span class="pn">200</span>, <span class="pv">T1</span> + <span class="pn">5</span>)
+        display.<span class="pf">scroll</span>(<span class="ps">'+ '</span>+<span class="pf">str</span>(<span class="pv">T1</span>))
+
+    <span class="pf">sleep</span>(<span class="pn">50</span>)   <span class="pc"># 50ms 주기로 갱신 (빠른 반응)</span>`;
+
+    /* ══ §9 EXTENSIONS ══ */
+    const EXTS = [
+      {
+        icon: '🎶', title: '음악 스펙트럼 시각화', color: '#ec4899', tagBg: '#fce7f3', tagTc: '#9d174d', tag: '고급 시각화',
+        brief: '소리 크기에 따라 LED를 아래에서 위로 막대 그래프처럼 켭니다.',
+        detail: 'display.set_pixel(x,y,brightness)를 활용해 각 열(0~4)의 높이를 소리 크기에 비례하게 표시합니다. 실제 오디오 이퀄라이저처럼 동작합니다.',
+        code: `snd = microphone.sound_level()\nheight = snd * 5 // 256  # 0~4\nfor y in range(5):\n  for x in range(5):\n    br = 9 if (4-y) < height else 0\n    display.set_pixel(x,y,br)`
+      },
+      {
+        icon: '🎤', title: '박수 횟수 카운터', color: '#7c3aed', tagBg: '#ede9fe', tagTc: '#5b21b6', tag: '이벤트 감지',
+        brief: '박수(순간 큰 소리) 횟수를 세어 LED에 표시합니다.',
+        detail: '임계값을 한 번 넘으면 1회로 카운트하고, 쿨다운(500ms) 동안 재감지를 막습니다. 운동 카운터와 같은 원리를 소리에 적용한 것입니다.',
+        code: `count = 0\nlast = 0\nwhile True:\n  snd = microphone.sound_level()\n  now = running_time()\n  if snd > 150 and now-last > 500:\n    count += 1\n    last = now\n    display.show(count)`
+      },
+      {
+        icon: '🎹', title: '소리 피아노 (음계 생성)', color: '#0ea5e9', tagBg: '#e0f2fe', tagTc: '#0c4a6e', tag: '소리 출력',
+        brief: '버튼 A·B와 소리 크기에 따라 다른 음계를 부저로 재생합니다.',
+        detail: '소리 레벨에 따라 음높이를 다르게 설정합니다. music.play()와 sound_level()을 결합하면 소리에 반응해 음악을 만드는 장치가 됩니다.',
+        code: `import music\nsnd = microphone.sound_level()\nif snd > 200:\n  music.play('C5:4')\nelif snd > 120:\n  music.play('G4:4')\nelif snd > 50:\n  music.play('E4:4')`
+      },
+      {
+        icon: '📊', title: '소리 크기 데이터 로깅', color: '#10b981', tagBg: '#d1fae5', tagTc: '#065f46', tag: '데이터 수집',
+        brief: '10분간 소리 데이터를 기록하고 USB로 내보냅니다.',
+        detail: 'log 모듈을 이용해 시간·소리레벨·상태를 CSV 파일로 저장합니다. 교실 소음 패턴 분석 등 데이터 과학 프로젝트로 확장 가능합니다.',
+        code: `import log\nlog.set_labels("time","level")\nwhile True:\n  snd = microphone.sound_level()\n  log.add({\n    "time": running_time(),\n    "level": snd\n  })\n  sleep(1000)  # 1초마다`
+      },
+      {
+        icon: '🌈', title: 'Neopixel LED 스트립 연동', color: '#f59e0b', tagBg: '#fef3c7', tagTc: '#92400e', tag: '외부 하드웨어',
+        brief: '소리 크기에 따라 Neopixel(RGB LED 스트립) 색상과 개수를 제어합니다.',
+        detail: '외부 Neopixel 스트립(P0핀 연결)과 연동하면 5×5 LED보다 훨씬 화려한 소리 반응 조명 효과를 만들 수 있습니다. 파티 조명 등에 활용.',
+        code: `import neopixel\nnp = neopixel.NeoPixel(pin0, 10)\nsnd = microphone.sound_level()\nn = snd * 10 // 256  # 켜질 개수\nfor i in range(10):\n  np[i] = (255,0,128) if i<n else (0,0,0)\nnp.show()`
+      },
+      {
+        icon: '📱', title: '소음 경보 알림기', color: '#ef4444', tagBg: '#fee2e2', tagTc: '#991b1b', tag: '교실 활용',
+        brief: '교실 소음이 기준 이상이 되면 LED 경고 + 부저 알림을 줍니다.',
+        detail: '소음이 지속적으로 높으면(5초 이상) 선생님 호출 기능을 추가할 수 있습니다. 학교 소음 관리 프로젝트로 실제 교실에 적용 가능합니다.',
+        code: `loud_count = 0\nwhile True:\n  snd = microphone.sound_level()\n  if snd > 150:\n    loud_count += 1\n  else:\n    loud_count = 0\n  if loud_count > 10:  # 10회 연속\n    display.show(Image.SAD)\n    music.play(music.BA_DING)\n  sleep(200)`
+      },
+    ];
+    const eg = document.getElementById('ext-grid');
+    EXTS.forEach(e => {
+      const card = document.createElement('div'); card.className = 'ext-card'; card.style.setProperty('--ec', e.color); card.style.borderTopColor = e.color;
+      card.innerHTML = `<span class="ec-icon">${e.icon}</span><div class="ec-title">${e.title}</div>
+    <span class="ec-tag" style="background:${e.tagBg};color:${e.tagTc}">${e.tag}</span>
+    <div class="ec-brief">${e.brief}</div>
+    <div class="ec-detail">${e.detail}<div class="ec-code">${e.code}</div></div>`;
+      card.addEventListener('click', () => card.classList.toggle('open'));
+      eg.appendChild(card);
+    });
+
+    /* ══ QUIZ ══ */
+    const QS = [
+      {
+        q: '마이크로비트 v2 내장 마이크에서 소리 크기를 읽는 올바른 코드는?',
+        opts: ['pin0.read_analog()', 'microphone.sound_level()', 'accelerometer.get_values()', 'temperature()'],
+        ans: 1, exp: '마이크로비트 v2의 내장 마이크는 microphone.sound_level() 함수로 0~255 범위의 소리 크기를 반환합니다. pin0.read_analog()는 v1에서 외부 마이크 모듈을 사용할 때 씁니다.'
+      },
+      {
+        q: '소리 레벨이 4단계(무음·조용·보통·큰소리)일 때 알고리즘 구조로 가장 적절한 것은?',
+        opts: ['if 1개만 사용', 'if~else (2분기)', 'if~elif~elif~else (4분기)', 'while 반복문만 사용'],
+        ans: 2, exp: '4가지 다른 경우를 처리하려면 if~elif~elif~else 구조(4분기)가 필요합니다. 조건이 많을수록 elif를 추가합니다. 단, 조건이 2개면 if~else로 충분합니다.'
+      },
+      {
+        q: 'MicroPython에서 LED 패턴을 정의하는 올바른 Image 객체 사용법은?',
+        opts: ["display.show('09090:00000:09090:00000:09090')", 'Image.HEART(9)',
+          "display.pixel(2,2,9)", "Image('09090:00000:09090:00000:09090')"],
+        ans: 3, exp: "Image() 함수에 5행을 콜론(:)으로 구분하여 문자열로 전달합니다. 각 자리는 LED 밝기(0=꺼짐, 9=최대). display.show()는 Image 객체를 인자로 받아 표시합니다."
+      },
+      {
+        q: '소리 반응 장치에서 sleep(50)의 역할로 올바른 것은?',
+        opts: ['50dB 이상의 소리만 감지한다', 'CPU를 절전 모드로 영구 전환한다', '50ms 대기 후 다시 소리를 측정한다 (빠른 반응 위해)', '50Hz 주파수의 소리를 필터링한다'],
+        ans: 2, exp: 'sleep(50)은 50밀리초(0.05초) 동안 기다린 후 다시 루프를 실행합니다. 짧을수록 소리 변화에 빠르게 반응하지만, 너무 짧으면 CPU 과부하가 생깁니다. 소리 장치는 50~100ms가 적당합니다.'
+      },
+      {
+        q: '다음 코드에서 snd=150일 때 실행되는 구문은?\nif snd < 30:   [A]\nelif snd < 100: [B]\nelif snd < 180: [C]\nelse:           [D]',
+        opts: ['[A]', '[B]', '[C]', '[D]'],
+        ans: 2, exp: 'snd=150은 30 이상이므로 if(A) 통과 → 100 이상이므로 elif(B) 통과 → 180 미만이므로 elif(C) 조건 참 → [C]가 실행됩니다. if~elif~else에서 조건이 맞는 첫 번째 블록만 실행됩니다.'
+      },
+    ];
+    let qIdx = 0, score = 0, answered = false;
+    document.getElementById('qtotal').textContent = QS.length;
+    function renderQ() {
+      answered = false; const q = QS[qIdx];
+      document.getElementById('quiz-title').textContent = `문제 ${qIdx + 1} / ${QS.length}`;
+      document.getElementById('quiz-q').textContent = q.q;
+      document.getElementById('quiz-fb').className = 'quiz-feedback';
+      document.getElementById('quiz-next').className = 'btn-qnext';
+      document.getElementById('quiz-hint').textContent = '';
+      const opts = document.getElementById('quiz-opts'); opts.innerHTML = '';
+      q.opts.forEach((opt, i) => {
+        const div = document.createElement('div'); div.className = 'quiz-opt';
+        div.innerHTML = `<div class="opt-num">${i + 1}</div><span style="white-space:pre-line">${opt}</span>`;
+        div.onclick = () => {
+          if (answered) return; answered = true;
+          document.querySelectorAll('.quiz-opt').forEach(o => o.classList.add('disabled'));
+          if (i === q.ans) { div.classList.add('correct'); score++; document.getElementById('qscore').textContent = score; fb(true, '정답! ' + q.exp); }
+          else { div.classList.add('wrong'); opts.children[q.ans].classList.add('correct'); fb(false, `틀렸어요. 정답은 ${q.ans + 1}번. ${q.exp}`); }
+          if (qIdx < QS.length - 1) document.getElementById('quiz-next').className = 'btn-qnext show';
+          else { const g = score >= 4 ? '🎉 우수' : score >= 3 ? '👍 양호' : '📚 복습 필요'; document.getElementById('quiz-hint').innerHTML = `완료! 점수: <strong>${score}/${QS.length}</strong> — ${g}`; }
+        };
+        opts.appendChild(div);
+      });
+    }
+    function fb(ok, msg) { const el = document.getElementById('quiz-fb'); el.className = 'quiz-feedback show ' + (ok ? 'ok' : 'ng'); el.textContent = msg; }
+    function nextQ() { qIdx++; if (qIdx < QS.length) renderQ(); }
+    renderQ();
+
+    /* ── KEYWORDS ── */
+    [
+      { term: '마이크 (Microphone)', def: '소리(공기 진동)를 전기 신호로 변환하는 센서. 마이크로비트 v2에 MEMS 마이크 내장.' },
+      { term: 'sound_level()', def: '마이크로비트 v2 내장 마이크로 현재 소리 크기를 0~255 정수로 반환하는 함수.' },
+      { term: '진폭 (Amplitude)', def: '소리 파형의 위아래 최대 높이. 클수록 소리가 큰 것을 의미. dB(데시벨)로 표현.' },
+      { term: 'Image 객체', def: "LED 패턴을 정의하는 MicroPython 객체. Image('09090:90909:09090:90909:09090') 형식." },
+      { term: 'display.show()', def: 'LED 매트릭스에 Image 객체나 문자를 표시. display.show(Image.HEART) 또는 커스텀 이미지.' },
+      { term: 'display.set_pixel()', def: '특정 위치(x,y) LED 밝기를 0~9로 개별 설정. 스펙트럼 시각화에 활용.' },
+      { term: '임계값 (Threshold)', def: '소리 레벨을 분류하는 기준값. 환경 소음에 맞게 조정해야 정확한 감지 가능.' },
+      { term: 'sleep(ms)', def: '지정한 밀리초 동안 대기. 소리 반응 장치에서 50~100ms가 빠른 반응에 적합.' },
+      { term: 'MEMS 마이크', def: '마이크로전기기계시스템 방식의 초소형 마이크. 마이크로비트 v2에 내장.' },
+      { term: 'ADC (아날로그→디지털)', def: '마이크의 연속적 전압 신호를 정수(0~255)로 변환하는 과정. 모든 센서에서 필요.' },
+    ].forEach(kw => {
+      const d = document.createElement('div'); d.className = 'kw-item';
+      d.innerHTML = `<div class="kw-term">${kw.term}</div><div class="kw-def">${kw.def}</div>`;
+      document.getElementById('kw-grid').appendChild(d);
+    });
+
+    window.addEventListener('resize', () => { const c = document.getElementById('sound-wave-canvas'); if (c) c.width = c.offsetWidth; });
+  </script>
 </body>
+
 </html>

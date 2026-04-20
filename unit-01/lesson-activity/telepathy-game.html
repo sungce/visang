@@ -1,70 +1,3001 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>이심전심 무선 통신 게임 — Lab</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
-<style>
-:root{--bg:#F5F4F0;--sf:#FFF;--br:#E2DFD6;--u:#6C65CC;--udk:#4E48A8;--ult:#ECEAFE;--tx:#1C1C1C;--mt:#696760;--umd:#C8C4F0;}
-body{font-family:'Noto Sans KR',sans-serif;margin:0;padding:0;background:var(--bg);color:var(--tx);display:flex;flex-direction:column;height:100vh;}
-.header{height:54px;background:var(--sf);border-bottom:1px solid var(--br);display:flex;align-items:center;padding:0 24px;flex-shrink:0;}
-.header h1{font-size:16px;margin:0;display:flex;align-items:center;gap:10px;font-weight:700;color:var(--tx);}
-.back{text-decoration:none;color:var(--mt);font-size:13px;border:1px solid var(--br);padding:6px 12px;border-radius:6px;transition:all 0.2s;font-weight:500;}
-.back:hover{background:var(--bg);color:var(--tx);}
-.content{display:flex;flex:1;overflow:hidden;}
-.panel-left{width:380px;background:var(--sf);border-right:1px solid var(--br);padding:28px;overflow-y:auto;box-shadow:2px 0 10px rgba(0,0,0,0.02);z-index:10;}
-.panel-right{flex:1;background:var(--bg);position:relative;}
-iframe{width:100%;height:100%;border:none;display:block;}
-.step{margin-bottom:20px;padding:16px;background:var(--bg);border-radius:10px;border:1px solid var(--br);}
-.step-num{display:inline-block;width:24px;height:24px;background:var(--u);color:#fff;border-radius:50%;text-align:center;line-height:24px;font-size:12px;font-weight:700;margin-bottom:8px;}
-.step h3{margin:0 0 10px 0;font-size:14px;color:var(--tx);}
-.step p{margin:0;font-size:13px;color:var(--mt);line-height:1.65;}
-code{background:var(--ult);padding:2px 6px;border-radius:4px;color:var(--u);font-size:12px;font-family:monospace;border:1px solid var(--umd);}
-::-webkit-scrollbar { width: 8px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: #ddd; border-radius: 4px; }
-::-webkit-scrollbar-thumb:hover { background: #ccc; }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>이심전심 게임 장치 만들기 | 정보 Ⅰ-2-04</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=IBM+Plex+Mono:wght@400;600&display=swap');
+
+    :root {
+      --navy: #0f1b2d;
+      --navy2: #1a2d45;
+      --navy3: #243d5e;
+      --amber: #f59e0b;
+      --amber-l: #fef3c7;
+      --amber-d: #92400e;
+      --orange: #f97316;
+      --orange-l: #ffedd5;
+      --orange-d: #c2410c;
+      --yellow: #eab308;
+      --yellow-l: #fef9c3;
+      --gold: #d97706;
+      --green: #10b981;
+      --green-l: #d1fae5;
+      --green-d: #065f46;
+      --teal: #0d9488;
+      --teal-l: #ccfbf1;
+      --blue: #2d7dd2;
+      --blue-l: #d0e8ff;
+      --sky: #0ea5e9;
+      --sky-l: #e0f2fe;
+      --violet: #7c3aed;
+      --violet-l: #ede9fe;
+      --pink: #ec4899;
+      --pink-l: #fce7f3;
+      --red: #ef4444;
+      --red-l: #fee2e2;
+      --red-d: #991b1b;
+      --text: #1a1a2e;
+      --text2: #4a5568;
+      --text3: #718096;
+      --border: #e2e8f0;
+      --bg: #f8fafc;
+      --white: #fff;
+      --radius: 12px;
+      --radius-sm: 8px;
+      --shadow: 0 4px 24px rgba(15, 27, 45, .08);
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
+
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      font-size: 15px
+    }
+
+    /* ── HERO ── */
+    .hero {
+      background: var(--navy);
+      color: white;
+      position: relative;
+      overflow: hidden
+    }
+
+    .hero-inner {
+      max-width: 940px;
+      margin: 0 auto;
+      padding: 52px 28px 44px;
+      position: relative;
+      z-index: 1
+    }
+
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image: linear-gradient(rgba(245, 158, 11, .07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(245, 158, 11, .07) 1px, transparent 1px);
+      background-size: 40px 40px
+    }
+
+    .hero-signal {
+      position: absolute;
+      right: 40px;
+      top: 30px;
+      pointer-events: none
+    }
+
+    .signal-ring {
+      position: absolute;
+      border-radius: 50%;
+      border: 2px solid rgba(245, 158, 11, .2);
+      animation: ripple 2s ease-out infinite
+    }
+
+    .signal-ring:nth-child(1) {
+      width: 60px;
+      height: 60px;
+      right: 20px;
+      top: 20px;
+      animation-delay: 0s
+    }
+
+    .signal-ring:nth-child(2) {
+      width: 100px;
+      height: 100px;
+      right: 0;
+      top: 0;
+      animation-delay: .5s
+    }
+
+    .signal-ring:nth-child(3) {
+      width: 150px;
+      height: 150px;
+      right: -25px;
+      top: -25px;
+      animation-delay: 1s
+    }
+
+    @keyframes ripple {
+      0% {
+        opacity: .8;
+        transform: scale(.8)
+      }
+
+      100% {
+        opacity: 0;
+        transform: scale(1.2)
+      }
+    }
+
+    .hero-glow {
+      position: absolute;
+      width: 260px;
+      height: 260px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(245, 158, 11, .15), transparent 70%);
+      right: -60px;
+      bottom: -60px;
+      pointer-events: none
+    }
+
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: rgba(255, 255, 255, .45);
+      margin-bottom: 18px
+    }
+
+    .breadcrumb span {
+      color: rgba(255, 255, 255, .8)
+    }
+
+    .unit-badge {
+      display: inline-block;
+      background: rgba(245, 158, 11, .22);
+      border: 1px solid rgba(245, 158, 11, .45);
+      color: #fcd34d;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 20px;
+      margin-bottom: 12px;
+      letter-spacing: .05em
+    }
+
+    .hero h1 {
+      font-size: clamp(20px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 12px
+    }
+
+    .hero h1 em {
+      color: #fcd34d;
+      font-style: normal
+    }
+
+    .hero-desc {
+      font-size: 13px;
+      color: rgba(255, 255, 255, .6);
+      max-width: 520px;
+      margin-bottom: 24px
+    }
+
+    .meta-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px
+    }
+
+    .chip {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(255, 255, 255, .08);
+      border: 1px solid rgba(255, 255, 255, .12);
+      border-radius: 20px;
+      padding: 5px 12px;
+      font-size: 12px;
+      color: rgba(255, 255, 255, .7)
+    }
+
+    .chip .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--amber)
+    }
+
+    /* ── STICKY NAV ── */
+    .sticky-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--navy2);
+      border-bottom: 1px solid rgba(255, 255, 255, .07);
+      box-shadow: 0 2px 12px rgba(0, 0, 0, .25)
+    }
+
+    .nav-inner {
+      max-width: 940px;
+      margin: 0 auto;
+      display: flex;
+      overflow-x: auto;
+      scrollbar-width: none
+    }
+
+    .nav-inner::-webkit-scrollbar {
+      display: none
+    }
+
+    .nav-btn {
+      flex-shrink: 0;
+      padding: 13px 14px;
+      font-size: 12px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, .4);
+      border: none;
+      background: none;
+      border-bottom: 2px solid transparent;
+      cursor: pointer;
+      transition: all .2s;
+      white-space: nowrap;
+      font-family: 'Noto Sans KR', sans-serif
+    }
+
+    .nav-btn:hover {
+      color: rgba(255, 255, 255, .7)
+    }
+
+    .nav-btn.active {
+      color: #fcd34d;
+      border-bottom-color: #fcd34d
+    }
+
+    /* ── MAIN & ACCORDION ── */
+    .main {
+      max-width: 940px;
+      margin: 0 auto;
+      padding: 20px 28px 80px
+    }
+
+    .acc-section {
+      margin-bottom: 12px;
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      background: var(--white)
+    }
+
+    .acc-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 18px 20px;
+      cursor: pointer;
+      user-select: none;
+      transition: background .15s
+    }
+
+    .acc-header:hover {
+      background: #fffbeb
+    }
+
+    .acc-header.open {
+      background: #fef3c7;
+      border-bottom: 1px solid var(--border)
+    }
+
+    .acc-num {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 13px;
+      font-weight: 600;
+      flex-shrink: 0;
+      color: white;
+      transition: transform .3s
+    }
+
+    .acc-header.open .acc-num {
+      transform: scale(1.05)
+    }
+
+    .acc-text {
+      flex: 1
+    }
+
+    .acc-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text)
+    }
+
+    .acc-sub {
+      font-size: 12px;
+      color: var(--text3);
+      margin-top: 2px
+    }
+
+    .acc-arrow {
+      font-size: 16px;
+      color: var(--text3);
+      transition: transform .3s;
+      flex-shrink: 0
+    }
+
+    .acc-header.open .acc-arrow {
+      transform: rotate(90deg)
+    }
+
+    .acc-body {
+      display: none;
+      padding: 24px 20px
+    }
+
+    .acc-body.open {
+      display: block;
+      animation: fadeUp .25s ease
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(-8px)
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0)
+      }
+    }
+
+    /* SHARED */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px
+    }
+
+    .three-col {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px
+    }
+
+    @media(max-width:600px) {
+
+      .two-col,
+      .three-col {
+        grid-template-columns: 1fr
+      }
+    }
+
+    .info-card {
+      border-radius: var(--radius-sm);
+      padding: 16px;
+      background: var(--bg);
+      border: 1px solid var(--border)
+    }
+
+    .info-card h4 {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 7px;
+      display: flex;
+      align-items: center;
+      gap: 7px
+    }
+
+    .info-card p {
+      font-size: 13px;
+      color: var(--text2);
+      line-height: 1.6
+    }
+
+    .obj-box {
+      background: linear-gradient(135deg, #fffbeb, #fef3c7);
+      border: 1px solid #fde68a;
+      border-radius: var(--radius);
+      padding: 20px 24px
+    }
+
+    .achievement-tag {
+      display: inline-block;
+      background: #fde68a;
+      color: var(--amber-d);
+      border-radius: 4px;
+      font-size: 10px;
+      font-weight: 600;
+      padding: 2px 6px;
+      margin-bottom: 8px;
+      font-family: 'IBM Plex Mono', monospace
+    }
+
+    .obj-list {
+      list-style: none
+    }
+
+    .obj-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 14px;
+      padding: 6px 0;
+      border-bottom: 1px solid rgba(245, 158, 11, .12)
+    }
+
+    .obj-list li:last-child {
+      border-bottom: none
+    }
+
+    .obj-list li::before {
+      content: '✓';
+      color: var(--amber);
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 1px
+    }
+
+    .dark-panel {
+      background: var(--navy);
+      border-radius: var(--radius);
+      padding: 22px 24px;
+      color: white
+    }
+
+    .dp-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: #fcd34d;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      margin-bottom: 14px
+    }
+
+    .mono {
+      font-family: 'IBM Plex Mono', monospace
+    }
+
+    /* ═══════════════════════
+   §1 WIRELESS CONCEPT
+═══════════════════════ */
+    .wireless-visual {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      padding: 28px 20px;
+      background: var(--navy);
+      border-radius: var(--radius);
+      overflow: hidden;
+      position: relative
+    }
+
+    .wv-mb {
+      width: 120px;
+      text-align: center;
+      position: relative;
+      z-index: 1
+    }
+
+    .wv-mb-body {
+      width: 90px;
+      height: 74px;
+      background: #1e2a3a;
+      border-radius: 10px;
+      border: 2px solid #334155;
+      margin: 0 auto 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all .2s;
+      user-select: none
+    }
+
+    .wv-mb-body:active {
+      transform: scale(.95)
+    }
+
+    .wv-leds {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 2px;
+      padding: 8px
+    }
+
+    .wv-led {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #0a0a1a;
+      transition: all .15s
+    }
+
+    .wv-led.on {
+      box-shadow: 0 0 5px currentColor
+    }
+
+    .wv-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: rgba(255, 255, 255, .6);
+      margin-top: 4px
+    }
+
+    .wv-id {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      color: rgba(255, 255, 255, .35);
+      margin-top: 2px
+    }
+
+    .wv-channel {
+      background: rgba(245, 158, 11, .18);
+      padding: 3px 8px;
+      border-radius: 10px;
+      font-size: 10px;
+      font-weight: 700;
+      color: #fcd34d;
+      margin-top: 4px;
+      display: inline-block
+    }
+
+    .wv-signal-area {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-width: 120px;
+      position: relative
+    }
+
+    .wv-signal-line {
+      width: 100%;
+      height: 2px;
+      background: rgba(245, 158, 11, .2);
+      position: relative;
+      overflow: visible
+    }
+
+    .signal-packet {
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--amber);
+      top: -5px;
+      left: -12px;
+      box-shadow: 0 0 10px rgba(245, 158, 11, .7);
+      transition: none;
+      display: none
+    }
+
+    .signal-packet.moving {
+      display: block;
+      animation: packetFly .6s linear forwards
+    }
+
+    .signal-packet.moving-back {
+      display: block;
+      animation: packetFlyBack .6s linear forwards
+    }
+
+    @keyframes packetFly {
+      0% {
+        left: -12px
+      }
+
+      100% {
+        left: calc(100% + 12px)
+      }
+    }
+
+    @keyframes packetFlyBack {
+      0% {
+        left: calc(100% + 12px)
+      }
+
+      100% {
+        left: -12px
+      }
+    }
+
+    .wv-status {
+      font-size: 12px;
+      color: rgba(255, 255, 255, .5);
+      text-align: center;
+      margin-top: 8px;
+      font-family: 'IBM Plex Mono', monospace;
+      min-height: 18px
+    }
+
+    .wv-freq {
+      font-size: 11px;
+      color: rgba(245, 158, 11, .6);
+      text-align: center;
+      margin-top: 2px
+    }
+
+    /* ═══════════════════════
+   §2 RADIO CONCEPT
+═══════════════════════ */
+    .radio-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 12px;
+      margin-bottom: 16px
+    }
+
+    .radio-card {
+      border-radius: var(--radius-sm);
+      border: 1.5px solid var(--border);
+      background: white;
+      padding: 16px;
+      cursor: pointer;
+      transition: all .2s;
+      border-top: 3px solid var(--rc-color)
+    }
+
+    .radio-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow)
+    }
+
+    .radio-card.open {
+      box-shadow: 0 0 0 2px var(--rc-color)
+    }
+
+    .rc-icon {
+      font-size: 26px;
+      margin-bottom: 7px;
+      display: block
+    }
+
+    .rc-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 3px
+    }
+
+    .rc-brief {
+      font-size: 12px;
+      color: var(--text3);
+      line-height: 1.5
+    }
+
+    .rc-detail {
+      display: none;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid var(--border);
+      font-size: 13px;
+      color: var(--text2);
+      line-height: 1.65
+    }
+
+    .radio-card.open .rc-detail {
+      display: block;
+      animation: fadeUp .2s ease
+    }
+
+    .rc-code {
+      margin-top: 8px;
+      background: var(--navy);
+      border-radius: 4px;
+      padding: 8px 10px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      color: #fcd34d;
+      line-height: 1.8
+    }
+
+    /* ═══════════════════════
+   §3 GAME RULES
+═══════════════════════ */
+    .game-rules-visual {
+      background: var(--navy);
+      border-radius: var(--radius);
+      padding: 22px;
+      color: white;
+      margin-bottom: 16px
+    }
+
+    .game-flow {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      overflow-x: auto;
+      padding-bottom: 4px
+    }
+
+    .gf-step {
+      flex-shrink: 0;
+      text-align: center;
+      padding: 14px 12px;
+      background: rgba(255, 255, 255, .05);
+      border: 1px solid rgba(255, 255, 255, .1);
+      border-radius: var(--radius-sm);
+      min-width: 110px;
+      cursor: pointer;
+      transition: all .2s
+    }
+
+    .gf-step:hover {
+      background: rgba(245, 158, 11, .15);
+      border-color: rgba(252, 211, 77, .4)
+    }
+
+    .gf-step.active-step {
+      background: rgba(245, 158, 11, .22);
+      border-color: #fcd34d;
+      box-shadow: 0 0 12px rgba(245, 158, 11, .2)
+    }
+
+    .gfs-icon {
+      font-size: 24px;
+      display: block;
+      margin-bottom: 5px
+    }
+
+    .gfs-num {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px;
+      font-weight: 700;
+      color: rgba(245, 158, 11, .6);
+      margin-bottom: 2px;
+      letter-spacing: .06em
+    }
+
+    .gfs-name {
+      font-size: 11px;
+      font-weight: 700;
+      color: rgba(255, 255, 255, .85)
+    }
+
+    .gfs-desc {
+      font-size: 10px;
+      color: rgba(255, 255, 255, .4);
+      margin-top: 2px
+    }
+
+    .gf-arrow {
+      flex-shrink: 0;
+      padding: 0 6px;
+      color: rgba(245, 158, 11, .5);
+      font-size: 18px;
+      font-weight: 700
+    }
+
+    .gf-detail {
+      background: rgba(0, 0, 0, .25);
+      border-radius: var(--radius-sm);
+      padding: 13px 16px;
+      margin-top: 14px;
+      font-size: 13px;
+      color: rgba(255, 255, 255, .75);
+      line-height: 1.7;
+      border-left: 3px solid #fcd34d;
+      display: none;
+      animation: fadeUp .2s ease
+    }
+
+    .gf-detail.show {
+      display: block
+    }
+
+    .choice-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 14px
+    }
+
+    .choice-card {
+      border-radius: var(--radius-sm);
+      padding: 16px;
+      text-align: center;
+      cursor: pointer;
+      transition: all .2s;
+      border: 2px solid
+    }
+
+    .choice-card:hover {
+      transform: scale(1.04)
+    }
+
+    .cc-emoji {
+      font-size: 32px;
+      display: block;
+      margin-bottom: 6px
+    }
+
+    .cc-name {
+      font-size: 14px;
+      font-weight: 700
+    }
+
+    .cc-code {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      margin-top: 4px;
+      opacity: .7
+    }
+
+    /* ═══════════════════════
+   §4 PROTOCOL DESIGN
+═══════════════════════ */
+    .protocol-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px
+    }
+
+    .protocol-table th {
+      background: var(--navy);
+      color: white;
+      padding: 10px 14px;
+      text-align: left;
+      font-weight: 600;
+      font-size: 12px
+    }
+
+    .protocol-table td {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top
+    }
+
+    .protocol-table tr:last-child td {
+      border-bottom: none
+    }
+
+    .protocol-table tr:nth-child(even) td {
+      background: #fffbeb
+    }
+
+    .proto-tag {
+      display: inline-block;
+      font-size: 10px;
+      padding: 2px 7px;
+      border-radius: 10px;
+      font-weight: 600;
+      margin-right: 3px
+    }
+
+    .message-builder {
+      background: var(--navy);
+      border-radius: var(--radius);
+      padding: 22px;
+      color: white;
+      margin-top: 16px
+    }
+
+    .mb-row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 12px
+    }
+
+    .mb-label {
+      font-size: 12px;
+      color: rgba(255, 255, 255, .55);
+      min-width: 60px
+    }
+
+    .mb-field {
+      background: rgba(0, 0, 0, .3);
+      border: 1px solid rgba(255, 255, 255, .15);
+      border-radius: var(--radius-sm);
+      color: white;
+      padding: 8px 12px;
+      font-size: 13px;
+      font-family: 'IBM Plex Mono', monospace;
+      outline: none
+    }
+
+    .mb-select {
+      background: rgba(0, 0, 0, .3);
+      border: 1px solid rgba(255, 255, 255, .15);
+      border-radius: var(--radius-sm);
+      color: white;
+      padding: 8px 12px;
+      font-size: 13px;
+      cursor: pointer;
+      font-family: 'Noto Sans KR', sans-serif;
+      outline: none
+    }
+
+    .mb-select option {
+      background: #1a2d45;
+      color: white
+    }
+
+    .mb-preview {
+      background: rgba(245, 158, 11, .12);
+      border: 1px solid rgba(245, 158, 11, .3);
+      border-radius: var(--radius-sm);
+      padding: 12px 16px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 14px;
+      color: #fcd34d;
+      margin-top: 4px;
+      min-height: 36px
+    }
+
+    .btn-mb {
+      background: var(--amber);
+      color: var(--amber-d);
+      border: none;
+      border-radius: var(--radius-sm);
+      padding: 9px 18px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: 'Noto Sans KR', sans-serif;
+      transition: all .2s
+    }
+
+    .btn-mb:hover {
+      background: var(--gold)
+    }
+
+    /* ═══════════════════════
+   §5 ALGORITHM
+═══════════════════════ */
+    .algo-wrap {
+      background: var(--navy);
+      border-radius: var(--radius);
+      padding: 22px;
+      color: white
+    }
+
+    .algo-tabs {
+      display: flex;
+      gap: 0;
+      background: rgba(0, 0, 0, .2);
+      border-radius: var(--radius-sm);
+      padding: 3px;
+      margin-bottom: 16px;
+      width: fit-content
+    }
+
+    .algo-tab {
+      padding: 8px 18px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      color: rgba(255, 255, 255, .45);
+      border: none;
+      background: none;
+      font-family: 'Noto Sans KR', sans-serif;
+      transition: all .2s
+    }
+
+    .algo-tab.active {
+      background: var(--amber);
+      color: var(--amber-d)
+    }
+
+    .algo-panel {
+      display: none
+    }
+
+    .algo-panel.active {
+      display: block;
+      animation: fadeUp .2s ease
+    }
+
+    .fc-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0
+    }
+
+    .fc-node {
+      padding: 9px 18px;
+      border-radius: var(--radius-sm);
+      font-size: 12px;
+      font-weight: 700;
+      text-align: center;
+      margin: 2px 0;
+      min-width: 230px;
+      cursor: pointer;
+      transition: all .2s;
+      white-space: pre-line
+    }
+
+    .fc-node:hover {
+      filter: brightness(1.1)
+    }
+
+    .fc-node.hl {
+      box-shadow: 0 0 0 3px rgba(252, 211, 77, .5)
+    }
+
+    .fc-term {
+      background: #334155;
+      color: #e2e8f0;
+      border-radius: 40px
+    }
+
+    .fc-proc {
+      background: rgba(14, 165, 233, .25);
+      border: 1.5px solid rgba(14, 165, 233, .5);
+      color: #7dd3fc
+    }
+
+    .fc-dec {
+      background: rgba(245, 158, 11, .22);
+      border: 1.5px solid rgba(245, 158, 11, .5);
+      color: #fcd34d;
+      clip-path: polygon(12px 0%, calc(100% - 12px) 0%, 100% 50%, calc(100% - 12px) 100%, 12px 100%, 0% 50%);
+      padding: 10px 30px
+    }
+
+    .fc-io {
+      background: rgba(16, 185, 129, .2);
+      border: 1.5px solid rgba(16, 185, 129, .5);
+      color: #86efac;
+      transform: skew(-5deg)
+    }
+
+    .fc-io span {
+      display: inline-block;
+      transform: skew(5deg)
+    }
+
+    .fc-radio {
+      background: rgba(245, 158, 11, .18);
+      border: 1.5px solid rgba(245, 158, 11, .45);
+      color: #fcd34d
+    }
+
+    .fc-arr {
+      color: rgba(255, 255, 255, .3);
+      font-size: 16px;
+      line-height: 1;
+      margin: 1px 0;
+      text-align: center
+    }
+
+    .fc-branch {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      width: 100%;
+      max-width: 720px;
+      margin: 2px 0
+    }
+
+    .fc-bcol {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex: 1
+    }
+
+    .fc-blbl {
+      font-size: 10px;
+      font-weight: 700;
+      color: rgba(255, 255, 255, .4);
+      margin-bottom: 2px
+    }
+
+    .fc-small {
+      font-size: 11px;
+      min-width: 160px
+    }
+
+    .fc-ndesc {
+      display: none;
+      margin-top: 12px;
+      background: rgba(0, 0, 0, .3);
+      border-radius: var(--radius-sm);
+      padding: 12px 14px;
+      font-size: 12px;
+      color: rgba(255, 255, 255, .75);
+      line-height: 1.7;
+      border-left: 3px solid #fcd34d
+    }
+
+    .fc-ndesc.show {
+      display: block;
+      animation: fadeUp .2s ease
+    }
+
+    /* ═══════════════════════
+   §6 GAME SIMULATOR
+═══════════════════════ */
+    .game-sim {
+      background: var(--navy);
+      border-radius: var(--radius);
+      overflow: hidden
+    }
+
+    .gs-scoreboard {
+      padding: 16px 22px;
+      border-bottom: 1px solid rgba(255, 255, 255, .08);
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      flex-wrap: wrap
+    }
+
+    .gs-score-box {
+      flex: 1;
+      min-width: 100px;
+      text-align: center;
+      background: rgba(255, 255, 255, .05);
+      border-radius: var(--radius-sm);
+      padding: 10px 14px
+    }
+
+    .gsb-label {
+      font-size: 10px;
+      font-weight: 700;
+      color: rgba(255, 255, 255, .4);
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      margin-bottom: 3px
+    }
+
+    .gsb-val {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 24px;
+      font-weight: 900;
+      transition: all .2s
+    }
+
+    .gs-arena {
+      padding: 22px;
+      display: flex;
+      gap: 16px;
+      align-items: stretch;
+      flex-wrap: wrap
+    }
+
+    .gs-player {
+      flex: 1;
+      min-width: 200px;
+      background: rgba(255, 255, 255, .04);
+      border-radius: var(--radius-sm);
+      padding: 18px;
+      border: 2px solid rgba(255, 255, 255, .08);
+      transition: all .3s
+    }
+
+    .gs-player.chosen {
+      border-color: rgba(245, 158, 11, .5);
+      background: rgba(245, 158, 11, .08)
+    }
+
+    .gs-player.winner {
+      border-color: var(--green);
+      background: rgba(16, 185, 129, .1);
+      box-shadow: 0 0 20px rgba(16, 185, 129, .15)
+    }
+
+    .gs-player.loser {
+      border-color: rgba(255, 255, 255, .1);
+      opacity: .7
+    }
+
+    .gsp-name {
+      font-size: 13px;
+      font-weight: 700;
+      color: rgba(255, 255, 255, .7);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px
+    }
+
+    .gsp-mb {
+      width: 100%;
+      height: 70px;
+      background: #1e2a3a;
+      border-radius: 8px;
+      border: 2px solid #334155;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 12px
+    }
+
+    .gsp-leds {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 2px;
+      padding: 7px
+    }
+
+    .gsp-led {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #0a0a1a;
+      transition: all .2s
+    }
+
+    .gsp-led.on {
+      box-shadow: 0 0 5px currentColor
+    }
+
+    .gsp-choice-display {
+      font-size: 36px;
+      text-align: center;
+      height: 50px;
+      line-height: 50px;
+      margin-bottom: 10px;
+      transition: all .2s
+    }
+
+    .gsp-choice-label {
+      font-size: 11px;
+      color: rgba(255, 255, 255, .4);
+      text-align: center;
+      font-family: 'IBM Plex Mono', monospace;
+      margin-bottom: 12px;
+      min-height: 18px
+    }
+
+    .gsp-btn-row {
+      display: flex;
+      gap: 6px;
+      justify-content: center;
+      flex-wrap: wrap
+    }
+
+    .choice-btn {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      border: 2px solid rgba(255, 255, 255, .15);
+      background: rgba(255, 255, 255, .06);
+      font-size: 22px;
+      cursor: pointer;
+      transition: all .2s;
+      display: flex;
+      align-items: center;
+      justify-content: center
+    }
+
+    .choice-btn:hover {
+      transform: scale(1.12)
+    }
+
+    .choice-btn:active {
+      transform: scale(.92)
+    }
+
+    .choice-btn.selected {
+      border-color: var(--amber);
+      background: rgba(245, 158, 11, .2);
+      transform: scale(1.1)
+    }
+
+    .gs-vs {
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 0 8px
+    }
+
+    .gs-vs-text {
+      font-size: 20px;
+      font-weight: 900;
+      color: rgba(255, 255, 255, .3)
+    }
+
+    .gs-signal-status {
+      font-size: 11px;
+      color: rgba(245, 158, 11, .6);
+      font-family: 'IBM Plex Mono', monospace;
+      margin-top: 6px;
+      text-align: center
+    }
+
+    .gs-result-panel {
+      margin: 0 22px 22px;
+      border-radius: var(--radius-sm);
+      padding: 16px 20px;
+      text-align: center;
+      background: rgba(255, 255, 255, .04);
+      border: 1px solid rgba(255, 255, 255, .08);
+      min-height: 80px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: all .4s
+    }
+
+    .gsr-emoji {
+      font-size: 40px;
+      margin-bottom: 6px;
+      display: block;
+      animation: popIn .3s ease
+    }
+
+    @keyframes popIn {
+      0% {
+        transform: scale(.5)
+      }
+
+      70% {
+        transform: scale(1.15)
+      }
+
+      100% {
+        transform: scale(1)
+      }
+    }
+
+    .gsr-msg {
+      font-size: 16px;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 4px
+    }
+
+    .gsr-sub {
+      font-size: 13px;
+      color: rgba(255, 255, 255, .55)
+    }
+
+    .gs-controls {
+      padding: 16px 22px;
+      border-top: 1px solid rgba(255, 255, 255, .08);
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center
+    }
+
+    .btn-new-round {
+      background: var(--amber);
+      color: var(--amber-d);
+      border: none;
+      border-radius: var(--radius-sm);
+      padding: 10px 22px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: 'Noto Sans KR', sans-serif;
+      transition: all .2s
+    }
+
+    .btn-new-round:hover {
+      background: var(--gold)
+    }
+
+    .btn-reset-game {
+      background: rgba(255, 255, 255, .08);
+      border: 1px solid rgba(255, 255, 255, .2);
+      color: rgba(255, 255, 255, .65);
+      border-radius: var(--radius-sm);
+      padding: 10px 16px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      font-family: 'Noto Sans KR', sans-serif;
+      transition: all .2s
+    }
+
+    .btn-reset-game:hover {
+      background: rgba(255, 255, 255, .12)
+    }
+
+    .gs-radio-log {
+      background: rgba(0, 0, 0, .3);
+      border-radius: var(--radius-sm);
+      padding: 8px 12px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      color: rgba(252, 211, 77, .8);
+      min-height: 44px;
+      max-height: 80px;
+      overflow-y: auto;
+      line-height: 1.9;
+      flex: 1;
+      min-width: 200px
+    }
+
+    /* ═══════════════════════
+   §7 CODE
+═══════════════════════ */
+    .code-viewer {
+      background: #0d1117;
+      border-radius: var(--radius);
+      overflow: hidden
+    }
+
+    .cv-tabs {
+      display: flex;
+      background: #161b22;
+      border-bottom: 1px solid rgba(255, 255, 255, .06)
+    }
+
+    .cv-tab {
+      padding: 10px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      color: rgba(255, 255, 255, .4);
+      border: none;
+      background: none;
+      transition: all .2s;
+      font-family: 'IBM Plex Mono', monospace
+    }
+
+    .cv-tab.active {
+      color: #fcd34d;
+      border-bottom: 2px solid #fcd34d
+    }
+
+    .cv-panel {
+      display: none;
+      padding: 20px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 12px;
+      color: #e6edf3;
+      line-height: 2;
+      overflow-x: auto
+    }
+
+    .cv-panel.active {
+      display: block;
+      animation: fadeUp .2s ease
+    }
+
+    .pk {
+      color: #ff7b72
+    }
+
+    .pf {
+      color: #d2a8ff
+    }
+
+    .ps {
+      color: #a5d6ff
+    }
+
+    .pc {
+      color: #8b949e
+    }
+
+    .pn {
+      color: #79c0ff
+    }
+
+    .pv {
+      color: #ffa657
+    }
+
+    .py-radio {
+      color: #fcd34d
+    }
+
+    /* ═══════════════════════
+   §8 EXTENSIONS
+═══════════════════════ */
+    .ext-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      gap: 12px
+    }
+
+    .ext-card {
+      border-radius: var(--radius-sm);
+      border: 1.5px solid var(--border);
+      background: white;
+      padding: 16px;
+      cursor: pointer;
+      transition: all .2s;
+      border-top: 3px solid var(--ec)
+    }
+
+    .ext-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow)
+    }
+
+    .ext-card.open {
+      box-shadow: 0 0 0 2px var(--ec)
+    }
+
+    .ec-icon {
+      font-size: 26px;
+      margin-bottom: 8px;
+      display: block
+    }
+
+    .ec-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 3px
+    }
+
+    .ec-tag {
+      font-size: 10px;
+      padding: 2px 7px;
+      border-radius: 10px;
+      font-weight: 600;
+      display: inline-block;
+      margin-bottom: 5px
+    }
+
+    .ec-brief {
+      font-size: 12px;
+      color: var(--text3);
+      line-height: 1.5
+    }
+
+    .ec-detail {
+      display: none;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid var(--border);
+      font-size: 13px;
+      color: var(--text2);
+      line-height: 1.6
+    }
+
+    .ext-card.open .ec-detail {
+      display: block;
+      animation: fadeUp .2s ease
+    }
+
+    .ec-code {
+      margin-top: 8px;
+      background: var(--navy);
+      border-radius: 4px;
+      padding: 10px 12px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      color: #fcd34d;
+      line-height: 1.9;
+      white-space: pre-wrap
+    }
+
+    /* QUIZ */
+    .quiz-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden
+    }
+
+    .quiz-header {
+      background: var(--navy);
+      color: white;
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between
+    }
+
+    .quiz-header h3 {
+      font-size: 15px;
+      font-weight: 700
+    }
+
+    .quiz-body {
+      padding: 22px
+    }
+
+    .quiz-q {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      line-height: 1.55
+    }
+
+    .quiz-options {
+      display: flex;
+      flex-direction: column;
+      gap: 7px
+    }
+
+    .quiz-opt {
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 11px 16px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: all .15s;
+      background: var(--bg);
+      display: flex;
+      align-items: center;
+      gap: 10px
+    }
+
+    .quiz-opt:hover:not(.disabled) {
+      border-color: var(--amber);
+      background: var(--amber-l)
+    }
+
+    .quiz-opt.correct {
+      border-color: var(--green);
+      background: var(--green-l);
+      color: #065f46
+    }
+
+    .quiz-opt.wrong {
+      border-color: var(--red);
+      background: var(--red-l);
+      color: #991b1b
+    }
+
+    .quiz-opt.disabled {
+      cursor: default
+    }
+
+    .opt-num {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--border);
+      color: var(--text3);
+      font-size: 12px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0
+    }
+
+    .quiz-opt.correct .opt-num {
+      background: var(--green);
+      color: white
+    }
+
+    .quiz-opt.wrong .opt-num {
+      background: var(--red);
+      color: white
+    }
+
+    .quiz-feedback {
+      margin-top: 12px;
+      padding: 12px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      display: none
+    }
+
+    .quiz-feedback.show {
+      display: block;
+      animation: fadeUp .2s ease
+    }
+
+    .quiz-feedback.ok {
+      background: var(--green-l);
+      color: #065f46;
+      border-left: 3px solid var(--green)
+    }
+
+    .quiz-feedback.ng {
+      background: var(--red-l);
+      color: #991b1b;
+      border-left: 3px solid var(--red)
+    }
+
+    .quiz-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 16px
+    }
+
+    .btn-qnext {
+      background: var(--amber-d);
+      color: white;
+      border: none;
+      border-radius: var(--radius-sm);
+      padding: 10px 22px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      font-family: 'Noto Sans KR', sans-serif;
+      display: none
+    }
+
+    .btn-qnext.show {
+      display: block
+    }
+
+    /* SUMMARY */
+    .summary-box {
+      background: var(--navy);
+      border-radius: var(--radius);
+      padding: 26px
+    }
+
+    .summary-box h3 {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, .1);
+      color: #fcd34d
+    }
+
+    .kw-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(195px, 1fr));
+      gap: 10px
+    }
+
+    .kw-item {
+      background: rgba(255, 255, 255, .05);
+      border: 1px solid rgba(255, 255, 255, .08);
+      border-radius: var(--radius-sm);
+      padding: 12px 14px
+    }
+
+    .kw-term {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 12px;
+      font-weight: 600;
+      color: #fcd34d;
+      margin-bottom: 4px
+    }
+
+    .kw-def {
+      font-size: 12px;
+      color: rgba(255, 255, 255, .6);
+      line-height: 1.5
+    }
+
+    @media(max-width:600px) {
+
+      .hero-inner,
+      .main {
+        padding-left: 16px;
+        padding-right: 16px
+      }
+
+      .choice-grid {
+        grid-template-columns: 1fr 1fr
+      }
+
+      .kw-grid {
+        grid-template-columns: 1fr
+      }
+
+      .gs-arena {
+        flex-direction: column
+      }
+    }
+  </style>
 </head>
+
 <body>
-<div class="header">
-  <a href="index.html" class="back">← 목록으로</a>
-  <div style="flex:1"></div>
-  <h1>📡 이심전심 테스트 (무선 통신 게임)</h1>
-</div>
-<div class="content">
-  <div class="panel-left">
-    <div style="display:inline-block;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:700;background:var(--ult);color:var(--u);margin-bottom:12px;">라디오 무선 통신 활용</div>
-    <h2 style="font-size:20px;margin-top:0;margin-bottom:12px;font-weight:700;">미션: 친구와 텔레파시 통하기</h2>
-    <p style="font-size:13px;color:var(--mt);line-height:1.6;margin-bottom:24px;">친구와 서로 멀리 떨어져서 각자 버튼을 누릅니다. 서로 같은 버튼을 눌렀는지 무선 통신으로 확인해 보세요!</p>
-    
-    <div class="step">
-      <div class="step-num">1</div>
-      <h3>라디오 그룹 설정</h3>
-      <p>'시작하면' 영역에서 라디오 카테고리의 <code>그룹을 ~로 설정</code> 블록을 추가하세요. 친구와 약속한 같은 숫자(0~255)로 맞춰야만 통신이 됩니다.</p>
-    </div>
-    
-    <div class="step">
-      <div class="step-num">2</div>
-      <h3>선택해서 보내기</h3>
-      <p>A버튼을 누르면 라디오로 송신(숫자 1), B버튼을 누르면 송신(숫자 2)하도록 만드세요. 동시에 내가 누른 숫자도 <code>내선택</code> 변수에 저장해둡니다.</p>
-    </div>
-    
-    <div class="step">
-      <div class="step-num">3</div>
-      <h3>결과 확인하기</h3>
-      <p><code>라디오로 수신하면 실행</code> 블록을 이용해 친구가 보낸 숫자를 <code>친구선택</code> 변수에 저장하세요.<br>그 다음 <code>무한반복</code> 안에서 <code>내선택 = 친구선택</code>인지 비교하여 일치하면 하트모양(♥)을 띄우세요!</p>
-    </div>
-    
-    <div style="margin-top:30px;padding:16px;background:#EAF3FD;border-radius:10px;border:1px solid #B4D4F8;font-size:12px;color:#0050A0;line-height:1.6;">
-      <strong>💡 힌트:</strong> 두 사람이 모두 눌렀을 때만 비교 결과를 표시하고 싶다면, 시작할 때 두 변수값을 0으로 한 뒤 <code>(내선택 × 친구선택) > 0</code> 인지를 먼저 조건문으로 확인하는 것이 안전합니다! 시뮬레이터에서는 좌측에 마이크로비트가 하나 더 나타나서 테스트해볼 수 있어요!
+  <div id="__topnav__"
+    style="position:sticky;top:0;z-index:9999;background:#0f1b2d;border-bottom:2px solid #84cc16;font-family:'Noto Sans KR',sans-serif">
+    <div style="max-width:1200px;margin:0 auto;padding:0 20px;display:flex;align-items:center;gap:12px;height:48px">
+      <a href="../../index.html"
+        style="display:flex;align-items:center;gap:6px;font-size:11px;color:#84cc16;text-decoration:none;font-weight:700;letter-spacing:.06em;white-space:nowrap;opacity:.9;transition:opacity .15s"
+        onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.9">
+        ← 단원 목차
+      </a>
+      <span style="color:#243d5e;font-size:14px">|</span>
+      <a href="index.html"
+        style="display:flex;align-items:center;gap:6px;font-size:11px;color:#7dd3fc;text-decoration:none;font-weight:600;white-space:nowrap;opacity:.9;transition:opacity .15s"
+        onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.9">
+        ↑ 피지컬 컴퓨팅
+      </a>
+      <span style="color:#243d5e;font-size:14px">|</span>
+      <span
+        style="font-size:10px;color:#84cc16;font-weight:700;font-family:'IBM Plex Mono',monospace;flex-shrink:0">Ⅰ-2-04</span>
+      <span
+        style="font-size:12px;color:#e2e8f0;font-weight:500;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">🎮
+        이심전심 게임 장치 만들기</span>
+      <div style="display:flex;gap:6px;margin-left:auto;flex-shrink:0">
+        <a href="sound-animation.html"
+          style="font-size:11px;padding:4px 10px;background:#243d5e;color:#84cc16;border-radius:6px;text-decoration:none;font-weight:600;transition:background .15s"
+          onmouseover="this.style.background='#2d4a6e'" onmouseout="this.style.background='#243d5e'">← Ⅰ-2-03</a>
+      </div>
     </div>
   </div>
-  <div class="panel-right">
-    <iframe src="https://makecode.microbit.org/---editor?nested=1"></iframe>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-grid"></div>
+    <div class="hero-glow"></div>
+    <div class="hero-signal">
+      <div class="signal-ring"></div>
+      <div class="signal-ring"></div>
+      <div class="signal-ring"></div>
+    </div>
+    <div class="hero-inner">
+      <div class="breadcrumb">정보 <span>›</span> <span>Ⅰ. 컴퓨팅 시스템</span> <span>›</span> <span>2. 피지컬 컴퓨팅 프로그래밍</span>
+      </div>
+      <div class="unit-badge">UNIT Ⅰ — 2-04</div>
+      <h1>📡 <em>이심전심 게임 장치</em> 만들기</h1>
+      <p class="hero-desc">두 명이 각자의 마이크로비트로 동시에 같은 것을 선택하면 이기는 텔레파시 게임! 마이크로비트 무선(Radio) 통신으로 두 기기가 데이터를 주고받는 네트워크 피지컬
+        컴퓨팅 시스템을 만들어봅시다.</p>
+      <div class="meta-chips">
+        <div class="chip">
+          <div class="dot"></div>2차시 · 90분
+        </div>
+        <div class="chip">
+          <div class="dot"></div>교과서 33~38쪽
+        </div>
+        <div class="chip">
+          <div class="dot"></div>마이크로비트 2대 필요
+        </div>
+      </div>
+    </div>
   </div>
-</div>
+
+  <!-- STICKY NAV -->
+  <nav class="sticky-nav">
+    <div class="nav-inner">
+      <button class="nav-btn active" onclick="openSec(0)">01 학습 목표</button>
+      <button class="nav-btn" onclick="openSec(1)">02 무선 통신 개념</button>
+      <button class="nav-btn" onclick="openSec(2)">03 Radio 모듈</button>
+      <button class="nav-btn" onclick="openSec(3)">04 게임 규칙 설계</button>
+      <button class="nav-btn" onclick="openSec(4)">05 통신 프로토콜</button>
+      <button class="nav-btn" onclick="openSec(5)">06 알고리즘</button>
+      <button class="nav-btn" onclick="openSec(6)">07 게임 시뮬레이터</button>
+      <button class="nav-btn" onclick="openSec(7)">08 코딩</button>
+      <button class="nav-btn" onclick="openSec(8)">09 확장 프로젝트</button>
+      <button class="nav-btn" onclick="openSec(9)">10 확인 문제</button>
+      <button class="nav-btn" onclick="openSec(10)">11 핵심 정리</button>
+    </div>
+  </nav>
+
+  <div class="main">
+
+    <!-- §0 학습 목표 -->
+    <div class="acc-section" id="sec-0">
+      <div class="acc-header open" id="hdr-0" onclick="toggleSec(0)">
+        <div class="acc-num" style="background:#d97706">01</div>
+        <div class="acc-text">
+          <div class="acc-title">학습 목표</div>
+          <div class="acc-sub">2차시 · 이 소단원을 마치면 할 수 있어요</div>
+        </div>
+        <span class="acc-arrow">▶</span>
+      </div>
+      <div class="acc-body open" id="body-0">
+        <div class="obj-box">
+          <div class="achievement-tag">[9정01-04] 2022 개정 성취기준</div>
+          <ul class="obj-list">
+            <li><strong>무선 통신(Radio)</strong>의 개념과 채널·그룹의 역할을 이해하고, 마이크로비트 Radio 모듈의 동작 원리를 설명할 수 있다.</li>
+            <li><code
+                style="background:var(--amber-l);color:var(--amber-d);padding:1px 5px;border-radius:3px">radio.send()</code>와
+              <code
+                style="background:var(--amber-l);color:var(--amber-d);padding:1px 5px;border-radius:3px">radio.receive()</code>를
+              사용해 두 마이크로비트 간에 <strong>데이터를 주고받는</strong> 프로그램을 작성할 수 있다.</li>
+            <li>게임 진행 규칙을 <strong>통신 프로토콜(메시지 형식·순서)</strong>로 설계하고 문서화할 수 있다.</li>
+            <li>이심전심 게임에서 두 플레이어의 선택을 비교하여 <strong>승패를 판정</strong>하는 알고리즘을 설계하고 구현할 수 있다.</li>
+          </ul>
+        </div>
+        <div class="three-col" style="margin-top:14px">
+          <div class="info-card" style="border-top:3px solid var(--amber)">
+            <h4><span>🆕</span>이번 단원의 핵심 개념</h4>
+            <p>지금까지는 마이크로비트 <strong>1대</strong>로 동작했습니다. 이번 단원에서는 처음으로 <strong>2대가 무선으로 통신</strong>합니다. 네트워킹(IoT)의
+              기초입니다.</p>
+          </div>
+          <div class="info-card" style="border-top:3px solid var(--orange)">
+            <h4><span>🔗</span>이전 단원과의 연계</h4>
+            <p>입력(버튼) → 처리(난수·비교) → 출력(LED)의 기본 구조는 같지만, 처리 단계에 <strong>Radio 송수신</strong>이 추가됩니다.</p>
+          </div>
+          <div class="info-card" style="border-top:3px solid var(--sky)">
+            <h4><span>🌐</span>실세계 연결</h4>
+            <p>스마트폰 Bluetooth, Wi-Fi, NFC 카드, 리모컨 — 모두 무선 통신의 원리를 사용합니다. 마이크로비트 Radio는 2.4GHz ISM 대역을 사용합니다.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- §1 무선 통신 개념 -->
+    <div class="acc-section" id="sec-1">
+      <div class="acc-header" id="hdr-1" onclick="toggleSec(1)">
+        <div class="acc-num" style="background:#d97706">02</div>
+        <div class="acc-text">
+          <div class="acc-title">무선 통신이란? — 눈에 보이지 않는 신호의 세계</div>
+          <div class="acc-sub">두 마이크로비트가 어떻게 서로 이야기를 나누는지 알아봐요</div>
+        </div>
+        <span class="acc-arrow">▶</span>
+      </div>
+      <div class="acc-body" id="body-1">
+        <!-- Wireless visual -->
+        <div class="wireless-visual" id="wireless-visual">
+          <div class="wv-mb" id="wv-left">
+            <div class="wv-mb-body" id="wvb-left" onclick="sendSignal('left')" title="클릭 = 신호 전송">
+              <div class="wv-leds" id="wvleds-left"></div>
+            </div>
+            <div class="wv-label">플레이어 1 (송신)</div>
+            <div class="wv-id">Group 0 / Channel 7</div>
+            <div class="wv-channel">📡 SEND</div>
+          </div>
+          <div class="wv-signal-area">
+            <div
+              style="font-size:10px;color:rgba(255,255,255,.35);font-family:'IBM Plex Mono',monospace;margin-bottom:6px">
+              2.4GHz Radio</div>
+            <div class="wv-signal-line" id="wv-signal-line">
+              <div class="signal-packet" id="signal-packet-lr"></div>
+              <div class="signal-packet" id="signal-packet-rl"></div>
+            </div>
+            <div class="wv-status" id="wv-status">← 마이크로비트를 클릭해 신호를 보내보세요 →</div>
+            <div class="wv-freq">📻 2.4GHz · 채널 7 · 그룹 0</div>
+          </div>
+          <div class="wv-mb" id="wv-right">
+            <div class="wv-mb-body" id="wvb-right" onclick="sendSignal('right')" title="클릭 = 신호 전송">
+              <div class="wv-leds" id="wvleds-right"></div>
+            </div>
+            <div class="wv-label">플레이어 2 (수신)</div>
+            <div class="wv-id">Group 0 / Channel 7</div>
+            <div class="wv-channel">📨 RECEIVE</div>
+          </div>
+        </div>
+
+        <div class="radio-cards" style="margin-top:16px" id="radio-concept-cards"></div>
+      </div>
+    </div>
+
+    <!-- §2 Radio 모듈 -->
+    <div class="acc-section" id="sec-2">
+      <div class="acc-header" id="hdr-2" onclick="toggleSec(2)">
+        <div class="acc-num" style="background:#d97706">03</div>
+        <div class="acc-text">
+          <div class="acc-title">마이크로비트 Radio 모듈 사용법</div>
+          <div class="acc-sub">핵심 함수 4가지 — 클릭해 코드와 설명을 확인하세요</div>
+        </div>
+        <span class="acc-arrow">▶</span>
+      </div>
+      <div class="acc-body" id="body-2">
+        <div
+          style="background:var(--amber-l);border:1px solid #fde68a;border-radius:var(--radius-sm);padding:12px 15px;margin-bottom:14px;font-size:13px;color:var(--amber-d)">
+          💡 마이크로비트 Radio 모듈은 <strong>같은 채널(channel)·그룹(group)</strong>으로 설정된 기기끼리만 통신합니다. 수업에서 다른 팀과 혼선을 막으려면 팀마다 다른 그룹
+          번호를 사용하세요 (0~255).
+        </div>
+        <div class="radio-cards" id="radio-api-cards"></div>
+        <div class="dark-panel" style="margin-top:16px">
+          <div class="dp-title">▸ Radio 통신 흐름 예시</div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:rgba(255,255,255,.75);line-height:2.1">
+            <div style="color:rgba(255,255,255,.4);margin-bottom:8px"># 기기 A (송신)</div>
+            <div><span style="color:#fcd34d">import radio</span></div>
+            <div><span style="color:#fcd34d">radio.on()</span> <span style="color:#8b949e"># 라디오 켜기</span></div>
+            <div><span style="color:#fcd34d">radio.config(group=5)</span> <span style="color:#8b949e"># 그룹 5로 설정</span>
+            </div>
+            <div><span style="color:#fcd34d">radio.send("scissors")</span> <span style="color:#8b949e"># "scissors"
+                전송</span></div>
+            <div style="margin-top:10px;color:rgba(255,255,255,.4)"># 기기 B (수신)</div>
+            <div><span style="color:#fcd34d">msg = radio.receive()</span> <span style="color:#8b949e"># 메시지 수신 대기</span>
+            </div>
+            <div><span style="color:#d2a8ff">if</span> msg == <span style="color:#a5d6ff">"scissors"</span>: <span
+                style="color:#8b949e"># 수신값 확인</span></div>
+            <div style="padding-left:20px">display.show(Image.NO) <span style="color:#8b949e"># "가위" 아이콘</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- §3 게임 규칙 설계 -->
+    <div class="acc-section" id="sec-3">
+      <div class="acc-header" id="hdr-3" onclick="toggleSec(3)">
+        <div class="acc-num" style="background:#d97706">04</div>
+        <div class="acc-text">
+          <div class="acc-title">이심전심 게임 규칙 설계</div>
+          <div class="acc-sub">게임 진행 흐름을 단계별로 클릭해 확인하고, 선택지를 살펴보세요</div>
+        </div>
+        <span class="acc-arrow">▶</span>
+      </div>
+      <div class="acc-body" id="body-3">
+        <div class="game-rules-visual">
+          <div class="dp-title">▸ 이심전심 게임 진행 흐름 — 단계를 클릭해 확인하세요</div>
+          <div class="game-flow" id="game-flow"></div>
+          <div class="gf-detail" id="gf-detail"></div>
+        </div>
+
+        <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:10px">🎮 선택지 설계 — 3가지 카테고리 중 하나를
+          선택합니다</div>
+        <div class="choice-grid" id="choice-grid"></div>
+
+        <div class="two-col" style="margin-top:16px">
+          <div class="info-card" style="border-top:3px solid var(--green)">
+            <h4><span>✅</span>이심전심 성공 (Win)</h4>
+            <p>두 플레이어가 <strong>동시에 같은 것</strong>을 선택했을 때! 텔레파시 성공! LED에 하트♥를 표시하고 효과음을 냅니다. 선택지 3개 중 1개가 같을 확률 =
+              <strong>1/3 (약 33%)</strong>.</p>
+          </div>
+          <div class="info-card" style="border-top:3px solid var(--red)">
+            <h4><span>❌</span>이심전심 실패 (Fail)</h4>
+            <p>두 플레이어가 <strong>서로 다른 것</strong>을 선택했을 때. LED에 X(틀림) 표시 후 양쪽의 선택을 공개합니다. 다시 도전하여 텔레파시를 맞춰보세요!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- §4 통신 프로토콜 설계 -->
+    <div class="acc-section" id="sec-4">
+      <div class="acc-header" id="hdr-4" onclick="toggleSec(4)">
+        <div class="acc-num" style="background:#d97706">05</div>
+        <div class="acc-text">
+          <div class="acc-title">통신 프로토콜 설계하기</div>
+          <div class="acc-sub">두 기기가 주고받는 메시지 형식과 순서를 설계해봐요</div>
+        </div>
+        <span class="acc-arrow">▶</span>
+      </div>
+      <div class="acc-body" id="body-4">
+        <div
+          style="background:var(--amber-l);border:1px solid #fde68a;border-radius:var(--radius-sm);padding:12px 15px;margin-bottom:16px;font-size:13px;color:var(--amber-d)">
+          💡 <strong>프로토콜(Protocol)</strong>이란 통신하는 두 장치가 서로 이해할 수 있도록 미리 약속한 <strong>메시지 형식과 순서</strong>입니다. 규칙 없이는
+          메시지를 받아도 무슨 뜻인지 모릅니다.
+        </div>
+        <div style="overflow-x:auto;margin-bottom:16px">
+          <table class="protocol-table">
+            <thead>
+              <tr>
+                <th>메시지 종류</th>
+                <th>전송 방향</th>
+                <th>메시지 값</th>
+                <th>의미</th>
+                <th>시점</th>
+              </tr>
+            </thead>
+            <tbody id="protocol-table-body"></tbody>
+          </table>
+        </div>
+
+        <div class="message-builder">
+          <div class="dp-title">▸ 메시지 패킷 빌더 — 직접 메시지를 조합해보세요</div>
+          <div class="mb-row">
+            <span class="mb-label">선택</span>
+            <select class="mb-select" id="mb-choice" onchange="buildMessage()">
+              <option value="scissors">✂ 가위 (scissors)</option>
+              <option value="rock">✊ 바위 (rock)</option>
+              <option value="paper">🖐 보자기 (paper)</option>
+              <option value="sun">☀ 태양 (sun)</option>
+              <option value="moon">🌙 달 (moon)</option>
+              <option value="star">⭐ 별 (star)</option>
+            </select>
+            <select class="mb-select" id="mb-type" onchange="buildMessage()">
+              <option value="choice">선택 전송</option>
+              <option value="ready">준비 완료</option>
+              <option value="result">결과 요청</option>
+            </select>
+            <button class="btn-mb" onclick="buildMessage()">📋 패킷 생성</button>
+          </div>
+          <div class="mb-preview" id="mb-preview">→ 위에서 선택하면 메시지 패킷이 표시됩니다</div>
+          <div style="margin-top:10px;font-size:12px;color:rgba(255,255,255,.5);line-height:1.7">
+            radio.send() 호출 시 → 전자기파로 변환 → 2.4GHz 대역 공중 전송 → 수신 기기의 radio.receive() 반환
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- §5 알고리즘 -->
+    <div class="acc-section" id="sec-5">
+      <div class="acc-header" id="hdr-5" onclick="toggleSec(5)">
+        <div class="acc-num" style="background:#d97706">06</div>
+        <div class="acc-text">
+          <div class="acc-title">알고리즘 설계 — 플레이어 1·2 역할 분리</div>
+          <div class="acc-sub">탭으로 플레이어 1(송신 주도)와 플레이어 2(수신 후 비교) 알고리즘을 전환해 확인하세요</div>
+        </div>
+        <span class="acc-arrow">▶</span>
+      </div>
+      <div class="acc-body" id="body-5">
+        <div
+          style="background:var(--amber-l);border:1px solid #fde68a;border-radius:var(--radius-sm);padding:12px 15px;margin-bottom:14px;font-size:13px;color:var(--amber-d)">
+          💡 이심전심 게임은 두 기기가 <strong>동시에 선택을 전송</strong>하고 서로 받아 비교합니다. 실제 구현에서는 두 기기 모두 같은 코드를 실행하고, 먼저 수신한 쪽이 비교 판정을
+          수행합니다.
+        </div>
+        <div class="algo-wrap">
+          <div class="dp-title">▸ 이심전심 게임 알고리즘 순서도</div>
+          <div class="algo-tabs">
+            <button class="algo-tab active" onclick="switchAlgoTab('p1',this)">💙 플레이어 1 흐름</button>
+            <button class="algo-tab" onclick="switchAlgoTab('p2',this)">🧡 플레이어 2 흐름</button>
+            <button class="algo-tab" onclick="switchAlgoTab('both',this)">🔄 통합 동작</button>
+          </div>
+          <div class="algo-panel active" id="ap-p1">
+            <div class="fc-col" id="fc-p1"></div>
+          </div>
+          <div class="algo-panel" id="ap-p2">
+            <div class="fc-col" id="fc-p2"></div>
+          </div>
+          <div class="algo-panel" id="ap-both">
+            <div id="fc-both-content"></div>
+          </div>
+          <div class="fc-ndesc" id="fc-ndesc"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- §6 게임 시뮬레이터 -->
+    <div class="acc-section" id="sec-6">
+      <div class="acc-header" id="hdr-6" onclick="toggleSec(6)">
+        <div class="acc-num" style="background:#d97706">07</div>
+        <div class="acc-text">
+          <div class="acc-title">🎮 이심전심 게임 시뮬레이터</div>
+          <div class="acc-sub">두 플레이어가 각자 선택하고 동시에 전송해보세요! — 같은 것을 고르면 이심전심 성공!</div>
+        </div>
+        <span class="acc-arrow">▶</span>
+      </div>
+      <div class="acc-body" id="body-6">
+        <div class="game-sim">
+          <!-- Scoreboard -->
+          <div class="gs-scoreboard">
+            <div class="gs-score-box">
+              <div class="gsb-label">플레이어 1 (P1)</div>
+              <div class="gsb-val" id="gs-score-p1" style="color:#60a5fa">0</div>
+            </div>
+            <div class="gs-score-box">
+              <div class="gsb-label">이심전심 성공</div>
+              <div class="gsb-val" id="gs-score-win" style="color:#86efac">0</div>
+            </div>
+            <div class="gs-score-box">
+              <div class="gsb-label">총 라운드</div>
+              <div class="gsb-val" id="gs-rounds" style="color:#fcd34d">0</div>
+            </div>
+            <div class="gs-score-box">
+              <div class="gsb-label">성공률</div>
+              <div class="gsb-val" id="gs-rate" style="color:#f9a8d4">-</div>
+            </div>
+            <div class="gs-score-box">
+              <div class="gsb-label">플레이어 2 (P2)</div>
+              <div class="gsb-val" id="gs-score-p2" style="color:#fb923c">0</div>
+            </div>
+          </div>
+
+          <!-- Arena -->
+          <div class="gs-arena">
+            <!-- Player 1 -->
+            <div class="gs-player" id="gs-p1">
+              <div class="gsp-name">💙 플레이어 1 <span
+                  style="font-size:10px;color:rgba(255,255,255,.3);font-weight:400">(당신)</span></div>
+              <div class="gsp-mb">
+                <div class="gsp-leds" id="gsp-leds-p1"></div>
+              </div>
+              <div class="gsp-choice-display" id="gsp-choice-p1">❓</div>
+              <div class="gsp-choice-label" id="gsp-label-p1">선택하세요</div>
+              <div class="gsp-btn-row" id="gsp-btns-p1"></div>
+            </div>
+
+            <div class="gs-vs">
+              <div class="gs-vs-text">VS</div>
+              <div class="gs-signal-status" id="gs-signal-status">대기 중...</div>
+            </div>
+
+            <!-- Player 2 (AI) -->
+            <div class="gs-player" id="gs-p2">
+              <div class="gsp-name">🧡 플레이어 2 <span
+                  style="font-size:10px;color:rgba(255,255,255,.3);font-weight:400">(AI)</span></div>
+              <div class="gsp-mb">
+                <div class="gsp-leds" id="gsp-leds-p2"></div>
+              </div>
+              <div class="gsp-choice-display" id="gsp-choice-p2">❓</div>
+              <div class="gsp-choice-label" id="gsp-label-p2">AI가 선택 중...</div>
+              <div style="text-align:center;font-size:12px;color:rgba(255,255,255,.35);margin-top:8px">AI가 자동으로 선택합니다
+              </div>
+            </div>
+          </div>
+
+          <!-- Result -->
+          <div class="gs-result-panel" id="gs-result-panel">
+            <span style="font-size:32px;color:rgba(255,255,255,.2)">양쪽 모두 선택하면 결과가 여기에 표시됩니다</span>
+          </div>
+
+          <!-- Controls -->
+          <div class="gs-controls">
+            <button class="btn-new-round" onclick="newRound()">🔄 새 라운드</button>
+            <button class="btn-reset-game" onclick="resetGame()">↺ 점수 초기화</button>
+            <div class="gs-radio-log" id="gs-radio-log">[Radio] 시뮬레이터 준비 완료. 선택지를 눌러 게임을 시작하세요!</div>
+          </div>
+        </div>
+        <div class="two-col" style="margin-top:14px">
+          <div class="info-card" style="border-top:3px solid var(--amber)">
+            <h4><span>🎯</span>실제 마이크로비트에서는</h4>
+            <p>두 사람이 각자의 마이크로비트를 들고, <strong>동시에 버튼을 누릅니다</strong>. 누른 버튼(A=첫 번째, B=두 번째, A+B=세 번째)이 선택지이고,
+              radio.send()로 상대방에게 전송됩니다.</p>
+          </div>
+          <div class="info-card" style="border-top:3px solid var(--orange)">
+            <h4><span>📡</span>동시 전송의 비밀</h4>
+            <p>실제로는 두 기기가 메시지를 동시에 보내고 동시에 받습니다. 먼저 상대방 메시지를 받으면 내 선택과 비교해 판정합니다. 그래서 양쪽 모두 같은 판정 결과를 보게 됩니다.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- §7 코딩 -->
+    <div class="acc-section" id="sec-7">
+      <div class="acc-header" id="hdr-7" onclick="toggleSec(7)">
+        <div class="acc-num" style="background:#7c3aed">08</div>
+        <div class="acc-text">
+          <div class="acc-title">코딩 구현 — MicroPython</div>
+          <div class="acc-sub">탭으로 플레이어 1 코드 / 플레이어 2 코드 / 4단원 종합 비교 확인</div>
+        </div>
+        <span class="acc-arrow">▶</span>
+      </div>
+      <div class="acc-body" id="body-7">
+        <div class="code-viewer">
+          <div class="cv-tabs">
+            <button class="cv-tab active" onclick="switchCvTab('unified',this)">🔄 통합 코드 (권장)</button>
+            <button class="cv-tab" onclick="switchCvTab('p1code',this)">💙 플레이어 1</button>
+            <button class="cv-tab" onclick="switchCvTab('p2code',this)">🧡 플레이어 2</button>
+            <button class="cv-tab" onclick="switchCvTab('compare4',this)">📊 4단원 비교</button>
+          </div>
+          <div class="cv-panel active" id="cvpanel-unified" id="cv-unified-area"></div>
+          <div class="cv-panel" id="cvpanel-p1code" id="cv-p1-area"></div>
+          <div class="cv-panel" id="cvpanel-p2code" id="cv-p2-area"></div>
+          <div class="cv-panel" id="cvpanel-compare4">
+            <div style="color:rgba(255,255,255,.8)">
+              <div style="font-size:14px;font-weight:700;color:#fcd34d;margin-bottom:16px">📊 피지컬 컴퓨팅 프로그래밍 4단원 종합 비교
+              </div>
+              <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:12px">
+                <div>
+                  <div style="font-size:11px;color:rgba(255,255,255,.4);margin-bottom:5px">① 운동 카운터 (센서→카운트)</div>
+                  <div style="background:#0a0a1a;border-radius:6px;padding:10px;font-size:11px;line-height:1.9">
+                    <span class="pc"># 가속도 → 카운트</span>
+                    <span class="pv">accel</span> = strength()
+                    <span class="pk">if</span> <span class="pv">accel</span> > <span class="pn">700</span>:
+                    <span class="pv">count</span> += <span class="pn">1</span>
+                    <span class="pc"># 단방향: 센서만 사용</span>
+                  </div>
+                </div>
+                <div>
+                  <div style="font-size:11px;color:rgba(255,255,255,.4);margin-bottom:5px">② 온도 알림 (다중 조건)</div>
+                  <div style="background:#0a0a1a;border-radius:6px;padding:10px;font-size:11px;line-height:1.9">
+                    <span class="pc"># 3분기 if~elif~else</span>
+                    <span class="pk">if</span> temp < <span class="pn">18</span>:
+                      display.show(COLD)
+                      <span class="pk">elif</span> temp <= <span class="pn">22</span>:
+                        display.show(OK)
+                        <span class="pk">else</span>: display.show(HOT)
+                  </div>
+                </div>
+                <div>
+                  <div style="font-size:11px;color:rgba(255,255,255,.4);margin-bottom:5px">③ 소리 애니메이션 (Image)</div>
+                  <div style="background:#0a0a1a;border-radius:6px;padding:10px;font-size:11px;line-height:1.9">
+                    <span class="pc"># 4분기 + 커스텀 Image</span>
+                    <span class="pv">snd</span> = sound_level()
+                    <span class="pk">if</span> <span class="pv">snd</span>
+                    < <span class="pn">30</span>: clear()
+                      <span class="pk">elif</span> <span class="pv">snd</span>
+                      < <span class="pn">100</span>: show(SMALL)
+                        <span class="pk">elif</span> <span class="pv">snd</span>
+                        < <span class="pn">180</span>: show(MED)
+                          <span class="pk">else</span>: show(BIG)
+                  </div>
+                </div>
+                <div>
+                  <div style="font-size:11px;color:rgba(255,255,255,.4);margin-bottom:5px">④ 이심전심 (🆕 무선 통신)</div>
+                  <div style="background:#0a0a1a;border-radius:6px;padding:10px;font-size:11px;line-height:1.9">
+                    <span class="pc"># 무선 송수신 추가!</span>
+                    <span class="py-radio">radio.send</span>(<span class="pv">my_choice</span>)
+                    <span class="pv">msg</span> = <span class="py-radio">radio.receive</span>()
+                    <span class="pk">if</span> <span class="pv">msg</span> == <span class="pv">my_choice</span>:
+                    show(Image.HEART)
+                    <span class="pk">else</span>: show(Image.NO)
+                  </div>
+                </div>
+              </div>
+              <div
+                style="background:rgba(245,158,11,.12);border-radius:var(--radius-sm);padding:14px;border-left:3px solid #fcd34d;font-size:13px;line-height:1.7;color:rgba(255,255,255,.75)">
+                <strong style="color:#fcd34d">🔑 핵심 발전 포인트:</strong> 단원 1→4로 진행하면서 처리 방식이 <em>단일 조건 → 다중 조건 → 커스텀 패턴 →
+                  무선 통신</em>으로 발전합니다. 이번 단원에서 처음으로 <strong>두 기기 간 데이터 교환</strong>이 등장합니다.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- §8 확장 프로젝트 -->
+    <div class="acc-section" id="sec-8">
+      <div class="acc-header" id="hdr-8" onclick="toggleSec(8)">
+        <div class="acc-num" style="background:#f59e0b">09</div>
+        <div class="acc-text">
+          <div class="acc-title">확장 프로젝트 — 더 재미있게 만들어봐요!</div>
+          <div class="acc-sub">이심전심 게임을 다양하게 확장하는 6가지 아이디어</div>
+        </div>
+        <span class="acc-arrow">▶</span>
+      </div>
+      <div class="acc-body" id="body-8">
+        <div class="ext-grid" id="ext-grid"></div>
+      </div>
+    </div>
+
+    <!-- §9 확인 문제 -->
+    <div class="acc-section" id="sec-9">
+      <div class="acc-header" id="hdr-9" onclick="toggleSec(9)">
+        <div class="acc-num" style="background:#ef4444">10</div>
+        <div class="acc-text">
+          <div class="acc-title">확인 문제</div>
+          <div class="acc-sub">학습한 내용을 점검해보세요 (5문항)</div>
+        </div>
+        <span class="acc-arrow">▶</span>
+      </div>
+      <div class="acc-body" id="body-9">
+        <div class="quiz-card">
+          <div class="quiz-header">
+            <h3 id="quiz-title">문제 1 / 5</h3>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:rgba(255,255,255,.6)">
+              <span id="qscore" style="color:#fcd34d;font-weight:700">0</span> / <span id="qtotal">5</span> 정답
+            </div>
+          </div>
+          <div class="quiz-body">
+            <div class="quiz-q" id="quiz-q"></div>
+            <div class="quiz-options" id="quiz-opts"></div>
+            <div class="quiz-feedback" id="quiz-fb"></div>
+            <div class="quiz-nav">
+              <div style="font-size:12px;color:var(--text3)" id="quiz-hint"></div>
+              <button class="btn-qnext" id="quiz-next" onclick="nextQ()">다음 문제 →</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- §10 핵심 정리 -->
+    <div class="acc-section" id="sec-10">
+      <div class="acc-header" id="hdr-10" onclick="toggleSec(10)">
+        <div class="acc-num" style="background:#0f1b2d">11</div>
+        <div class="acc-text">
+          <div class="acc-title">핵심 콕콕 정리</div>
+          <div class="acc-sub">이 단원의 핵심 용어 10가지</div>
+        </div>
+        <span class="acc-arrow">▶</span>
+      </div>
+      <div class="acc-body" id="body-10">
+        <div class="summary-box">
+          <h3>핵심 용어 정리</h3>
+          <div class="kw-grid" id="kw-grid"></div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /main -->
+  <script>
+    /* ══ ACCORDION ══ */
+    const TOTAL = 11;
+    function toggleSec(i) { const h = document.getElementById('hdr-' + i), b = document.getElementById('body-' + i); const op = !b.classList.contains('open'); h.classList.toggle('open', op); b.classList.toggle('open', op); syncNav(); }
+    function openSec(i) { for (let j = 0; j < TOTAL; j++) { const op = j === i; document.getElementById('hdr-' + j).classList.toggle('open', op); document.getElementById('body-' + j).classList.toggle('open', op); } syncNav(); setTimeout(() => document.getElementById('sec-' + i)?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 60); }
+    function syncNav() { document.querySelectorAll('.nav-btn').forEach((b, i) => b.classList.toggle('active', document.getElementById('body-' + i)?.classList.contains('open') ?? false)); }
+
+    /* ══ §1 WIRELESS VISUAL ══ */
+    const LED_ON_PAT = [1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1];
+    const LED_HEART = [0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0, 0, 1, 0, 0];
+    const LED_NO = [1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1];
+
+    function buildWVLeds(id, pattern, color) {
+      const g = document.getElementById(id); if (!g) return; g.innerHTML = '';
+      for (let i = 0; i < 25; i++) { const d = document.createElement('div'); d.className = 'wv-led' + (pattern[i] ? ' on' : ''); d.style.background = pattern[i] ? color : '#0a0a1a'; d.style.color = color; d.id = id + '-' + i; g.appendChild(d); }
+    }
+    buildWVLeds('wvleds-left', Array(25).fill(0), '#60a5fa');
+    buildWVLeds('wvleds-right', Array(25).fill(0), '#fb923c');
+
+    let wvSignalCooldown = false;
+    function sendSignal(dir) {
+      if (wvSignalCooldown) return;
+      wvSignalCooldown = true;
+      const fwdPkt = document.getElementById('signal-packet-lr');
+      const bwdPkt = document.getElementById('signal-packet-rl');
+      const status = document.getElementById('wv-status');
+      const msgs = ['CHOICE:scissors', 'CHOICE:rock', 'CHOICE:paper'];
+      const msg = msgs[Math.floor(Math.random() * 3)];
+      const color = dir === 'left' ? '#60a5fa' : '#fb923c';
+      if (dir === 'left') {
+        fwdPkt.style.background = color; fwdPkt.classList.remove('moving', 'moving-back');
+        void fwdPkt.offsetWidth; fwdPkt.classList.add('moving');
+        status.textContent = '송신: "' + msg + '" → →';
+        setTimeout(() => {
+          buildWVLeds('wvleds-right', LED_ON_PAT, '#fb923c');
+          status.textContent = '수신 완료! msg = "' + msg + '"';
+          setTimeout(() => { buildWVLeds('wvleds-right', Array(25).fill(0), '#fb923c'); status.textContent = '← 마이크로비트를 클릭해 신호를 보내보세요 →'; wvSignalCooldown = false; }, 1400);
+        }, 650);
+      } else {
+        bwdPkt.style.background = color; bwdPkt.classList.remove('moving', 'moving-back');
+        void bwdPkt.offsetWidth; bwdPkt.classList.add('moving-back');
+        status.textContent = '← ← 송신: "' + msg + '"';
+        setTimeout(() => {
+          buildWVLeds('wvleds-left', LED_ON_PAT, '#60a5fa');
+          status.textContent = '수신 완료! msg = "' + msg + '"';
+          setTimeout(() => { buildWVLeds('wvleds-left', Array(25).fill(0), '#60a5fa'); status.textContent = '← 마이크로비트를 클릭해 신호를 보내보세요 →'; wvSignalCooldown = false; }, 1400);
+        }, 650);
+      }
+    }
+
+    /* Radio concept cards */
+    const RADIO_CONCEPTS = [
+      {
+        icon: '📻', title: '채널 (Channel)', color: '#f59e0b',
+        brief: '같은 채널에서만 통신 가능합니다',
+        detail: '마이크로비트 Radio는 0~83까지 84개 채널을 지원합니다. 두 기기가 같은 채널을 사용해야 서로의 신호를 받을 수 있습니다.',
+        code: 'radio.config(channel=7)'
+      },
+      {
+        icon: '👥', title: '그룹 (Group)', color: '#0ea5e9',
+        brief: '같은 그룹끼리만 메시지 교환',
+        detail: '채널 안에서도 그룹(0~255)으로 세분화합니다. 교실에서 여러 팀이 같은 채널을 써도 그룹이 다르면 혼선이 없습니다.',
+        code: 'radio.config(group=5)'
+      },
+      {
+        icon: '📤', title: 'radio.send()', color: '#10b981',
+        brief: '문자열을 무선으로 전송합니다',
+        detail: '같은 그룹의 모든 기기에 문자열을 브로드캐스트합니다. 정수나 딕셔너리가 아닌 반드시 문자열(str)이어야 합니다.',
+        code: 'radio.send("scissors")'
+      },
+      {
+        icon: '📨', title: 'radio.receive()', color: '#7c3aed',
+        brief: '수신된 메시지를 읽어옵니다',
+        detail: '수신된 메시지가 있으면 문자열로 반환, 없으면 None을 반환합니다. 주기적으로 호출해야 메시지를 놓치지 않습니다.',
+        code: 'msg = radio.receive()\nif msg is not None:\n    display.scroll(msg)'
+      },
+    ];
+    const rcc = document.getElementById('radio-concept-cards');
+    RADIO_CONCEPTS.forEach(r => {
+      const card = document.createElement('div'); card.className = 'radio-card'; card.style.setProperty('--rc-color', r.color); card.style.borderTopColor = r.color;
+      card.innerHTML = `<span class="rc-icon">${r.icon}</span><div class="rc-title">${r.title}</div><div class="rc-brief">${r.brief}</div>
+    <div class="rc-detail">${r.detail}<div class="rc-code">${r.code}</div></div>`;
+      card.addEventListener('click', () => card.classList.toggle('open'));
+      rcc.appendChild(card);
+    });
+
+    /* Radio API cards */
+    const RADIO_API = [
+      { icon: '🔌', title: 'radio.on()', color: '#f59e0b', brief: 'Radio 모듈을 켭니다 (전원 공급)', detail: 'Radio는 기본적으로 꺼져 있습니다. 사용 전 반드시 radio.on()을 호출해야 합니다. 배터리 절약을 위해 불필요할 때는 radio.off()로 끄세요.', code: 'import radio\nradio.on()' },
+      { icon: '⚙️', title: 'radio.config()', color: '#0ea5e9', brief: '채널·그룹·전력 등 설정', detail: 'radio.config(group=5, channel=7, power=7)처럼 여러 설정을 한 번에 지정할 수 있습니다. group은 필수, 나머지는 선택.', code: 'radio.config(\n  group=5,\n  channel=7,\n  power=7\n)' },
+      { icon: '📤', title: 'radio.send(msg)', color: '#10b981', brief: '문자열 메시지 전송', detail: '전송할 수 있는 최대 메시지 길이는 251바이트입니다. 정수를 보내려면 str()로 변환하세요. radio.send(str(count))', code: 'radio.send("rock")\nradio.send(str(42))' },
+      { icon: '📨', title: 'radio.receive()', color: '#7c3aed', brief: '수신 메시지 읽기', detail: '수신 메시지가 없으면 None을 반환합니다. None 여부를 반드시 확인하세요. 버퍼에 쌓인 메시지를 순서대로 꺼냅니다.', code: 'msg = radio.receive()\nif msg is not None:\n    display.scroll(msg)' },
+    ];
+    const rac = document.getElementById('radio-api-cards');
+    RADIO_API.forEach(r => {
+      const card = document.createElement('div'); card.className = 'radio-card'; card.style.setProperty('--rc-color', r.color); card.style.borderTopColor = r.color;
+      card.innerHTML = `<span class="rc-icon">${r.icon}</span><div class="rc-title">${r.title}</div><div class="rc-brief">${r.brief}</div>
+    <div class="rc-detail">${r.detail}<div class="rc-code">${r.code}</div></div>`;
+      card.addEventListener('click', () => card.classList.toggle('open'));
+      rac.appendChild(card);
+    });
+
+    /* ══ §3 GAME FLOW ══ */
+    const GAME_STEPS = [
+      { icon: '🎮', num: 'STEP 1', name: '게임 시작', desc: 'radio.on() + radio.config(group=팀번호)', detail: '두 플레이어 모두 같은 그룹으로 설정하고 전원을 켭니다. LED에 "GO!" 또는 숫자(준비 카운트)를 표시합니다.' },
+      { icon: '🤔', num: 'STEP 2', name: '선택 단계', desc: '버튼 A / B / A+B 중 선택', detail: '버튼 A = 첫 번째 선택(예: 가위), 버튼 B = 두 번째(예: 바위), A+B 동시 = 세 번째(예: 보자기). LED에 선택한 아이콘을 잠깐 표시합니다.' },
+      { icon: '📡', num: 'STEP 3', name: '동시 전송', desc: 'radio.send(my_choice)', detail: '두 플레이어가 선택 후 버튼을 놓는 순간 자신의 선택을 radio.send()로 전송합니다. 거의 동시에 전송이 일어납니다.' },
+      { icon: '📨', num: 'STEP 4', name: '수신 대기', desc: 'radio.receive() 루프', detail: '상대방의 선택이 도착할 때까지 radio.receive()를 반복 호출합니다. None이 아닌 값이 오면 다음 단계로 넘어갑니다.' },
+      { icon: '⚖️', num: 'STEP 5', name: '결과 비교', desc: 'my_choice == received_msg ?', detail: '내 선택과 받은 메시지를 비교합니다. 같으면 이심전심 성공! 다르면 실패. 결과를 LED에 표시합니다.' },
+      { icon: '🎉', num: 'STEP 6', name: '결과 표시', desc: 'LED: ♥ 또는 ✕ + 음악', detail: '성공: LED 하트♥ + 효과음 / 실패: LED X + 상대방 선택 공개. 잠시 후 다시 STEP 2로 돌아가 다음 라운드를 시작합니다.' },
+    ];
+    const gf = document.getElementById('game-flow');
+    const gfd = document.getElementById('gf-detail');
+    let selStep = -1;
+    GAME_STEPS.forEach((s, i) => {
+      if (i > 0) { const arr = document.createElement('div'); arr.className = 'gf-arrow'; arr.textContent = '→'; gf.appendChild(arr); }
+      const step = document.createElement('div'); step.className = 'gf-step';
+      step.innerHTML = `<span class="gfs-icon">${s.icon}</span><div class="gfs-num">${s.num}</div><div class="gfs-name">${s.name}</div><div class="gfs-desc">${s.desc}</div>`;
+      step.addEventListener('click', () => {
+        document.querySelectorAll('.gf-step').forEach(x => x.classList.remove('active-step'));
+        if (selStep === i) { selStep = -1; gfd.classList.remove('show'); return; }
+        selStep = i; step.classList.add('active-step');
+        gfd.innerHTML = `<strong style="color:#fcd34d">${s.icon} ${s.name}</strong><br>${s.detail}`;
+        gfd.classList.add('show');
+      });
+      gf.appendChild(step);
+    });
+
+    /* Choice grid */
+    const CHOICES = [
+      { emoji: '✂', name: '가위', code: 'scissors', color: '#ef4444', bg: '#fee2e2', border: '#fca5a5' },
+      { emoji: '✊', name: '바위', code: 'rock', color: '#64748b', bg: '#f1f5f9', border: '#cbd5e1' },
+      { emoji: '🖐', name: '보자기', code: 'paper', color: '#2d7dd2', bg: '#d0e8ff', border: '#93c5fd' },
+      { emoji: '☀', name: '태양', code: 'sun', color: '#f59e0b', bg: '#fef3c7', border: '#fde68a' },
+      { emoji: '🌙', name: '달', code: 'moon', color: '#7c3aed', bg: '#ede9fe', border: '#c4b5fd' },
+      { emoji: '⭐', name: '별', code: 'star', color: '#ec4899', bg: '#fce7f3', border: '#f9a8d4' },
+    ];
+    const cg = document.getElementById('choice-grid');
+    CHOICES.forEach(c => {
+      const card = document.createElement('div'); card.className = 'choice-card';
+      card.style.cssText = `background:${c.bg};border-color:${c.border}`;
+      card.innerHTML = `<span class="cc-emoji">${c.emoji}</span><div class="cc-name" style="color:${c.color}">${c.name}</div><div class="cc-code" style="color:${c.color}">"${c.code}"</div>`;
+      cg.appendChild(card);
+    });
+
+    /* ══ §4 PROTOCOL ══ */
+    const PROTOS = [
+      { type: 'READY', dir: 'P1 → P2', 'msg': '"READY"', 'meaning': '나는 선택 준비 완료', 'when': '게임 시작 또는 새 라운드 시작 시' },
+      { type: 'CHOICE', dir: '양방향', 'msg': '"scissors" / "rock" / "paper"', 'meaning': '내 선택 값 전송', 'when': '버튼 입력 완료 후 즉시' },
+      { type: 'RESULT', dir: '양방향', 'msg': '"WIN" / "LOSE" / "DRAW"', 'meaning': '판정 결과 공유 (선택지 3개 버전)', 'when': '양쪽 선택 비교 완료 후' },
+      { type: 'REVEAL', dir: 'P2 → P1', 'msg': '"REVEAL:scissors"', 'meaning': '자신의 선택을 상대에게 공개', 'when': '실패 시 상대방 선택 확인용' },
+    ];
+    const ptb = document.getElementById('protocol-table-body');
+    const typeColors = { READY: '#f59e0b', CHOICE: '#10b981', RESULT: '#7c3aed', REVEAL: '#ef4444' };
+    PROTOS.forEach((p, i) => {
+      const tr = document.createElement('tr');
+      const tc = typeColors[p.type] || '#64748b';
+      tr.innerHTML = `<td><span class="proto-tag" style="background:${tc}20;color:${tc};border:1px solid ${tc}40">${p.type}</span></td>
+    <td style="font-family:'IBM Plex Mono',monospace;font-size:12px">${p.dir}</td>
+    <td style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#059669">${p.msg}</td>
+    <td style="font-size:12px">${p.meaning}</td>
+    <td style="font-size:12px;color:var(--text3)">${p.when}</td>`;
+      ptb.appendChild(tr);
+    });
+
+    function buildMessage() {
+      const choice = document.getElementById('mb-choice').value;
+      const type = document.getElementById('mb-type').value;
+      let msg = '';
+      if (type === 'choice') msg = choice;
+      else if (type === 'ready') msg = 'READY';
+      else msg = 'RESULT:?';
+      document.getElementById('mb-preview').textContent = 'radio.send("' + msg + '")  →  수신: msg = "' + msg + '"';
+    }
+    buildMessage();
+
+    /* ══ §5 ALGORITHM ══ */
+    const fcNdesc = document.getElementById('fc-ndesc');
+
+    function buildAlgo(colId, nodes) {
+      const col = document.getElementById(colId); if (!col) return; col.innerHTML = '';
+      nodes.forEach((n, i) => {
+        if (n.t === 'spacer') { const arr = document.createElement('div'); arr.className = 'fc-arr'; arr.textContent = '↓'; col.appendChild(arr); return; }
+        if (i > 0 && nodes[i - 1].t !== 'spacer') { const arr = document.createElement('div'); arr.className = 'fc-arr'; arr.textContent = '↓'; col.appendChild(arr); }
+        const el = document.createElement('div'); el.className = 'fc-node ' + n.t;
+        if (n.t === 'fc-io') el.innerHTML = '<span>' + n.txt + '</span>'; else el.textContent = n.txt;
+        el.style.whiteSpace = 'pre-line';
+        if (n.desc) el.addEventListener('click', () => { document.querySelectorAll('.fc-node').forEach(a => a.classList.remove('hl')); el.classList.add('hl'); fcNdesc.textContent = n.desc; fcNdesc.classList.add('show'); });
+        col.appendChild(el);
+      });
+    }
+
+    const P1_NODES = [
+      { t: 'fc-term', txt: '🟢 시작', desc: '전원 ON. radio.on() + radio.config(group=5) 실행.' },
+      { t: 'fc-io', txt: '<span>LED: "GO!" 스크롤</span>', desc: '플레이어에게 준비됐다고 알립니다.' },
+      { t: 'fc-proc', txt: 'my_choice = ""  ← 초기화', desc: '이번 라운드 선택을 저장할 변수를 빈 문자열로 초기화합니다.' },
+      { t: 'fc-proc', txt: '🔁 무한 반복', desc: '게임 라운드를 계속 반복합니다.' },
+      { t: 'fc-dec', txt: '버튼 A 눌림?', desc: 'button_a.was_pressed() = True 이면 가위 선택.' },
+      { t: 'fc-proc', txt: 'my_choice = "scissors"', desc: '"scissors" 값을 변수에 저장. LED에 ✂ 아이콘 잠깐 표시.' },
+      { t: 'fc-radio', txt: 'radio.send(my_choice)', desc: '내 선택을 Radio로 상대방에게 전송. 같은 그룹의 모든 기기가 수신합니다.' },
+      { t: 'fc-radio', txt: 'msg = radio.receive() 대기', desc: '상대방의 선택이 도착할 때까지 반복 대기. None이 아닌 값이 올 때까지.' },
+      { t: 'fc-dec', txt: 'msg == my_choice?', desc: '받은 메시지와 내 선택이 같으면 이심전심 성공!' },
+    ];
+    const P2_NODES = [
+      { t: 'fc-term', txt: '🟢 시작 (P2)', desc: 'P1과 동일하게 시작. 같은 그룹·채널 설정.' },
+      { t: 'fc-radio', txt: 'msg = radio.receive() 대기', desc: 'P1의 선택이 도착하기를 기다립니다. None이 아닌 값이 오면 진행.' },
+      { t: 'fc-proc', txt: 'received = msg  ← 저장', desc: '받은 P1의 선택 값을 변수에 저장합니다.' },
+      { t: 'fc-dec', txt: '버튼 B 눌림?', desc: '동시에 자신의 선택도 처리합니다. 버튼 B = 바위.' },
+      { t: 'fc-proc', txt: 'my_choice = "rock"', desc: '"rock" 값을 내 선택으로 저장.' },
+      { t: 'fc-radio', txt: 'radio.send(my_choice)', desc: '자신의 선택도 P1에게 전송.' },
+      { t: 'fc-dec', txt: 'received == my_choice?', desc: 'P1이 보낸 값과 내 선택을 비교합니다.' },
+      { t: 'fc-io', txt: '<span>✅ LED: ♥ / 효과음</span>', desc: '이심전심 성공! 하트♥와 효과음 재생.' },
+    ];
+    buildAlgo('fc-p1', P1_NODES);
+    buildAlgo('fc-p2', P2_NODES);
+
+    document.getElementById('fc-both-content').innerHTML = `
+<div style="color:rgba(255,255,255,.8);font-size:13px;line-height:1.8">
+  <div style="color:#fcd34d;font-weight:700;margin-bottom:12px">🔄 실제 구현: 두 기기가 동일한 코드를 실행합니다</div>
+  <p style="margin-bottom:10px">실용적인 구현에서는 P1/P2 역할 구분 없이 <strong>두 기기 모두 동일한 코드</strong>를 실행합니다. 버튼 입력과 동시에 전송하고, 상대방 메시지를 받으면 비교합니다.</p>
+  <div style="background:rgba(0,0,0,.3);border-radius:var(--radius-sm);padding:14px;font-family:'IBM Plex Mono',monospace;font-size:12px;line-height:2;margin-bottom:10px">
+    <span style="color:#8b949e"># 두 기기 모두 동일한 코드</span><br>
+    <span style="color:#fcd34d">radio.on()</span><br>
+    <span style="color:#fcd34d">radio.config(group=5)</span><br>
+    my_choice = <span style="color:#a5d6ff">""</span><br><br>
+    <span style="color:#ff7b72">while</span> <span style="color:#ff7b72">True</span>:<br>
+    &nbsp;&nbsp;<span style="color:#8b949e"># 버튼 입력 감지</span><br>
+    &nbsp;&nbsp;<span style="color:#ff7b72">if</span> button_a.was_pressed():<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;my_choice = <span style="color:#a5d6ff">"scissors"</span><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#fcd34d">radio.send(my_choice)</span><br>
+    &nbsp;&nbsp;<span style="color:#ff7b72">elif</span> button_b.was_pressed():<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;my_choice = <span style="color:#a5d6ff">"rock"</span><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#fcd34d">radio.send(my_choice)</span><br><br>
+    &nbsp;&nbsp;<span style="color:#8b949e"># 상대방 메시지 수신</span><br>
+    &nbsp;&nbsp;msg = <span style="color:#fcd34d">radio.receive()</span><br>
+    &nbsp;&nbsp;<span style="color:#ff7b72">if</span> msg <span style="color:#ff7b72">is not</span> <span style="color:#ff7b72">None</span> <span style="color:#ff7b72">and</span> my_choice != <span style="color:#a5d6ff">""</span>:<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#ff7b72">if</span> msg == my_choice:<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;display.show(Image.HEART)  <span style="color:#8b949e"># 성공!</span><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#ff7b72">else</span>:<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;display.show(Image.NO)  <span style="color:#8b949e"># 실패</span><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;my_choice = <span style="color:#a5d6ff">""</span>  <span style="color:#8b949e"># 리셋</span><br>
+    &nbsp;&nbsp;sleep(<span style="color:#79c0ff">50</span>)
+  </div>
+</div>`;
+
+    function switchAlgoTab(tab, btn) {
+      document.querySelectorAll('.algo-panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.algo-tab').forEach(b => b.classList.remove('active'));
+      document.getElementById('ap-' + tab).classList.add('active');
+      btn.classList.add('active');
+      fcNdesc.classList.remove('show');
+    }
+
+    /* ══ §6 GAME SIMULATOR ══ */
+    const GAME_CHOICES = [
+      { emoji: '✂', name: '가위', code: 'scissors' },
+      { emoji: '✊', name: '바위', code: 'rock' },
+      { emoji: '🖐', name: '보자기', code: 'paper' },
+      { emoji: '☀', name: '태양', code: 'sun' },
+      { emoji: '🌙', name: '달', code: 'moon' },
+      { emoji: '⭐', name: '별', code: 'star' },
+    ];
+    let gsScoreP1 = 0, gsScoreP2 = 0, gsWins = 0, gsRounds = 0;
+    let gsP1Choice = '', gsP2Choice = '';
+    let gsP1Ready = false, gsP2Ready = false;
+    let gsLogLines = [];
+
+    function buildGSLeds(id, color) {
+      const g = document.getElementById(id); if (!g) return; g.innerHTML = '';
+      for (let i = 0; i < 25; i++) { const d = document.createElement('div'); d.className = 'gsp-led'; d.id = id + '-' + i; d.style.color = color; g.appendChild(d); }
+    }
+    function setGSLeds(id, pattern, color) {
+      for (let i = 0; i < 25; i++) { const el = document.getElementById(id + '-' + i); if (el) { el.classList.toggle('on', !!pattern[i]); el.style.background = pattern[i] ? color : '#0a0a1a'; } }
+    }
+    buildGSLeds('gsp-leds-p1', '#60a5fa');
+    buildGSLeds('gsp-leds-p2', '#fb923c');
+
+    function buildGSBtns() {
+      const row = document.getElementById('gsp-btns-p1'); row.innerHTML = '';
+      GAME_CHOICES.forEach(c => {
+        const btn = document.createElement('button'); btn.className = 'choice-btn'; btn.id = 'cbtn-' + c.code;
+        btn.textContent = c.emoji;
+        btn.title = c.name;
+        btn.addEventListener('click', () => selectP1(c));
+        row.appendChild(btn);
+      });
+    }
+    buildGSBtns();
+
+    function selectP1(choice) {
+      if (gsP1Ready) return;
+      gsP1Choice = choice.code; gsP1Ready = true;
+      document.querySelectorAll('.choice-btn').forEach(b => b.classList.remove('selected'));
+      const btn = document.getElementById('cbtn-' + choice.code); if (btn) btn.classList.add('selected');
+      document.getElementById('gsp-choice-p1').textContent = choice.emoji;
+      document.getElementById('gsp-label-p1').textContent = choice.name + ' 선택됨!';
+      document.getElementById('gs-p1').classList.add('chosen');
+      addGSLog('[P1→Radio] radio.send("' + choice.code + '")  전송 완료');
+      document.getElementById('gs-signal-status').textContent = 'P1 신호 전송 중...';
+      setGSLeds('gsp-leds-p1', LED_ON_PAT, '#60a5fa');
+      // AI selects after short delay
+      setTimeout(() => {
+        const aiChoice = GAME_CHOICES[Math.floor(Math.random() * GAME_CHOICES.length)];
+        gsP2Choice = aiChoice.code; gsP2Ready = true;
+        document.getElementById('gsp-choice-p2').textContent = aiChoice.emoji;
+        document.getElementById('gsp-label-p2').textContent = aiChoice.name + ' 선택됨!';
+        document.getElementById('gs-p2').classList.add('chosen');
+        setGSLeds('gsp-leds-p2', LED_ON_PAT, '#fb923c');
+        addGSLog('[P2→Radio] radio.send("' + aiChoice.code + '")  전송 완료');
+        document.getElementById('gs-signal-status').textContent = '양방향 전송 완료!';
+        setTimeout(resolveGame, 500);
+      }, 600);
+    }
+
+    function resolveGame() {
+      if (!gsP1Ready || !gsP2Ready) return;
+      gsRounds++;
+      const win = gsP1Choice === gsP2Choice;
+      const rp = document.getElementById('gs-result-panel');
+      const p1el = document.getElementById('gs-p1'), p2el = document.getElementById('gs-p2');
+      if (win) {
+        gsWins++; gsScoreP1++; gsScoreP2++;
+        rp.style.background = 'rgba(16,185,129,.15)'; rp.style.border = '1px solid rgba(16,185,129,.4)';
+        rp.innerHTML = `<span class="gsr-emoji">🎉</span><div class="gsr-msg">이심전심 성공!</div><div class="gsr-sub">둘 다 "${GAME_CHOICES.find(c => c.code === gsP1Choice).emoji} ${GAME_CHOICES.find(c => c.code === gsP1Choice).name}" 을(를) 선택했어요!</div>`;
+        p1el.classList.add('winner'); p2el.classList.add('winner');
+        setGSLeds('gsp-leds-p1', LED_HEART, '#60a5fa'); setGSLeds('gsp-leds-p2', LED_HEART, '#fb923c');
+        addGSLog('[결과] 이심전심 성공! 💚 ' + gsP1Choice + ' == ' + gsP2Choice);
+      } else {
+        rp.style.background = 'rgba(239,68,68,.08)'; rp.style.border = '1px solid rgba(239,68,68,.2)';
+        const p1c = GAME_CHOICES.find(c => c.code === gsP1Choice); const p2c = GAME_CHOICES.find(c => c.code === gsP2Choice);
+        rp.innerHTML = `<span class="gsr-emoji">💔</span><div class="gsr-msg">이심전심 실패...</div><div class="gsr-sub">P1: ${p1c.emoji} ${p1c.name} &nbsp;|&nbsp; P2: ${p2c.emoji} ${p2c.name} &nbsp;— 다시 도전!</div>`;
+        p1el.classList.add('loser'); p2el.classList.add('loser');
+        setGSLeds('gsp-leds-p1', LED_NO, '#60a5fa'); setGSLeds('gsp-leds-p2', LED_NO, '#fb923c');
+        addGSLog('[결과] 실패 💔 P1=' + gsP1Choice + ' vs P2=' + gsP2Choice);
+      }
+      document.getElementById('gs-score-p1').textContent = gsScoreP1;
+      document.getElementById('gs-score-p2').textContent = gsScoreP2;
+      document.getElementById('gs-score-win').textContent = gsWins;
+      document.getElementById('gs-rounds').textContent = gsRounds;
+      document.getElementById('gs-rate').textContent = gsRounds > 0 ? Math.round(gsWins / gsRounds * 100) + '%' : '-';
+      document.getElementById('gs-signal-status').textContent = '라운드 완료!';
+    }
+
+    function addGSLog(msg) {
+      const now = new Date(); const t = now.toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+      gsLogLines.push('[' + t + '] ' + msg); if (gsLogLines.length > 10) gsLogLines.shift();
+      const log = document.getElementById('gs-radio-log'); log.textContent = gsLogLines.join('\n'); log.scrollTop = log.scrollHeight;
+    }
+
+    function newRound() {
+      gsP1Choice = ''; gsP2Choice = ''; gsP1Ready = false; gsP2Ready = false;
+      document.querySelectorAll('.gs-player').forEach(p => p.classList.remove('chosen', 'winner', 'loser'));
+      document.querySelectorAll('.choice-btn').forEach(b => b.classList.remove('selected'));
+      document.getElementById('gsp-choice-p1').textContent = '❓'; document.getElementById('gsp-label-p1').textContent = '선택하세요';
+      document.getElementById('gsp-choice-p2').textContent = '❓'; document.getElementById('gsp-label-p2').textContent = 'AI가 선택 중...';
+      const rp = document.getElementById('gs-result-panel');
+      rp.style.background = 'rgba(255,255,255,.04)'; rp.style.border = '1px solid rgba(255,255,255,.08)';
+      rp.innerHTML = '<span style="font-size:20px;color:rgba(255,255,255,.2)">선택지를 눌러 새 라운드를 시작하세요</span>';
+      document.getElementById('gs-signal-status').textContent = '새 라운드 준비!';
+      setGSLeds('gsp-leds-p1', Array(25).fill(0), '#60a5fa'); setGSLeds('gsp-leds-p2', Array(25).fill(0), '#fb923c');
+      addGSLog('[시스템] 새 라운드 시작 — 선택지를 눌러주세요');
+    }
+    function resetGame() {
+      gsScoreP1 = 0; gsScoreP2 = 0; gsWins = 0; gsRounds = 0;
+      document.getElementById('gs-score-p1').textContent = '0'; document.getElementById('gs-score-p2').textContent = '0';
+      document.getElementById('gs-score-win').textContent = '0'; document.getElementById('gs-rounds').textContent = '0'; document.getElementById('gs-rate').textContent = '-';
+      gsLogLines = []; document.getElementById('gs-radio-log').textContent = '[Radio] 게임 초기화됨.';
+      newRound();
+    }
+
+    /* ══ §7 CODE ══ */
+    function switchCvTab(tab, btn) {
+      document.querySelectorAll('.cv-panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.cv-tab').forEach(b => b.classList.remove('active'));
+      document.getElementById('cvpanel-' + tab).classList.add('active');
+      btn.classList.add('active');
+    }
+    document.getElementById('cvpanel-unified').innerHTML = `<span class="pc"># 이심전심 게임 장치 — 두 기기 공통 코드 (MicroPython)</span>
+<span class="pk">from</span> microbit <span class="pk">import</span> *
+<span class="pk">import</span> <span class="py-radio">radio</span>
+<span class="pk">import</span> music
+
+<span class="pc"># ① Radio 설정</span>
+<span class="py-radio">radio</span>.on()
+<span class="py-radio">radio</span>.config(group=<span class="pn">5</span>)   <span class="pc"># 팀마다 다른 숫자!</span>
+
+<span class="pc"># ② 선택지 → 이모지 매핑</span>
+<span class="pv">icons</span> = {
+    <span class="ps">'scissors'</span>: Image.NO,
+    <span class="ps">'rock'</span>:     Image(<span class="ps">'00000:09090:09090:00000:09090'</span>),
+    <span class="ps">'paper'</span>:    Image.SQUARE,
+}
+
+display.<span class="pf">scroll</span>(<span class="ps">'GO!'</span>)
+
+<span class="pv">my_choice</span> = <span class="ps">""</span>   <span class="pc"># 내 선택 저장</span>
+
+<span class="pk">while</span> <span class="pk">True</span>:
+    <span class="pc"># ③ 버튼으로 선택</span>
+    <span class="pk">if</span> button_a.<span class="pf">was_pressed</span>() <span class="pk">and</span> <span class="pv">my_choice</span> == <span class="ps">""</span>:
+        <span class="pv">my_choice</span> = <span class="ps">'scissors'</span>
+        display.<span class="pf">show</span>(Image.NO)
+        <span class="py-radio">radio</span>.<span class="pf">send</span>(<span class="pv">my_choice</span>)   <span class="pc"># ④ 전송!</span>
+
+    <span class="pk">elif</span> button_b.<span class="pf">was_pressed</span>() <span class="pk">and</span> <span class="pv">my_choice</span> == <span class="ps">""</span>:
+        <span class="pv">my_choice</span> = <span class="ps">'rock'</span>
+        display.<span class="pf">show</span>(<span class="pv">icons</span>[<span class="ps">'rock'</span>])
+        <span class="py-radio">radio</span>.<span class="pf">send</span>(<span class="pv">my_choice</span>)   <span class="pc"># ④ 전송!</span>
+
+    <span class="pc"># ⑤ 수신 확인</span>
+    <span class="pv">msg</span> = <span class="py-radio">radio</span>.<span class="pf">receive</span>()
+    <span class="pk">if</span> <span class="pv">msg</span> <span class="pk">is not</span> <span class="pk">None</span> <span class="pk">and</span> <span class="pv">my_choice</span> != <span class="ps">""</span>:
+        <span class="pc"># ⑥ 이심전심 판정</span>
+        <span class="pk">if</span> <span class="pv">msg</span> == <span class="pv">my_choice</span>:
+            display.<span class="pf">show</span>(Image.HEART)
+            music.<span class="pf">play</span>(music.NYAN)   <span class="pc"># 성공!</span>
+        <span class="pk">else</span>:
+            display.<span class="pf">show</span>(Image.SAD)
+            display.<span class="pf">scroll</span>(<span class="pv">msg</span>)      <span class="pc"># 상대 선택 공개</span>
+        <span class="pv">my_choice</span> = <span class="ps">""</span>  <span class="pc"># 다음 라운드 준비</span>
+
+    <span class="pf">sleep</span>(<span class="pn">50</span>)`;
+
+    document.getElementById('cvpanel-p1code').innerHTML = `<span class="pc"># 플레이어 1 전용 코드 (버튼 A=가위, B=바위, A+B=보자기)</span>
+<span class="pk">from</span> microbit <span class="pk">import</span> *
+<span class="pk">import</span> <span class="py-radio">radio</span>
+
+<span class="py-radio">radio</span>.on()
+<span class="py-radio">radio</span>.config(group=<span class="pn">5</span>)
+<span class="pv">my_choice</span> = <span class="ps">""</span>
+<span class="pv">received</span>  = <span class="ps">""</span>
+
+display.<span class="pf">scroll</span>(<span class="ps">'P1'</span>)
+
+<span class="pk">while</span> <span class="pk">True</span>:
+    <span class="pk">if</span> button_a.<span class="pf">is_pressed</span>() <span class="pk">and</span> button_b.<span class="pf">is_pressed</span>():
+        <span class="pv">my_choice</span> = <span class="ps">'paper'</span>
+    <span class="pk">elif</span> button_a.<span class="pf">was_pressed</span>():
+        <span class="pv">my_choice</span> = <span class="ps">'scissors'</span>
+    <span class="pk">elif</span> button_b.<span class="pf">was_pressed</span>():
+        <span class="pv">my_choice</span> = <span class="ps">'rock'</span>
+
+    <span class="pk">if</span> <span class="pv">my_choice</span>:
+        <span class="py-radio">radio</span>.<span class="pf">send</span>(<span class="pv">my_choice</span>)
+        display.<span class="pf">scroll</span>(<span class="pv">my_choice</span>[<span class="pn">0</span>].upper())  <span class="pc"># 첫 글자 표시</span>
+
+    <span class="pv">msg</span> = <span class="py-radio">radio</span>.<span class="pf">receive</span>()
+    <span class="pk">if</span> <span class="pv">msg</span>: <span class="pv">received</span> = <span class="pv">msg</span>
+
+    <span class="pk">if</span> <span class="pv">my_choice</span> <span class="pk">and</span> <span class="pv">received</span>:
+        display.<span class="pf">show</span>(Image.HEART <span class="pk">if</span> <span class="pv">my_choice</span>==<span class="pv">received</span> <span class="pk">else</span> Image.SAD)
+        <span class="pf">sleep</span>(<span class="pn">2000</span>)
+        <span class="pv">my_choice</span> = <span class="pv">received</span> = <span class="ps">""</span>
+
+    <span class="pf">sleep</span>(<span class="pn">50</span>)`;
+
+    document.getElementById('cvpanel-p2code').innerHTML = `<span class="pc"># 플레이어 2 코드 — P1과 동일하나 표시 문자만 다름</span>
+<span class="pk">from</span> microbit <span class="pk">import</span> *
+<span class="pk">import</span> <span class="py-radio">radio</span>
+
+<span class="py-radio">radio</span>.on()
+<span class="py-radio">radio</span>.config(group=<span class="pn">5</span>)   <span class="pc"># P1과 같은 그룹!</span>
+<span class="pv">my_choice</span> = <span class="ps">""</span>
+<span class="pv">received</span>  = <span class="ps">""</span>
+
+display.<span class="pf">scroll</span>(<span class="ps">'P2'</span>)  <span class="pc"># P2 표시 (P1은 'P1')</span>
+
+<span class="pk">while</span> <span class="pk">True</span>:
+    <span class="pc"># P1과 동일한 로직</span>
+    <span class="pk">if</span> button_a.<span class="pf">is_pressed</span>() <span class="pk">and</span> button_b.<span class="pf">is_pressed</span>():
+        <span class="pv">my_choice</span> = <span class="ps">'paper'</span>
+    <span class="pk">elif</span> button_a.<span class="pf">was_pressed</span>():
+        <span class="pv">my_choice</span> = <span class="ps">'scissors'</span>
+    <span class="pk">elif</span> button_b.<span class="pf">was_pressed</span>():
+        <span class="pv">my_choice</span> = <span class="ps">'rock'</span>
+
+    <span class="pk">if</span> <span class="pv">my_choice</span>:
+        <span class="py-radio">radio</span>.<span class="pf">send</span>(<span class="pv">my_choice</span>)
+
+    <span class="pv">msg</span> = <span class="py-radio">radio</span>.<span class="pf">receive</span>()
+    <span class="pk">if</span> <span class="pv">msg</span>: <span class="pv">received</span> = <span class="pv">msg</span>
+
+    <span class="pk">if</span> <span class="pv">my_choice</span> <span class="pk">and</span> <span class="pv">received</span>:
+        <span class="pv">result</span> = <span class="pv">my_choice</span> == <span class="pv">received</span>
+        display.<span class="pf">show</span>(Image.HEART <span class="pk">if</span> <span class="pv">result</span> <span class="pk">else</span> Image.SAD)
+        <span class="pf">sleep</span>(<span class="pn">2000</span>)
+        <span class="pv">my_choice</span> = <span class="pv">received</span> = <span class="ps">""</span>
+
+    <span class="pf">sleep</span>(<span class="pn">50</span>)`;
+
+    /* ══ §8 EXTENSIONS ══ */
+    const EXTS = [
+      {
+        icon: '🎭', title: '선택지 6종 확장판', color: '#f59e0b', tagBg: '#fef3c7', tagTc: '#92400e', tag: '게임 확장',
+        brief: '가위·바위·보에서 태양·달·별·바람·물·불 6종으로 확장합니다.',
+        detail: '선택지가 많을수록 이심전심 성공 확률이 낮아집니다(1/6=17%). 친밀도가 높을수록 더 잘 맞출 수 있어 재미가 커집니다.',
+        code: `choices = ['scissors','rock','paper',\n           'sun','moon','star']\n# A연타 횟수로 선택: 1번=가위, 2번=바위...`
+      },
+      {
+        icon: '🏆', title: '스코어보드 기능', color: '#10b981', tagBg: '#d1fae5', tagTc: '#065f46', tag: '점수 관리',
+        brief: '성공/실패 횟수를 누적하고 버튼으로 점수를 확인합니다.',
+        detail: 'win_count와 total 변수로 성공률을 추적합니다. 버튼 A 길게 누르기(hold)로 현재 점수를 스크롤로 보여줍니다.',
+        code: `win=0; total=0\n# 결과 후\nif result: win += 1\ntotal += 1\n# 버튼 A 길게: scroll 점수`
+      },
+      {
+        icon: '⏱', title: '제한 시간 타이머', color: '#0ea5e9', tagBg: '#e0f2fe', tagTc: '#0c4a6e', tag: '게임 규칙',
+        brief: '버튼을 누른 후 3초 이내에 상대방 메시지가 오지 않으면 타임아웃',
+        detail: 'running_time()으로 버튼 누른 시각을 기록하고, 3000ms(3초) 초과 시 LED에 타임아웃 표시 후 초기화합니다.',
+        code: `press_time = running_time()\n# 대기 중...\nif running_time()-press_time > 3000:\n    display.scroll('TIME')\n    my_choice = ""`
+      },
+      {
+        icon: '📊', title: '연속 성공 기록', color: '#7c3aed', tagBg: '#ede9fe', tagTc: '#5b21b6', tag: '통계 기록',
+        brief: '연속으로 몇 번 이심전심에 성공했는지 추적합니다.',
+        detail: 'streak 변수로 연속 성공 횟수를 셉니다. 실패하면 0으로 초기화. 최고 연속 기록도 별도 변수로 보관합니다.',
+        code: `streak = 0; best = 0\nif result:\n    streak += 1\n    best = max(best, streak)\nelse:\n    streak = 0\n# 10연속 달성!\nif streak >= 10:\n    display.show(Image.HAPPY)`
+      },
+      {
+        icon: '🌐', title: '3인 이상 동시 플레이', color: '#ec4899', tagBg: '#fce7f3', tagTc: '#9d174d', tag: '멀티플레이',
+        brief: '같은 그룹에 3대 이상을 연결해 모두가 같은 선택을 하면 이기는 게임',
+        detail: 'Radio는 브로드캐스트 방식이라 3대 이상도 같은 그룹이면 자동으로 연결됩니다. 받은 메시지를 리스트에 추가해 모두 같은지 확인합니다.',
+        code: `players = []\n\nmsg = radio.receive()\nif msg: players.append(msg)\n\n# 3명 모두 수신 완료 시\nif len(players) >= 2:\n    win = len(set(players)) == 1`
+      },
+      {
+        icon: '🎵', title: '음악으로 힌트 주기', color: '#ef4444', tagBg: '#fee2e2', tagTc: '#991b1b', tag: '창의 확장',
+        brief: '각 선택지에 다른 음악을 재생해 상대방에게 청각적 힌트를 줍니다.',
+        detail: '가위 선택 시 높은 음, 바위 선택 시 낮은 음을 재생합니다. 음악을 듣고 상대방이 맞추는 변형 게임도 만들 수 있습니다.',
+        code: `import music\n\nmelodies = {\n  'scissors': 'C5:2',\n  'rock':     'C3:2',\n  'paper':    'G4:2',\n}\n\nif my_choice:\n    music.play(melodies[my_choice])`
+      },
+    ];
+    const eg = document.getElementById('ext-grid');
+    EXTS.forEach(e => {
+      const card = document.createElement('div'); card.className = 'ext-card'; card.style.setProperty('--ec', e.color); card.style.borderTopColor = e.color;
+      card.innerHTML = `<span class="ec-icon">${e.icon}</span><div class="ec-title">${e.title}</div>
+    <span class="ec-tag" style="background:${e.tagBg};color:${e.tagTc}">${e.tag}</span>
+    <div class="ec-brief">${e.brief}</div>
+    <div class="ec-detail">${e.detail}<div class="ec-code">${e.code}</div></div>`;
+      card.addEventListener('click', () => card.classList.toggle('open'));
+      eg.appendChild(card);
+    });
+
+    /* ══ QUIZ ══ */
+    const QS = [
+      {
+        q: '마이크로비트 Radio 통신에서 두 기기가 서로 통신하기 위해 같아야 하는 것은?',
+        opts: ['배터리 잔량', 'radio.config()의 group 번호', '마이크로비트 버전', 'USB 연결 포트 번호'],
+        ans: 1, exp: '같은 group 번호(0~255)로 설정된 기기끼리만 서로의 메시지를 받을 수 있습니다. 수업에서 여러 팀이 동시에 사용할 때는 팀마다 다른 그룹 번호를 사용해야 혼선을 막을 수 있습니다.'
+      },
+      {
+        q: 'radio.receive()가 반환하는 값으로 올바른 것은?',
+        opts: ['항상 정수(int)를 반환한다', '수신 메시지가 없으면 None, 있으면 문자열(str)을 반환한다', '항상 True 또는 False를 반환한다', '바이트(bytes) 형태로만 반환한다'],
+        ans: 1, exp: 'radio.receive()는 수신된 메시지가 있으면 문자열(str), 없으면 None을 반환합니다. 그래서 반드시 "if msg is not None:" 조건 확인이 필요합니다.'
+      },
+      {
+        q: '이심전심 게임에서 두 플레이어가 선택지 3개(가위·바위·보) 중 하나를 무작위로 선택할 때 이심전심에 성공할 확률은?',
+        opts: ['1/2 (50%)', '1/3 (약 33%)', '1/6 (약 17%)', '1/9 (약 11%)'],
+        ans: 1, exp: '3가지 선택지에서 완전히 무작위로 선택하면, 두 사람이 같은 것을 선택할 확률은 1/3(약 33%)입니다. 선택지가 6개면 1/6, 9개면 1/9로 낮아집니다.'
+      },
+      {
+        q: '이심전심 게임 코드에서 "my_choice == received" 조건문의 역할은?',
+        opts: ['내 선택이 상대방 선택보다 큰지 비교한다', '내 선택 문자열과 받은 메시지 문자열이 같은지 비교해 이심전심 성공 여부를 판정한다', '두 메시지의 길이를 비교한다', 'radio 채널 번호를 비교한다'],
+        ans: 1, exp: '"=="는 두 값이 같은지 비교하는 연산자입니다. my_choice에는 내가 선택한 문자열("scissors" 등), received에는 상대방이 보낸 문자열이 담겨 있습니다. 둘이 같으면 이심전심 성공입니다.'
+      },
+      {
+        q: '프로토콜(Protocol)의 정의로 올바른 것은?',
+        opts: ['마이크로비트의 제조사 이름', '두 장치가 통신할 때 서로 이해할 수 있도록 미리 약속한 메시지 형식과 순서', 'radio.send()에 전달하는 문자열의 종류', '2.4GHz 무선 주파수의 다른 표현'],
+        ans: 1, exp: '프로토콜은 통신하는 두 장치가 서로 이해할 수 있도록 미리 약속한 메시지의 형식·순서·규칙입니다. 인터넷의 HTTP, Bluetooth, Wi-Fi 등 모든 통신 기술은 프로토콜을 기반으로 합니다.'
+      },
+    ];
+    let qIdx = 0, score = 0, answered = false;
+    document.getElementById('qtotal').textContent = QS.length;
+    function renderQ() {
+      answered = false; const q = QS[qIdx];
+      document.getElementById('quiz-title').textContent = '문제 ' + (qIdx + 1) + ' / ' + QS.length;
+      document.getElementById('quiz-q').textContent = q.q;
+      document.getElementById('quiz-fb').className = 'quiz-feedback';
+      document.getElementById('quiz-next').className = 'btn-qnext';
+      document.getElementById('quiz-hint').textContent = '';
+      const opts = document.getElementById('quiz-opts'); opts.innerHTML = '';
+      q.opts.forEach((opt, i) => {
+        const div = document.createElement('div'); div.className = 'quiz-opt';
+        div.innerHTML = '<div class="opt-num">' + (i + 1) + '</div><span>' + opt + '</span>';
+        div.onclick = () => {
+          if (answered) return; answered = true;
+          document.querySelectorAll('.quiz-opt').forEach(o => o.classList.add('disabled'));
+          if (i === q.ans) { div.classList.add('correct'); score++; document.getElementById('qscore').textContent = score; fb(true, '정답! ' + q.exp); }
+          else { div.classList.add('wrong'); opts.children[q.ans].classList.add('correct'); fb(false, '틀렸어요. 정답은 ' + (q.ans + 1) + '번. ' + q.exp); }
+          if (qIdx < QS.length - 1) document.getElementById('quiz-next').className = 'btn-qnext show';
+          else { const g = score >= 4 ? '🎉 우수' : score >= 3 ? '👍 양호' : '📚 복습 필요'; document.getElementById('quiz-hint').innerHTML = '완료! 점수: <strong>' + score + '/' + QS.length + '</strong> — ' + g; }
+        };
+        opts.appendChild(div);
+      });
+    }
+    function fb(ok, msg) { const el = document.getElementById('quiz-fb'); el.className = 'quiz-feedback show ' + (ok ? 'ok' : 'ng'); el.textContent = msg; }
+    function nextQ() { qIdx++; if (qIdx < QS.length) renderQ(); }
+    renderQ();
+
+    /* ── KEYWORDS ── */
+    [
+      { term: 'Radio 모듈', def: '마이크로비트 내장 2.4GHz 무선 통신 모듈. import radio로 사용. 최대 약 10~20m 범위.' },
+      { term: 'radio.on()', def: 'Radio 모듈 전원을 켜는 함수. 사용 전 반드시 호출 필요. 반대는 radio.off().' },
+      { term: 'radio.config()', def: '그룹(group)·채널(channel)·출력 전력 등을 설정하는 함수. 같은 group끼리만 통신.' },
+      { term: 'radio.send(msg)', def: '문자열 메시지를 같은 그룹의 모든 기기에 브로드캐스트 전송.' },
+      { term: 'radio.receive()', def: '수신된 문자열 반환. 메시지 없으면 None. 반드시 None 확인 필요.' },
+      { term: '그룹 (group)', def: '0~255. 같은 그룹끼리만 통신. 교실에서 팀 간 혼선 방지를 위해 팀마다 다른 번호 사용.' },
+      { term: '브로드캐스트', def: '1대가 보낸 메시지를 같은 그룹의 모든 기기가 받는 방식. 마이크로비트 Radio의 기본 방식.' },
+      { term: '프로토콜 (Protocol)', def: '통신하는 두 장치가 서로 이해할 수 있도록 사전에 약속한 메시지 형식·순서·규칙.' },
+      { term: '이심전심 (Telepathy)', def: '두 플레이어가 동시에 같은 것을 선택하면 성공. 3가지 선택지 기준 성공 확률 1/3(약 33%).' },
+      { term: '2.4GHz ISM 대역', def: '마이크로비트 Radio가 사용하는 주파수 대역. Wi-Fi·Bluetooth와 같은 비면허 주파수 대역.' },
+    ].forEach(kw => {
+      const d = document.createElement('div'); d.className = 'kw-item';
+      d.innerHTML = '<div class="kw-term">' + kw.term + '</div><div class="kw-def">' + kw.def + '</div>';
+      document.getElementById('kw-grid').appendChild(d);
+    });
+
+    /* Fix: close parenthesis in selectP1 */
+    function fixSignalStatus(msg) { document.getElementById('gs-signal-status').textContent = msg; }
+  </script>
 </body>
+
 </html>

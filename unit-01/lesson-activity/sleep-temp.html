@@ -1,70 +1,2658 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>수면 온도 알림이 — Lab</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
-<style>
-:root{--bg:#F5F4F0;--sf:#FFF;--br:#E2DFD6;--u:#6C65CC;--udk:#4E48A8;--ult:#ECEAFE;--tx:#1C1C1C;--mt:#696760;--umd:#C8C4F0;}
-body{font-family:'Noto Sans KR',sans-serif;margin:0;padding:0;background:var(--bg);color:var(--tx);display:flex;flex-direction:column;height:100vh;}
-.header{height:54px;background:var(--sf);border-bottom:1px solid var(--br);display:flex;align-items:center;padding:0 24px;flex-shrink:0;}
-.header h1{font-size:16px;margin:0;display:flex;align-items:center;gap:10px;font-weight:700;color:var(--tx);}
-.back{text-decoration:none;color:var(--mt);font-size:13px;border:1px solid var(--br);padding:6px 12px;border-radius:6px;transition:all 0.2s;font-weight:500;}
-.back:hover{background:var(--bg);color:var(--tx);}
-.content{display:flex;flex:1;overflow:hidden;}
-.panel-left{width:380px;background:var(--sf);border-right:1px solid var(--br);padding:28px;overflow-y:auto;box-shadow:2px 0 10px rgba(0,0,0,0.02);z-index:10;}
-.panel-right{flex:1;background:var(--bg);position:relative;}
-iframe{width:100%;height:100%;border:none;display:block;}
-.step{margin-bottom:20px;padding:16px;background:var(--bg);border-radius:10px;border:1px solid var(--br);}
-.step-num{display:inline-block;width:24px;height:24px;background:var(--u);color:#fff;border-radius:50%;text-align:center;line-height:24px;font-size:12px;font-weight:700;margin-bottom:8px;}
-.step h3{margin:0 0 10px 0;font-size:14px;color:var(--tx);}
-.step p{margin:0;font-size:13px;color:var(--mt);line-height:1.65;}
-code{background:var(--ult);padding:2px 6px;border-radius:4px;color:var(--u);font-size:12px;font-family:monospace;border:1px solid var(--umd);}
-::-webkit-scrollbar { width: 8px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: #ddd; border-radius: 4px; }
-::-webkit-scrollbar-thumb:hover { background: #ccc; }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>수면 온도 알림이 장치 만들기 | 정보 Ⅰ-2-02</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=IBM+Plex+Mono:wght@400;600&display=swap');
+
+    :root {
+      --navy: #0f1b2d;
+      --navy2: #1a2d45;
+      --navy3: #243d5e;
+      --indigo: #4f46e5;
+      --indigo-l: #e0e7ff;
+      --indigo-d: #3730a3;
+      --violet: #7c3aed;
+      --violet-l: #ede9fe;
+      --blue: #2d7dd2;
+      --blue-l: #d0e8ff;
+      --sky: #0ea5e9;
+      --sky-l: #e0f2fe;
+      --cyan: #06b6d4;
+      --cyan-l: #cffafe;
+      --teal: #0d9488;
+      --teal-l: #ccfbf1;
+      --green: #10b981;
+      --green-l: #d1fae5;
+      --green-d: #065f46;
+      --amber: #f59e0b;
+      --amber-l: #fef3c7;
+      --orange: #f97316;
+      --orange-l: #ffedd5;
+      --red: #ef4444;
+      --red-l: #fee2e2;
+      --red-d: #991b1b;
+      --pink: #ec4899;
+      --pink-l: #fce7f3;
+      --slate: #64748b;
+      --slate-l: #f1f5f9;
+      --text: #1a1a2e;
+      --text2: #4a5568;
+      --text3: #718096;
+      --border: #e2e8f0;
+      --bg: #f8fafc;
+      --white: #fff;
+      --radius: 12px;
+      --radius-sm: 8px;
+      --shadow: 0 4px 24px rgba(15, 27, 45, .08);
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
+
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      font-size: 15px
+    }
+
+    /* ── HERO (night/sleep theme) ── */
+    .hero {
+      background: var(--navy);
+      color: white;
+      position: relative;
+      overflow: hidden
+    }
+
+    .hero-inner {
+      max-width: 940px;
+      margin: 0 auto;
+      padding: 52px 28px 44px;
+      position: relative;
+      z-index: 1
+    }
+
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image: linear-gradient(rgba(79, 70, 229, .07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(79, 70, 229, .07) 1px, transparent 1px);
+      background-size: 40px 40px
+    }
+
+    .hero-stars {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none
+    }
+
+    .hero-stars::before {
+      content: '★ ☆ ★ ☆ ★ ☆';
+      position: absolute;
+      top: 16px;
+      right: 24px;
+      font-size: 14px;
+      color: rgba(165, 180, 252, .18);
+      letter-spacing: .6em;
+      line-height: 2.6;
+      width: 200px;
+      word-break: break-all
+    }
+
+    .hero-stars::after {
+      content: '';
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(79, 70, 229, .18), transparent 70%);
+      right: -60px;
+      top: -80px
+    }
+
+    .moon {
+      position: absolute;
+      right: 160px;
+      top: 30px;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: rgba(253, 224, 71, .15);
+      box-shadow: 0 0 30px rgba(253, 224, 71, .1);
+      pointer-events: none
+    }
+
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: rgba(255, 255, 255, .45);
+      margin-bottom: 18px
+    }
+
+    .breadcrumb span {
+      color: rgba(255, 255, 255, .8)
+    }
+
+    .unit-badge {
+      display: inline-block;
+      background: rgba(79, 70, 229, .22);
+      border: 1px solid rgba(79, 70, 229, .5);
+      color: #a5b4fc;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 20px;
+      margin-bottom: 12px;
+      letter-spacing: .05em
+    }
+
+    .hero h1 {
+      font-size: clamp(20px, 3.5vw, 30px);
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 12px
+    }
+
+    .hero h1 em {
+      color: #a5b4fc;
+      font-style: normal
+    }
+
+    .hero-desc {
+      font-size: 13px;
+      color: rgba(255, 255, 255, .6);
+      max-width: 520px;
+      margin-bottom: 24px
+    }
+
+    .meta-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px
+    }
+
+    .chip {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(255, 255, 255, .08);
+      border: 1px solid rgba(255, 255, 255, .12);
+      border-radius: 20px;
+      padding: 5px 12px;
+      font-size: 12px;
+      color: rgba(255, 255, 255, .7)
+    }
+
+    .chip .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--indigo)
+    }
+
+    /* ── STICKY NAV ── */
+    .sticky-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--navy2);
+      border-bottom: 1px solid rgba(255, 255, 255, .07);
+      box-shadow: 0 2px 12px rgba(0, 0, 0, .25)
+    }
+
+    .nav-inner {
+      max-width: 940px;
+      margin: 0 auto;
+      display: flex;
+      overflow-x: auto;
+      scrollbar-width: none
+    }
+
+    .nav-inner::-webkit-scrollbar {
+      display: none
+    }
+
+    .nav-btn {
+      flex-shrink: 0;
+      padding: 13px 15px;
+      font-size: 12px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, .4);
+      border: none;
+      background: none;
+      border-bottom: 2px solid transparent;
+      cursor: pointer;
+      transition: all .2s;
+      white-space: nowrap;
+      font-family: 'Noto Sans KR', sans-serif
+    }
+
+    .nav-btn:hover {
+      color: rgba(255, 255, 255, .7)
+    }
+
+    .nav-btn.active {
+      color: #a5b4fc;
+      border-bottom-color: #a5b4fc
+    }
+
+    /* ── MAIN & ACCORDION ── */
+    .main {
+      max-width: 940px;
+      margin: 0 auto;
+      padding: 20px 28px 80px
+    }
+
+    .acc-section {
+      margin-bottom: 12px;
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      background: var(--white)
+    }
+
+    .acc-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 18px 20px;
+      cursor: pointer;
+      user-select: none;
+      transition: background .15s
+    }
+
+    .acc-header:hover {
+      background: #f5f3ff
+    }
+
+    .acc-header.open {
+      background: #ede9fe;
+      border-bottom: 1px solid var(--border)
+    }
+
+    .acc-num {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 13px;
+      font-weight: 600;
+      flex-shrink: 0;
+      color: white;
+      transition: transform .3s
+    }
+
+    .acc-header.open .acc-num {
+      transform: scale(1.05)
+    }
+
+    .acc-text {
+      flex: 1
+    }
+
+    .acc-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text)
+    }
+
+    .acc-sub {
+      font-size: 12px;
+      color: var(--text3);
+      margin-top: 2px
+    }
+
+    .acc-arrow {
+      font-size: 16px;
+      color: var(--text3);
+      transition: transform .3s;
+      flex-shrink: 0
+    }
+
+    .acc-header.open .acc-arrow {
+      transform: rotate(90deg)
+    }
+
+    .acc-body {
+      display: none;
+      padding: 24px 20px
+    }
+
+    .acc-body.open {
+      display: block;
+      animation: slideIn .25s ease
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(-8px)
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0)
+      }
+    }
+
+    /* SHARED */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px
+    }
+
+    .three-col {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px
+    }
+
+    @media(max-width:600px) {
+
+      .two-col,
+      .three-col {
+        grid-template-columns: 1fr
+      }
+    }
+
+    .info-card {
+      border-radius: var(--radius-sm);
+      padding: 16px;
+      background: var(--bg);
+      border: 1px solid var(--border)
+    }
+
+    .info-card h4 {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 7px;
+      display: flex;
+      align-items: center;
+      gap: 7px
+    }
+
+    .info-card p {
+      font-size: 13px;
+      color: var(--text2);
+      line-height: 1.6
+    }
+
+    .obj-box {
+      background: linear-gradient(135deg, #f5f3ff, #ede9fe);
+      border: 1px solid #c4b5fd;
+      border-radius: var(--radius);
+      padding: 20px 24px
+    }
+
+    .achievement-tag {
+      display: inline-block;
+      background: #ddd6fe;
+      color: var(--indigo-d);
+      border-radius: 4px;
+      font-size: 10px;
+      font-weight: 600;
+      padding: 2px 6px;
+      margin-bottom: 8px;
+      font-family: 'IBM Plex Mono', monospace
+    }
+
+    .obj-list {
+      list-style: none
+    }
+
+    .obj-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 14px;
+      padding: 6px 0;
+      border-bottom: 1px solid rgba(79, 70, 229, .1)
+    }
+
+    .obj-list li:last-child {
+      border-bottom: none
+    }
+
+    .obj-list li::before {
+      content: '✓';
+      color: var(--indigo);
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 1px
+    }
+
+    .dark-panel {
+      background: var(--navy);
+      border-radius: var(--radius);
+      padding: 22px 24px;
+      color: white
+    }
+
+    .dp-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: #a5b4fc;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      margin-bottom: 14px
+    }
+
+    /* ═══════════════════════════════
+   §1 SLEEP SCIENCE
+═══════════════════════════════ */
+    .sleep-temp-banner {
+      background: var(--navy);
+      border-radius: var(--radius);
+      padding: 24px;
+      color: white;
+      margin-bottom: 16px
+    }
+
+    .temp-range-visual {
+      display: flex;
+      height: 44px;
+      border-radius: 30px;
+      overflow: hidden;
+      margin: 16px 0;
+      position: relative
+    }
+
+    .trv-cold {
+      background: linear-gradient(to right, #60a5fa, #93c5fd);
+      flex: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      color: #1e3a5f
+    }
+
+    .trv-good {
+      background: linear-gradient(to right, #4ade80, #86efac);
+      flex: 3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      color: #14532d;
+      position: relative
+    }
+
+    .trv-hot {
+      background: linear-gradient(to right, #fb923c, #ef4444);
+      flex: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      color: #7f1d1d
+    }
+
+    .trv-marker {
+      position: absolute;
+      top: -6px;
+      width: 2px;
+      background: white;
+      height: 56px;
+      box-shadow: 0 0 8px rgba(255, 255, 255, .5)
+    }
+
+    .trv-labels {
+      display: flex;
+      justify-content: space-between;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      color: rgba(255, 255, 255, .5);
+      margin-top: 6px;
+      padding: 0 4px
+    }
+
+    .sleep-facts {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 10px;
+      margin-top: 14px
+    }
+
+    .sf-card {
+      background: rgba(255, 255, 255, .05);
+      border: 1px solid rgba(255, 255, 255, .09);
+      border-radius: var(--radius-sm);
+      padding: 13px;
+      cursor: pointer;
+      transition: all .2s
+    }
+
+    .sf-card:hover {
+      background: rgba(79, 70, 229, .15);
+      border-color: rgba(165, 180, 252, .35)
+    }
+
+    .sf-card.open {
+      background: rgba(79, 70, 229, .2);
+      border-color: #a5b4fc
+    }
+
+    .sfc-icon {
+      font-size: 22px;
+      margin-bottom: 5px;
+      display: block
+    }
+
+    .sfc-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: rgba(255, 255, 255, .9);
+      margin-bottom: 3px
+    }
+
+    .sfc-brief {
+      font-size: 11px;
+      color: rgba(255, 255, 255, .5)
+    }
+
+    .sfc-detail {
+      display: none;
+      margin-top: 8px;
+      font-size: 12px;
+      color: rgba(255, 255, 255, .7);
+      line-height: 1.65;
+      padding-top: 8px;
+      border-top: 1px solid rgba(255, 255, 255, .1);
+      animation: slideIn .2s ease
+    }
+
+    .sf-card.open .sfc-detail {
+      display: block
+    }
+
+    /* ═══════════════════════════════
+   §2 PROBLEM ANALYSIS
+═══════════════════════════════ */
+    .state-compare {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 16px;
+      align-items: center;
+      margin-bottom: 16px
+    }
+
+    @media(max-width:560px) {
+      .state-compare {
+        grid-template-columns: 1fr
+      }
+    }
+
+    .state-box {
+      border-radius: var(--radius-sm);
+      padding: 16px;
+      border: 1.5px solid
+    }
+
+    .state-box.initial {
+      border-color: #fca5a5;
+      background: var(--red-l)
+    }
+
+    .state-box.goal {
+      border-color: #86efac;
+      background: var(--green-l)
+    }
+
+    .state-box h4 {
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 8px
+    }
+
+    .state-box ul {
+      list-style: none;
+      font-size: 12px;
+      line-height: 1.8;
+      color: var(--text2)
+    }
+
+    .state-box ul li::before {
+      content: '• ';
+      font-weight: 700
+    }
+
+    .state-box.initial h4 {
+      color: var(--red-d)
+    }
+
+    .state-box.initial ul li::before {
+      color: var(--red)
+    }
+
+    .state-box.goal h4 {
+      color: var(--green-d)
+    }
+
+    .state-box.goal ul li::before {
+      color: var(--green)
+    }
+
+    .state-arrow {
+      font-size: 28px;
+      color: var(--indigo);
+      text-align: center;
+      font-weight: 700
+    }
+
+    .req-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+      gap: 10px
+    }
+
+    .req-card {
+      border-radius: var(--radius-sm);
+      padding: 13px;
+      text-align: center;
+      border: 1px solid
+    }
+
+    .req-icon {
+      font-size: 24px;
+      display: block;
+      margin-bottom: 5px
+    }
+
+    .req-label {
+      font-size: 11px;
+      font-weight: 700;
+      margin-bottom: 3px
+    }
+
+    .req-value {
+      font-size: 12px
+    }
+
+    /* ═══════════════════════════════
+   §3 SENSOR COMPARISON
+═══════════════════════════════ */
+    .sensor-compare-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 12px;
+      margin-bottom: 16px
+    }
+
+    .scomp-card {
+      border-radius: var(--radius-sm);
+      border: 2px solid var(--border);
+      padding: 16px;
+      cursor: pointer;
+      transition: all .2s;
+      background: var(--bg);
+      position: relative
+    }
+
+    .scomp-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, .1)
+    }
+
+    .scomp-card.pick {
+      border-color: var(--indigo);
+      background: var(--indigo-l);
+      box-shadow: 0 0 0 3px rgba(79, 70, 229, .15)
+    }
+
+    .scomp-card.not-pick {
+      border-color: var(--red);
+      background: var(--red-l);
+      opacity: .7
+    }
+
+    .scomp-badge {
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 10px;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 10px;
+      white-space: nowrap
+    }
+
+    .scomp-icon {
+      font-size: 28px;
+      margin-bottom: 8px;
+      display: block;
+      text-align: center
+    }
+
+    .scomp-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+      text-align: center;
+      margin-bottom: 4px
+    }
+
+    .scomp-specs {
+      font-size: 11px;
+      color: var(--text3);
+      text-align: center;
+      line-height: 1.6;
+      margin-bottom: 8px
+    }
+
+    .scomp-bar-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 4px
+    }
+
+    .scomp-bar-label {
+      font-size: 10px;
+      color: var(--text3);
+      min-width: 40px
+    }
+
+    .scomp-bar {
+      flex: 1;
+      height: 6px;
+      background: var(--border);
+      border-radius: 3px;
+      overflow: hidden
+    }
+
+    .scomp-bar-fill {
+      height: 100%;
+      border-radius: 3px;
+      transition: width 1s ease
+    }
+
+    .scomp-result {
+      margin-top: 14px;
+      border-radius: var(--radius-sm);
+      padding: 13px 15px;
+      font-size: 13px;
+      line-height: 1.65;
+      display: none;
+      animation: slideIn .2s ease
+    }
+
+    .scomp-result.show {
+      display: block
+    }
+
+    /* ═══════════════════════════════
+   §4 TEMPERATURE SIMULATOR
+═══════════════════════════════ */
+    .temp-sim {
+      background: var(--navy);
+      border-radius: var(--radius);
+      overflow: hidden
+    }
+
+    .ts-room {
+      padding: 24px;
+      text-align: center;
+      position: relative;
+      min-height: 240px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center
+    }
+
+    .ts-room-bg {
+      position: absolute;
+      inset: 0;
+      transition: background 1s ease
+    }
+
+    .ts-content {
+      position: relative;
+      z-index: 1
+    }
+
+    .ts-icon {
+      font-size: 48px;
+      margin-bottom: 8px;
+      display: block;
+      transition: all .4s
+    }
+
+    .ts-temp-display {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 64px;
+      font-weight: 900;
+      color: white;
+      line-height: 1;
+      text-shadow: 0 0 40px rgba(255, 255, 255, .2);
+      transition: all .4s;
+      display: block
+    }
+
+    .ts-unit {
+      font-size: 20px;
+      color: rgba(255, 255, 255, .5);
+      margin-top: 4px
+    }
+
+    .ts-status {
+      font-size: 14px;
+      font-weight: 700;
+      margin-top: 10px;
+      padding: 5px 16px;
+      border-radius: 20px;
+      transition: all .4s;
+      display: inline-block
+    }
+
+    .ts-microbit-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 14px
+    }
+
+    .ts-mb {
+      width: 100px;
+      height: 82px;
+      background: #2a2a3e;
+      border-radius: 8px;
+      border: 2px solid #444;
+      display: flex;
+      align-items: center;
+      justify-content: center
+    }
+
+    .ts-mb-leds {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 2px;
+      padding: 8px
+    }
+
+    .ts-led {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #1a1a2e;
+      transition: all .3s
+    }
+
+    .ts-led.on {
+      box-shadow: 0 0 6px currentColor
+    }
+
+    .ts-buzzer {
+      font-size: 28px;
+      transition: all .3s
+    }
+
+    .ts-buzzer.beep {
+      animation: beep .3s ease infinite
+    }
+
+    @keyframes beep {
+
+      0%,
+      100% {
+        transform: scale(1)
+      }
+
+      50% {
+        transform: scale(1.2)
+      }
+    }
+
+    .ts-controls {
+      padding: 22px;
+      background: rgba(255, 255, 255, .03)
+    }
+
+    .ts-slider-wrap {
+      margin-bottom: 18px
+    }
+
+    .ts-slider-label {
+      font-size: 12px;
+      font-weight: 700;
+      color: rgba(255, 255, 255, .55);
+      margin-bottom: 8px;
+      letter-spacing: .05em
+    }
+
+    .ts-slider {
+      width: 100%;
+      height: 8px;
+      border-radius: 4px;
+      outline: none;
+      cursor: pointer;
+      background: linear-gradient(to right, #60a5fa 0%, #4ade80 30%, #4ade80 60%, #f97316 100%);
+      accent-color: white
+    }
+
+    .ts-temp-presets {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-top: 10px
+    }
+
+    .ts-preset {
+      background: rgba(255, 255, 255, .08);
+      border: 1px solid rgba(255, 255, 255, .15);
+      border-radius: 20px;
+      color: rgba(255, 255, 255, .7);
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: 'Noto Sans KR', sans-serif;
+      transition: all .2s
+    }
+
+    .ts-preset:hover {
+      background: rgba(255, 255, 255, .14)
+    }
+
+    .ts-preset.active {
+      border-color: #a5b4fc;
+      color: #a5b4fc;
+      background: rgba(79, 70, 229, .2)
+    }
+
+    .ts-condition-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 14px
+    }
+
+    .ts-cond-box {
+      flex: 1;
+      min-width: 120px;
+      background: rgba(255, 255, 255, .06);
+      border-radius: var(--radius-sm);
+      padding: 10px 12px;
+      border: 1px solid rgba(255, 255, 255, .08)
+    }
+
+    .tscb-label {
+      font-size: 10px;
+      font-weight: 700;
+      color: rgba(255, 255, 255, .45);
+      letter-spacing: .06em;
+      margin-bottom: 3px
+    }
+
+    .tscb-val {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 14px;
+      font-weight: 700;
+      transition: color .4s
+    }
+
+    .ts-log-box {
+      background: rgba(0, 0, 0, .3);
+      border-radius: var(--radius-sm);
+      padding: 10px 14px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      color: rgba(165, 180, 252, .8);
+      min-height: 60px;
+      max-height: 100px;
+      overflow-y: auto;
+      line-height: 1.9;
+      margin-top: 10px
+    }
+
+    /* ═══════════════════════════════
+   §5 SYSTEM DESIGN
+═══════════════════════════════ */
+    .sys-blocks {
+      display: flex;
+      align-items: stretch;
+      gap: 0;
+      overflow-x: auto;
+      padding-bottom: 4px
+    }
+
+    .sys-blk {
+      flex-shrink: 0;
+      background: rgba(255, 255, 255, .05);
+      border: 1px solid rgba(255, 255, 255, .1);
+      border-radius: var(--radius-sm);
+      padding: 14px 12px;
+      text-align: center;
+      min-width: 120px;
+      cursor: pointer;
+      transition: all .2s
+    }
+
+    .sys-blk:hover {
+      background: rgba(79, 70, 229, .14);
+      border-color: rgba(165, 180, 252, .4)
+    }
+
+    .sys-blk.active-blk {
+      background: rgba(79, 70, 229, .25);
+      border-color: #a5b4fc;
+      box-shadow: 0 0 14px rgba(79, 70, 229, .25)
+    }
+
+    .sblk-icon {
+      font-size: 24px;
+      display: block;
+      margin-bottom: 5px
+    }
+
+    .sblk-type {
+      font-size: 9px;
+      font-weight: 700;
+      color: rgba(255, 255, 255, .35);
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      margin-bottom: 2px
+    }
+
+    .sblk-name {
+      font-size: 11px;
+      font-weight: 700;
+      color: rgba(255, 255, 255, .85)
+    }
+
+    .sblk-sub {
+      font-size: 10px;
+      color: rgba(255, 255, 255, .4);
+      margin-top: 2px
+    }
+
+    .sys-arr {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      padding: 0 5px;
+      color: rgba(165, 180, 252, .5);
+      font-size: 18px
+    }
+
+    .sys-det {
+      background: rgba(0, 0, 0, .25);
+      border-radius: var(--radius-sm);
+      padding: 13px 16px;
+      margin-top: 14px;
+      font-size: 13px;
+      color: rgba(255, 255, 255, .75);
+      line-height: 1.7;
+      border-left: 3px solid #a5b4fc;
+      display: none;
+      animation: slideIn .2s ease
+    }
+
+    .sys-det.show {
+      display: block
+    }
+
+    /* ═══════════════════════════════
+   §6 ALGORITHM
+═══════════════════════════════ */
+    .algo-wrap {
+      background: var(--navy);
+      border-radius: var(--radius);
+      padding: 22px;
+      color: white
+    }
+
+    .algo-legend {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 14px
+    }
+
+    .al-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11px;
+      color: rgba(255, 255, 255, .55)
+    }
+
+    .al-box {
+      width: 18px;
+      height: 14px;
+      border-radius: 2px;
+      flex-shrink: 0
+    }
+
+    .algo-flow {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0
+    }
+
+    .an {
+      padding: 9px 18px;
+      border-radius: var(--radius-sm);
+      font-size: 12px;
+      font-weight: 700;
+      text-align: center;
+      margin: 2px 0;
+      min-width: 220px;
+      cursor: pointer;
+      transition: all .2s
+    }
+
+    .an:hover {
+      filter: brightness(1.1);
+      transform: scale(1.02)
+    }
+
+    .an.hl {
+      box-shadow: 0 0 0 3px rgba(165, 180, 252, .5)
+    }
+
+    .an-term {
+      background: #334155;
+      color: #e2e8f0;
+      border-radius: 40px
+    }
+
+    .an-proc {
+      background: rgba(14, 165, 233, .25);
+      border: 1.5px solid rgba(14, 165, 233, .5);
+      color: #7dd3fc
+    }
+
+    .an-dec {
+      background: rgba(79, 70, 229, .25);
+      border: 1.5px solid rgba(79, 70, 229, .5);
+      color: #a5b4fc;
+      clip-path: polygon(10px 0%, calc(100% - 10px) 0%, 100% 50%, calc(100% - 10px) 100%, 10px 100%, 0% 50%);
+      padding: 10px 28px
+    }
+
+    .an-io {
+      background: rgba(16, 185, 129, .2);
+      border: 1.5px solid rgba(16, 185, 129, .5);
+      color: #86efac;
+      transform: skew(-5deg)
+    }
+
+    .an-io span {
+      display: inline-block;
+      transform: skew(5deg)
+    }
+
+    .an-arr {
+      color: rgba(255, 255, 255, .3);
+      font-size: 16px;
+      line-height: 1;
+      margin: 1px 0
+    }
+
+    .an-branch {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      margin: 2px 0;
+      width: 100%;
+      max-width: 600px
+    }
+
+    .an-bcol {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex: 1
+    }
+
+    .an-blbl {
+      font-size: 10px;
+      font-weight: 700;
+      color: rgba(255, 255, 255, .4);
+      margin-bottom: 2px
+    }
+
+    .an-desc {
+      display: none;
+      margin-top: 12px;
+      background: rgba(0, 0, 0, .3);
+      border-radius: var(--radius-sm);
+      padding: 12px 14px;
+      font-size: 12px;
+      color: rgba(255, 255, 255, .7);
+      line-height: 1.7;
+      border-left: 3px solid #a5b4fc;
+      animation: slideIn .2s ease
+    }
+
+    .an-desc.show {
+      display: block
+    }
+
+    /* ═══════════════════════════════
+   §7 CODE
+═══════════════════════════════ */
+    .code-tabs {
+      display: flex;
+      gap: 0;
+      background: #0d1117;
+      border-radius: var(--radius) var(--radius) 0 0;
+      overflow: hidden
+    }
+
+    .code-tab {
+      padding: 10px 18px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      color: rgba(255, 255, 255, .45);
+      border: none;
+      background: none;
+      border-right: 1px solid rgba(255, 255, 255, .07);
+      transition: all .2s;
+      font-family: 'IBM Plex Mono', monospace
+    }
+
+    .code-tab.active {
+      color: #a5b4fc;
+      background: #1c1c2e
+    }
+
+    .code-panel {
+      display: none
+    }
+
+    .code-panel.active {
+      display: block;
+      animation: slideIn .2s ease
+    }
+
+    .code-block-view {
+      background: #0d1117;
+      border-radius: 0 0 var(--radius) var(--radius);
+      overflow: hidden
+    }
+
+    .code-display {
+      padding: 20px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 12px;
+      color: #e6edf3;
+      line-height: 2;
+      overflow-x: auto
+    }
+
+    .py-kw {
+      color: #ff7b72
+    }
+
+    .py-fn {
+      color: #d2a8ff
+    }
+
+    .py-str {
+      color: #a5d6ff
+    }
+
+    .py-cm {
+      color: #8b949e
+    }
+
+    .py-num {
+      color: #79c0ff
+    }
+
+    .py-var {
+      color: #ffa657
+    }
+
+    .py-op {
+      color: #ff9f0a
+    }
+
+    /* Block visual */
+    .block-code {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px
+    }
+
+    .blk {
+      border-radius: 5px;
+      padding: 7px 12px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 12px;
+      font-weight: 600;
+      color: white;
+      cursor: default;
+      display: inline-block;
+      max-width: 100%
+    }
+
+    .blk-indent {
+      padding-left: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 3px
+    }
+
+    .blk-indent2 {
+      padding-left: 48px;
+      display: flex;
+      flex-direction: column;
+      gap: 3px
+    }
+
+    /* ═══════════════════════════════
+   §8 EXTENSIONS
+═══════════════════════════════ */
+    .ext-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      gap: 12px
+    }
+
+    .ext-card {
+      border-radius: var(--radius-sm);
+      border: 1.5px solid var(--border);
+      background: white;
+      padding: 16px;
+      cursor: pointer;
+      transition: all .2s;
+      border-top: 3px solid var(--ec-color)
+    }
+
+    .ext-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow)
+    }
+
+    .ext-card.open {
+      box-shadow: 0 0 0 2px var(--ec-color)
+    }
+
+    .ec-icon {
+      font-size: 26px;
+      margin-bottom: 8px;
+      display: block
+    }
+
+    .ec-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 3px
+    }
+
+    .ec-sensor-tag {
+      font-size: 10px;
+      padding: 2px 7px;
+      border-radius: 10px;
+      font-weight: 600;
+      display: inline-block;
+      margin-bottom: 5px
+    }
+
+    .ec-brief {
+      font-size: 12px;
+      color: var(--text3);
+      line-height: 1.5
+    }
+
+    .ec-detail {
+      display: none;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid var(--border);
+      font-size: 13px;
+      color: var(--text2);
+      line-height: 1.6;
+      animation: slideIn .2s ease
+    }
+
+    .ext-card.open .ec-detail {
+      display: block
+    }
+
+    .ec-code {
+      background: var(--navy);
+      border-radius: var(--radius-sm);
+      padding: 10px 12px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      color: #a5b4fc;
+      line-height: 1.9;
+      margin-top: 8px;
+      white-space: pre-wrap
+    }
+
+    /* QUIZ */
+    .quiz-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden
+    }
+
+    .quiz-header {
+      background: var(--navy);
+      color: white;
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between
+    }
+
+    .quiz-header h3 {
+      font-size: 15px;
+      font-weight: 700
+    }
+
+    .quiz-body {
+      padding: 22px
+    }
+
+    .quiz-q {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      line-height: 1.55
+    }
+
+    .quiz-options {
+      display: flex;
+      flex-direction: column;
+      gap: 7px
+    }
+
+    .quiz-opt {
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 11px 16px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: all .15s;
+      background: var(--bg);
+      display: flex;
+      align-items: center;
+      gap: 10px
+    }
+
+    .quiz-opt:hover:not(.disabled) {
+      border-color: var(--indigo);
+      background: var(--indigo-l)
+    }
+
+    .quiz-opt.correct {
+      border-color: var(--green);
+      background: var(--green-l);
+      color: #065f46
+    }
+
+    .quiz-opt.wrong {
+      border-color: var(--red);
+      background: var(--red-l);
+      color: #991b1b
+    }
+
+    .quiz-opt.disabled {
+      cursor: default
+    }
+
+    .opt-num {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--border);
+      color: var(--text3);
+      font-size: 12px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0
+    }
+
+    .quiz-opt.correct .opt-num {
+      background: var(--green);
+      color: white
+    }
+
+    .quiz-opt.wrong .opt-num {
+      background: var(--red);
+      color: white
+    }
+
+    .quiz-feedback {
+      margin-top: 12px;
+      padding: 12px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      display: none
+    }
+
+    .quiz-feedback.show {
+      display: block;
+      animation: slideIn .2s ease
+    }
+
+    .quiz-feedback.ok {
+      background: var(--green-l);
+      color: #065f46;
+      border-left: 3px solid var(--green)
+    }
+
+    .quiz-feedback.ng {
+      background: var(--red-l);
+      color: #991b1b;
+      border-left: 3px solid var(--red)
+    }
+
+    .quiz-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 16px
+    }
+
+    .btn-qnext {
+      background: var(--indigo);
+      color: white;
+      border: none;
+      border-radius: var(--radius-sm);
+      padding: 10px 22px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      font-family: 'Noto Sans KR', sans-serif;
+      display: none
+    }
+
+    .btn-qnext.show {
+      display: block
+    }
+
+    /* SUMMARY */
+    .summary-box {
+      background: var(--navy);
+      border-radius: var(--radius);
+      padding: 26px
+    }
+
+    .summary-box h3 {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, .1);
+      color: #a5b4fc
+    }
+
+    .kw-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(195px, 1fr));
+      gap: 10px
+    }
+
+    .kw-item {
+      background: rgba(255, 255, 255, .05);
+      border: 1px solid rgba(255, 255, 255, .08);
+      border-radius: var(--radius-sm);
+      padding: 12px 14px
+    }
+
+    .kw-term {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 12px;
+      font-weight: 600;
+      color: #a5b4fc;
+      margin-bottom: 4px
+    }
+
+    .kw-def {
+      font-size: 12px;
+      color: rgba(255, 255, 255, .6);
+      line-height: 1.5
+    }
+
+    @media(max-width:600px) {
+
+      .hero-inner,
+      .main {
+        padding-left: 16px;
+        padding-right: 16px
+      }
+
+      .ts-temp-display {
+        font-size: 44px
+      }
+
+      .kw-grid {
+        grid-template-columns: 1fr
+      }
+    }
+  </style>
 </head>
+
 <body>
-<div class="header">
-  <a href="index.html" class="back">← 목록으로</a>
-  <div style="flex:1"></div>
-  <h1>🌡️ 수면 온도 알림이</h1>
-</div>
-<div class="content">
-  <div class="panel-left">
-    <div style="display:inline-block;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:700;background:var(--ult);color:var(--u);margin-bottom:12px;">온도 및 빛 센서 활용</div>
-    <h2 style="font-size:20px;margin-top:0;margin-bottom:12px;font-weight:700;">미션: 똑똑한 수면 조수</h2>
-    <p style="font-size:13px;color:var(--mt);line-height:1.6;margin-bottom:24px;">밤이 되었는지 빛 센서로 감지하고, 잘 때 방안 온도가 적합한지 알려주는 알림이를 만들어봅니다.</p>
-    
-    <div class="step">
-      <div class="step-num">1</div>
-      <h3>어두움 감지하기</h3>
-      <p>빛 센서값이 128보다 작으면 '밤'으로 생각합니다. <code>'무한반복'</code> 또는 <code>'흔들림 감지 시'</code> 블록 안에 <code>만약(if)</code> 블록을 추가해 빛 센서값을 판단해 보세요.</p>
-    </div>
-    
-    <div class="step">
-      <div class="step-num">2</div>
-      <h3>수면 온도 확인</h3>
-      <p>'밤'일 때, 온도를 확인해야 합니다. 19도 미만이면 너무 춥다는 화살표(↓), 23도를 초과하면 덥다는 화살표(↑)를 LED 스크린에 출력하세요.</p>
-    </div>
-    
-    <div class="step">
-      <div class="step-num">3</div>
-      <h3>적정 온도 표시</h3>
-      <p>19도~23도 사이라면 수면에 딱 좋다는 의미로 하트 아이콘(♥)을 LED에 예쁘게 띄워 적정 온도임을 알려주세요!</p>
-    </div>
-    
-    <div style="margin-top:30px;padding:16px;background:#F0FDF4;border-radius:10px;border:1px solid #BBF7D0;font-size:12px;color:#166534;line-height:1.6;">
-      <strong>💡 힌트:</strong> <code>만약(if)</code> 블록 안에 또 다른 <code>만약(if)</code> 블록을 중첩해서 넣거나, 아니면 <code>만약~아니고 만약~</code> 구조를 사용하면 여러 조건을 단계별로 검사할 수 있습니다.
+  <div id="__topnav__"
+    style="position:sticky;top:0;z-index:9999;background:#0f1b2d;border-bottom:2px solid #84cc16;font-family:'Noto Sans KR',sans-serif">
+    <div style="max-width:1200px;margin:0 auto;padding:0 20px;display:flex;align-items:center;gap:12px;height:48px">
+      <a href="../../index.html"
+        style="display:flex;align-items:center;gap:6px;font-size:11px;color:#84cc16;text-decoration:none;font-weight:700;letter-spacing:.06em;white-space:nowrap;opacity:.9;transition:opacity .15s"
+        onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.9">
+        ← 단원 목차
+      </a>
+      <span style="color:#243d5e;font-size:14px">|</span>
+      <a href="index.html"
+        style="display:flex;align-items:center;gap:6px;font-size:11px;color:#7dd3fc;text-decoration:none;font-weight:600;white-space:nowrap;opacity:.9;transition:opacity .15s"
+        onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.9">
+        ↑ 피지컬 컴퓨팅
+      </a>
+      <span style="color:#243d5e;font-size:14px">|</span>
+      <span
+        style="font-size:10px;color:#84cc16;font-weight:700;font-family:'IBM Plex Mono',monospace;flex-shrink:0">Ⅰ-2-02</span>
+      <span
+        style="font-size:12px;color:#e2e8f0;font-weight:500;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">🌡️
+        수면 온도 알림이 장치 만들기</span>
+      <div style="display:flex;gap:6px;margin-left:auto;flex-shrink:0">
+        <a href="exercise-counter.html"
+          style="font-size:11px;padding:4px 10px;background:#243d5e;color:#84cc16;border-radius:6px;text-decoration:none;font-weight:600;transition:background .15s"
+          onmouseover="this.style.background='#2d4a6e'" onmouseout="this.style.background='#243d5e'">← Ⅰ-2-01</a>
+        <a href="sound-animation.html"
+          style="font-size:11px;padding:4px 10px;background:#243d5e;color:#84cc16;border-radius:6px;text-decoration:none;font-weight:600;transition:background .15s"
+          onmouseover="this.style.background='#2d4a6e'" onmouseout="this.style.background='#243d5e'">Ⅰ-2-03 →</a>
+      </div>
     </div>
   </div>
-  <div class="panel-right">
-    <iframe src="https://makecode.microbit.org/---editor?nested=1"></iframe>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-grid"></div>
+    <div class="hero-stars"></div>
+    <div class="moon"></div>
+    <div class="hero-inner">
+      <div class="breadcrumb">정보 <span>›</span> <span>Ⅰ. 컴퓨팅 시스템</span> <span>›</span> <span>2. 피지컬 컴퓨팅 프로그래밍</span>
+      </div>
+      <div class="unit-badge">UNIT Ⅰ — 2-02</div>
+      <h1>🌙 <em>수면 온도 알림이 장치</em> 만들기</h1>
+      <p class="hero-desc">밤에 방 안의 온도를 자동으로 감지하여 LED에 표시하고, 수면에 적합하지 않은 온도일 때 알림을 주는 피지컬 컴퓨팅 시스템을 설계하고 프로그래밍합니다.</p>
+      <div class="meta-chips">
+        <div class="chip">
+          <div class="dot"></div>2차시 · 90분
+        </div>
+        <div class="chip">
+          <div class="dot"></div>교과서 24~27쪽
+        </div>
+        <div class="chip">
+          <div class="dot"></div>마이크로비트 / DHT11
+        </div>
+      </div>
+    </div>
   </div>
-</div>
+
+  <!-- STICKY NAV -->
+  <nav class="sticky-nav">
+    <div class="nav-inner">
+      <button class="nav-btn active" onclick="openSec(0)">01 학습 목표</button>
+      <button class="nav-btn" onclick="openSec(1)">02 수면과 온도</button>
+      <button class="nav-btn" onclick="openSec(2)">03 문제 분석</button>
+      <button class="nav-btn" onclick="openSec(3)">04 센서 비교·선택</button>
+      <button class="nav-btn" onclick="openSec(4)">05 온도 시뮬레이터</button>
+      <button class="nav-btn" onclick="openSec(5)">06 시스템 설계</button>
+      <button class="nav-btn" onclick="openSec(6)">07 알고리즘</button>
+      <button class="nav-btn" onclick="openSec(7)">08 코딩</button>
+      <button class="nav-btn" onclick="openSec(8)">09 확장 프로젝트</button>
+      <button class="nav-btn" onclick="openSec(9)">10 확인 문제</button>
+      <button class="nav-btn" onclick="openSec(10)">11 핵심 정리</button>
+    </div>
+  </nav>
+
+  <div class="main">
+
+    <!-- §0 학습 목표 -->
+    <div class="acc-section" id="sec-0">
+      <div class="acc-header open" id="hdr-0" onclick="toggleSec(0)">
+        <div class="acc-num" style="background:#4f46e5">01</div>
+        <div class="acc-text">
+          <div class="acc-title">학습 목표</div>
+          <div class="acc-sub">2차시 · 이 소단원을 마치면 할 수 있어요</div>
+        </div>
+        <span class="acc-arrow">▶</span>
+      </div>
+      <div class="acc-body open" id="body-0">
+        <div class="obj-box">
+          <div class="achievement-tag">[9정01-04] 2022 개정 성취기준</div>
+          <ul class="obj-list">
+            <li><strong>수면과 온도의 관계</strong>를 이해하고, 쾌적한 수면 온도 범위(18~22℃)를 설명할 수 있다.</li>
+            <li>온도 측정에 사용되는 센서(NTC 서미스터·LM35·DHT11·마이크로비트 내장)의 특징을 비교하고, <strong>문제 해결에 적합한 센서</strong>를 선택할 수 있다.</li>
+            <li>온도 조건에 따라 다른 출력을 하는 <strong>다중 조건 알고리즘(if~elif~else)</strong>을 설계하고 블록 코딩으로 구현할 수 있다.</li>
+            <li>마이크로비트 LED·내장 온도 센서를 활용해 밤 방 안의 온도를 <strong>표시·알림</strong>하는 프로그램을 작성할 수 있다.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- §1 수면과 온도 -->
+    <div class="acc-section" id="sec-1">
+      <div class="acc-header" id="hdr-1" onclick="toggleSec(1)">
+        <div class="acc-num" style="background:#4f46e5">02</div>
+        <div class="acc-text">
+          <div class="acc-title">수면과 온도의 관계 — 왜 온도가 중요할까요?</div>
+          <div class="acc-sub">수면 과학 카드를 클릭해 온도와 수면의 연관성을 알아보세요</div>
+        </div>
+        <span class="acc-arrow">▶</span>
+      </div>
+      <div class="acc-body" id="body-1">
+        <div class="sleep-temp-banner">
+          <div class="dp-title">▸ 쾌적한 수면을 위한 온도 범위</div>
+          <div class="temp-range-visual">
+            <div class="trv-cold">🥶 너무 추워요<br>~17℃</div>
+            <div class="trv-good">😴 수면 최적<br>18~22℃</div>
+            <div class="trv-hot">🥵 너무 더워요<br>23℃~</div>
+          </div>
+          <div class="trv-labels">
+            <span>10℃</span><span>15℃</span><span>18℃</span><span>22℃</span><span>25℃</span><span>30℃</span>
+          </div>
+          <div style="font-size:13px;color:rgba(255,255,255,.6);margin-top:12px;line-height:1.65">
+            세계수면학회(WSS) 권고 기준 — 취침 시 실내 온도 <strong style="color:#86efac">18~22℃</strong>가 가장 깊고 질 좋은 수면에 도움이 됩니다.
+          </div>
+          <div class="sleep-facts" id="sleep-facts"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- §2 문제 분석 -->
+    <div class="acc-section" id="sec-2">
+      <div class="acc-header" id="hdr-2" onclick="toggleSec(2)">
+        <div class="acc-num" style="background:#4f46e5">03</div>
+        <div class="acc-text">
+          <div class="acc-title">문제 분석 — 초기 상태와 목표 상태</div>
+          <div class="acc-sub">현재 불편한 점과 만들고 싶은 시스템을 명확히 정의합니다</div>
+        </div>
+        <span class="acc-arrow">▶</span>
+      </div>
+      <div class="acc-body" id="body-2">
+        <div class="state-compare">
+          <div class="state-box initial">
+            <h4>😟 초기 상태 (문제 상황)</h4>
+            <ul>
+              <li>잠자리에 들 때 방 온도가 적당한지 모름</li>
+              <li>한밤중에 온도가 변해도 알 수 없음</li>
+              <li>너무 춥거나 더워서 자주 깸</li>
+              <li>온도계를 눈으로 직접 확인해야 함</li>
+              <li>아침에 일어났을 때 피로감이 큼</li>
+            </ul>
+          </div>
+          <div class="state-arrow">→</div>
+          <div class="state-box goal">
+            <h4>😊 목표 상태 (해결 후)</h4>
+            <ul>
+              <li>현재 온도가 LED에 자동 표시됨</li>
+              <li>수면 적정 범위 벗어나면 LED 색상 변경</li>
+              <li>심한 온도 이상 시 부저로 알림</li>
+              <li>밤새 자동으로 모니터링됨</li>
+              <li>아침에 밤 최저/최고 온도 확인 가능</li>
+            </ul>
+          </div>
+        </div>
+        <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:10px">📋 시스템 요구사항 정리</div>
+        <div class="req-grid" id="req-grid"></div>
+      </div>
+    </div>
+
+    <!-- §3 센서 비교·선택 -->
+    <div class="acc-section" id="sec-3">
+      <div class="acc-header" id="hdr-3" onclick="toggleSec(3)">
+        <div class="acc-num" style="background:#4f46e5">04</div>
+        <div class="acc-text">
+          <div class="acc-title">온도 센서 비교·선택하기</div>
+          <div class="acc-sub">4가지 센서를 비교하고, 수면 온도 측정에 가장 적합한 것을 선택하세요</div>
+        </div>
+        <span class="acc-arrow">▶</span>
+      </div>
+      <div class="acc-body" id="body-3">
+        <div
+          style="background:var(--indigo-l);border:1px solid #c4b5fd;border-radius:var(--radius-sm);padding:12px 15px;margin-bottom:14px;font-size:13px;color:var(--indigo-d);line-height:1.6">
+          💡 <strong>센서 선택 기준:</strong> 측정 범위(실내 온도), 정확도(±1℃ 이내), 마이크로비트 연결 용이성, 교육적 활용 가능성을 종합적으로 고려합니다.
+        </div>
+        <div class="sensor-compare-grid" id="sensor-compare-grid"></div>
+        <div class="scomp-result" id="scomp-result"></div>
+        <div style="overflow-x:auto;margin-top:16px">
+          <table style="width:100%;border-collapse:collapse;font-size:12px">
+            <thead>
+              <tr style="background:var(--navy);color:white">
+                <th style="padding:10px 12px;text-align:left;border-radius:8px 0 0 0">센서</th>
+                <th style="padding:10px 12px;text-align:center">측정 범위</th>
+                <th style="padding:10px 12px;text-align:center">정확도</th>
+                <th style="padding:10px 12px;text-align:center">연결 방식</th>
+                <th style="padding:10px 12px;text-align:center">비용</th>
+                <th style="padding:10px 12px;text-align:center;border-radius:0 8px 0 0">마이크로비트 적합</th>
+              </tr>
+            </thead>
+            <tbody id="sensor-table-body"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- §4 온도 시뮬레이터 -->
+    <div class="acc-section" id="sec-4">
+      <div class="acc-header" id="hdr-4" onclick="toggleSec(4)">
+        <div class="acc-num" style="background:#4f46e5">05</div>
+        <div class="acc-text">
+          <div class="acc-title">🌡 수면 온도 알림이 시뮬레이터</div>
+          <div class="acc-sub">슬라이더로 온도를 조절하며 장치의 반응을 직접 체험하세요</div>
+        </div>
+        <span class="acc-arrow">▶</span>
+      </div>
+      <div class="acc-body" id="body-4">
+        <div class="temp-sim">
+          <!-- Room display -->
+          <div class="ts-room">
+            <div class="ts-room-bg" id="ts-room-bg"></div>
+            <div class="ts-content">
+              <span class="ts-icon" id="ts-icon">😴</span>
+              <span class="ts-temp-display" id="ts-temp-display">20</span>
+              <div class="ts-unit">℃</div>
+              <span class="ts-status" id="ts-status">✅ 수면 적정 온도</span>
+              <!-- Microbit mockup + buzzer -->
+              <div class="ts-microbit-row">
+                <div class="ts-mb">
+                  <div class="ts-mb-leds" id="ts-mb-leds"><!-- JS --></div>
+                </div>
+                <span class="ts-buzzer" id="ts-buzzer">🔕</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Controls -->
+          <div class="ts-controls">
+            <div class="ts-slider-wrap">
+              <div class="ts-slider-label">온도 조절 슬라이더</div>
+              <input class="ts-slider" id="ts-slider" type="range" min="5" max="40" value="20"
+                oninput="updateTemp(this.value)">
+              <div class="ts-temp-presets">
+                <button class="ts-preset" onclick="setTemp(5)">❄️ 5℃<br>겨울 새벽</button>
+                <button class="ts-preset" onclick="setTemp(14)">🌬 14℃<br>쌀쌀한 봄</button>
+                <button class="ts-preset" onclick="setTemp(20)">😴 20℃<br>수면 최적</button>
+                <button class="ts-preset" onclick="setTemp(26)">☀️ 26℃<br>더운 여름</button>
+                <button class="ts-preset" onclick="setTemp(35)">🔥 35℃<br>열대야</button>
+              </div>
+            </div>
+
+            <!-- Condition boxes -->
+            <div class="ts-condition-row">
+              <div class="ts-cond-box">
+                <div class="tscb-label">현재 온도</div>
+                <div class="tscb-val" id="tscb-temp" style="color:#a5b4fc">20℃</div>
+              </div>
+              <div class="ts-cond-box">
+                <div class="tscb-label">온도 상태</div>
+                <div class="tscb-val" id="tscb-state" style="color:#86efac">적정</div>
+              </div>
+              <div class="ts-cond-box">
+                <div class="tscb-label">LED 표시</div>
+                <div class="tscb-val" id="tscb-led" style="color:#a5b4fc">숫자 표시</div>
+              </div>
+              <div class="ts-cond-box">
+                <div class="tscb-label">부저 알림</div>
+                <div class="tscb-val" id="tscb-buzzer" style="color:#86efac">없음</div>
+              </div>
+            </div>
+
+            <!-- System log -->
+            <div>
+              <div
+                style="font-size:11px;color:rgba(255,255,255,.4);font-family:'IBM Plex Mono',monospace;margin-bottom:4px">
+                ▸ 시스템 로그</div>
+              <div class="ts-log-box" id="ts-log">[시스템] 수면 온도 알림이 장치 가동 중...</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 온도 구간 설명 -->
+        <div class="three-col" style="margin-top:14px">
+          <div class="info-card" style="border-top:3px solid var(--blue)">
+            <h4><span>🥶</span>저온 경고 (17℃ 미만)</h4>
+            <p>추운 환경은 혈관 수축과 근육 긴장을 유발합니다. 마이크로비트 LED에 <strong>파란색 눈 결정(❄)</strong> 아이콘을 표시하고, 15℃ 이하에서는 부저로 경고합니다.</p>
+          </div>
+          <div class="info-card" style="border-top:3px solid var(--green)">
+            <h4><span>😴</span>수면 적정 (18~22℃)</h4>
+            <p>체온이 자연스럽게 내려가 깊은 수면 단계로 진입하기 좋습니다. LED에 <strong>녹색 하트(♥)</strong> 또는 온도 숫자를 표시합니다.</p>
+          </div>
+          <div class="info-card" style="border-top:3px solid var(--red)">
+            <h4><span>🥵</span>고온 경고 (23℃ 초과)</h4>
+            <p>더운 환경은 자주 깨게 하고 땀으로 탈수를 유발합니다. LED에 <strong>빨간색 태양(☀)</strong> 아이콘을 표시하고, 30℃ 이상에서는 부저로 즉시 경고합니다.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- §5 시스템 설계 -->
+    <div class="acc-section" id="sec-5">
+      <div class="acc-header" id="hdr-5" onclick="toggleSec(5)">
+        <div class="acc-num" style="background:#4f46e5">06</div>
+        <div class="acc-text">
+          <div class="acc-title">시스템 구성 설계</div>
+          <div class="acc-sub">블록을 클릭해 각 구성 요소의 역할을 확인하세요</div>
+        </div>
+        <span class="acc-arrow">▶</span>
+      </div>
+      <div class="acc-body" id="body-5">
+        <div class="dark-panel">
+          <div class="dp-title">▸ 수면 온도 알림이 장치 구성도</div>
+          <div class="sys-blocks" id="sys-blocks"></div>
+          <div class="sys-det" id="sys-det"></div>
+          <div
+            style="margin-top:16px;display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:12px;color:rgba(255,255,255,.65)">
+            <div style="background:rgba(255,255,255,.05);border-radius:var(--radius-sm);padding:12px">
+              <div style="color:#a5b4fc;font-weight:700;margin-bottom:5px">🔌 연결 방법</div>
+              마이크로비트 내장 온도 센서 사용 시: 별도 연결 없음<br>
+              DHT11 사용 시: DATA핀 → P0, VCC → 3V, GND → GND<br>
+              LED (외부): P1, P2 핀에 저항과 함께 연결
+            </div>
+            <div style="background:rgba(255,255,255,.05);border-radius:var(--radius-sm);padding:12px">
+              <div style="color:#fcd34d;font-weight:700;margin-bottom:5px">⚡ 전원 및 배치</div>
+              AAA 배터리 팩(3V)으로 독립 전원 가능<br>
+              침실 책상이나 창문 옆에 거치<br>
+              취침 30분 전부터 작동 → 온도 모니터링 시작
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- §6 알고리즘 -->
+    <div class="acc-section" id="sec-6">
+      <div class="acc-header" id="hdr-6" onclick="toggleSec(6)">
+        <div class="acc-num" style="background:#4f46e5">07</div>
+        <div class="acc-text">
+          <div class="acc-title">다중 조건 알고리즘 설계</div>
+          <div class="acc-sub">if~elif~else 다중 분기 — 노드를 클릭해 각 단계 설명을 확인하세요</div>
+        </div>
+        <span class="acc-arrow">▶</span>
+      </div>
+      <div class="acc-body" id="body-6">
+        <div
+          style="background:var(--indigo-l);border:1px solid #c4b5fd;border-radius:var(--radius-sm);padding:12px 15px;margin-bottom:14px;font-size:13px;color:var(--indigo-d)">
+          💡 이번 단원의 핵심 개념: <strong>다중 조건 구조(if~elif~else)</strong>. 이전 단원(운동 카운터)의 단순 if와 달리, 온도에 따라 <strong>3가지 다른
+            반응</strong>을 프로그래밍합니다.
+        </div>
+        <div class="algo-wrap">
+          <div class="dp-title">▸ 수면 온도 알림 알고리즘 순서도</div>
+          <div class="algo-legend">
+            <div class="al-item">
+              <div class="al-box" style="background:#334155;border-radius:8px"></div>시작/끝
+            </div>
+            <div class="al-item">
+              <div class="al-box" style="background:rgba(14,165,233,.4);border:1px solid rgba(14,165,233,.6)"></div>처리
+            </div>
+            <div class="al-item">
+              <div class="al-box" style="background:rgba(79,70,229,.35);border:1px solid rgba(79,70,229,.6)"></div>조건 판단
+            </div>
+            <div class="al-item">
+              <div class="al-box" style="background:rgba(16,185,129,.25);border:1px solid rgba(16,185,129,.5)"></div>입출력
+            </div>
+          </div>
+          <div class="algo-flow" id="algo-flow"></div>
+          <div class="an-desc" id="an-desc"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- §7 코딩 -->
+    <div class="acc-section" id="sec-7">
+      <div class="acc-header" id="hdr-7" onclick="toggleSec(7)">
+        <div class="acc-num" style="background:#7c3aed">08</div>
+        <div class="acc-text">
+          <div class="acc-title">코딩 구현 — 블록 코딩 & MicroPython</div>
+          <div class="acc-sub">탭을 전환해 블록 코딩 구조와 Python 코드를 비교하며 학습하세요</div>
+        </div>
+        <span class="acc-arrow">▶</span>
+      </div>
+      <div class="acc-body" id="body-7">
+        <div class="code-block-view">
+          <div class="code-tabs">
+            <button class="code-tab active" onclick="switchCodeTab('block',this)">🧩 블록 코딩</button>
+            <button class="code-tab" onclick="switchCodeTab('python',this)">🐍 MicroPython</button>
+            <button class="code-tab" onclick="switchCodeTab('compare',this)">⚖️ 핵심 비교</button>
+          </div>
+          <!-- Block coding -->
+          <div class="code-panel active" id="codepanel-block">
+            <div class="block-code" id="block-code-area"></div>
+          </div>
+          <!-- Python -->
+          <div class="code-panel" id="codepanel-python">
+            <div class="code-display" id="python-code-area"></div>
+          </div>
+          <!-- Compare -->
+          <div class="code-panel" id="codepanel-compare">
+            <div style="padding:20px;color:rgba(255,255,255,.8)">
+              <div style="font-size:14px;font-weight:700;color:#a5b4fc;margin-bottom:14px">⚖️ 이번 단원 vs 이전 단원 코드 비교</div>
+              <div class="two-col">
+                <div>
+                  <div style="font-size:12px;font-weight:700;color:rgba(255,255,255,.5);margin-bottom:8px">📌 이전 단원: 운동
+                    카운터 (단순 if)</div>
+                  <div
+                    style="background:#0d1117;border-radius:var(--radius-sm);padding:14px;font-family:'IBM Plex Mono',monospace;font-size:12px;line-height:1.9">
+                    <span class="py-cm"># 조건 1가지만 처리</span>
+                    <span class="py-kw">if</span> accel > <span class="py-num">700</span>:
+                    count += <span class="py-num">1</span>
+                    <span class="py-cm"># if 하나로 끝</span>
+                  </div>
+                </div>
+                <div>
+                  <div style="font-size:12px;font-weight:700;color:rgba(255,255,255,.5);margin-bottom:8px">🆕 이번 단원: 온도
+                    알림 (if~elif~else)</div>
+                  <div
+                    style="background:#0d1117;border-radius:var(--radius-sm);padding:14px;font-family:'IBM Plex Mono',monospace;font-size:12px;line-height:1.9">
+                    <span class="py-cm"># 조건 3가지를 순서대로 처리</span>
+                    <span class="py-kw">if</span> temp < <span class="py-num">18</span>: <span class="py-cm"># 첫째
+                        조건</span>
+                      <span class="py-cm"># 저온 처리</span>
+                      <span class="py-kw">elif</span> temp <= <span class="py-num">22</span>: <span class="py-cm"># 둘째
+                          조건</span>
+                        <span class="py-cm"># 적정 처리</span>
+                        <span class="py-kw">else</span>: <span class="py-cm"># 나머지 전부</span>
+                        <span class="py-cm"># 고온 처리</span>
+                  </div>
+                </div>
+              </div>
+              <div
+                style="margin-top:14px;background:rgba(79,70,229,.15);border-radius:var(--radius-sm);padding:14px;border-left:3px solid #a5b4fc;font-size:13px;line-height:1.7">
+                <strong style="color:#a5b4fc">🔑 elif의 핵심:</strong> if의 조건이 거짓일 때만 elif를 확인합니다. elif의 조건도 거짓이면 else가
+                실행됩니다. 조건이 많아도 <strong>단 하나의 블록</strong>만 실행됩니다.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- §8 확장 프로젝트 -->
+    <div class="acc-section" id="sec-8">
+      <div class="acc-header" id="hdr-8" onclick="toggleSec(8)">
+        <div class="acc-num" style="background:#f59e0b">09</div>
+        <div class="acc-text">
+          <div class="acc-title">확장 프로젝트 — 더 발전시켜봐요!</div>
+          <div class="acc-sub">기본 온도 알림이 장치를 더 스마트하게 업그레이드하는 아이디어들</div>
+        </div>
+        <span class="acc-arrow">▶</span>
+      </div>
+      <div class="acc-body" id="body-8">
+        <div class="ext-grid" id="ext-grid"></div>
+      </div>
+    </div>
+
+    <!-- §9 확인 문제 -->
+    <div class="acc-section" id="sec-9">
+      <div class="acc-header" id="hdr-9" onclick="toggleSec(9)">
+        <div class="acc-num" style="background:#ef4444">10</div>
+        <div class="acc-text">
+          <div class="acc-title">확인 문제</div>
+          <div class="acc-sub">학습한 내용을 점검해보세요 (5문항)</div>
+        </div>
+        <span class="acc-arrow">▶</span>
+      </div>
+      <div class="acc-body" id="body-9">
+        <div class="quiz-card">
+          <div class="quiz-header">
+            <h3 id="quiz-title">문제 1 / 5</h3>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:rgba(255,255,255,.6)">
+              <span id="qscore" style="color:#a5b4fc;font-weight:700">0</span> / <span id="qtotal">5</span> 정답
+            </div>
+          </div>
+          <div class="quiz-body">
+            <div class="quiz-q" id="quiz-q"></div>
+            <div class="quiz-options" id="quiz-opts"></div>
+            <div class="quiz-feedback" id="quiz-fb"></div>
+            <div class="quiz-nav">
+              <div style="font-size:12px;color:var(--text3)" id="quiz-hint"></div>
+              <button class="btn-qnext" id="quiz-next" onclick="nextQ()">다음 문제 →</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- §10 핵심 정리 -->
+    <div class="acc-section" id="sec-10">
+      <div class="acc-header" id="hdr-10" onclick="toggleSec(10)">
+        <div class="acc-num" style="background:#0f1b2d">11</div>
+        <div class="acc-text">
+          <div class="acc-title">핵심 콕콕 정리</div>
+          <div class="acc-sub">이 단원의 핵심 용어 10가지</div>
+        </div>
+        <span class="acc-arrow">▶</span>
+      </div>
+      <div class="acc-body" id="body-10">
+        <div class="summary-box">
+          <h3>핵심 용어 정리</h3>
+          <div class="kw-grid" id="kw-grid"></div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /main -->
+  <script>
+    /* ══ ACCORDION ══ */
+    const TOTAL = 11;
+    function toggleSec(i) { const h = document.getElementById('hdr-' + i), b = document.getElementById('body-' + i); const op = !b.classList.contains('open'); h.classList.toggle('open', op); b.classList.toggle('open', op); syncNav(); }
+    function openSec(i) { for (let j = 0; j < TOTAL; j++) { const op = j === i; document.getElementById('hdr-' + j).classList.toggle('open', op); document.getElementById('body-' + j).classList.toggle('open', op); } syncNav(); setTimeout(() => document.getElementById('sec-' + i)?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 60); }
+    function syncNav() { document.querySelectorAll('.nav-btn').forEach((b, i) => b.classList.toggle('active', document.getElementById('body-' + i)?.classList.contains('open') ?? false)); }
+
+    /* ══ §1 SLEEP FACTS ══ */
+    const SLEEP_FACTS = [
+      { icon: '🧠', title: '체온 하강과 수면 유도', brief: '체온이 내려가야 잠이 옵니다', detail: '우리 몸은 잠이 들 때 심부 체온이 약 1~2℃ 내려갑니다. 방이 시원하면(18~22℃) 이 과정이 빠르게 일어나 잠들기 쉬워집니다.' },
+      { icon: '🌊', title: '깊은 수면(서파 수면)', brief: '18~22℃에서 서파 수면 비율 최대화', detail: '수면 과학자들이 가장 중요하게 생각하는 "서파 수면(깊은 수면)"은 체온이 낮을 때 더 잘 일어납니다. 더운 방에서는 이 단계가 감소합니다.' },
+      { icon: '😓', title: '열대야의 영향', brief: '25℃ 이상 밤 → 수면 효율 40% 감소', detail: '여름 열대야(최저 기온 25℃ 이상) 때 수면 효율이 40%까지 감소한다는 연구 결과가 있습니다. 뒤척임 횟수, 자주 깨는 횟수가 2~3배 증가합니다.' },
+      { icon: '👶', title: '영·유아 수면 온도', brief: '어린이: 20~22℃ 권장', detail: '영유아는 체온 조절 능력이 약하므로 특히 수면 온도가 중요합니다. 너무 더운 환경은 영아 돌연사 증후군(SIDS) 위험과도 연관됩니다.' },
+      { icon: '❄️', title: '저체온과 각성', brief: '15℃ 이하 → 떨림, 수면 방해', detail: '너무 추운 환경에서는 몸이 온도 유지를 위해 근육을 수축(떨림)시킵니다. 이 각성 반응이 수면을 방해합니다. 이불 안 온도는 다르지만 실내 온도도 중요합니다.' },
+    ];
+    const sf = document.getElementById('sleep-facts');
+    SLEEP_FACTS.forEach(f => {
+      const card = document.createElement('div'); card.className = 'sf-card';
+      card.innerHTML = `<span class="sfc-icon">${f.icon}</span><div class="sfc-title">${f.title}</div><div class="sfc-brief">${f.brief}</div><div class="sfc-detail">${f.detail}</div>`;
+      card.addEventListener('click', () => card.classList.toggle('open'));
+      sf.appendChild(card);
+    });
+
+    /* ══ §2 REQUIREMENTS ══ */
+    const rg = document.getElementById('req-grid');
+    [
+      { icon: '📥', label: '입력', value: '온도 센서 (실내 온도)', bg: '#e0f2fe', bc: '#bae6fd', tc: '#0c4a6e' },
+      { icon: '⚙️', label: '처리 (MCU)', value: '마이크로비트', bg: '#ede9fe', bc: '#c4b5fd', tc: '#4c1d95' },
+      { icon: '📟', label: '출력 — LED', value: '5×5 LED 온도 표시', bg: '#d1fae5', bc: '#86efac', tc: '#065f46' },
+      { icon: '🔔', label: '출력 — 부저', value: '경고음 알림', bg: '#fef3c7', bc: '#fde68a', tc: '#92400e' },
+      { icon: '🎯', label: '적정 범위', value: '18~22℃', bg: '#f7fee7', bc: '#d9f99d', tc: '#3f6212' },
+      { icon: '⏰', label: '측정 주기', value: '30초마다 자동', bg: '#fce7f3', bc: '#f9a8d4', tc: '#9d174d' },
+    ].forEach(r => {
+      const d = document.createElement('div'); d.className = 'req-card';
+      d.style.cssText = `background:${r.bg};border-color:${r.bc}`;
+      d.innerHTML = `<span class="req-icon">${r.icon}</span><div class="req-label" style="color:${r.tc}">${r.label}</div><div class="req-value" style="color:${r.tc}">${r.value}</div>`;
+      rg.appendChild(d);
+    });
+
+    /* ══ §3 SENSOR COMPARISON ══ */
+    const SENSORS = [
+      {
+        icon: '🌡', name: 'NTC 서미스터', specs: '범위: -55~125℃\n정확도: ±1℃\n가격: 약 200원', bars: { range: 85, accuracy: 70, ease: 40, cost: 95 },
+        badge: '아날로그', badgeBg: '#fef3c7', badgeTc: '#92400e',
+        pick: false, pickMsg: 'NTC 서미스터는 저가이지만 마이크로비트와 연결 시 아날로그 변환(A0~A5 핀)이 필요하고 정확한 변환 수식이 복잡합니다. 교육 목적으로는 설정이 까다롭습니다.'
+      },
+      {
+        icon: '🔵', name: 'LM35', specs: '범위: -55~150℃\n정확도: ±0.5℃\n가격: 약 500원', bars: { range: 90, accuracy: 90, ease: 55, cost: 80 },
+        badge: '아날로그', badgeBg: '#fef3c7', badgeTc: '#92400e',
+        pick: false, pickMsg: 'LM35는 선형 출력(10mV/℃)으로 비교적 다루기 쉽지만, 마이크로비트의 ADC 분해능이 낮아 정확도에 한계가 있습니다. 별도 회로 없이 P0 핀에 직접 연결은 가능합니다.'
+      },
+      {
+        icon: '💧', name: 'DHT11', specs: '범위: 0~50℃\n정확도: ±2℃\n습도도 측정!', bars: { range: 75, accuracy: 75, ease: 85, cost: 70 },
+        badge: '디지털 추천', badgeBg: '#d1fae5', badgeTc: '#065f46',
+        pick: true, pickMsg: '✅ 수면 온도 장치에 최적! DHT11은 실내 온도(0~50℃) 범위에서 작동하고, 디지털 신호로 출력해 마이크로비트와 연결이 쉽습니다. 온도+습도를 함께 측정해 수면 환경 분석에 유용합니다.'
+      },
+      {
+        icon: '💙', name: '마이크로비트 내장 센서', specs: '범위: 약 0~35℃\n정확도: ±1~5℃\n추가 부품 없음', bars: { range: 55, accuracy: 50, ease: 100, cost: 100 },
+        badge: '내장 센서', badgeBg: '#ddd6fe', badgeTc: '#4c1d95',
+        pick: true, pickMsg: '✅ 초보자에게 추천! 별도 센서 없이 바로 사용 가능합니다. 다만 CPU 발열의 영향으로 실제 실내 온도보다 2~5℃ 높게 측정될 수 있습니다. 학습 목적으로는 충분합니다.'
+      },
+    ];
+    const scg = document.getElementById('sensor-compare-grid');
+    const scResult = document.getElementById('scomp-result');
+    const sensorTableBody = document.getElementById('sensor-table-body');
+    let selSensor = -1;
+    SENSORS.forEach((s, i) => {
+      const card = document.createElement('div'); card.className = 'scomp-card';
+      const badgeHTML = s.pick ? `<div class="scomp-badge" style="background:#4f46e5;color:white">👍 추천</div>` : `<div class="scomp-badge" style="background:#94a3b8;color:white">대안</div>`;
+      card.innerHTML = `${badgeHTML}<span class="scomp-icon">${s.icon}</span>
+    <div class="scomp-name">${s.name}</div>
+    <div class="scomp-specs" style="white-space:pre-line">${s.specs}</div>
+    <span style="font-size:10px;padding:2px 7px;border-radius:10px;font-weight:600;background:${s.badgeBg};color:${s.badgeTc}">${s.badge}</span>
+    ${['측정범위', '정확도', '연결쉬움', '비용'].map((l, j) => `<div class="scomp-bar-row"><span class="scomp-bar-label">${l}</span><div class="scomp-bar"><div class="scomp-bar-fill" style="width:0%;background:${s.pick ? 'var(--indigo)' : 'var(--slate)'}"></div></div></div>`).join('')}`;
+      card.addEventListener('click', () => {
+        document.querySelectorAll('.scomp-card').forEach(c => { c.classList.remove('pick', 'not-pick'); });
+        card.classList.add(s.pick ? 'pick' : 'not-pick');
+        selSensor = i;
+        scResult.innerHTML = `<strong>${s.icon} ${s.name}</strong><br><br>${s.pickMsg}`;
+        scResult.className = 'scomp-result show ' + (s.pick ? '' : '');
+        scResult.style.background = s.pick ? 'var(--green-l)' : 'var(--amber-l)';
+        scResult.style.borderLeft = s.pick ? '4px solid var(--green)' : '4px solid var(--amber)';
+        scResult.style.color = s.pick ? '#065f46' : '#92400e';
+        // animate bars
+        const barVals = [s.bars.range, s.bars.accuracy, s.bars.ease, s.bars.cost];
+        card.querySelectorAll('.scomp-bar-fill').forEach((f, j) => {
+          setTimeout(() => { f.style.width = barVals[j] + '%'; }, j * 120);
+        });
+      });
+      scg.appendChild(card);
+      // table row
+      const tr = document.createElement('tr');
+      tr.style.background = i % 2 === 0 ? 'var(--bg)' : 'white';
+      tr.innerHTML = `<td style="padding:10px 12px;font-weight:600">${s.icon} ${s.name}</td>
+    <td style="padding:10px 12px;text-align:center;font-family:'IBM Plex Mono',monospace;font-size:12px">${s.specs.split('\n')[0].replace('범위: ', '')}</td>
+    <td style="padding:10px 12px;text-align:center">${s.specs.split('\n')[1].replace('정확도: ', '')}</td>
+    <td style="padding:10px 12px;text-align:center"><span style="font-size:11px;padding:2px 7px;border-radius:10px;font-weight:600;background:${s.badgeBg};color:${s.badgeTc}">${s.badge}</span></td>
+    <td style="padding:10px 12px;text-align:center">${s.specs.split('\n')[2]?.replace('가격: ', '')?.replace('습도도 측정!', '습도+온도')?.replace('추가 부품 없음', '무료') || '-'}</td>
+    <td style="padding:10px 12px;text-align:center">${s.pick ? '✅ 적합' : '△ 가능'}</td>`;
+      sensorTableBody.appendChild(tr);
+    });
+
+    /* ══ §4 TEMPERATURE SIMULATOR ══ */
+    function buildMBLeds() {
+      const led = document.getElementById('ts-mb-leds'); led.innerHTML = '';
+      for (let i = 0; i < 25; i++) { const d = document.createElement('div'); d.className = 'ts-led'; d.id = 'tsled-' + i; led.appendChild(d); }
+    }
+    function setLEDs(pattern, color = '#a5b4fc') {
+      for (let i = 0; i < 25; i++) { const el = document.getElementById('tsled-' + i); if (el) { el.classList.toggle('on', !!pattern[i]); el.style.color = pattern[i] ? color : 'transparent'; el.style.background = pattern[i] ? color : '#1a1a2e'; } }
+    }
+    const LED_PATTERNS = {
+      cold: [0, 1, 1, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0], // ❄ snowflake-like
+      good: [0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0, 0, 1, 0, 0], // ♥ heart
+      hot: [0, 0, 1, 0, 0, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0, 0, 1, 0, 0], // ☀ sun-like
+      warn: [1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1], // ✕ X
+    };
+    let logLines = [];
+    function addLog(msg) {
+      const now = new Date(); const t = now.toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+      logLines.push(`[${t}] ${msg}`);
+      if (logLines.length > 12) logLines.shift();
+      document.getElementById('ts-log').textContent = logLines.join('\n');
+      const logEl = document.getElementById('ts-log'); logEl.scrollTop = logEl.scrollHeight;
+    }
+    function updateTemp(val) {
+      const temp = parseInt(val);
+      document.getElementById('ts-slider').value = temp;
+      document.getElementById('ts-temp-display').textContent = temp;
+      document.getElementById('tscb-temp').textContent = temp + '℃';
+      const bg = document.getElementById('ts-room-bg');
+      let icon, status, statusBg, statusColor, ledPattern, ledColor, buzzerOn, stateText, ledText, buzText;
+      if (temp < 15) {
+        bg.style.background = 'linear-gradient(135deg,#1e3a5f,#0f2440)';
+        icon = '🥶'; status = '⚠️ 매우 추워요! 이불이나 난방 확인'; statusBg = 'rgba(96,165,250,.2)'; statusColor = '#93c5fd';
+        ledPattern = LED_PATTERNS.warn; ledColor = '#60a5fa'; buzzerOn = true;
+        stateText = '위험 저온'; ledText = '경고(X)'; buzText = '부저 ON! 🔔';
+        addLog(`[경고] 온도 ${temp}℃ — 심한 저온! 부저 경고 발령`);
+      } else if (temp < 18) {
+        bg.style.background = 'linear-gradient(135deg,#1e3a8a,#1e40af)';
+        icon = '🌬'; status = '🔵 조금 추워요 (이불 추가 권장)'; statusBg = 'rgba(96,165,250,.15)'; statusColor = '#bfdbfe';
+        ledPattern = LED_PATTERNS.cold; ledColor = '#60a5fa'; buzzerOn = false;
+        stateText = '저온 경고'; ledText = '❄ 아이콘'; buzText = '없음';
+        addLog(`[주의] 온도 ${temp}℃ — 수면 권장 범위 이하`);
+      } else if (temp <= 22) {
+        bg.style.background = 'linear-gradient(135deg,#0f2d40,#1e3a5f)';
+        icon = '😴'; status = '✅ 수면 최적 온도입니다!'; statusBg = 'rgba(16,185,129,.15)'; statusColor = '#86efac';
+        ledPattern = LED_PATTERNS.good; ledColor = '#86efac'; buzzerOn = false;
+        stateText = '적정 ✅'; ledText = '♥ 하트'; buzText = '없음';
+        addLog(`[정상] 온도 ${temp}℃ — 수면 최적 범위 유지 중`);
+      } else if (temp <= 30) {
+        bg.style.background = 'linear-gradient(135deg,#431407,#7c2d12)';
+        icon = '🥵'; status = '🔴 더워요! 에어컨·선풍기 권장'; statusBg = 'rgba(249,115,22,.15)'; statusColor = '#fdba74';
+        ledPattern = LED_PATTERNS.hot; ledColor = '#fb923c'; buzzerOn = false;
+        stateText = '고온 경고'; ledText = '☀ 태양'; buzText = '없음';
+        addLog(`[주의] 온도 ${temp}℃ — 수면 권장 범위 초과`);
+      } else {
+        bg.style.background = 'linear-gradient(135deg,#7f1d1d,#450a0a)';
+        icon = '🔥'; status = '🚨 위험! 열사병 주의 즉시 환기!'; statusBg = 'rgba(239,68,68,.25)'; statusColor = '#fca5a5';
+        ledPattern = LED_PATTERNS.warn; ledColor = '#ef4444'; buzzerOn = true;
+        stateText = '위험 고온'; ledText = '경고(X)'; buzText = '부저 ON! 🔔';
+        addLog(`[위험] 온도 ${temp}℃ — 위험한 고온! 부저 경고 발령`);
+      }
+      document.getElementById('ts-icon').textContent = icon;
+      const statusEl = document.getElementById('ts-status'); statusEl.textContent = status; statusEl.style.background = statusBg; statusEl.style.color = statusColor;
+      setLEDs(ledPattern, ledColor);
+      document.getElementById('ts-buzzer').textContent = buzzerOn ? '🔔' : '🔕';
+      document.getElementById('ts-buzzer').className = buzzerOn ? 'ts-buzzer beep' : 'ts-buzzer';
+      document.getElementById('tscb-state').textContent = stateText;
+      document.getElementById('tscb-state').style.color = stateText.includes('적정') ? '#86efac' : stateText.includes('위험') ? '#fca5a5' : '#fcd34d';
+      document.getElementById('tscb-led').textContent = ledText || '숫자 표시';
+      document.getElementById('tscb-buzzer').textContent = buzText;
+      document.getElementById('tscb-buzzer').style.color = buzzerOn ? '#fca5a5' : '#86efac';
+      document.querySelectorAll('.ts-preset').forEach(b => b.classList.remove('active'));
+    }
+    function setTemp(v) {
+      updateTemp(v);
+      document.querySelectorAll('.ts-preset').forEach(b => { if (b.textContent.includes(v + '℃')) b.classList.add('active'); });
+    }
+    buildMBLeds(); updateTemp(20); setTemp(20);
+
+    /* ══ §5 SYSTEM BLOCKS ══ */
+    const SYS_B = [
+      { icon: '🌡', type: '센서', name: '온도 센서', sub: 'DHT11 또는 내장', detail: 'DHT11: P0핀에 연결. 1-wire 디지털 통신으로 온도·습도 데이터 출력. 마이크로비트 내장 온도 센서: 별도 연결 없이 temperature() 함수로 직접 읽기 가능.' },
+      { icon: '🔄', type: 'ADC/변환', name: '디지털 변환', sub: '0과 1 신호', detail: 'DHT11은 디지털 신호로 출력하므로 ADC 변환 없이 직접 읽기 가능. 마이크로비트 내장 센서도 integer 값으로 바로 반환됩니다.' },
+      { icon: '💙', type: 'MCU (처리)', name: '마이크로비트', sub: 'ARM Cortex-M0+', detail: '읽은 온도값을 if~elif~else 조건문으로 판단: 18℃ 미만 → 저온 처리 / 18~22℃ → 적정 처리 / 23℃ 이상 → 고온 처리. 30초마다 반복 측정.' },
+      { icon: '📟', type: '출력 1', name: 'LED 매트릭스', sub: '5×5 LED', detail: '측정 온도 숫자를 scroll()로 표시. 동시에 온도 상태 아이콘: 저온=❄, 적정=♥, 고온=☀ 을 show()로 표시합니다.' },
+      { icon: '🔔', type: '출력 2', name: '부저', sub: '경고 알림', detail: '15℃ 이하 또는 30℃ 이상의 위험 온도 시 music.play()로 경고음 재생. 마이크로비트 내장 핀 P0/P1에 압전 부저 연결.' },
+    ];
+    const sb = document.getElementById('sys-blocks');
+    const sdt = document.getElementById('sys-det');
+    let selSys = -1;
+    SYS_B.forEach((b, i) => {
+      const blk = document.createElement('div'); blk.className = 'sys-blk';
+      blk.innerHTML = `<span class="sblk-icon">${b.icon}</span><div class="sblk-type">${b.type}</div><div class="sblk-name">${b.name}</div><div class="sblk-sub">${b.sub}</div>`;
+      blk.addEventListener('click', () => {
+        document.querySelectorAll('.sys-blk').forEach(x => x.classList.remove('active-blk'));
+        if (selSys === i) { selSys = -1; sdt.classList.remove('show'); return; }
+        selSys = i; blk.classList.add('active-blk');
+        sdt.innerHTML = `<strong style="color:#a5b4fc">${b.icon} ${b.name} (${b.type})</strong><br>${b.detail}`;
+        sdt.classList.add('show');
+      });
+      sb.appendChild(blk);
+      if (i < SYS_B.length - 1) { const arr = document.createElement('div'); arr.className = 'sys-arr'; arr.textContent = '→'; sb.appendChild(arr); }
+    });
+
+    /* ══ §6 ALGORITHM ══ */
+    const ALGO = [
+      { type: 'an-term', text: '🟢 시작 (전원 ON)', desc: '마이크로비트에 전원 공급. 프로그램 자동 시작. LED에 "준비중..." 표시.' },
+      { type: 'an-proc', text: '변수 초기화: min_temp = 100, max_temp = -100', desc: '밤새 최저·최고 온도를 기록하기 위한 변수 초기화. min_temp는 최솟값 추적, max_temp는 최댓값 추적.' },
+      { type: 'an-io', text: '<span>📟 LED: "GO!" 스크롤</span>', desc: '시스템 준비 완료 알림을 LED에 표시. 사용자가 장치가 작동 중임을 확인할 수 있습니다.' },
+      { type: 'an-proc', text: '🔁 반복 시작 (무한 루프)', desc: '이후 과정을 전원이 켜져 있는 동안 계속 반복합니다.' },
+      { type: 'an-io', text: '<span>🌡 temp = temperature() 읽기</span>', desc: '내장 온도 센서로 현재 실내 온도를 정수값으로 읽습니다. DHT11 사용 시: pin0에서 데이터 수신 후 파싱.' },
+      { type: 'an-dec', text: 'temp < 18℃ ?' },
+      { type: 'an-proc', text: '', desc: '(분기)', isHidden: true },
+      { type: 'an-dec', text: 'temp <= 22℃ ?' },
+      { type: 'an-proc', text: '', desc: '(분기2)', isHidden: true },
+    ];
+    // Build simplified visual flowchart
+    const af = document.getElementById('algo-flow');
+    const andesc = document.getElementById('an-desc');
+
+    const nodes = [
+      { t: 'term', label: '🟢 시작', desc: '전원 ON → 프로그램 시작 → LED "GO!" 표시' },
+      { t: 'proc', label: '변수 초기화\nmin_temp = 100\nmax_temp = -100', desc: '밤새 최저·최고 온도를 기록할 변수를 초기화합니다.' },
+      { t: 'proc', label: '🔁 무한 반복 시작', desc: '이후의 측정·판단·출력 과정을 전원이 켜져 있는 동안 계속 반복합니다.' },
+      { t: 'io', label: 'temp = temperature() 읽기', desc: '내장 온도 센서로 현재 온도를 정수(℃)로 읽습니다. DHT11 사용 시 pin0에서 디지털 데이터 수신.' },
+      { t: 'dec', label: 'temp < 18℃ ?', desc: '읽은 온도가 수면 적정 범위(18℃) 미만인가? 예 → 저온 처리, 아니오 → 다음 조건 확인' },
+    ];
+    nodes.forEach((n, i) => {
+      if (i > 0) { const arr = document.createElement('div'); arr.className = 'an-arr'; arr.textContent = '↓'; af.appendChild(arr); }
+      const el = document.createElement('div'); el.className = 'an an-' + n.t;
+      if (n.t === 'io') el.innerHTML = `<span>${n.label}</span>`;
+      else el.textContent = n.label;
+      el.style.whiteSpace = 'pre-line';
+      el.addEventListener('click', () => {
+        document.querySelectorAll('.an').forEach(a => a.classList.remove('hl')); el.classList.add('hl');
+        andesc.textContent = n.desc; andesc.classList.add('show');
+      });
+      af.appendChild(el);
+    });
+    // Branch section
+    const arr1 = document.createElement('div'); arr1.className = 'an-arr'; arr1.textContent = '↓'; af.appendChild(arr1);
+    const branchWrap = document.createElement('div'); branchWrap.className = 'an-branch';
+    [
+      {
+        label: '예 (저온)', nodes: [
+          { t: 'io', txt: 'LED: ❄ 표시 (파란 아이콘)' },
+          { t: 'proc', txt: 'temp<15 → 부저 경고 ON' },
+        ]
+      },
+      {
+        label: '아니오 → 다음 조건', nodes: [
+          { t: 'dec', txt: 'temp ≤ 22℃ ?' },
+          { t: 'io', txt: '예: LED ♥ 표시 (적정)' },
+          { t: 'io', txt: '아니오: LED ☀ 표시 + 부저' },
+        ]
+      },
+    ].forEach(col => {
+      const colEl = document.createElement('div'); colEl.className = 'an-bcol';
+      const lbl = document.createElement('div'); lbl.className = 'an-blbl'; lbl.textContent = col.label; colEl.appendChild(lbl);
+      col.nodes.forEach(n => {
+        const el = document.createElement('div'); el.className = `an an-${n.t}`;
+        if (n.t === 'io') el.innerHTML = `<span>${n.txt}</span>`; else el.textContent = n.txt;
+        el.style.fontSize = '11px'; el.style.minWidth = '160px'; el.style.margin = '2px 0';
+        el.addEventListener('click', () => { andesc.textContent = `[${n.t.toUpperCase()}] ${n.txt}`; andesc.classList.add('show'); });
+        colEl.appendChild(el);
+      });
+      branchWrap.appendChild(colEl);
+    });
+    af.appendChild(branchWrap);
+    const arr2 = document.createElement('div'); arr2.className = 'an-arr'; arr2.textContent = '↓'; af.appendChild(arr2);
+    [
+      { t: 'proc', label: '최저·최고 온도 업데이트\nmin/max_temp 갱신' },
+      { t: 'io', label: 'LED: 현재 temp 숫자 스크롤' },
+      { t: 'proc', label: 'sleep(30000) — 30초 대기' },
+      { t: 'term', label: '🔁 반복 (처음으로)' },
+    ].forEach((n, i) => {
+      if (i > 0) { const arr = document.createElement('div'); arr.className = 'an-arr'; arr.textContent = '↓'; af.appendChild(arr); }
+      const el = document.createElement('div'); el.className = 'an an-' + n.t;
+      if (n.t === 'io') el.innerHTML = `<span>${n.label}</span>`; else el.textContent = n.label;
+      el.style.whiteSpace = 'pre-line';
+      af.appendChild(el);
+    });
+
+    /* ══ §7 CODE ══ */
+    function switchCodeTab(tab, btn) {
+      document.querySelectorAll('.code-panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.code-tab').forEach(b => b.classList.remove('active'));
+      document.getElementById('codepanel-' + tab).classList.add('active');
+      btn.classList.add('active');
+    }
+    // Block code
+    const bca = document.getElementById('block-code-area');
+    const BLOCKS = [
+      { color: '#334155', label: '▶ 시작할 때 (on_start)' },
+      { color: '#10b981', label: 'count = 0  /  min_temp = 100  /  max_temp = -100', indent: 1 },
+      { color: '#0ea5e9', label: 'display.scroll("GO!")', indent: 1 },
+      { color: '#334155', label: '' },
+      { color: '#1d4ed8', label: '🔁 무한 반복 (while True)' },
+      { color: '#7c3aed', label: 'temp = 온도 읽기 (temperature())', indent: 1 },
+      { color: '#4f46e5', label: '🔷 만약 (if) temp < 18 이라면', indent: 1 },
+      { color: '#f97316', label: 'display.show(Image.DIAMOND)', indent: 2 },
+      { color: '#ef4444', label: '만약 temp < 15: music.play(music.BA_DING)', indent: 2 },
+      { color: '#4f46e5', label: '🔷 아니고 만약 (elif) temp ≤ 22 이라면', indent: 1 },
+      { color: '#10b981', label: 'display.show(Image.HEART)', indent: 2 },
+      { color: '#4f46e5', label: '🔷 그렇지 않으면 (else)', indent: 1 },
+      { color: '#dc2626', label: 'display.show(Image.CHESSBOARD)', indent: 2 },
+      { color: '#ef4444', label: '만약 temp > 30: music.play(music.JUMP_UP)', indent: 2 },
+      { color: '#0ea5e9', label: 'sleep(30000)  — 30초 대기', indent: 1 },
+    ];
+    BLOCKS.forEach(b => {
+      if (!b.label) { bca.appendChild(document.createElement('div')); return; }
+      const wrap = document.createElement('div'); wrap.style.paddingLeft = (b.indent || 0) * 20 + 'px';
+      const el = document.createElement('div'); el.className = 'blk'; el.textContent = b.label; el.style.background = b.color;
+      wrap.appendChild(el); bca.appendChild(wrap);
+    });
+
+    // Python code
+    document.getElementById('python-code-area').innerHTML = `<span class="py-cm"># 수면 온도 알림이 장치 — MicroPython for micro:bit</span>
+<span class="py-kw">from</span> microbit <span class="py-kw">import</span> *
+<span class="py-kw">import</span> music
+
+<span class="py-cm"># ① 변수 초기화</span>
+<span class="py-var">min_temp</span> = <span class="py-num">100</span>   <span class="py-cm"># 야간 최저 온도 추적</span>
+<span class="py-var">max_temp</span> = <span class="py-num">-100</span>  <span class="py-cm"># 야간 최고 온도 추적</span>
+<span class="py-var">LOW</span>  = <span class="py-num">18</span>       <span class="py-cm"># 수면 적정 하한</span>
+<span class="py-var">HIGH</span> = <span class="py-num">22</span>       <span class="py-cm"># 수면 적정 상한</span>
+
+display.<span class="py-fn">scroll</span>(<span class="py-str">'GO!'</span>)
+
+<span class="py-cm"># ② 무한 반복</span>
+<span class="py-kw">while</span> <span class="py-kw">True</span>:
+    <span class="py-cm"># ③ 온도 읽기</span>
+    <span class="py-var">temp</span> = <span class="py-fn">temperature</span>()  <span class="py-cm"># 내장 온도 센서</span>
+
+    <span class="py-cm"># ④ 최저·최고 업데이트</span>
+    <span class="py-kw">if</span> <span class="py-var">temp</span> < <span class="py-var">min_temp</span>: <span class="py-var">min_temp</span> = <span class="py-var">temp</span>
+    <span class="py-kw">if</span> <span class="py-var">temp</span> > <span class="py-var">max_temp</span>: <span class="py-var">max_temp</span> = <span class="py-var">temp</span>
+
+    <span class="py-cm"># ⑤ 다중 조건 판단 (if~elif~else)</span>
+    <span class="py-kw">if</span> <span class="py-var">temp</span> < <span class="py-var">LOW</span>:            <span class="py-cm"># 저온 처리</span>
+        display.<span class="py-fn">show</span>(Image.DIAMOND)
+        <span class="py-kw">if</span> <span class="py-var">temp</span> < <span class="py-num">15</span>:          <span class="py-cm"># 위험 저온 경고음</span>
+            music.<span class="py-fn">play</span>(music.BA_DING)
+    <span class="py-kw">elif</span> <span class="py-var">temp</span> <= <span class="py-var">HIGH</span>:        <span class="py-cm"># 적정 온도 처리</span>
+        display.<span class="py-fn">show</span>(Image.HEART)
+    <span class="py-kw">else</span>:                     <span class="py-cm"># 고온 처리</span>
+        display.<span class="py-fn">show</span>(Image.CHESSBOARD)
+        <span class="py-kw">if</span> <span class="py-var">temp</span> > <span class="py-num">30</span>:          <span class="py-cm"># 위험 고온 경고음</span>
+            music.<span class="py-fn">play</span>(music.JUMP_UP)
+
+    <span class="py-cm"># ⑥ 온도 숫자 스크롤 표시</span>
+    display.<span class="py-fn">scroll</span>(<span class="py-fn">str</span>(<span class="py-var">temp</span>) + <span class="py-str">'C'</span>)
+
+    <span class="py-cm"># ⑦ 버튼 A: 최저 온도 확인</span>
+    <span class="py-kw">if</span> button_a.<span class="py-fn">was_pressed</span>():
+        display.<span class="py-fn">scroll</span>(<span class="py-str">'min:'</span> + <span class="py-fn">str</span>(<span class="py-var">min_temp</span>))
+
+    <span class="py-cm"># ⑧ 버튼 B: 최고 온도 확인</span>
+    <span class="py-kw">if</span> button_b.<span class="py-fn">was_pressed</span>():
+        display.<span class="py-fn">scroll</span>(<span class="py-str">'max:'</span> + <span class="py-fn">str</span>(<span class="py-var">max_temp</span>))
+
+    <span class="py-fn">sleep</span>(<span class="py-num">30000</span>)  <span class="py-cm"># 30초마다 측정</span>`;
+
+    /* ══ §8 EXTENSIONS ══ */
+    const EXTS = [
+      {
+        icon: '💧', title: '온도+습도 동시 표시', color: '#0ea5e9', sensorTag: 'DHT11 센서', sensorBg: '#e0f2fe', sensorTc: '#0c4a6e',
+        brief: 'DHT11 센서로 온도와 습도를 함께 측정하여 표시합니다.',
+        detail: '수면 최적 습도는 40~60%입니다. 온도와 습도를 동시에 측정해 "온도 OK, 습도 OK → 최적!" 같은 종합 상태를 표시합니다.',
+        code: `from dht import DHT11\nfrom machine import Pin\n\ndht = DHT11(Pin(0))\ndht.measure()\ntemp = dht.temperature()\nhumi = dht.humidity()`
+      },
+      {
+        icon: '📊', title: '온도 그래프 표시', color: '#7c3aed', sensorTag: '내장 센서', sensorBg: '#ede9fe', sensorTc: '#5b21b6',
+        brief: 'LED 매트릭스를 막대그래프처럼 활용해 온도 변화를 시각화합니다.',
+        detail: '5x5 LED에서 각 열이 온도 범위를 나타내도록 프로그래밍합니다. 왼쪽=낮음, 오른쪽=높음 방식으로 온도 분포를 직관적으로 표시합니다.',
+        code: `# 온도 0~40℃를 0~5 LED 열로 매핑\ncol = int((temp - 0) / 40 * 5)\nfor x in range(5):\n    for y in range(5):\n        display.set_pixel(x,y,\n          9 if x<=col else 0)`
+      },
+      {
+        icon: '📱', title: 'Bluetooth 스마트폰 연동', color: '#10b981', sensorTag: 'Bluetooth', sensorBg: '#d1fae5', sensorTc: '#065f46',
+        brief: '마이크로비트의 Bluetooth로 스마트폰 앱에 온도 데이터를 전송합니다.',
+        detail: '마이크로비트 Bluetooth 서비스를 활성화하면 micro:bit 공식 앱이나 MIT App Inventor로 만든 앱에서 실시간 온도를 확인할 수 있습니다.',
+        code: `# MakeCode에서:\n# [Bluetooth] 확장 블록 추가\n# bluetooth.start_temperature_service()\n# bluetooth.on_connected(handler)\n# 📱 앱: micro:bit companion`
+      },
+      {
+        icon: '🌅', title: '기상 온도 알람', color: '#f59e0b', sensorTag: '버튼 A+B', sensorBg: '#fef3c7', sensorTc: '#92400e',
+        brief: '버튼 A+B를 동시에 눌러 기상 시간을 설정하면 지정 시간에 부저로 깨워줍니다.',
+        detail: 'running_time() 함수로 경과 시간을 측정합니다. 취침 시 버튼으로 기상 시간(분)을 입력하면, 해당 시간 후 부저로 알람이 울립니다.',
+        code: `# 기상 시간 설정 (분 단위)\nwake_after = 480  # 8시간 후\nstart = running_time()\n\nif running_time()-start > wake_after*60000:\n    music.play(music.NYAN)`
+      },
+      {
+        icon: '❄️', title: '에어컨/난방 자동 제어', color: '#ef4444', sensorTag: '릴레이 모듈', sensorBg: '#fee2e2', sensorTc: '#991b1b',
+        brief: '온도가 기준을 벗어나면 릴레이 모듈로 에어컨이나 선풍기를 자동으로 켭니다.',
+        detail: '마이크로비트 P1핀에 릴레이 모듈 연결 → 25℃ 이상이면 릴레이 ON(에어컨/선풍기 작동) → 22℃ 이하이면 릴레이 OFF. 실제 IoT 스마트홈 구현입니다.',
+        code: `# 릴레이 ON/OFF로 가전 제어\nif temp > 25:\n    pin1.write_digital(1)  # ON\nelif temp < 22:\n    pin1.write_digital(0)  # OFF`
+      },
+      {
+        icon: '📝', title: '온도 데이터 로깅', color: '#0d9488', sensorTag: '데이터 저장', sensorBg: '#ccfbf1', sensorTc: '#0f766e',
+        brief: '밤새 측정한 온도 데이터를 마이크로비트 메모리에 저장하고 아침에 확인합니다.',
+        detail: '마이크로비트의 log 모듈을 사용하면 USB로 연결 시 MICROBIT.HTM 파일에서 온도 기록을 CSV로 확인할 수 있습니다.',
+        code: `import log\n\n# 30분마다 온도 기록\nlog.set_labels("time","temp","status")\nlog.add({"time":t,"temp":temp,\n          "status":state})`
+      },
+    ];
+    const eg = document.getElementById('ext-grid');
+    EXTS.forEach(e => {
+      const card = document.createElement('div'); card.className = 'ext-card'; card.style.setProperty('--ec-color', e.color); card.style.borderTopColor = e.color;
+      card.innerHTML = `<span class="ec-icon">${e.icon}</span>
+    <div class="ec-title">${e.title}</div>
+    <span class="ec-sensor-tag" style="background:${e.sensorBg};color:${e.sensorTc}">${e.sensorTag}</span>
+    <div class="ec-brief">${e.brief}</div>
+    <div class="ec-detail">${e.detail}<div class="ec-code">${e.code}</div></div>`;
+      card.addEventListener('click', () => card.classList.toggle('open'));
+      eg.appendChild(card);
+    });
+
+    /* ══ QUIZ ══ */
+    const QS = [
+      {
+        q: '쾌적한 수면을 위한 적정 실내 온도 범위로 세계수면학회(WSS)가 권고하는 것은?',
+        opts: ['10~15℃ (서늘한 환경)', '18~22℃ (시원한 환경)', '25~30℃ (따뜻한 환경)', '32~35℃ (더운 환경)'],
+        ans: 1, exp: '세계수면학회는 취침 시 18~22℃를 최적 수면 온도로 권고합니다. 이 범위에서 체온이 자연스럽게 내려가 깊은 수면 단계로 쉽게 진입할 수 있습니다.'
+      },
+      {
+        q: '수면 온도 알림이 장치에서 DHT11 센서를 선택하는 가장 큰 이유는?',
+        opts: ['가장 저렴한 센서이기 때문에', '측정 범위가 가장 넓기 때문에', '마이크로비트와 디지털 통신이 쉽고 온도+습도를 함께 측정하기 때문에', 'CPU 발열 영향을 받지 않기 때문에'],
+        ans: 2, exp: 'DHT11은 디지털 신호로 데이터를 출력하여 마이크로비트와 연결이 간단하고, 온도와 습도를 동시에 측정할 수 있어 수면 환경 모니터링에 적합합니다.'
+      },
+      {
+        q: '다음 Python 코드에서 temp=20일 때 실행되는 부분은?\nif temp < 18:   [A]\nelif temp <= 22: [B]\nelse:           [C]',
+        opts: ['[A]만 실행', '[B]만 실행', '[C]만 실행', '[A]와 [B] 모두 실행'],
+        ans: 1, exp: 'temp=20은 18 이상이므로 if 조건(temp<18)이 거짓 → elif 조건(temp≤22)은 참 → [B]만 실행됩니다. if~elif~else 구조에서는 조건이 맞는 블록 하나만 실행됩니다.'
+      },
+      {
+        q: '마이크로비트 내장 온도 센서의 단점으로 올바른 것은?',
+        opts: ['별도 연결 부품이 필요하다', '아날로그 변환이 복잡하다', 'CPU 발열로 실제 실내 온도보다 높게 측정될 수 있다', '측정 범위가 0~50℃를 벗어난다'],
+        ans: 2, exp: '마이크로비트 내장 온도 센서는 CPU 옆에 위치해 프로세서 발열의 영향으로 실제 실내 온도보다 2~5℃ 높게 측정될 수 있습니다. 학습 목적으로는 충분하지만 정확한 측정이 필요하면 외부 센서 사용을 권장합니다.'
+      },
+      {
+        q: '수면 온도 알림이 장치의 sleep(30000)이 하는 역할로 올바른 것은?',
+        opts: ['30번 측정 후 종료한다', '마이크로비트를 절전 모드로 전환한다', '30,000ms(30초) 동안 기다린 후 다시 측정한다', '30℃가 넘으면 경고한다'],
+        ans: 2, exp: 'sleep(30000)은 30,000밀리초 = 30초 동안 프로그램 실행을 잠시 멈추는 함수입니다. 매번 즉시 측정하면 CPU 과부하가 생기므로, 30초마다 측정해 효율적으로 동작하게 합니다.'
+      },
+    ];
+    let qIdx = 0, score = 0, answered = false;
+    document.getElementById('qtotal').textContent = QS.length;
+    function renderQ() {
+      answered = false; const q = QS[qIdx];
+      document.getElementById('quiz-title').textContent = `문제 ${qIdx + 1} / ${QS.length}`;
+      document.getElementById('quiz-q').textContent = q.q;
+      document.getElementById('quiz-fb').className = 'quiz-feedback';
+      document.getElementById('quiz-next').className = 'btn-qnext';
+      document.getElementById('quiz-hint').textContent = '';
+      const opts = document.getElementById('quiz-opts'); opts.innerHTML = '';
+      q.opts.forEach((opt, i) => {
+        const div = document.createElement('div'); div.className = 'quiz-opt';
+        div.innerHTML = `<div class="opt-num">${i + 1}</div><span style="white-space:pre-line">${opt}</span>`;
+        div.onclick = () => {
+          if (answered) return; answered = true;
+          document.querySelectorAll('.quiz-opt').forEach(o => o.classList.add('disabled'));
+          if (i === q.ans) { div.classList.add('correct'); score++; document.getElementById('qscore').textContent = score; fb(true, '정답! ' + q.exp); }
+          else { div.classList.add('wrong'); opts.children[q.ans].classList.add('correct'); fb(false, `틀렸어요. 정답은 ${q.ans + 1}번. ${q.exp}`); }
+          if (qIdx < QS.length - 1) document.getElementById('quiz-next').className = 'btn-qnext show';
+          else { const g = score >= 4 ? '🎉 우수' : score >= 3 ? '👍 양호' : '📚 복습 필요'; document.getElementById('quiz-hint').innerHTML = `완료! 점수: <strong>${score}/${QS.length}</strong> — ${g}`; }
+        };
+        opts.appendChild(div);
+      });
+    }
+    function fb(ok, msg) { const el = document.getElementById('quiz-fb'); el.className = 'quiz-feedback show ' + (ok ? 'ok' : 'ng'); el.textContent = msg; }
+    function nextQ() { qIdx++; if (qIdx < QS.length) renderQ(); }
+    renderQ();
+
+    /* ── KEYWORDS ── */
+    [
+      { term: '수면 적정 온도', def: '세계수면학회 권고 취침 시 실내 온도 18~22℃. 이 범위에서 깊은 수면이 가장 잘 일어남.' },
+      { term: 'DHT11', def: '온도(0~50℃)와 습도(20~90%)를 동시에 측정하는 디지털 센서. 마이크로비트 P0핀에 연결.' },
+      { term: '내장 온도 센서', def: '마이크로비트에 내장된 온도 센서. temperature() 함수로 읽음. CPU 발열로 2~5℃ 오차 가능.' },
+      { term: 'if~elif~else', def: '다중 조건 구조. 여러 조건을 순서대로 확인해 해당하는 하나의 블록만 실행하는 프로그래밍 기법.' },
+      { term: 'sleep(ms)', def: '지정한 밀리초 동안 프로그램 실행을 일시 정지. sleep(30000) = 30초 대기.' },
+      { term: 'display.scroll()', def: '마이크로비트 LED에 문자열을 흘러가도록 표시하는 함수. display.scroll("20C")' },
+      { term: 'min_temp / max_temp', def: '야간 최저·최고 온도를 추적하는 변수. 버튼 A/B로 확인 가능. 수면 환경 분석에 활용.' },
+      { term: 'temperature()', def: '마이크로비트 내장 온도 센서 값을 읽는 MicroPython 함수. 정수 ℃값 반환.' },
+      { term: '릴레이 (Relay)', def: 'MCU의 약한 신호로 가전제품(에어컨·선풍기 등) 전원을 ON/OFF 제어하는 스위치 부품.' },
+      { term: '서파 수면 (깊은 수면)', def: '수면 중 가장 회복력이 높은 단계. 적정 온도(18~22℃)에서 비율이 높아짐. 열대야에서 감소.' },
+    ].forEach(kw => {
+      const d = document.createElement('div'); d.className = 'kw-item';
+      d.innerHTML = `<div class="kw-term">${kw.term}</div><div class="kw-def">${kw.def}</div>`;
+      document.getElementById('kw-grid').appendChild(d);
+    });
+  </script>
 </body>
+
 </html>
