@@ -1,153 +1,130 @@
-﻿<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unit II. 데이터 수행활동 - 정보 교과</title>
-    <!-- Phosphor Icons -->
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
-    <style>
-        :root {
-            --u: #1B9E72;
-            --ubg: #E1F5EE;
-            --bg: #F5F4F0;
-            --sf: #FFFFFF;
-            --br: #E2DFD6;
-            --tx: #1C1C1C;
-            --mt: #696760;
-        }
-
-        body { font-family: 'Pretendard', sans-serif; background: var(--bg); color: var(--tx); line-height: 1.6; padding: 20px; }
-        .container { max-width: 800px; margin: 0 auto; }
-
-        .topbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 30px; }
-        .btn-back { display: flex; align-items: center; gap: 6px; text-decoration: none; color: var(--mt); font-size: 14px; font-weight: 600; }
-
-        .paper { background: var(--sf); border: 1px solid var(--br); border-radius: 12px; padding: 40px; box-shadow: 0 4px 12px rgba(0,0,0,0.02); }
-        .header { border-bottom: 2px solid var(--u); padding-bottom: 20px; margin-bottom: 30px; }
-        .header h1 { font-size: 24px; font-weight: 800; display: flex; align-items: center; gap: 10px; color: var(--u); }
-        
-        .section { margin-bottom: 40px; }
-        .section-h { display: flex; align-items: center; gap: 10px; margin-bottom: 15px; font-size: 18px; font-weight: 700; }
-        .step-num { width: 24px; height: 24px; background: var(--u); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; }
-
-        .q-card { background: #F9F8F6; border: 1px solid var(--br); border-radius: 10px; padding: 20px; margin-bottom: 15px; }
-        .q-text { font-weight: 600; font-size: 14px; margin-bottom: 10px; display: block; }
-        .ans-input { width: 100%; padding: 12px; border: 1px solid var(--br); border-radius: 8px; font-size: 14px; outline: none; background: #fff; }
-        .ans-input:focus { border-color: var(--u); box-shadow: 0 0 0 3px rgba(27, 158, 114, 0.1); }
-
-        .footer { margin-top: 50px; text-align: center; border-top: 1px solid var(--br); padding-top: 30px; }
-        .btn-save { background: var(--u); color: #fff; border: none; padding: 14px 40px; border-radius: 30px; font-size: 16px; font-weight: 700; cursor: pointer; transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px; }
-        .btn-save:hover { background: #158560; transform: scale(1.02); }
-
-        .toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: #1C1C1C; color: #fff; padding: 12px 24px; border-radius: 30px; font-size: 14px; display: none; z-index: 1000; }
-
-        .binary-tool { margin-top: 10px; padding: 15px; background: #fff; border: 1px dashed var(--br); border-radius: 8px; }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <div class="topbar">
-            <a href="index.html" class="btn-back"><i class="ph ph-arrow-left"></i> 목록으로</a>
-            <div id="userInfo" style="font-size: 13px; font-weight: 600; color: var(--mt);">정보 확인 중...</div>
-        </div>
-
-        <div class="paper">
-            <div class="header">
-                <h1><i class="ph-fill ph-database"></i> Unit II. 데이터 수행활동</h1>
-            </div>
-
-            <div class="section">
-                <div class="section-h"><div class="step-num">1</div> 디지털 표현</div>
-                <div class="q-card">
-                    <label class="q-text">문자, 그림, 소리 데이터가 컴퓨터 내부에서 어떻게 숫자로 표현되는지 조사하여 요약하세요.</label>
-                    <textarea id="act2_1" class="ans-input" placeholder="문자(ASCII/Unicode), 그림(Pixel/RGB), 소리(Sampling) 등의 키워드를 포함해 작성하세요..." rows="3"></textarea>
-                </div>
-            </div>
-
-            <div class="section">
-                <div class="section-h"><div class="step-num">2</div> 데이터 수집 및 구조화</div>
-                <div class="q-card">
-                    <label class="q-text">우리 학교 학생들의 '주당 독서량'을 조사한다고 가정할 때, 수집해야 할 항목과 데이터 타입을 정해보세요.</label>
-                    <textarea id="act2_2" class="ans-input" placeholder="예: 이름(텍스트), 반/번호(숫자), 독서 시간(숫자/분단위) 등" rows="3"></textarea>
-                </div>
-            </div>
-
-            <div class="section">
-                <div class="section-h"><div class="step-num">3</div> 데이터 분석과 시각화</div>
-                <div class="q-card">
-                    <label class="q-text">수집된 데이터를 시각화할 때 가장 적합한 그래프 형태(막대, 꺾은선, 원 등)와 그 이유를 적어보세요.</label>
-                    <textarea id="act2_3" class="ans-input" placeholder="여기에 입력하세요..." rows="3"></textarea>
-                </div>
-            </div>
-
-            <div class="footer">
-                <button onclick="saveActivity()" class="btn-save">
-                    <i class="ph-bold ph-floppy-disk"></i> 수행 결과 저장하기
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <div id="toast" class="toast">저장되었습니다!</div>
-
-    <script>
-        const UNIT = 'Unit2';
-        const GS_URL = 'https://script.google.com/macros/s/AKfycbwOMGuuboaYzZCHvIQpu3V_Lo-Fu02CiY4nj1BDktSinJM41H_EqAkulbcUsC-2Sxt6/exec';
-
-        window.onload = function() {
-            const user = JSON.parse(localStorage.getItem('currentUser') || '{}');
-            if (user.studentName) {
-                document.getElementById('userInfo').innerText = `${user.grade}학년 ${user.classNum}반 ${user.studentNum}번 ${user.studentName} 학생`;
-            }
-
-            const saved = JSON.parse(localStorage.getItem(`perf_${UNIT}`) || '{}');
-            Object.keys(saved).forEach(id => {
-                const el = document.getElementById(id);
-                if (el) el.value = saved[id];
-            });
-        };
-
-        function showToast(msg) {
-            const toast = document.getElementById('toast');
-            toast.innerText = msg;
-            toast.style.display = 'block';
-            setTimeout(() => toast.style.display = 'none', 3000);
-        }
-
-        async function saveActivity() {
-            const data = {};
-            document.querySelectorAll('.ans-input').forEach(el => {
-                data[el.id] = el.value;
-            });
-
-            localStorage.setItem(`perf_${UNIT}`, JSON.stringify(data));
-
-            const user = JSON.parse(localStorage.getItem('currentUser') || '{}');
-            const payload = {
-                type: 'performance',
-                unit: UNIT,
-                studentInfo: user,
-                content: data,
-                timestamp: new Date().toISOString()
-            };
-
-            showToast('저장 중...');
-
-            try {
-                if (GS_URL) {
-                    await fetch(GS_URL, {
-                        method: 'POST',
-                        mode: 'no-cors',
-                        body: JSON.stringify(payload)
-                    });
-                }
-                showToast('성공적으로 저장되었습니다.');
-            } catch (e) {
-                console.error(e);
-                showToast('시스템 저장 중 오류가 발생했으나 로컬에 저장되었습니다.');
-            }
-        }
-    </script>
-</body>
-</html>
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit II. 데이터 수행활동 - 정보 교과</title>
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <style>
+        :root {
+            --u: #1B9E72;
+            --ubg: #E1F5EE;
+            --bg: #F5F4F0;
+            --sf: #FFFFFF;
+            --br: #E2DFD6;
+            --tx: #1C1C1C;
+            --mt: #696760;
+        }
+        body { font-family: 'Pretendard', sans-serif; background: var(--bg); color: var(--tx); line-height: 1.6; padding: 20px; }
+        .container { max-width: 800px; margin: 0 auto; }
+        .topbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 30px; }
+        .btn-back { display: flex; align-items: center; gap: 6px; text-decoration: none; color: var(--mt); font-size: 14px; font-weight: 600; }
+        .paper { background: var(--sf); border: 1px solid var(--br); border-radius: 12px; padding: 40px; box-shadow: 0 4px 12px rgba(0,0,0,0.02); }
+        .header { border-bottom: 2px solid var(--u); padding-bottom: 20px; margin-bottom: 30px; }
+        .header h1 { font-size: 24px; font-weight: 800; display: flex; align-items: center; gap: 10px; color: var(--u); }
+        .section { margin-bottom: 40px; }
+        .section-h { display: flex; align-items: center; gap: 10px; margin-bottom: 15px; font-size: 18px; font-weight: 700; }
+        .step-num { width: 24px; height: 24px; background: var(--u); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; }
+        .q-card { background: #F9F8F6; border: 1px solid var(--br); border-radius: 10px; padding: 20px; margin-bottom: 15px; }
+        .q-text { font-weight: 600; font-size: 14px; margin-bottom: 10px; display: block; }
+        .ans-input { width: 100%; padding: 12px; border: 1px solid var(--br); border-radius: 8px; font-size: 14px; outline: none; background: #fff; }
+        .ans-input:focus { border-color: var(--u); box-shadow: 0 0 0 3px rgba(27, 158, 114, 0.1); }
+        .footer { margin-top: 50px; text-align: center; border-top: 1px solid var(--br); padding-top: 30px; }
+        .btn-save { background: var(--u); color: #fff; border: none; padding: 14px 40px; border-radius: 30px; font-size: 16px; font-weight: 700; cursor: pointer; transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px; }
+        .btn-save:hover { background: #158560; transform: scale(1.02); }
+        .toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: #1C1C1C; color: #fff; padding: 12px 24px; border-radius: 30px; font-size: 14px; display: none; z-index: 1000; }
+        .binary-tool { margin-top: 10px; padding: 15px; background: #fff; border: 1px dashed var(--br); border-radius: 8px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="topbar">
+            <a href="index.html" class="btn-back"><i class="ph ph-arrow-left"></i> 목록으로</a>
+            <div id="userInfo" style="font-size: 13px; font-weight: 600; color: var(--mt);">정보 확인 중...</div>
+        </div>
+        <div class="paper">
+            <div class="header">
+                <h1><i class="ph-fill ph-database"></i> <a href="../unit-02/index.html" style="text-decoration:none;color:inherit">Unit II. 데이터</a> 수행활동</h1>
+            </div>
+            <div class="section">
+                <div class="section-h"><div class="step-num">1</div> 디지털 표현</div>
+                <div class="q-card">
+                    <label class="q-text">문자, 그림, 소리 데이터가 컴퓨터 내부에서 어떻게 숫자로 표현되는지 조사하여 요약하세요.</label>
+                    <textarea id="act2_1" class="ans-input" placeholder="문자(ASCII/Unicode), 그림(Pixel/RGB), 소리(Sampling) 등의 키워드를 포함해 작성하세요..." rows="3"></textarea>
+                </div>
+            </div>
+            <div class="section">
+                <div class="section-h"><div class="step-num">2</div> 데이터 수집 및 구조화</div>
+                <div class="q-card">
+                    <label class="q-text">우리 학교 학생들의 '주당 독서량'을 조사한다고 가정할 때, 수집해야 할 항목과 데이터 타입을 정해보세요.</label>
+                    <textarea id="act2_2" class="ans-input" placeholder="예: 이름(텍스트), 반/번호(숫자), 독서 시간(숫자/분단위) 등" rows="3"></textarea>
+                </div>
+            </div>
+            <div class="section">
+                <div class="section-h"><div class="step-num">3</div> 데이터 분석과 시각화</div>
+                <div class="q-card">
+                    <label class="q-text">수집된 데이터를 시각화할 때 가장 적합한 그래프 형태(막대, 꺾은선, 원 등)와 그 이유를 적어보세요.</label>
+                    <textarea id="act2_3" class="ans-input" placeholder="여기에 입력하세요..." rows="3"></textarea>
+                </div>
+            </div>
+            <div class="footer">
+                <button onclick="saveActivity()" class="btn-save">
+                    <i class="ph-bold ph-floppy-disk"></i> 수행 결과 저장하기
+                </button>
+            </div>
+        </div>
+    </div>
+    <div id="toast" class="toast">저장되었습니다!</div>
+    <script>
+        const UNIT = 'Unit2';
+        const GS_URL = 'https://script.google.com/macros/s/AKfycbwOMGuuboaYzZCHvIQpu3V_Lo-Fu02CiY4nj1BDktSinJM41H_EqAkulbcUsC-2Sxt6/exec';
+        window.onload = function() {
+            const user = JSON.parse(localStorage.getItem('currentUser') || '{}');
+            if (user.studentName) {
+                document.getElementById('userInfo').innerText = `${user.grade}학년 ${user.classNum}반 ${user.studentNum}번 ${user.studentName} 학생`;
+            }
+            const saved = JSON.parse(localStorage.getItem(`perf_${UNIT}`) || '{}');
+            Object.keys(saved).forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.value = saved[id];
+            });
+        };
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            toast.innerText = msg;
+            toast.style.display = 'block';
+            setTimeout(() => toast.style.display = 'none', 3000);
+        }
+        async function saveActivity() {
+            const data = {};
+            document.querySelectorAll('.ans-input').forEach(el => {
+                data[el.id] = el.value;
+            });
+            localStorage.setItem(`perf_${UNIT}`, JSON.stringify(data));
+            const user = JSON.parse(localStorage.getItem('currentUser') || '{}');
+            const payload = {
+                type: 'performance',
+                unit: UNIT,
+                studentInfo: user,
+                content: data,
+                timestamp: new Date().toISOString()
+            };
+            showToast('저장 중...');
+            try {
+                if (GS_URL) {
+                    await fetch(GS_URL, {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        body: JSON.stringify(payload)
+                    });
+                }
+                showToast('성공적으로 저장되었습니다.');
+            } catch (e) {
+                console.error(e);
+                showToast('시스템 저장 중 오류가 발생했으나 로컬에 저장되었습니다.');
+            }
+        }
+    </script>
+</body>
+</html>
