@@ -1,1970 +1,1970 @@
-<!DOCTYPE html>
-<html lang="ko">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <title>II-3. µ¥ÀÌÅÍÀÇ ¼öÁı°ú °ü¸® ? Á¤º¸ ±³°ú</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
-    <style>
-        *,
-        *::before,
-        *::after {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0
-        }
-
-        html {
-            scroll-behavior: smooth
-        }
-
-        body {
-            font-family: 'Noto Sans KR', -apple-system, sans-serif;
-            background: #F5F4F0;
-            color: #1C1C1C;
-            font-size: 14px;
-            line-height: 1.65;
-            display: flex;
-            min-height: 100vh
-        }
-
-        :root {
-            --u: #1B9E72;
-            --udk: #0F6B4C;
-            --ult: #E2F5EE;
-            --umd: #A8DFC8;
-            --bg: #F5F4F0;
-            --sf: #FFF;
-            --br: #E2DFD6;
-            --tx: #1C1C1C;
-            --mt: #696760;
-            --lt: #A8A59E;
-            --green: #2A720E;
-            --gbg: #E8F3DC;
-            --amber: #7A4E0A;
-            --abg: #FAF0DC;
-            --red: #8C1E0E;
-            --rbg: #FAEBE6;
-            --blue: #0A4E8C;
-            --bbg: #E4F0FA;
-            --rLG: 14px;
-            --rSM: 8px;
-            --SW: 240px;
-            --TH: 52px
-        }
-
-        .sb {
-            width: var(--SW);
-            background: var(--sf);
-            border-right: 1px solid var(--br);
-            position: fixed;
-            top: 0;
-            left: 0;
-            bottom: 0;
-            display: flex;
-            flex-direction: column;
-            overflow-y: auto;
-            z-index: 100
-        }
-
-        .sb-top {
-            padding: 16px 14px 12px;
-            border-bottom: 1px solid var(--br)
-        }
-
-        .uchip {
-            display: inline-flex;
-            align-items: center;
-            background: var(--ult);
-            color: var(--u);
-            font-size: 10px;
-            font-weight: 700;
-            letter-spacing: .1em;
-            text-transform: uppercase;
-            padding: 3px 9px;
-            border-radius: 20px;
-            margin-bottom: 6px
-        }
-
-        .sb-top h2 {
-            font-size: 12px;
-            font-weight: 700;
-            line-height: 1.4
-        }
-
-        .smeta {
-            font-size: 10px;
-            color: var(--lt);
-            margin-top: 3px
-        }
-
-        .sb-nav {
-            padding: 4px 0;
-            flex: 1
-        }
-
-        .nlbl {
-            font-size: 9px;
-            font-weight: 700;
-            letter-spacing: .1em;
-            text-transform: uppercase;
-            color: var(--lt);
-            padding: 7px 13px 3px
-        }
-
-        .na {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 7px 13px;
-            font-size: 11px;
-            color: var(--mt);
-            text-decoration: none;
-            border-left: 2.5px solid transparent;
-            transition: background .12s
-        }
-
-        .na:hover {
-            background: var(--bg);
-            color: var(--tx)
-        }
-
-        .na.on {
-            color: var(--u);
-            font-weight: 600;
-            background: var(--ult);
-            border-left-color: var(--u)
-        }
-
-        .na.done .nn {
-            background: var(--gbg);
-            color: var(--green)
-        }
-
-        .nn {
-            width: 18px;
-            height: 18px;
-            border-radius: 50%;
-            background: var(--br);
-            font-size: 9px;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            color: var(--mt)
-        }
-
-        .na.on .nn {
-            background: var(--u);
-            color: #fff
-        }
-
-        .nbadge {
-            margin-left: auto;
-            font-size: 9px;
-            color: var(--lt);
-            background: var(--bg);
-            border: 1px solid var(--br);
-            padding: 1px 5px;
-            border-radius: 10px;
-            white-space: nowrap
-        }
-
-        .sb-foot {
-            padding: 10px 13px;
-            border-top: 1px solid var(--br)
-        }
-
-        .ba {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 11px;
-            color: var(--mt);
-            text-decoration: none;
-            padding: 5px 9px;
-            border-radius: var(--rSM);
-            border: 1px solid var(--br);
-            background: var(--sf);
-            transition: all .12s
-        }
-
-        .ba:hover {
-            background: var(--bg)
-        }
-
-        .main {
-            margin-left: var(--SW);
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            min-width: 0
-        }
-
-        .topbar {
-            background: var(--sf);
-            border-bottom: 1px solid var(--br);
-            height: var(--TH);
-            padding: 0 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            position: sticky;
-            top: 0;
-            z-index: 90
-        }
-
-        .bc {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            font-size: 12px;
-            color: var(--mt);
-            flex: 1
-        }
-
-        .bc a {
-            color: var(--mt);
-            text-decoration: none
-        }
-
-        .bc a:hover {
-            color: var(--tx)
-        }
-
-        .bcsep {
-            color: var(--br)
-        }
-
-        .tbr {
-            display: flex;
-            align-items: center;
-            gap: 6px
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            padding: 6px 12px;
-            border-radius: var(--rSM);
-            font-size: 12px;
-            font-family: inherit;
-            font-weight: 500;
-            cursor: pointer;
-            border: 1px solid var(--br);
-            background: var(--sf);
-            color: var(--tx);
-            text-decoration: none;
-            transition: background .12s;
-            white-space: nowrap
-        }
-
-        .btn:hover {
-            background: var(--bg)
-        }
-
-        .bsm {
-            padding: 5px 9px;
-            font-size: 11px
-        }
-
-        .bp {
-            background: var(--u);
-            color: #fff;
-            border-color: var(--u)
-        }
-
-        .bp:hover {
-            background: var(--udk)
-        }
-
-        .bok {
-            background: var(--green);
-            color: #fff;
-            border-color: var(--green)
-        }
-
-        .page {
-            padding: 20px 22px;
-            flex: 1
-        }
-
-        .g2 {
-            display: grid;
-            grid-template-columns: 1fr minmax(0, 248px);
-            gap: 16px;
-            align-items: start
-        }
-
-        .cm {
-            min-width: 0
-        }
-
-        .ca {
-            position: sticky;
-            top: calc(var(--TH)+12px)
-        }
-
-        .card {
-            background: var(--sf);
-            border: 1px solid var(--br);
-            border-radius: var(--rLG);
-            margin-bottom: 11px;
-            overflow: hidden
-        }
-
-        .ch {
-            display: flex;
-            align-items: center;
-            gap: 9px;
-            padding: 12px 16px;
-            cursor: pointer;
-            border-bottom: 1px solid var(--br);
-            transition: background .12s;
-            user-select: none
-        }
-
-        .ch:hover {
-            background: var(--bg)
-        }
-
-        .sn {
-            width: 26px;
-            height: 26px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 11px;
-            font-weight: 800;
-            flex-shrink: 0
-        }
-
-        .ch h3 {
-            font-size: 13px;
-            font-weight: 600;
-            flex: 1
-        }
-
-        .st {
-            font-size: 10px;
-            color: var(--lt);
-            background: var(--bg);
-            border: 1px solid var(--br);
-            padding: 2px 7px;
-            border-radius: 20px;
-            white-space: nowrap
-        }
-
-        .carr {
-            font-size: 11px;
-            color: var(--lt);
-            transition: transform .2s
-        }
-
-        .card.collapsed .carr {
-            transform: rotate(-90deg)
-        }
-
-        .cb {
-            padding: 18px
-        }
-
-        .card.collapsed .cb {
-            display: none
-        }
-
-        .ach {
-            background: var(--ult);
-            border: 1px solid var(--umd);
-            border-radius: var(--rSM);
-            padding: 10px 13px;
-            margin-bottom: 14px
-        }
-
-        .ach-c {
-            font-family: monospace;
-            font-size: 11px;
-            font-weight: 700;
-            color: var(--u);
-            margin-bottom: 3px
-        }
-
-        .ach-t {
-            font-size: 13px;
-            line-height: 1.6
-        }
-
-        .glist {
-            list-style: none
-        }
-
-        .glist li {
-            display: flex;
-            align-items: flex-start;
-            gap: 8px;
-            padding: 6px 0;
-            font-size: 13px;
-            border-bottom: 1px solid var(--br);
-            line-height: 1.6
-        }
-
-        .glist li:last-child {
-            border-bottom: none
-        }
-
-        .gck {
-            width: 17px;
-            height: 17px;
-            border-radius: 50%;
-            background: var(--gbg);
-            color: var(--green);
-            font-size: 9px;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            margin-top: 2px
-        }
-
-        .ctags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 5px;
-            margin-bottom: 12px
-        }
-
-        .ctag {
-            font-size: 11px;
-            padding: 3px 10px;
-            background: var(--bg);
-            border: 1px solid var(--br);
-            border-radius: 20px;
-            cursor: pointer;
-            color: var(--mt);
-            transition: all .12s
-        }
-
-        .ctag:hover {
-            background: var(--ult);
-            border-color: var(--umd);
-            color: var(--u)
-        }
-
-        .ibox {
-            display: flex;
-            align-items: flex-start;
-            gap: 9px;
-            padding: 10px 13px;
-            border-radius: var(--rSM);
-            font-size: 12px;
-            line-height: 1.6;
-            margin-top: 10px
-        }
-
-        .prev {
-            background: var(--bg);
-            border: 1px solid var(--br);
-            color: var(--mt)
-        }
-
-        .warn {
-            background: #FFFBEC;
-            border: 1px solid #EDD070;
-            color: #6A5000
-        }
-
-        .info {
-            background: var(--bbg);
-            border: 1px solid #BACED8;
-            color: var(--blue)
-        }
-
-        .ok {
-            background: var(--gbg);
-            border: 1px solid #BFDFAA;
-            color: var(--green)
-        }
-
-        .divl {
-            height: 1px;
-            background: var(--br);
-            margin: 13px 0
-        }
-
-        .crow {
-            display: grid;
-            grid-template-columns: 1fr minmax(0, 148px);
-            gap: 13px;
-            align-items: start;
-            margin-bottom: 13px
-        }
-
-        .ct h4 {
-            font-size: 13px;
-            font-weight: 700;
-            margin-bottom: 7px
-        }
-
-        .ct p {
-            font-size: 13px;
-            color: var(--mt);
-            line-height: 1.75
-        }
-
-        .ct ul {
-            padding-left: 1rem;
-            margin-top: 5px
-        }
-
-        .ct ul li {
-            font-size: 13px;
-            color: var(--mt);
-            margin-bottom: 3px;
-            line-height: 1.6
-        }
-
-        .cvis {
-            background: var(--bg);
-            border: 1px solid var(--br);
-            border-radius: var(--rSM);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 8px
-        }
-
-        /* ¦¡¦¡ ¼öÇàÈ°µ¿ Ä«µå ¦¡¦¡ */
-        .activity {
-            background: linear-gradient(135deg, var(--ult), #EDFFF6);
-            border: 2px solid var(--umd);
-            border-radius: var(--rLG);
-            margin-bottom: 11px;
-            overflow: hidden
-        }
-
-        .act-head {
-            display: flex;
-            align-items: center;
-            gap: 9px;
-            padding: 12px 16px;
-            border-bottom: 1.5px solid var(--umd);
-            background: var(--ult);
-            cursor: pointer;
-            user-select: none
-        }
-
-        .act-head:hover {
-            background: #D0EEE3
-        }
-
-        .act-badge {
-            background: var(--u);
-            color: #fff;
-            font-size: 10px;
-            font-weight: 700;
-            padding: 3px 10px;
-            border-radius: 20px;
-            white-space: nowrap
-        }
-
-        .act-head h3 {
-            font-size: 13px;
-            font-weight: 700;
-            color: var(--udk);
-            flex: 1
-        }
-
-        .act-body {
-            padding: 18px
-        }
-
-        .act-step {
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            padding: 10px 12px;
-            background: var(--sf);
-            border: 1px solid var(--br);
-            border-radius: var(--rSM);
-            margin-bottom: 8px;
-            min-height: 160px;
-        }
-
-        .act-num {
-            width: 22px;
-            height: 22px;
-            border-radius: 50%;
-            background: var(--u);
-            color: #fff;
-            font-size: 10px;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            flex: none;
-            margin-top: 1px
-        }
-
-        .act-step h4 {
-            font-size: 12px;
-            font-weight: 700;
-            margin-bottom: 4px
-        }
-
-        .act-step p {
-            font-size: 12px;
-            color: var(--mt);
-            line-height: 1.65
-        }
-
-        .act-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 12px;
-            margin-top: 8px
-        }
-
-        .act-table th {
-            background: var(--u);
-            color: #fff;
-            padding: 7px 10px;
-            font-weight: 600;
-            font-size: 11px;
-            text-align: left
-        }
-
-        .act-table td {
-            padding: 8px 10px;
-            border-bottom: 1px solid var(--br);
-            color: var(--mt);
-            vertical-align: top;
-            line-height: 1.55
-        }
-
-        .act-table tr:last-child td {
-            border-bottom: none
-        }
-
-        .act-input {
-            width: 100%;
-            padding: 8px 10px;
-            border: 1.5px solid var(--br);
-            border-radius: var(--rSM);
-            font-size: 12px;
-            font-family: inherit;
-            background: var(--sf);
-            outline: none;
-            resize: vertical;
-            min-height: 88px;
-            margin-top: 4px
-        }
-
-        .act-input:focus {
-            border-color: var(--u)
-        }
-
-        /* ¦¡¦¡ quiz ¦¡¦¡ */
-        .qwrap {
-            background: var(--bg);
-            border: 1px solid var(--br);
-            border-radius: var(--rSM);
-            padding: 14px;
-            margin-top: 13px
-        }
-
-        .qq {
-            font-size: 14px;
-            font-weight: 500;
-            margin-bottom: 11px;
-            line-height: 1.55
-        }
-
-        .qopts {
-            display: flex;
-            flex-direction: column;
-            gap: 7px
-        }
-
-        .opt {
-            display: flex;
-            align-items: flex-start;
-            gap: 9px;
-            padding: 10px 12px;
-            background: var(--sf);
-            border: 1.5px solid var(--br);
-            border-radius: var(--rSM);
-            cursor: pointer;
-            font-size: 13px;
-            line-height: 1.5;
-            transition: all .12s
-        }
-
-        .opt:hover {
-            border-color: var(--u);
-            background: var(--ult)
-        }
-
-        .opt.correct {
-            border-color: #4A9020;
-            background: var(--gbg);
-            color: #1A5000;
-            pointer-events: none
-        }
-
-        .opt.wrong {
-            border-color: #B03020;
-            background: var(--rbg);
-            color: #6A1000;
-            pointer-events: none
-        }
-
-        .opt.locked {
-            pointer-events: none;
-            opacity: .55
-        }
-
-        .onum {
-            width: 21px;
-            height: 21px;
-            border-radius: 50%;
-            background: var(--br);
-            font-size: 11px;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0
-        }
-
-        .opt.correct .onum {
-            background: #4A9020;
-            color: #fff
-        }
-
-        .opt.wrong .onum {
-            background: #B03020;
-            color: #fff
-        }
-
-        .qfb {
-            display: none;
-            margin-top: 9px;
-            padding: 10px 13px;
-            border-radius: var(--rSM);
-            font-size: 12px;
-            line-height: 1.6
-        }
-
-        .qfb.ok {
-            display: block;
-            background: var(--gbg);
-            border: 1px solid #BFDFAA;
-            color: var(--green)
-        }
-
-        .qfb.err {
-            display: block;
-            background: var(--rbg);
-            border: 1px solid #F0B8A0;
-            color: var(--red)
-        }
-
-        /* ¦¡¦¡ assess ¦¡¦¡ */
-        .rub {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 12px;
-            margin-bottom: 12px
-        }
-
-        .rub th {
-            background: var(--bg);
-            padding: 7px 8px;
-            font-weight: 600;
-            border-bottom: 1.5px solid var(--br);
-            text-align: left;
-            font-size: 10px;
-            text-transform: uppercase;
-            letter-spacing: .04em;
-            color: var(--mt)
-        }
-
-        .rub td {
-            padding: 8px;
-            border-bottom: 1px solid var(--br);
-            color: var(--mt);
-            vertical-align: top;
-            line-height: 1.5
-        }
-
-        .rub tr:last-child td {
-            border-bottom: none
-        }
-
-        .lv4 {
-            color: #1A6000 !important;
-            font-weight: 500
-        }
-
-        .lv3 {
-            color: #2A6830 !important
-        }
-
-        .lv2 {
-            color: #7A4E00 !important
-        }
-
-        .lv1 {
-            color: #8A2000 !important
-        }
-
-        .peer-check {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 11px;
-            margin-top: 10px
-        }
-
-        .peer-check th {
-            background: var(--ult);
-            padding: 6px 9px;
-            font-weight: 600;
-            border-bottom: 1.5px solid var(--umd);
-            text-align: center;
-            color: var(--u);
-            font-size: 10px
-        }
-
-        .peer-check td {
-            padding: 7px 9px;
-            border-bottom: 1px solid var(--br);
-            color: var(--mt);
-            text-align: center
-        }
-
-        .peer-check td:first-child {
-            text-align: left;
-            font-size: 11px
-        }
-
-        .peer-check input[type=radio] {
-            accent-color: var(--u)
-        }
-
-        /* ¦¡¦¡ sidebar widgets ¦¡¦¡ */
-        .ap {
-            background: var(--sf);
-            border: 1px solid var(--br);
-            border-radius: var(--rLG);
-            padding: 13px;
-            margin-bottom: 10px
-        }
-
-        .ap h5 {
-            font-size: 9px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: .1em;
-            color: var(--lt);
-            margin-bottom: 8px
-        }
-
-        .slist {
-            display: flex;
-            flex-direction: column;
-            gap: 3px
-        }
-
-        .si {
-            display: flex;
-            align-items: center;
-            gap: 7px;
-            padding: 6px 8px;
-            border-radius: var(--rSM);
-            font-size: 11px;
-            color: var(--mt);
-            cursor: pointer;
-            transition: background .12s
-        }
-
-        .si:hover {
-            background: var(--bg)
-        }
-
-        .dot {
-            width: 19px;
-            height: 19px;
-            border-radius: 50%;
-            background: var(--br);
-            color: var(--lt);
-            font-size: 9px;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0
-        }
-
-        .dot.sa {
-            background: var(--u);
-            color: #fff
-        }
-
-        .dot.sd {
-            background: var(--gbg);
-            color: var(--green)
-        }
-
-        .sclist {
-            display: flex;
-            flex-direction: column;
-            gap: 4px
-        }
-
-        .scitem {
-            display: flex;
-            align-items: center;
-            gap: 9px;
-            padding: 8px 10px;
-            background: var(--bg);
-            border-radius: var(--rSM);
-            font-size: 12px;
-            border: 1px solid var(--br)
-        }
-
-        .scitem label {
-            flex: 1;
-            line-height: 1.5
-        }
-
-        .scitem select {
-            font-size: 11px;
-            padding: 3px 6px;
-            border: 1px solid var(--br);
-            border-radius: 5px;
-            background: var(--sf);
-            font-family: inherit;
-            color: var(--tx);
-            cursor: pointer;
-            flex-shrink: 0
-        }
-
-        .sgrid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 7px;
-            margin-bottom: 12px
-        }
-
-        .scard {
-            background: var(--bg);
-            border: 1px solid var(--br);
-            border-radius: var(--rSM);
-            padding: 11px 12px;
-            font-size: 12px;
-            line-height: 1.65;
-            color: var(--mt)
-        }
-
-        .scard strong {
-            display: block;
-            font-size: 9px;
-            text-transform: uppercase;
-            letter-spacing: .07em;
-            color: var(--lt);
-            margin-bottom: 4px
-        }
-
-        .termlist {
-            display: flex;
-            flex-direction: column
-        }
-
-        .tterm {
-            display: flex;
-            align-items: baseline;
-            gap: 5px;
-            padding: 4px 0;
-            font-size: 11px;
-            border-bottom: 1px solid var(--br)
-        }
-
-        .tterm:last-child {
-            border-bottom: none
-        }
-
-        .tw {
-            font-weight: 600;
-            color: var(--u);
-            white-space: nowrap
-        }
-
-        .tdef {
-            color: var(--mt)
-        }
-
-        .pbtrack {
-            height: 5px;
-            background: var(--umd);
-            border-radius: 3px;
-            overflow: hidden
-        }
-
-        .pbfill {
-            height: 100%;
-            background: var(--u);
-            border-radius: 3px
-        }
-
-        #toast {
-            position: fixed;
-            bottom: 24px;
-            left: 50%;
-            transform: translateX(-50%) translateY(10px);
-            background: #1C1C1C;
-            color: #fff;
-            padding: 9px 18px;
-            border-radius: 10px;
-            font-size: 12px;
-            font-family: inherit;
-            z-index: 9999;
-            opacity: 0;
-            transition: opacity .2s, transform .2s;
-            pointer-events: none;
-            white-space: nowrap
-        }
-
-        /* ?? ¹İÀÀÇü ·¹ÀÌ¾Æ¿ô ?? */
-        *,
-        *::before,
-        *::after {
-            box-sizing: border-box
-        }
-
-        img,
-        canvas,
-        video {
-            max-width: 100%;
-            height: auto;
-            display: block
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse
-        }
-
-        .act-table,
-        .peer-check,
-        .rub {
-            table-layout: fixed;
-            word-break: break-word
-        }
-
-        .act-table td,
-        .act-table th,
-        .rub td,
-        .rub th,
-        .peer-check td,
-        .peer-check th {
-            min-width: 44px;
-            word-break: break-word;
-            overflow-wrap: break-word
-        }
-
-        .act-step>div:not(.act-num) {
-            min-width: 0;
-            flex: 1;
-            overflow-wrap: break-word;
-            word-break: break-word
-        }
-
-        .act-body,
-        .cb {
-            overflow-x: hidden
-        }
-
-        .act-input {
-            width: 100%;
-            box-sizing: border-box
-        }
-
-        .mb-workspace,
-        .mb-row,
-        .mb-indent,
-        .mb-indent2 {
-            flex-wrap: wrap
-        }
-
-        .sim-wrap {
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch
-        }
-
-        /* 1100px ÀÌÇÏ */
-        @media(max-width:1100px) {
-            .g2 {
-                grid-template-columns: 1fr
-            }
-
-            .ca {
-                position: static;
-                display: flex;
-                flex-direction: row;
-                flex-wrap: wrap;
-                gap: 10px;
-                margin-top: 12px
-            }
-
-            .ca .ap {
-                flex: 1 1 220px;
-                min-width: 180px
-            }
-
-            .crow {
-                grid-template-columns: 1fr
-            }
-
-            .sgrid {
-                grid-template-columns: 1fr 1fr
-            }
-        }
-
-        /* 900px ÀÌÇÏ */
-        @media(max-width:900px) {
-            .ca {
-                display: flex;
-                flex-direction: row;
-                flex-wrap: wrap;
-                gap: 8px;
-                margin-top: 10px
-            }
-
-            .ca .ap {
-                flex: 1 1 180px;
-                min-width: 160px
-            }
-
-            .page {
-                padding: 16px 14px
-            }
-
-            .cb,
-            .act-body {
-                padding: 13px
-            }
-
-            .sgrid {
-                grid-template-columns: 1fr 1fr
-            }
-
-            .crow {
-                grid-template-columns: 1fr
-            }
-        }
-
-        /* 640px ÀÌÇÏ */
-        @media(max-width:640px) {
-            .page {
-                padding: 11px 10px
-            }
-
-            .cb,
-            .act-body {
-                padding: 10px
-            }
-
-            .sgrid {
-                grid-template-columns: 1fr
-            }
-
-            .act-step {
-                flex-direction: column;
-                gap: 5px
-            }
-
-            .act-num {
-                margin-bottom: 0
-            }
-
-            .ch h3 {
-                font-size: 12px
-            }
-
-            .btn {
-                font-size: 11px;
-                padding: 5px 8px
-            }
-
-            .act-table td,
-            .act-table th {
-                padding: 5px 6px;
-                font-size: 11px
-            }
-
-            .rub td,
-            .rub th {
-                padding: 5px 6px;
-                font-size: 11px
-            }
-
-            .peer-check td,
-            .peer-check th {
-                padding: 5px 6px;
-                font-size: 10px
-            }
-
-            .scard {
-                font-size: 11px
-            }
-
-            .opt {
-                font-size: 12px;
-                padding: 8px 10px
-            }
-
-            .mb,
-            .mb-hole {
-                font-size: 10px;
-                padding: 4px 7px
-            }
-        }
-
-        /* 480px ÀÌÇÏ */
-        @media(max-width:480px) {
-            :root {
-                --SW: 0px
-            }
-
-            .sb {
-                display: none
-            }
-
-            .main {
-                margin-left: 0
-            }
-
-            .topbar {
-                padding: 0 10px
-            }
-
-            .page {
-                padding: 8px 9px
-            }
-
-            .cb,
-            .act-body {
-                padding: 9px
-            }
-
-            .tbr .btn:last-child {
-                display: none
-            }
-
-            .sgrid {
-                grid-template-columns: 1fr
-            }
-        }
-    </style>
-</head>
-
-<body>
-    <aside class="sb">
-        <div class="sb-top">
-            <div class="uchip">¢Â Unit II</div>
-            <h2>µ¥ÀÌÅÍ</h2>
-            <div class="smeta">Áß´Ü¿ø2: µ¥ÀÌÅÍ ºĞ¼® ¡¤ p.57~63</div>
-        </div>
-        <nav class="sb-nav">
-            <div class="nlbl">¼Ò´Ü¿ø ¸ñ·Ï</div><a class="na done" href="../lesson-01/index.html">
-                <div class="nn">?</div>µğÁöÅĞ ÇüÅÂÀÇ µ¥ÀÌÅÍ
-            </a>
-            <a class="na done" href="../lesson-02/index.html">
-                <div class="nn">?</div>´Ù¾çÇÑ µ¥ÀÌÅÍÀÇ µğÁöÅĞ Ç¥Çö
-            </a>
-            <a class="na on" href="../lesson-03/index.html">
-                <div class="nn">3</div>µ¥ÀÌÅÍÀÇ ¼öÁı°ú °ü¸®<span class="nbadge">2Â÷½Ã</span>
-            </a>
-            <a class="na " href="../lesson-04/index.html">
-                <div class="nn">4</div>µ¥ÀÌÅÍÀÇ ±¸Á¶È­¿Í ºĞ¼®
-            </a>
-            <a class="na " href="../lesson-05/index.html">
-                <div class="nn">5</div>ÀÎ±â °øÀ¯ µ¿¿µ»ó µ¥ÀÌÅÍ ºĞ¼®
-            </a>
-            <a class="na " href="../lesson-06/index.html">
-                <div class="nn">6</div>±Ş½Ä ÀÜ¹İ µ¥ÀÌÅÍ ºĞ¼®
-            </a>
-        </nav>
-        <div class="sb-foot"><a class="ba" href="https://sungce.github.io/lesson/">¡ç Á¤º¸ ±³°ú ÇĞ½À ÇÃ·§Æû</a></div>
-    </aside>
-    <main class="main">
-        <header class="topbar">
-            <div class="bc"><a href="https://sungce.github.io/lesson/">Á¤º¸ ±³°ú ÇĞ½À ÇÃ·§Æû</a><span class="bcsep">?</span><a
-                    href="../../index.html">II. µ¥ÀÌÅÍ</a><span class="bcsep">?</span><span
-                    style="color:var(--tx);font-weight:500">3. µ¥ÀÌÅÍÀÇ ¼öÁı°ú °ü¸®</span></div>
-            <div class="tbr">
-                <button class="btn bsm"
-                    onclick="toast('? ¿Ï·á Ç¥½Ã!');postToSheets({type:'done',userName:getUserName(),unit:'II',lessonNum:'3',lessonName:'µ¥ÀÌÅÍ 3´Ü¿ø'})">?
-                    ¿Ï·á Ç¥½Ã</button>
-                <a class="btn bsm bp" href="../lesson-04/index.html">´ÙÀ½ ¼Ò´Ü¿ø ¡æ</a>
-            </div>
-        </header>
-        <div class="page">
-            <div class="g2">
-                <div class="cm">
-
-                    <div class="card" id="sec-goal">
-                        <div class="ch" onclick="toggleSec('sec-goal')">
-                            <div class="sn" style="background:var(--ult);color:var(--u)">01</div>
-                            <h3>ÇĞ½À¸ñÇ¥</h3><span class="st">? 5ºĞ</span><span class="carr">?</span>
-                        </div>
-                        <div class="cb">
-                            <div class="ach">
-                                <div class="ach-c">[9Á¤02-03] µ¥ÀÌÅÍ ºĞ¼®</div>
-                                <div class="ach-t">¹®Á¦ ÇØ°á ¸ñÀû¿¡ ÀûÇÕÇÑ µ¥ÀÌÅÍ¸¦ ´Ù¾çÇÑ ¹æ¹ıÀ¸·Î ¼öÁıÇÏ°í, ÀÀ¿ë ¼ÒÇÁÆ®¿ş¾î¸¦ ÀÌ¿ëÇÏ¿© µ¥ÀÌÅÍ¸¦ ¸ñÀû¿¡ ¸Â°Ô ±¸ºĞÇÏ°í °ü¸®ÇÒ
-                                    ¼ö ÀÖ´Ù. (pp.57~63)</div>
-                            </div>
-                            <ul class="glist">
-                                <li>
-                                    <div class="gck">?</div>¹®Á¦ ÇØ°á¿¡ ÀûÇÕÇÑ µ¥ÀÌÅÍ¸¦ ¼±º°ÇÏ°í ¼³¸íÇÒ ¼ö ÀÖ´Ù.
-                                </li>
-                                <li>
-                                    <div class="gck">?</div>Á÷Á¢ ¼öÁı(ÀÎÅÍºä¡¤°üÂû¡¤¼³¹®¡¤¼¾¼­)°ú °£Á¢ ¼öÁı(°Ë»ö ¿£Áø¡¤À¥»çÀÌÆ®)ÀÇ Â÷ÀÌ¸¦ ¼³¸íÇÒ ¼ö ÀÖ´Ù.
-                                </li>
-                                <li>
-                                    <div class="gck">?</div>µ¥ÀÌÅÍ ¼Ó¼ºÀÇ ÀÇ¹Ì¸¦ ÀÌÇØÇÏ°í ¹üÁÖÇü¡¤¼öÄ¡Çü µ¥ÀÌÅÍ¸¦ ±¸ºĞÇÒ ¼ö ÀÖ´Ù.
-                                </li>
-                                <li>
-                                    <div class="gck">?</div>ÄÚ´ä(CODAP)À» ÀÌ¿ëÇÏ¿© µ¥ÀÌÅÍ¸¦ °ü¸®ÇÒ ¼ö ÀÖ´Ù.
-                                </li>
-                            </ul>
-                            <div class="divl"></div>
-                            <div class="ctags">
-                                <span class="ctag" onclick="goTo('sec-concept')">µ¥ÀÌÅÍ ¼öÁı</span>
-                                <span class="ctag" onclick="goTo('sec-concept')">µ¥ÀÌÅÍ ¼Ó¼º</span>
-                                <span class="ctag" onclick="goTo('sec-concept')">¹üÁÖÇü¡¤¼öÄ¡Çü</span>
-                                <span class="ctag" onclick="goTo('sec-concept')">ÄÚ´ä(CODAP)</span>
-                            </div>
-                            <div class="ibox prev">?? <b>Áß´Ü¿ø2 ½ÃÀÛ:</b> µ¥ÀÌÅÍ Ç¥ÇöÀ» ¹è¿ü½À´Ï´Ù. ÀÌÁ¦ ¹®Á¦ ÇØ°áÀ» À§ÇØ ¾î¶² µ¥ÀÌÅÍ¸¦ ¾î¶»°Ô ¸ğÀ¸°í °ü¸®ÇÏ´ÂÁö
-                                Å½±¸ÇÕ´Ï´Ù.</div>
-                        </div>
-                    </div>
-
-                    <div class="card" id="sec-concept">
-                        <div class="ch" onclick="toggleSec('sec-concept')">
-                            <div class="sn" style="background:var(--gbg);color:var(--green)">02</div>
-                            <h3>°³³ä¼³¸í</h3><span class="st">? 20ºĞ</span><span class="carr">?</span>
-                        </div>
-                        <div class="cb">
-                            <h4 style="font-size:13px;font-weight:700;margin-bottom:9px">¨ç ¹®Á¦ ÇØ°á¿¡ ÀûÇÕÇÑ µ¥ÀÌÅÍ ¼±ÅÃ</h4>
-                            <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:13px">
-                                <div
-                                    style="background:var(--bg);border:1px solid var(--br);border-radius:var(--rSM);padding:11px">
-                                    <div style="font-size:11px;font-weight:700;color:var(--u);margin-bottom:5px">?? ¹®Á¦:
-                                        ½º¸¶Æ®Æù »ç¿ë ½À°ü °³¼±</div>
-                                    <div style="font-size:11px;color:var(--mt);line-height:1.75">¡æ »ç¿ë ¾Û Á¾·ù¡¤»ç¿ë È½¼ö¡¤»ç¿ë Àå¼Ò¡¤ÃÑ
-                                        »ç¿ë ½Ã°£</div>
-                                </div>
-                                <div
-                                    style="background:var(--bg);border:1px solid var(--br);border-radius:var(--rSM);padding:11px">
-                                    <div style="font-size:11px;font-weight:700;color:var(--u);margin-bottom:5px">??? ¹®Á¦:
-                                        ±Ş½Ä ÀÜ¹İ·® ÁÙÀÌ±â</div>
-                                    <div style="font-size:11px;color:var(--mt);line-height:1.75">¡æ ½Ä´Ü¡¤±Ş½Ä ÀÎ¿ø¡¤ÀÜ¹İ·®¡¤³¯Â¥ µ¥ÀÌÅÍ
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="divl"></div>
-                            <h4 style="font-size:13px;font-weight:700;margin-bottom:9px">¨è µ¥ÀÌÅÍ ¼öÁı ¹æ¹ı</h4>
-                            <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:12px">
-                                <div
-                                    style="background:var(--ult);border:1px solid var(--umd);border-radius:var(--rSM);padding:12px">
-                                    <div style="font-size:12px;font-weight:700;color:var(--u);margin-bottom:7px">?? Á÷Á¢
-                                        ¼öÁı</div>
-                                    <div style="font-size:11px;color:var(--mt);line-height:1.85">? <b>ÀÎÅÍºä:</b> Áú¹®¡¤´äº¯À¸·Î
-                                        ÀÇ°ß ¼öÁı<br>? <b>°üÂû:</b> ¿À°¨¡¤°üÂû µµ±¸·Î ±â·Ï<br>? <b>¼³¹® Á¶»ç:</b> ¼³¹®Áö·Î ´äº¯ ¸ğÀ½<br>? <b>¼¾¼­
-                                            ÀÌ¿ë:</b> ºû¡¤¿Âµµ¡¤½Àµµ ÃøÁ¤<br><span style="color:var(--green)">ÀåÁ¡:</span> ¸ñÀû¿¡ ¸Â´Â Á¤È®ÇÑ
-                                        µ¥ÀÌÅÍ<br><span style="color:var(--red)">´ÜÁ¡:</span> ½Ã°£¡¤ºñ¿ë ¸¹ÀÌ µê</div>
-                                </div>
-                                <div
-                                    style="background:var(--gbg);border:1px solid #BFDFAA;border-radius:var(--rSM);padding:12px">
-                                    <div style="font-size:12px;font-weight:700;color:var(--green);margin-bottom:7px">??
-                                        °£Á¢ ¼öÁı</div>
-                                    <div style="font-size:11px;color:var(--mt);line-height:1.85">? <b>°Ë»ö ¿£Áø:</b> ÀÎÅÍ³İ
-                                        °Ë»öÀ¸·Î ¼öÁı<br>? <b>°ø°øµ¥ÀÌÅÍÆ÷ÅĞ:</b> data.go.kr<br>? <b>±¹°¡Åë°èÆ÷ÅĞ:</b> kosis.kr<br>?
-                                        <b>Ä³±Û:</b> kaggle.com<br><span style="color:var(--green)">ÀåÁ¡:</span> ºü¸£°í
-                                        Æí¸®<br><span style="color:var(--red)">´ÜÁ¡:</span> °ËÁõ ÇÊ¿ä¡¤ÀûÇÕÇÑ µ¥ÀÌÅÍ Ã£±â ¾î·Á¿ò</div>
-                                </div>
-                            </div>
-                            <div class="divl"></div>
-                            <h4 style="font-size:13px;font-weight:700;margin-bottom:9px">¨é µ¥ÀÌÅÍ ¼Ó¼º°ú ±¸ºĞ</h4>
-                            <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:12px">
-                                <div
-                                    style="background:var(--bbg);border:1px solid #BACED8;border-radius:var(--rSM);padding:12px">
-                                    <div style="font-size:12px;font-weight:700;color:var(--blue);margin-bottom:5px">??
-                                        ¹üÁÖÇü µ¥ÀÌÅÍ</div>
-                                    <div style="font-size:12px;color:var(--mt);line-height:1.75">¹®ÀÚ³ª ±âÈ£·Î ´ë»óÀ» <b>±¸ºĞ</b>ÇÏ´Â
-                                        µ¥ÀÌÅÍ<br>¿¹) ¼ºº°(³²¡¤¿©), Ç÷¾×Çü(A¡¤B¡¤O¡¤AB), ¼ºÃë µî±Ş, ¿©ÇàÁö ÀÌ¸§, ±³Åë¼ö´Ü</div>
-                                </div>
-                                <div
-                                    style="background:var(--abg);border:1px solid #EDD070;border-radius:var(--rSM);padding:12px">
-                                    <div style="font-size:12px;font-weight:700;color:var(--amber);margin-bottom:5px">??
-                                        ¼öÄ¡Çü µ¥ÀÌÅÍ</div>
-                                    <div style="font-size:12px;color:var(--mt);line-height:1.75">¼ıÀÚ·Î °ªÀ» Ç¥½ÃÇÏ°í <b>Å©±â¡¤Â÷ÀÌ¸¦
-                                            ºñ±³</b>ÇÏ´Â µ¥ÀÌÅÍ<br>¿¹) Å°¡¤¸ö¹«°Ô, ±â¿Â¡¤°­¼ö·®, À§µµ¡¤°æµµ, ÃßÀÇ ¹«°Ô</div>
-                                </div>
-                            </div>
-                            <div class="ibox info">?? <b>±³°ú¼­ ¿¬°è:</b> pp.57~63 / ÄÚ´ä(CODAP): https://codap.concord.org
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- ¡Ú ¼öÇà È°µ¿ ¡Ú -->
-                    <div class="activity" id="sec-activity">
-                        <div class="act-head" onclick="toggleSec('act-body-03')">
-                            <span class="act-badge">¡Ú ¼öÇà È°µ¿</span>
-                            <h3>ÀÀ¿ë ¼ÒÇÁÆ®¿ş¾î¸¦ ÀÌ¿ëÇØ ¼öÁıÇÑ µ¥ÀÌÅÍ °ü¸®ÇÏ±â</h3>
-                            <span style="font-size:10px;color:var(--udk);margin-left:auto">°³º° È°µ¿ | pp.63</span>
-                            <span class="carr" style="color:var(--udk)">?</span>
-                        </div>
-                        <div id="act-body-03" class="act-body">
-                            <div class="ibox ok" style="margin-top:0;margin-bottom:14px">?? µ¥ÀÌÅÍ Àü¹® À¥»çÀÌÆ®¿¡¼­ µ¥ÀÌÅÍ¸¦ ¼öÁıÇÏ°í
-                                ÄÚ´ä(CODAP)À¸·Î °ü¸®ÇØº¾´Ï´Ù. (±³°ú¼­ p.63 ÇØº¸±â)</div>
-                            <div class="act-step">
-                                <div class="act-num">1</div>
-                                <div>
-                                    <h4>¹®Á¦ ÇØ°á¿¡ ÀûÇÕÇÑ µ¥ÀÌÅÍ ¼±Á¤</h4>
-                                    <p>ÇØ°áÇÏ°í ½ÍÀº ¹®Á¦¸¦ Á¤ÇÏ°í, ÇÊ¿äÇÑ µ¥ÀÌÅÍ¿Í ¼öÁı ¹æ¹ıÀ» °èÈ¹ÇÏ¼¼¿ä.</p>
-                                    <div style="overflow-x:auto">
-                                        <table class="act-table">
-                                            <thead>
-                                                <tr>
-                                                    <th>ÇØ°áÇÒ ¹®Á¦</th>
-                                                    <th>ÇÊ¿äÇÑ µ¥ÀÌÅÍ</th>
-                                                    <th>¼öÁı ¹æ¹ı</th>
-                                                    <th>¹üÁÖÇü/¼öÄ¡Çü</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td rowspan="3"><input class="act-input" style="min-height:88px"
-                                                            placeholder="¿¹) ¿ì¸® ÇĞ±³ ÁÖº¯ ¹«·á ¿ÍÀÌÆÄÀÌ À§Ä¡¸¦ Áöµµ¿¡ Ç¥½ÃÇÏ·Á¸é?"></td>
-                                                    <td><input class="act-input" style="min-height:44px;resize:none"
-                                                            placeholder="µ¥ÀÌÅÍ ¼Ó¼º 1"></td>
-                                                    <td><input class="act-input" style="min-height:44px;resize:none"
-                                                            placeholder="¼öÁı ¹æ¹ı"></td>
-                                                    <td><select
-                                                            style="width:100%;padding:5px;border:1px solid var(--br);border-radius:var(--rSM);font-size:11px;font-family:inherit">
-                                                            <option>¼±ÅÃ</option>
-                                                            <option>¹üÁÖÇü</option>
-                                                            <option>¼öÄ¡Çü</option>
-                                                        </select></td>
-                                                </tr>
-                                                <tr>
-                                                    <td><input class="act-input" style="min-height:44px;resize:none"
-                                                            placeholder="µ¥ÀÌÅÍ ¼Ó¼º 2"></td>
-                                                    <td><input class="act-input" style="min-height:44px;resize:none"
-                                                            placeholder="¼öÁı ¹æ¹ı"></td>
-                                                    <td><select
-                                                            style="width:100%;padding:5px;border:1px solid var(--br);border-radius:var(--rSM);font-size:11px;font-family:inherit">
-                                                            <option>¼±ÅÃ</option>
-                                                            <option>¹üÁÖÇü</option>
-                                                            <option>¼öÄ¡Çü</option>
-                                                        </select></td>
-                                                </tr>
-                                                <tr>
-                                                    <td><input class="act-input" style="min-height:44px;resize:none"
-                                                            placeholder="µ¥ÀÌÅÍ ¼Ó¼º 3"></td>
-                                                    <td><input class="act-input" style="min-height:44px;resize:none"
-                                                            placeholder="¼öÁı ¹æ¹ı"></td>
-                                                    <td><select
-                                                            style="width:100%;padding:5px;border:1px solid var(--br);border-radius:var(--rSM);font-size:11px;font-family:inherit">
-                                                            <option>¼±ÅÃ</option>
-                                                            <option>¹üÁÖÇü</option>
-                                                            <option>¼öÄ¡Çü</option>
-                                                        </select></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="act-step">
-                                <div class="act-num">2</div>
-                                <div>
-                                    <h4>µ¥ÀÌÅÍ ¼öÁı ½Ã¹Ä·¹ÀÌÅÍ</h4>
-                                    <p>¾Æ·¡ ¹öÆ°À» Å¬¸¯ÇÏ¿© µ¥ÀÌÅÍ Àü¹® À¥»çÀÌÆ®¿¡ Á¢¼ÓÇÏ°í µ¥ÀÌÅÍ¸¦ ¼öÁıÇÕ´Ï´Ù.</p>
-                                    <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px">
-                                        <a href="https://www.data.go.kr" target="_blank" class="btn bsm"
-                                            style="background:var(--u);color:#fff;border-color:var(--udk)">?? °ø°øµ¥ÀÌÅÍÆ÷ÅĞ
-                                            ¢Ö</a>
-                                        <a href="https://kosis.kr" target="_blank" class="btn bsm"
-                                            style="background:var(--u);color:#fff;border-color:var(--udk)">?? ±¹°¡Åë°èÆ÷ÅĞ
-                                            ¢Ö</a>
-                                        <a href="https://www.localdata.go.kr" target="_blank" class="btn bsm"
-                                            style="background:var(--u);color:#fff;border-color:var(--udk)">?? Áö¹æÇàÁ¤ ÀÎÇã°¡
-                                            µ¥ÀÌÅÍ ¢Ö</a>
-                                    </div>
-                                    <div id="collect-sim"
-                                        style="background:#1e1e2e;border-radius:var(--rSM);padding:14px;margin-bottom:10px">
-                                        <div style="font-size:10px;color:#aaa;margin-bottom:8px">°¡»ó µ¥ÀÌÅÍ ¼öÁı Ã¼Çè (¹«·á ¿ÍÀÌÆÄÀÌ
-                                            µ¥ÀÌÅÍ ¿¹½Ã)</div>
-                                        <div id="sim-table"
-                                            style="font-family:monospace;font-size:11px;color:#a0c0ff;line-height:2">¹öÆ°À»
-                                            Å¬¸¯ÇÏ¿© µ¥ÀÌÅÍ ºÒ·¯¿À±â</div>
-                                        <button class="btn bsm" onclick="loadSampleData()"
-                                            style="background:#1B9E72;color:#fff;border-color:#0F6B4C;margin-top:8px">??
-                                            »ùÇÃ µ¥ÀÌÅÍ ºÒ·¯¿À±â</button>
-                                    </div>
-                                    <textarea class="act-input"
-                                        placeholder="¼öÁıÇÑ µ¥ÀÌÅÍÀÇ ¼Ó¼ºÀ» ±â·ÏÇÏ°í, ¹üÁÖÇü¡¤¼öÄ¡ÇüÀ» ±¸ºĞÇØº¸¼¼¿ä..."></textarea>
-                                </div>
-                            </div>
-                            <div class="act-step">
-                                <div class="act-num">3</div>
-                                <div>
-                                    <h4>ÄÚ´ä(CODAP)À¸·Î µ¥ÀÌÅÍ °ü¸®ÇÏ±â</h4>
-                                    <p>ÄÚ´ä¿¡¼­ ¼öÁıÇÑ µ¥ÀÌÅÍ¸¦ ÀÔ·ÂÇÏ°í, ºÒÇÊ¿äÇÑ ¼Ó¼ºÀ» »èÁ¦ÇÏ¿© ¸ñÀû¿¡ ¸Â°Ô Á¤¸®ÇÕ´Ï´Ù.</p>
-                                    <div style="display:flex;gap:8px;margin-bottom:10px">
-                                        <a href="https://codap.concord.org" target="_blank" class="btn bsm bp">ÄÚ´ä(CODAP)
-                                            ¿­±â ¢Ö</a>
-                                    </div>
-                                    <div style="overflow-x:auto">
-                                        <table class="act-table">
-                                            <thead>
-                                                <tr>
-                                                    <th>ÄÚ´ä ÀÛ¾÷ ´Ü°è</th>
-                                                    <th>ÀÛ¾÷ ³»¿ë</th>
-                                                    <th>¿Ï·á ¿©ºÎ</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>¨ç »õ ¹®¼­ »ı¼º</td>
-                                                    <td>ÄÚ´ä ½ÇÇà ¡æ '»õ ¹®¼­' Å¬¸¯</td>
-                                                    <td><input type="checkbox"
-                                                            style="accent-color:var(--u);width:16px;height:16px"></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>¨è µ¥ÀÌÅÍ ÆÄÀÏ ºÒ·¯¿À±â</td>
-                                                    <td>CSV ÆÄÀÏÀ» ÄÚ´äÀ¸·Î µå·¡±×</td>
-                                                    <td><input type="checkbox"
-                                                            style="accent-color:var(--u);width:16px;height:16px"></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>¨é ¼Ó¼º ÀÌ¸§ ¹Ù²Ù±â</td>
-                                                    <td>¿µ¾î ¼Ó¼º¸í ¡æ ÇÑ±Û·Î º¯°æ</td>
-                                                    <td><input type="checkbox"
-                                                            style="accent-color:var(--u);width:16px;height:16px"></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>¨ê ºÒÇÊ¿ä ¼Ó¼º »èÁ¦</td>
-                                                    <td>¸ñÀû¿¡ ºÒÇÊ¿äÇÑ ¼Ó¼º »èÁ¦</td>
-                                                    <td><input type="checkbox"
-                                                            style="accent-color:var(--u);width:16px;height:16px"></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>¨ë ÆÄÀÏ ÀúÀå¡¤°øÀ¯</td>
-                                                    <td>¿Ï¼ºµÈ ÆÄÀÏ ÀúÀå ¹× Ä£±¸¿Í °øÀ¯</td>
-                                                    <td><input type="checkbox"
-                                                            style="accent-color:var(--u);width:16px;height:16px"></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <textarea class="act-input" style="margin-top:8px"
-                                        placeholder="ÄÚ´äÀ» »ç¿ëÇÑ µ¥ÀÌÅÍ °ü¸® °úÁ¤¿¡¼­ ¾Ë°Ô µÈ Á¡À» ±â·ÏÇÏ¼¼¿ä..."></textarea>
-                                </div>
-                            </div>
-                            <div style="display:flex;gap:8px;margin-top:12px">
-                                <button class="btn bsm bp" onclick="saveActivity('l203_act')">?? È°µ¿ ÀúÀå</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- ¡Ú ¼ö¾÷ ÀÚ·á ´Ù¿î·Îµå + ¼³¹®Á¶»ç ¡Ú -->
-                    <div class="card" id="sec-materials">
-                        <div class="ch" onclick="toggleSec('sec-materials')">
-                            <div class="sn" style="background:#FFF3CD;color:#7A4E0A">??</div>
-                            <h3>¼ö¾÷ ÀÚ·á &amp; ¼³¹® Á¶»ç</h3>
-                            <span class="st">¼³¹®Áö PDF 6Á¾</span>
-                            <span class="carr">?</span>
-                        </div>
-                        <div class="cb">
-
-                            <!-- ¼³¹®Áö PDF ´Ù¿î·Îµå -->
-                            <h4 style="font-size:13px;font-weight:700;margin-bottom:5px">?? ¼³¹® Á¶»çÁö PDF ´Ù¿î·Îµå</h4>
-                            <p style="font-size:12px;color:var(--mt);margin-bottom:14px">¾Æ·¡ 6°¡Áö ÁÖÁ¦ Áß ÇÏ³ª¸¦ ¼±ÅÃÇÏ¿© ¼³¹® Á¶»çÁö¸¦
-                                Ãâ·ÂÇÏ°í, ÇĞ±Ş Ä£±¸µéÀ» ´ë»óÀ¸·Î µ¥ÀÌÅÍ¸¦ Á÷Á¢ ¼öÁıÇØº¾½Ã´Ù.</p>
-
-                            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:22px">
-
-                                <a href="Áß1_Á¤º¸_¼³¹®Á¶»ç_01_½º¸¶Æ®Æù_»ç¿ë_½ÇÅÂ_Á¶»ç.pdf" download
-                                    style="display:flex;align-items:center;gap:12px;padding:13px 15px;background:#FFF8F0;border:1.5px solid #FFCC80;border-radius:var(--rLG);text-decoration:none;color:inherit;transition:box-shadow .15s"
-                                    onmouseover="this.style.boxShadow='0 4px 14px rgba(255,150,0,.18)'"
-                                    onmouseout="this.style.boxShadow=''">
-                                    <span style="font-size:28px;flex-shrink:0">??</span>
-                                    <div>
-                                        <div style="font-size:12px;font-weight:700;color:#7A4E0A;margin-bottom:2px">ÁÖÁ¦
-                                            01</div>
-                                        <div style="font-size:13px;font-weight:700;margin-bottom:3px">½º¸¶Æ®Æù »ç¿ë ½ÇÅÂ Á¶»ç
-                                        </div>
-                                        <div style="font-size:10px;color:var(--lt)">PDF 184KB &nbsp;¡é ´Ù¿î·Îµå</div>
-                                    </div>
-                                </a>
-
-                                <a href="Áß1_Á¤º¸_¼³¹®Á¶»ç_02_ÇĞ±³_±Ş½Ä_¸¸Á·µµ_Á¶»ç.pdf" download
-                                    style="display:flex;align-items:center;gap:12px;padding:13px 15px;background:#F0FFF4;border:1.5px solid #A8DFC8;border-radius:var(--rLG);text-decoration:none;color:inherit;transition:box-shadow .15s"
-                                    onmouseover="this.style.boxShadow='0 4px 14px rgba(27,158,114,.18)'"
-                                    onmouseout="this.style.boxShadow=''">
-                                    <span style="font-size:28px;flex-shrink:0">???</span>
-                                    <div>
-                                        <div style="font-size:12px;font-weight:700;color:var(--udk);margin-bottom:2px">
-                                            ÁÖÁ¦ 02</div>
-                                        <div style="font-size:13px;font-weight:700;margin-bottom:3px">ÇĞ±³ ±Ş½Ä ¸¸Á·µµ Á¶»ç</div>
-                                        <div style="font-size:10px;color:var(--lt)">PDF 184KB &nbsp;¡é ´Ù¿î·Îµå</div>
-                                    </div>
-                                </a>
-
-                                <a href="Áß1_Á¤º¸_¼³¹®Á¶»ç_03_µ¶¼­_½À°ü_¹×_¼±È£_Á¶»ç.pdf" download
-                                    style="display:flex;align-items:center;gap:12px;padding:13px 15px;background:#F0F4FF;border:1.5px solid #BACED8;border-radius:var(--rLG);text-decoration:none;color:inherit;transition:box-shadow .15s"
-                                    onmouseover="this.style.boxShadow='0 4px 14px rgba(10,78,140,.15)'"
-                                    onmouseout="this.style.boxShadow=''">
-                                    <span style="font-size:28px;flex-shrink:0">??</span>
-                                    <div>
-                                        <div style="font-size:12px;font-weight:700;color:var(--blue);margin-bottom:2px">
-                                            ÁÖÁ¦ 03</div>
-                                        <div style="font-size:13px;font-weight:700;margin-bottom:3px">µ¶¼­ ½À°ü ¹× ¼±È£ Á¶»ç
-                                        </div>
-                                        <div style="font-size:10px;color:var(--lt)">PDF 184KB &nbsp;¡é ´Ù¿î·Îµå</div>
-                                    </div>
-                                </a>
-
-                                <a href="Áß1_Á¤º¸_¼³¹®Á¶»ç_04_¼ö¸é_¹×_»ıÈ°_ÆĞÅÏ_Á¶»ç.pdf" download
-                                    style="display:flex;align-items:center;gap:12px;padding:13px 15px;background:#F5F0FF;border:1.5px solid #C8C4F0;border-radius:var(--rLG);text-decoration:none;color:inherit;transition:box-shadow .15s"
-                                    onmouseover="this.style.boxShadow='0 4px 14px rgba(108,101,204,.18)'"
-                                    onmouseout="this.style.boxShadow=''">
-                                    <span style="font-size:28px;flex-shrink:0">??</span>
-                                    <div>
-                                        <div style="font-size:12px;font-weight:700;color:#4E48A8;margin-bottom:2px">ÁÖÁ¦
-                                            04</div>
-                                        <div style="font-size:13px;font-weight:700;margin-bottom:3px">¼ö¸é ¹× »ıÈ° ÆĞÅÏ Á¶»ç
-                                        </div>
-                                        <div style="font-size:10px;color:var(--lt)">PDF 184KB &nbsp;¡é ´Ù¿î·Îµå</div>
-                                    </div>
-                                </a>
-
-                                <a href="Áß1_Á¤º¸_¼³¹®Á¶»ç_05_È¯°æ_º¸È£_ÀÇ½Ä_Á¶»ç.pdf" download
-                                    style="display:flex;align-items:center;gap:12px;padding:13px 15px;background:#F0FFF8;border:1.5px solid #BFDFAA;border-radius:var(--rLG);text-decoration:none;color:inherit;transition:box-shadow .15s"
-                                    onmouseover="this.style.boxShadow='0 4px 14px rgba(42,114,14,.15)'"
-                                    onmouseout="this.style.boxShadow=''">
-                                    <span style="font-size:28px;flex-shrink:0">??</span>
-                                    <div>
-                                        <div
-                                            style="font-size:12px;font-weight:700;color:var(--green);margin-bottom:2px">
-                                            ÁÖÁ¦ 05</div>
-                                        <div style="font-size:13px;font-weight:700;margin-bottom:3px">È¯°æ º¸È£ ÀÇ½Ä Á¶»ç</div>
-                                        <div style="font-size:10px;color:var(--lt)">PDF 184KB &nbsp;¡é ´Ù¿î·Îµå</div>
-                                    </div>
-                                </a>
-
-                                <a href="Áß1_Á¤º¸_¼³¹®Á¶»ç_06_¿©°¡_¹×_Ãë¹Ì_È°µ¿_Á¶»ç.pdf" download
-                                    style="display:flex;align-items:center;gap:12px;padding:13px 15px;background:#FFF0F5;border:1.5px solid #F0B8A0;border-radius:var(--rLG);text-decoration:none;color:inherit;transition:box-shadow .15s"
-                                    onmouseover="this.style.boxShadow='0 4px 14px rgba(140,30,14,.12)'"
-                                    onmouseout="this.style.boxShadow=''">
-                                    <span style="font-size:28px;flex-shrink:0">??</span>
-                                    <div>
-                                        <div style="font-size:12px;font-weight:700;color:var(--red);margin-bottom:2px">
-                                            ÁÖÁ¦ 06</div>
-                                        <div style="font-size:13px;font-weight:700;margin-bottom:3px">¿©°¡ ¹× Ãë¹Ì È°µ¿ Á¶»ç
-                                        </div>
-                                        <div style="font-size:10px;color:var(--lt)">PDF 184KB &nbsp;¡é ´Ù¿î·Îµå</div>
-                                    </div>
-                                </a>
-
-                            </div>
-
-                            <!-- ±¸ºĞ¼± -->
-                            <div style="height:1px;background:var(--br);margin-bottom:20px"></div>
-
-                            <!-- ¿Â¶óÀÎ ¼³¹® -->
-                            <h4 style="font-size:13px;font-weight:700;margin-bottom:5px">?? ¿Â¶óÀÎ ¼³¹® Á¶»ç Âü¿©ÇÏ±â</h4>
-                            <p style="font-size:12px;color:var(--mt);margin-bottom:14px">Ãâ·Â ¼³¹®Áö ÀÛ¼ºÀÌ ³¡³µ´Ù¸é, ¾Æ·¡ ¹öÆ°À» Å¬¸¯ÇÏ¿© ±¸±Û
-                                Æû ¿Â¶óÀÎ ¼³¹®¿¡µµ ÀÀ´äÇØº¾½Ã´Ù. ¼öÁıµÈ µ¥ÀÌÅÍ´Â ´ÙÀ½ ¼ö¾÷¿¡¼­ ÇÔ²² ºĞ¼®ÇÕ´Ï´Ù.</p>
-
-                            <a href="https://forms.gle/UbcuMx9UW2cpzJwVA" target="_blank" rel="noopener"
-                                style="display:flex;align-items:center;justify-content:center;gap:12px;padding:18px 24px;background:linear-gradient(135deg,#1B9E72,#0F6B4C);border-radius:var(--rLG);text-decoration:none;color:#fff;font-weight:700;font-size:14px;transition:opacity .15s;box-shadow:0 4px 16px rgba(27,158,114,.35)"
-                                onmouseover="this.style.opacity='.88'" onmouseout="this.style.opacity='1'">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <rect x="3" y="3" width="18" height="18" rx="3" fill="white" fill-opacity="0.25" />
-                                    <rect x="7" y="8" width="10" height="1.5" rx="0.75" fill="white" />
-                                    <rect x="7" y="11" width="10" height="1.5" rx="0.75" fill="white" />
-                                    <rect x="7" y="14" width="6" height="1.5" rx="0.75" fill="white" />
-                                </svg>
-                                ?? &nbsp;±¸±Û Æû ¿Â¶óÀÎ ¼³¹® Á¶»ç Âü¿©ÇÏ±â &nbsp;¢Ö
-                            </a>
-
-                            <div
-                                style="display:flex;align-items:flex-start;gap:8px;padding:10px 13px;background:#FFFBEC;border:1px solid #EDD070;border-radius:var(--rSM);font-size:12px;color:#6A5000;margin-top:12px">
-                                ?? <span>¼³¹® °á°ú´Â ¼ö¾÷ È°µ¿¿¡¸¸ È°¿ëµÇ¸ç, °³ÀÎ Á¤º¸´Â ¼öÁıµÇÁö ¾Ê½À´Ï´Ù. ¼ÖÁ÷ÇÏ°í ¼º½ÇÇÏ°Ô ÀÀ´äÇØÁÖ¼¼¿ä!</span>
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <div class="card" id="sec-assess">
-                        <div class="ch" onclick="toggleSec('sec-assess')">
-                            <div class="sn" style="background:var(--bbg);color:var(--blue)">04</div>
-                            <h3>¼öÇàÆò°¡</h3><span class="st">? 5ºĞ</span><span class="carr">?</span>
-                        </div>
-                        <div class="cb">
-                            <div
-                                style="background:var(--bg);border:1px solid var(--br);border-radius:var(--rSM);padding:12px;margin-bottom:12px;border-left:3px solid var(--u)">
-                                <h4 style="font-size:13px;font-weight:700;color:var(--u);margin-bottom:7px">?? µ¥ÀÌÅÍ ¼öÁı
-                                    °èÈ¹¼­ + ÄÚ´ä °ü¸®</h4>
-                                <p style="font-size:13px;color:var(--mt)">½Ç»ıÈ° ¹®Á¦¸¦ ÇÏ³ª ¼³Á¤ÇÏ°í, ÇÊ¿äÇÑ µ¥ÀÌÅÍ¡¤¼öÁı ¹æ¹ı¡¤¹üÁÖÇü/¼öÄ¡Çü ±¸ºĞÀ» Æ÷ÇÔÇÑ
-                                    ¼öÁı °èÈ¹¼­¸¦ ÀÛ¼ºÇÏ°í ÄÚ´äÀ¸·Î °ü¸®ÇÏ½Ã¿À.</p>
-                            </div>
-                            <table class="rub">
-                                <thead>
-                                    <tr>
-                                        <th>Æò°¡ ¿ä¼Ò</th>
-                                        <th class="lv4">¸Å¿ì ÀßÇÔ(4)</th>
-                                        <th class="lv3">ÀßÇÔ(3)</th>
-                                        <th class="lv2">º¸Åë(2)</th>
-                                        <th class="lv1">³ë·Â ÇÊ¿ä(1)</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><b>µ¥ÀÌÅÍ ¼±Á¤</b></td>
-                                        <td class="lv4">¹®Á¦¿Í µ¥ÀÌÅÍ ÀûÇÕ¼º ³ôÀ½</td>
-                                        <td class="lv3">´ëÃ¼·Î ÀûÇÕ</td>
-                                        <td class="lv2">ÀÏºÎ ÀûÇÕ</td>
-                                        <td class="lv1">¹«°ü</td>
-                                    </tr>
-                                    <tr>
-                                        <td><b>¼Ó¼º ±¸ºĞ</b></td>
-                                        <td class="lv4">¹üÁÖ¡¤¼öÄ¡Çü ¸ğµÎ Á¤È®</td>
-                                        <td class="lv3">´ëÃ¼·Î Á¤È®</td>
-                                        <td class="lv2">1°¡Áö Á¤È®</td>
-                                        <td class="lv1">±¸ºĞ ¾øÀ½</td>
-                                    </tr>
-                                    <tr>
-                                        <td><b>ÄÚ´ä °ü¸®</b></td>
-                                        <td class="lv4">5´Ü°è ¿Ï·á</td>
-                                        <td class="lv3">3´Ü°è ÀÌ»ó</td>
-                                        <td class="lv2">1~2´Ü°è</td>
-                                        <td class="lv1">»ç¿ë ¸øÇÔ</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <div class="sclist">
-                                <div class="scitem"><label>¹®Á¦ ÇØ°á¿¡ ÀûÇÕÇÑ µ¥ÀÌÅÍ¸¦ ¼±º°ÇÒ ¼ö ÀÖ´Ù.</label><select>
-                                        <option value="">¼±ÅÃ</option>
-                                        <option>¸Å¿ì ±×·¸´Ù</option>
-                                        <option>±×·¸´Ù</option>
-                                        <option>¾ÆÁ÷ ¸ğ¸£°Ú´Ù</option>
-                                    </select></div>
-                                <div class="scitem"><label>Á÷Á¢¡¤°£Á¢ ¼öÁı ¹æ¹ıÀÇ Â÷ÀÌ¸¦ ¼³¸íÇÒ ¼ö ÀÖ´Ù.</label><select>
-                                        <option value="">¼±ÅÃ</option>
-                                        <option>¸Å¿ì ±×·¸´Ù</option>
-                                        <option>±×·¸´Ù</option>
-                                        <option>¾ÆÁ÷ ¸ğ¸£°Ú´Ù</option>
-                                    </select></div>
-                                <div class="scitem"><label>¹üÁÖÇü°ú ¼öÄ¡Çü µ¥ÀÌÅÍ¸¦ ±¸ºĞÇÒ ¼ö ÀÖ´Ù.</label><select>
-                                        <option value="">¼±ÅÃ</option>
-                                        <option>¸Å¿ì ±×·¸´Ù</option>
-                                        <option>±×·¸´Ù</option>
-                                        <option>¾ÆÁ÷ ¸ğ¸£°Ú´Ù</option>
-                                    </select></div>
-                            </div>
-                            <button class="btn bsm bok" style="margin-top:10px" onclick="saveSC('l203sc')">??
-                                ÀúÀå</button>
-                        </div>
-                    </div>
-
-                    <div class="card" id="sec-review">
-                        <div class="ch" onclick="toggleSec('sec-review')">
-                            <div class="sn" style="background:var(--gbg);color:var(--green)">05</div>
-                            <h3>È®ÀÎÇÏ±â</h3><span class="st">? 5ºĞ</span><span class="carr">?</span>
-                        </div>
-                        <div class="cb">
-                            <div class="sgrid">
-                                <div class="scard"><strong>Á÷Á¢ ¼öÁı</strong>ÀÎÅÍºä¡¤°üÂû¡¤¼³¹®¡¤¼¾¼­. Á¤È®ÇÏ³ª ½Ã°£¡¤ºñ¿ë¡è</div>
-                                <div class="scard"><strong>°£Á¢ ¼öÁı</strong>°Ë»ö¿£Áø¡¤°ø°øµ¥ÀÌÅÍ. ºü¸£³ª °ËÁõ ÇÊ¿ä.</div>
-                                <div class="scard"><strong>¹üÁÖÇü vs ¼öÄ¡Çü</strong>¼ºº°¡¤Ç÷¾×Çü vs Å°¡¤¸ö¹«°Ô¡¤À§µµ¡¤°æµµ</div>
-                            </div>
-                            <div
-                                style="background:var(--bg);border:1px solid var(--br);border-radius:var(--rSM);padding:13px;margin-bottom:12px">
-                                <b>?? ´Ü´äÇü:</b> µ¥ÀÌÅÍÀÇ ÀÇ¹Ì¸¦ Áö´Ï¸é¼­ ´õ ÀÌ»ó ºĞ¸®µÇÁö ¾Ê´Â ÃÖ¼Ò ´ÜÀ§¸¦ µ¥ÀÌÅÍ <span
-                                    style="display:inline-block;width:50px;border-bottom:1.5px solid var(--tx)">&nbsp;</span>(ÀÌ)¶ó°í
-                                ÇÑ´Ù.<textarea
-                                    style="display:block;width:100%;margin-top:9px;padding:9px;border:1px solid var(--br);border-radius:var(--rSM);font-size:13px;font-family:inherit;resize:vertical;min-height:48px;background:var(--sf)"
-                                    placeholder="Á¤´äÀ» ÀÔ·ÂÇÏ¼¼¿ä..."></textarea></div>
-                            <div class="ibox ok">?? <div><strong>´ÙÀ½ Â÷½Ã ¿¹°í:</strong> ¼öÁıÇÑ µ¥ÀÌÅÍ¸¦ <strong>Ç¥¡¤°èÃşÇü¡¤±×·¡ÇÁÇü
-                                        ´ÙÀÌ¾î±×·¥</strong>À¸·Î ±¸Á¶È­ÇÏ°í ºĞ¼®ÇÏ´Â ¹æ¹ıÀ» ¹è¿ó´Ï´Ù! (pp.64~71)</div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="ca">
-                    <div class="ap">
-                        <h5>ÇĞ½À ÁøÇà</h5>
-                        <div class="slist">
-                            <div class="si" onclick="goTo('sec-goal')">
-                                <div class="dot sd">1</div>ÇĞ½À¸ñÇ¥
-                            </div>
-                            <div class="si" onclick="goTo('sec-concept')">
-                                <div class="dot">2</div>°³³ä¼³¸í
-                            </div>
-                            <div class="si" onclick="goTo('sec-activity')">
-                                <div class="dot sa">¡Ú</div>¼öÇà È°µ¿
-                            </div>
-                            <div class="si" onclick="goTo('sec-materials')">
-                                <div class="dot" style="background:#FFF3CD;color:#7A4E0A">??</div>¼ö¾÷ÀÚ·á¡¤¼³¹®
-                            </div>
-                            <div class="si" onclick="goTo('sec-assess')">
-                                <div class="dot">4</div>¼öÇàÆò°¡
-                            </div>
-                            <div class="si" onclick="goTo('sec-review')">
-                                <div class="dot">5</div>È®ÀÎÇÏ±â
-                            </div>
-                        </div>
-                    </div>
-                    <div class="ap" style="background:var(--ult);border-color:var(--umd)">
-                        <h5 style="color:var(--u)">´Ü¿ø Áøµµ</h5>
-                        <div style="display:flex;align-items:center;gap:7px">
-                            <div class="pbtrack" style="flex:1">
-                                <div class="pbfill" style="width:54%"></div>
-                            </div><span style="font-size:11px;font-weight:600;color:var(--u)">3/6</span>
-                        </div>
-                    </div>
-                    <div class="ap">
-                        <h5>ÇÙ½É ¿ë¾î</h5>
-                        <div class="termlist">
-                            <div class="tterm"><span class="tw">µ¥ÀÌÅÍ ¼Ó¼º</span><span class="tdef">µ¥ÀÌÅÍÀÇ ÃÖ¼Ò ´ÜÀ§</span></div>
-                            <div class="tterm"><span class="tw">Á÷Á¢ ¼öÁı</span><span class="tdef">ÀÎÅÍºä¡¤°üÂû¡¤¼³¹®¡¤¼¾¼­</span></div>
-                            <div class="tterm"><span class="tw">°£Á¢ ¼öÁı</span><span class="tdef">°Ë»ö¿£Áø¡¤°ø°øµ¥ÀÌÅÍ</span></div>
-                            <div class="tterm"><span class="tw">¹üÁÖÇü</span><span class="tdef">¹®ÀÚ¡¤±âÈ£·Î ±¸ºĞ</span></div>
-                            <div class="tterm"><span class="tw">¼öÄ¡Çü</span><span class="tdef">¼ıÀÚ·Î Å©±â ºñ±³</span></div>
-                            <div class="tterm"><span class="tw">ÄÚ´ä</span><span class="tdef">À¥ ±â¹İ µ¥ÀÌÅÍ ºĞ¼® µµ±¸</span></div>
-                        </div>
-                    </div>
-                    <div class="ap" style="background:#F0FDF4;border-color:#BBF7D0">
-                        <h5 style="color:#166534">?? µ¥ÀÌÅÍ µµ±¸</h5>
-                        <a href="https://codap.concord.org" target="_blank" class="btn bsm"
-                            style="width:100%;justify-content:center;background:var(--u);color:#fff;border-color:var(--udk);margin-bottom:5px">ÄÚ´ä(CODAP)
-                            ¿­±â ¢Ö</a>
-                        <a href="https://kosis.kr" target="_blank" class="btn bsm"
-                            style="width:100%;justify-content:center;font-size:10px;color:var(--mt)">±¹°¡Åë°èÆ÷ÅĞ ¢Ö</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
-    <div id="toast"></div>
-    <script>
-
-        // ¦¡¦¡ Google Sheets ÀúÀå ¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡
-        var GS_URL = 'https://script.google.com/macros/s/AKfycbwOMGuuboaYzZCHvIQpu3V_Lo-Fu02CiY4nj1BDktSinJM41H_EqAkulbcUsC-2Sxt6/exec';
-
-        function getUserName() {
-            return localStorage.getItem('user_name') || 'ÀÍ¸í';
-        }
-
-        function postToSheets(payload) {
-            if (!GS_URL || GS_URL === 'https://script.google.com/macros/s/AKfycbwOMGuuboaYzZCHvIQpu3V_Lo-Fu02CiY4nj1BDktSinJM41H_EqAkulbcUsC-2Sxt6/exec') return;
-            fetch(GS_URL, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            }).catch(function () { });
-        }
-
-
-        function toast(m) { var t = document.getElementById('toast'); t.textContent = m; t.style.opacity = '1'; t.style.transform = 'translateX(-50%) translateY(0)'; clearTimeout(t._t); t._t = setTimeout(function () { t.style.opacity = '0'; t.style.transform = 'translateX(-50%) translateY(10px)'; }, 2400); }
-        function toggleSec(id) { var e = document.getElementById(id); if (e) e.classList.toggle('collapsed'); }
-        function goTo(id) { var e = document.getElementById(id); if (!e) return; window.scrollTo({ top: e.getBoundingClientRect().top + window.pageYOffset - 64, behavior: 'smooth' }); }
-        function checkQ(el, ok, msg) { el.closest('.qopts').querySelectorAll('.opt').forEach(function (o) { o.classList.add('locked'); }); el.classList.add(ok ? 'correct' : 'wrong'); var fb = el.closest('.qwrap').querySelector('.qfb'); if (fb) { fb.className = 'qfb ' + (ok ? 'ok' : 'err'); fb.innerHTML = (ok ? '? Á¤´ä: ' : '? ÈùÆ®: ') + msg; } }
-        function saveSC(key) {
-            var d = {};
-            document.querySelectorAll('.scitem select').forEach(function (s, i) { d['q' + i] = s.value; });
-            try {
-                localStorage.setItem(key, JSON.stringify(d));
-                // Google Sheets ÀúÀå
-                postToSheets({
-                    type: 'sc',
-                    userName: getUserName(),
-                    lessonKey: 'l23',
-                    lessonName: 'l23',
-                    answers: d
-                });
-                toast('ÀÚ±âÆò°¡°¡ ÀúÀåµÇ¾ú½À´Ï´Ù ?');
-            } catch (e) { }
-        }
-        function loadSC(key) { try { var d = JSON.parse(localStorage.getItem(key) || '{}'); document.querySelectorAll('.scitem select').forEach(function (s, i) { if (d['q' + i]) s.value = d['q' + i]; }); } catch (e) { } }
-        function saveActivity(key) {
-            var d = {};
-            document.querySelectorAll('.act-input').forEach(function (el, i) { d['a' + i] = el.value; });
-            document.querySelectorAll('.peer-check input[type=radio]:checked').forEach(function (el) { d['r_' + el.name] = el.value; });
-            try {
-                localStorage.setItem(key, JSON.stringify(d));
-                // Google Sheets ÀúÀå
-                postToSheets({
-                    type: 'act',
-                    userName: getUserName(),
-                    lessonKey: 'l23',
-                    lessonName: 'l23',
-                    answers: d
-                });
-                toast('? ¼öÇà È°µ¿ÀÌ ÀúÀåµÇ¾ú½À´Ï´Ù!');
-            } catch (e) { }
-        }
-        function loadActivity(key) {
-            try {
-                var d = JSON.parse(localStorage.getItem(key) || '{}');
-                document.querySelectorAll('.act-input').forEach(function (el, i) { if (d['a' + i]) el.value = d['a' + i]; });
-                Object.keys(d).filter(function (k) { return k.startsWith('r_'); }).forEach(function (k) {
-                    var el = document.querySelector('input[type=radio][name="' + k.slice(2) + '"][value="' + d[k] + '"]');
-                    if (el) el.checked = true;
-                });
-            } catch (e) { }
-        }
-
-
-        function loadSampleData() {
-            var data = [
-                ['¼³Ä¡Àå¼Ò¸í', 'Wi-Fi SSID', '¼ÒÀçÁö µµ·Î¸íÁÖ¼Ò', 'À§µµ(Latitude)', '°æµµ(Longitude)'],
-                ['¼­¿ï½ÃÃ»', 'PublicWifi-Seoul', '¼­¿ïÆ¯º°½Ã Áß±¸ ¼¼Á¾´ë·Î 110', '37.5665', '126.9780'],
-                ['±¤È­¹®±¤Àå', 'PublicWifi-KHM', '¼­¿ïÆ¯º°½Ã Á¾·Î±¸ ¼¼Á¾´ë·Î 172', '37.5759', '126.9768'],
-                ['ÀÎ»çµ¿', 'PublicWifi-IS', '¼­¿ïÆ¯º°½Ã Á¾·Î±¸ ÀÎ»çµ¿±æ 48', '37.5745', '126.9855'],
-            ];
-            var out = document.getElementById('sim-table');
-            if (!out) return;
-            out.innerHTML = '<table style="width:100%;border-collapse:collapse;font-size:10px">' +
-                data.map(function (row, i) {
-                    return '<tr>' + row.map(function (cell) {
-                        return '<td style="padding:3px 6px;border:1px solid #444;color:' + (i === 0 ? '#FF6B35' : '#a0c0ff') + '">' + cell + '</td>';
-                    }).join('') + '</tr>';
-                }).join('') + '</table>';
-            toast('? »ùÇÃ µ¥ÀÌÅÍ ·Îµå ¿Ï·á! ÄÚ´ä¿¡¼­ Á÷Á¢ ºĞ¼®ÇØº¸¼¼¿ä.');
-        }
-
-        document.addEventListener('DOMContentLoaded', function () { loadSC('l203sc'); loadActivity('l203sc_act'); });
-    </script>
-</body>
-
+ï»¿<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>II-3. ë°ì´í„°ì˜ ìˆ˜ì§‘ê³¼ ê´€ë¦¬ â€” ì •ë³´ êµê³¼</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        html {
+            scroll-behavior: smooth
+        }
+
+        body {
+            font-family: 'Noto Sans KR', -apple-system, sans-serif;
+            background: #F5F4F0;
+            color: #1C1C1C;
+            font-size: 14px;
+            line-height: 1.65;
+            display: flex;
+            min-height: 100vh
+        }
+
+        :root {
+            --u: #1B9E72;
+            --udk: #0F6B4C;
+            --ult: #E2F5EE;
+            --umd: #A8DFC8;
+            --bg: #F5F4F0;
+            --sf: #FFF;
+            --br: #E2DFD6;
+            --tx: #1C1C1C;
+            --mt: #696760;
+            --lt: #A8A59E;
+            --green: #2A720E;
+            --gbg: #E8F3DC;
+            --amber: #7A4E0A;
+            --abg: #FAF0DC;
+            --red: #8C1E0E;
+            --rbg: #FAEBE6;
+            --blue: #0A4E8C;
+            --bbg: #E4F0FA;
+            --rLG: 14px;
+            --rSM: 8px;
+            --SW: 240px;
+            --TH: 52px
+        }
+
+        .sb {
+            width: var(--SW);
+            background: var(--sf);
+            border-right: 1px solid var(--br);
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            z-index: 100
+        }
+
+        .sb-top {
+            padding: 16px 14px 12px;
+            border-bottom: 1px solid var(--br)
+        }
+
+        .uchip {
+            display: inline-flex;
+            align-items: center;
+            background: var(--ult);
+            color: var(--u);
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            padding: 3px 9px;
+            border-radius: 20px;
+            margin-bottom: 6px
+        }
+
+        .sb-top h2 {
+            font-size: 12px;
+            font-weight: 700;
+            line-height: 1.4
+        }
+
+        .smeta {
+            font-size: 10px;
+            color: var(--lt);
+            margin-top: 3px
+        }
+
+        .sb-nav {
+            padding: 4px 0;
+            flex: 1
+        }
+
+        .nlbl {
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            color: var(--lt);
+            padding: 7px 13px 3px
+        }
+
+        .na {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 7px 13px;
+            font-size: 11px;
+            color: var(--mt);
+            text-decoration: none;
+            border-left: 2.5px solid transparent;
+            transition: background .12s
+        }
+
+        .na:hover {
+            background: var(--bg);
+            color: var(--tx)
+        }
+
+        .na.on {
+            color: var(--u);
+            font-weight: 600;
+            background: var(--ult);
+            border-left-color: var(--u)
+        }
+
+        .na.done .nn {
+            background: var(--gbg);
+            color: var(--green)
+        }
+
+        .nn {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--br);
+            font-size: 9px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            color: var(--mt)
+        }
+
+        .na.on .nn {
+            background: var(--u);
+            color: #fff
+        }
+
+        .nbadge {
+            margin-left: auto;
+            font-size: 9px;
+            color: var(--lt);
+            background: var(--bg);
+            border: 1px solid var(--br);
+            padding: 1px 5px;
+            border-radius: 10px;
+            white-space: nowrap
+        }
+
+        .sb-foot {
+            padding: 10px 13px;
+            border-top: 1px solid var(--br)
+        }
+
+        .ba {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            color: var(--mt);
+            text-decoration: none;
+            padding: 5px 9px;
+            border-radius: var(--rSM);
+            border: 1px solid var(--br);
+            background: var(--sf);
+            transition: all .12s
+        }
+
+        .ba:hover {
+            background: var(--bg)
+        }
+
+        .main {
+            margin-left: var(--SW);
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            min-width: 0
+        }
+
+        .topbar {
+            background: var(--sf);
+            border-bottom: 1px solid var(--br);
+            height: var(--TH);
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            position: sticky;
+            top: 0;
+            z-index: 90
+        }
+
+        .bc {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 12px;
+            color: var(--mt);
+            flex: 1
+        }
+
+        .bc a {
+            color: var(--mt);
+            text-decoration: none
+        }
+
+        .bc a:hover {
+            color: var(--tx)
+        }
+
+        .bcsep {
+            color: var(--br)
+        }
+
+        .tbr {
+            display: flex;
+            align-items: center;
+            gap: 6px
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 6px 12px;
+            border-radius: var(--rSM);
+            font-size: 12px;
+            font-family: inherit;
+            font-weight: 500;
+            cursor: pointer;
+            border: 1px solid var(--br);
+            background: var(--sf);
+            color: var(--tx);
+            text-decoration: none;
+            transition: background .12s;
+            white-space: nowrap
+        }
+
+        .btn:hover {
+            background: var(--bg)
+        }
+
+        .bsm {
+            padding: 5px 9px;
+            font-size: 11px
+        }
+
+        .bp {
+            background: var(--u);
+            color: #fff;
+            border-color: var(--u)
+        }
+
+        .bp:hover {
+            background: var(--udk)
+        }
+
+        .bok {
+            background: var(--green);
+            color: #fff;
+            border-color: var(--green)
+        }
+
+        .page {
+            padding: 20px 22px;
+            flex: 1
+        }
+
+        .g2 {
+            display: grid;
+            grid-template-columns: 1fr minmax(0, 248px);
+            gap: 16px;
+            align-items: start
+        }
+
+        .cm {
+            min-width: 0
+        }
+
+        .ca {
+            position: sticky;
+            top: calc(var(--TH)+12px)
+        }
+
+        .card {
+            background: var(--sf);
+            border: 1px solid var(--br);
+            border-radius: var(--rLG);
+            margin-bottom: 11px;
+            overflow: hidden
+        }
+
+        .ch {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            padding: 12px 16px;
+            cursor: pointer;
+            border-bottom: 1px solid var(--br);
+            transition: background .12s;
+            user-select: none
+        }
+
+        .ch:hover {
+            background: var(--bg)
+        }
+
+        .sn {
+            width: 26px;
+            height: 26px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 800;
+            flex-shrink: 0
+        }
+
+        .ch h3 {
+            font-size: 13px;
+            font-weight: 600;
+            flex: 1
+        }
+
+        .st {
+            font-size: 10px;
+            color: var(--lt);
+            background: var(--bg);
+            border: 1px solid var(--br);
+            padding: 2px 7px;
+            border-radius: 20px;
+            white-space: nowrap
+        }
+
+        .carr {
+            font-size: 11px;
+            color: var(--lt);
+            transition: transform .2s
+        }
+
+        .card.collapsed .carr {
+            transform: rotate(-90deg)
+        }
+
+        .cb {
+            padding: 18px
+        }
+
+        .card.collapsed .cb {
+            display: none
+        }
+
+        .ach {
+            background: var(--ult);
+            border: 1px solid var(--umd);
+            border-radius: var(--rSM);
+            padding: 10px 13px;
+            margin-bottom: 14px
+        }
+
+        .ach-c {
+            font-family: monospace;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--u);
+            margin-bottom: 3px
+        }
+
+        .ach-t {
+            font-size: 13px;
+            line-height: 1.6
+        }
+
+        .glist {
+            list-style: none
+        }
+
+        .glist li {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            padding: 6px 0;
+            font-size: 13px;
+            border-bottom: 1px solid var(--br);
+            line-height: 1.6
+        }
+
+        .glist li:last-child {
+            border-bottom: none
+        }
+
+        .gck {
+            width: 17px;
+            height: 17px;
+            border-radius: 50%;
+            background: var(--gbg);
+            color: var(--green);
+            font-size: 9px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 2px
+        }
+
+        .ctags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-bottom: 12px
+        }
+
+        .ctag {
+            font-size: 11px;
+            padding: 3px 10px;
+            background: var(--bg);
+            border: 1px solid var(--br);
+            border-radius: 20px;
+            cursor: pointer;
+            color: var(--mt);
+            transition: all .12s
+        }
+
+        .ctag:hover {
+            background: var(--ult);
+            border-color: var(--umd);
+            color: var(--u)
+        }
+
+        .ibox {
+            display: flex;
+            align-items: flex-start;
+            gap: 9px;
+            padding: 10px 13px;
+            border-radius: var(--rSM);
+            font-size: 12px;
+            line-height: 1.6;
+            margin-top: 10px
+        }
+
+        .prev {
+            background: var(--bg);
+            border: 1px solid var(--br);
+            color: var(--mt)
+        }
+
+        .warn {
+            background: #FFFBEC;
+            border: 1px solid #EDD070;
+            color: #6A5000
+        }
+
+        .info {
+            background: var(--bbg);
+            border: 1px solid #BACED8;
+            color: var(--blue)
+        }
+
+        .ok {
+            background: var(--gbg);
+            border: 1px solid #BFDFAA;
+            color: var(--green)
+        }
+
+        .divl {
+            height: 1px;
+            background: var(--br);
+            margin: 13px 0
+        }
+
+        .crow {
+            display: grid;
+            grid-template-columns: 1fr minmax(0, 148px);
+            gap: 13px;
+            align-items: start;
+            margin-bottom: 13px
+        }
+
+        .ct h4 {
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 7px
+        }
+
+        .ct p {
+            font-size: 13px;
+            color: var(--mt);
+            line-height: 1.75
+        }
+
+        .ct ul {
+            padding-left: 1rem;
+            margin-top: 5px
+        }
+
+        .ct ul li {
+            font-size: 13px;
+            color: var(--mt);
+            margin-bottom: 3px;
+            line-height: 1.6
+        }
+
+        .cvis {
+            background: var(--bg);
+            border: 1px solid var(--br);
+            border-radius: var(--rSM);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px
+        }
+
+        /* â”€â”€ ìˆ˜í–‰í™œë™ ì¹´ë“œ â”€â”€ */
+        .activity {
+            background: linear-gradient(135deg, var(--ult), #EDFFF6);
+            border: 2px solid var(--umd);
+            border-radius: var(--rLG);
+            margin-bottom: 11px;
+            overflow: hidden
+        }
+
+        .act-head {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            padding: 12px 16px;
+            border-bottom: 1.5px solid var(--umd);
+            background: var(--ult);
+            cursor: pointer;
+            user-select: none
+        }
+
+        .act-head:hover {
+            background: #D0EEE3
+        }
+
+        .act-badge {
+            background: var(--u);
+            color: #fff;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 20px;
+            white-space: nowrap
+        }
+
+        .act-head h3 {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--udk);
+            flex: 1
+        }
+
+        .act-body {
+            padding: 18px
+        }
+
+        .act-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 10px 12px;
+            background: var(--sf);
+            border: 1px solid var(--br);
+            border-radius: var(--rSM);
+            margin-bottom: 8px;
+            min-height: 160px;
+        }
+
+        .act-num {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: var(--u);
+            color: #fff;
+            font-size: 10px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            flex: none;
+            margin-top: 1px
+        }
+
+        .act-step h4 {
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 4px
+        }
+
+        .act-step p {
+            font-size: 12px;
+            color: var(--mt);
+            line-height: 1.65
+        }
+
+        .act-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+            margin-top: 8px
+        }
+
+        .act-table th {
+            background: var(--u);
+            color: #fff;
+            padding: 7px 10px;
+            font-weight: 600;
+            font-size: 11px;
+            text-align: left
+        }
+
+        .act-table td {
+            padding: 8px 10px;
+            border-bottom: 1px solid var(--br);
+            color: var(--mt);
+            vertical-align: top;
+            line-height: 1.55
+        }
+
+        .act-table tr:last-child td {
+            border-bottom: none
+        }
+
+        .act-input {
+            width: 100%;
+            padding: 8px 10px;
+            border: 1.5px solid var(--br);
+            border-radius: var(--rSM);
+            font-size: 12px;
+            font-family: inherit;
+            background: var(--sf);
+            outline: none;
+            resize: vertical;
+            min-height: 88px;
+            margin-top: 4px
+        }
+
+        .act-input:focus {
+            border-color: var(--u)
+        }
+
+        /* â”€â”€ quiz â”€â”€ */
+        .qwrap {
+            background: var(--bg);
+            border: 1px solid var(--br);
+            border-radius: var(--rSM);
+            padding: 14px;
+            margin-top: 13px
+        }
+
+        .qq {
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 11px;
+            line-height: 1.55
+        }
+
+        .qopts {
+            display: flex;
+            flex-direction: column;
+            gap: 7px
+        }
+
+        .opt {
+            display: flex;
+            align-items: flex-start;
+            gap: 9px;
+            padding: 10px 12px;
+            background: var(--sf);
+            border: 1.5px solid var(--br);
+            border-radius: var(--rSM);
+            cursor: pointer;
+            font-size: 13px;
+            line-height: 1.5;
+            transition: all .12s
+        }
+
+        .opt:hover {
+            border-color: var(--u);
+            background: var(--ult)
+        }
+
+        .opt.correct {
+            border-color: #4A9020;
+            background: var(--gbg);
+            color: #1A5000;
+            pointer-events: none
+        }
+
+        .opt.wrong {
+            border-color: #B03020;
+            background: var(--rbg);
+            color: #6A1000;
+            pointer-events: none
+        }
+
+        .opt.locked {
+            pointer-events: none;
+            opacity: .55
+        }
+
+        .onum {
+            width: 21px;
+            height: 21px;
+            border-radius: 50%;
+            background: var(--br);
+            font-size: 11px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0
+        }
+
+        .opt.correct .onum {
+            background: #4A9020;
+            color: #fff
+        }
+
+        .opt.wrong .onum {
+            background: #B03020;
+            color: #fff
+        }
+
+        .qfb {
+            display: none;
+            margin-top: 9px;
+            padding: 10px 13px;
+            border-radius: var(--rSM);
+            font-size: 12px;
+            line-height: 1.6
+        }
+
+        .qfb.ok {
+            display: block;
+            background: var(--gbg);
+            border: 1px solid #BFDFAA;
+            color: var(--green)
+        }
+
+        .qfb.err {
+            display: block;
+            background: var(--rbg);
+            border: 1px solid #F0B8A0;
+            color: var(--red)
+        }
+
+        /* â”€â”€ assess â”€â”€ */
+        .rub {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+            margin-bottom: 12px
+        }
+
+        .rub th {
+            background: var(--bg);
+            padding: 7px 8px;
+            font-weight: 600;
+            border-bottom: 1.5px solid var(--br);
+            text-align: left;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: .04em;
+            color: var(--mt)
+        }
+
+        .rub td {
+            padding: 8px;
+            border-bottom: 1px solid var(--br);
+            color: var(--mt);
+            vertical-align: top;
+            line-height: 1.5
+        }
+
+        .rub tr:last-child td {
+            border-bottom: none
+        }
+
+        .lv4 {
+            color: #1A6000 !important;
+            font-weight: 500
+        }
+
+        .lv3 {
+            color: #2A6830 !important
+        }
+
+        .lv2 {
+            color: #7A4E00 !important
+        }
+
+        .lv1 {
+            color: #8A2000 !important
+        }
+
+        .peer-check {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 11px;
+            margin-top: 10px
+        }
+
+        .peer-check th {
+            background: var(--ult);
+            padding: 6px 9px;
+            font-weight: 600;
+            border-bottom: 1.5px solid var(--umd);
+            text-align: center;
+            color: var(--u);
+            font-size: 10px
+        }
+
+        .peer-check td {
+            padding: 7px 9px;
+            border-bottom: 1px solid var(--br);
+            color: var(--mt);
+            text-align: center
+        }
+
+        .peer-check td:first-child {
+            text-align: left;
+            font-size: 11px
+        }
+
+        .peer-check input[type=radio] {
+            accent-color: var(--u)
+        }
+
+        /* â”€â”€ sidebar widgets â”€â”€ */
+        .ap {
+            background: var(--sf);
+            border: 1px solid var(--br);
+            border-radius: var(--rLG);
+            padding: 13px;
+            margin-bottom: 10px
+        }
+
+        .ap h5 {
+            font-size: 9px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .1em;
+            color: var(--lt);
+            margin-bottom: 8px
+        }
+
+        .slist {
+            display: flex;
+            flex-direction: column;
+            gap: 3px
+        }
+
+        .si {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            padding: 6px 8px;
+            border-radius: var(--rSM);
+            font-size: 11px;
+            color: var(--mt);
+            cursor: pointer;
+            transition: background .12s
+        }
+
+        .si:hover {
+            background: var(--bg)
+        }
+
+        .dot {
+            width: 19px;
+            height: 19px;
+            border-radius: 50%;
+            background: var(--br);
+            color: var(--lt);
+            font-size: 9px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0
+        }
+
+        .dot.sa {
+            background: var(--u);
+            color: #fff
+        }
+
+        .dot.sd {
+            background: var(--gbg);
+            color: var(--green)
+        }
+
+        .sclist {
+            display: flex;
+            flex-direction: column;
+            gap: 4px
+        }
+
+        .scitem {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            padding: 8px 10px;
+            background: var(--bg);
+            border-radius: var(--rSM);
+            font-size: 12px;
+            border: 1px solid var(--br)
+        }
+
+        .scitem label {
+            flex: 1;
+            line-height: 1.5
+        }
+
+        .scitem select {
+            font-size: 11px;
+            padding: 3px 6px;
+            border: 1px solid var(--br);
+            border-radius: 5px;
+            background: var(--sf);
+            font-family: inherit;
+            color: var(--tx);
+            cursor: pointer;
+            flex-shrink: 0
+        }
+
+        .sgrid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 7px;
+            margin-bottom: 12px
+        }
+
+        .scard {
+            background: var(--bg);
+            border: 1px solid var(--br);
+            border-radius: var(--rSM);
+            padding: 11px 12px;
+            font-size: 12px;
+            line-height: 1.65;
+            color: var(--mt)
+        }
+
+        .scard strong {
+            display: block;
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: .07em;
+            color: var(--lt);
+            margin-bottom: 4px
+        }
+
+        .termlist {
+            display: flex;
+            flex-direction: column
+        }
+
+        .tterm {
+            display: flex;
+            align-items: baseline;
+            gap: 5px;
+            padding: 4px 0;
+            font-size: 11px;
+            border-bottom: 1px solid var(--br)
+        }
+
+        .tterm:last-child {
+            border-bottom: none
+        }
+
+        .tw {
+            font-weight: 600;
+            color: var(--u);
+            white-space: nowrap
+        }
+
+        .tdef {
+            color: var(--mt)
+        }
+
+        .pbtrack {
+            height: 5px;
+            background: var(--umd);
+            border-radius: 3px;
+            overflow: hidden
+        }
+
+        .pbfill {
+            height: 100%;
+            background: var(--u);
+            border-radius: 3px
+        }
+
+        #toast {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%) translateY(10px);
+            background: #1C1C1C;
+            color: #fff;
+            padding: 9px 18px;
+            border-radius: 10px;
+            font-size: 12px;
+            font-family: inherit;
+            z-index: 9999;
+            opacity: 0;
+            transition: opacity .2s, transform .2s;
+            pointer-events: none;
+            white-space: nowrap
+        }
+
+        /* â•â• ë°˜ì‘í˜• ë ˆì´ì•„ì›ƒ â•â• */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box
+        }
+
+        img,
+        canvas,
+        video {
+            max-width: 100%;
+            height: auto;
+            display: block
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse
+        }
+
+        .act-table,
+        .peer-check,
+        .rub {
+            table-layout: fixed;
+            word-break: break-word
+        }
+
+        .act-table td,
+        .act-table th,
+        .rub td,
+        .rub th,
+        .peer-check td,
+        .peer-check th {
+            min-width: 44px;
+            word-break: break-word;
+            overflow-wrap: break-word
+        }
+
+        .act-step>div:not(.act-num) {
+            min-width: 0;
+            flex: 1;
+            overflow-wrap: break-word;
+            word-break: break-word
+        }
+
+        .act-body,
+        .cb {
+            overflow-x: hidden
+        }
+
+        .act-input {
+            width: 100%;
+            box-sizing: border-box
+        }
+
+        .mb-workspace,
+        .mb-row,
+        .mb-indent,
+        .mb-indent2 {
+            flex-wrap: wrap
+        }
+
+        .sim-wrap {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch
+        }
+
+        /* 1100px ì´í•˜ */
+        @media(max-width:1100px) {
+            .g2 {
+                grid-template-columns: 1fr
+            }
+
+            .ca {
+                position: static;
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 10px;
+                margin-top: 12px
+            }
+
+            .ca .ap {
+                flex: 1 1 220px;
+                min-width: 180px
+            }
+
+            .crow {
+                grid-template-columns: 1fr
+            }
+
+            .sgrid {
+                grid-template-columns: 1fr 1fr
+            }
+        }
+
+        /* 900px ì´í•˜ */
+        @media(max-width:900px) {
+            .ca {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 8px;
+                margin-top: 10px
+            }
+
+            .ca .ap {
+                flex: 1 1 180px;
+                min-width: 160px
+            }
+
+            .page {
+                padding: 16px 14px
+            }
+
+            .cb,
+            .act-body {
+                padding: 13px
+            }
+
+            .sgrid {
+                grid-template-columns: 1fr 1fr
+            }
+
+            .crow {
+                grid-template-columns: 1fr
+            }
+        }
+
+        /* 640px ì´í•˜ */
+        @media(max-width:640px) {
+            .page {
+                padding: 11px 10px
+            }
+
+            .cb,
+            .act-body {
+                padding: 10px
+            }
+
+            .sgrid {
+                grid-template-columns: 1fr
+            }
+
+            .act-step {
+                flex-direction: column;
+                gap: 5px
+            }
+
+            .act-num {
+                margin-bottom: 0
+            }
+
+            .ch h3 {
+                font-size: 12px
+            }
+
+            .btn {
+                font-size: 11px;
+                padding: 5px 8px
+            }
+
+            .act-table td,
+            .act-table th {
+                padding: 5px 6px;
+                font-size: 11px
+            }
+
+            .rub td,
+            .rub th {
+                padding: 5px 6px;
+                font-size: 11px
+            }
+
+            .peer-check td,
+            .peer-check th {
+                padding: 5px 6px;
+                font-size: 10px
+            }
+
+            .scard {
+                font-size: 11px
+            }
+
+            .opt {
+                font-size: 12px;
+                padding: 8px 10px
+            }
+
+            .mb,
+            .mb-hole {
+                font-size: 10px;
+                padding: 4px 7px
+            }
+        }
+
+        /* 480px ì´í•˜ */
+        @media(max-width:480px) {
+            :root {
+                --SW: 0px
+            }
+
+            .sb {
+                display: none
+            }
+
+            .main {
+                margin-left: 0
+            }
+
+            .topbar {
+                padding: 0 10px
+            }
+
+            .page {
+                padding: 8px 9px
+            }
+
+            .cb,
+            .act-body {
+                padding: 9px
+            }
+
+            .tbr .btn:last-child {
+                display: none
+            }
+
+            .sgrid {
+                grid-template-columns: 1fr
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <aside class="sb">
+        <div class="sb-top">
+            <div class="uchip">â—ˆ Unit II</div>
+            <h2>ë°ì´í„°</h2>
+            <div class="smeta">ì¤‘ë‹¨ì›2: ë°ì´í„° ë¶„ì„ Â· p.57~63</div>
+        </div>
+        <nav class="sb-nav">
+            <div class="nlbl">ì†Œë‹¨ì› ëª©ë¡</div><a class="na done" href="../lesson-01/index.html">
+                <div class="nn">âœ“</div>ë””ì§€í„¸ í˜•íƒœì˜ ë°ì´í„°
+            </a>
+            <a class="na done" href="../lesson-02/index.html">
+                <div class="nn">âœ“</div>ë‹¤ì–‘í•œ ë°ì´í„°ì˜ ë””ì§€í„¸ í‘œí˜„
+            </a>
+            <a class="na on" href="../lesson-03/index.html">
+                <div class="nn">3</div>ë°ì´í„°ì˜ ìˆ˜ì§‘ê³¼ ê´€ë¦¬<span class="nbadge">2ì°¨ì‹œ</span>
+            </a>
+            <a class="na " href="../lesson-04/index.html">
+                <div class="nn">4</div>ë°ì´í„°ì˜ êµ¬ì¡°í™”ì™€ ë¶„ì„
+            </a>
+            <a class="na " href="../lesson-05/index.html">
+                <div class="nn">5</div>ì¸ê¸° ê³µìœ  ë™ì˜ìƒ ë°ì´í„° ë¶„ì„
+            </a>
+            <a class="na " href="../lesson-06/index.html">
+                <div class="nn">6</div>ê¸‰ì‹ ì”ë°˜ ë°ì´í„° ë¶„ì„
+            </a>
+        </nav>
+        <div class="sb-foot"><a class="ba" href="https://sungce.github.io/lesson/">â† ì •ë³´ êµê³¼ í•™ìŠµ í”Œë«í¼</a></div>
+    </aside>
+    <main class="main">
+        <header class="topbar">
+            <div class="bc"><a href="https://sungce.github.io/lesson/">ì •ë³´ êµê³¼ í•™ìŠµ í”Œë«í¼</a><span class="bcsep">â€º</span><a
+                    href="../../index.html">II. ë°ì´í„°</a><span class="bcsep">â€º</span><span
+                    style="color:var(--tx);font-weight:500">3. ë°ì´í„°ì˜ ìˆ˜ì§‘ê³¼ ê´€ë¦¬</span></div>
+            <div class="tbr">
+                <button class="btn bsm"
+                    onclick="toast('âœ… ì™„ë£Œ í‘œì‹œ!');postToSheets({type:'done',userName:getUserName(),unit:'II',lessonNum:'3',lessonName:'ë°ì´í„° 3ë‹¨ì›'})">âœ“
+                    ì™„ë£Œ í‘œì‹œ</button>
+                <a class="btn bsm bp" href="../lesson-04/index.html">ë‹¤ìŒ ì†Œë‹¨ì› â†’</a>
+            </div>
+        </header>
+        <div class="page">
+            <div class="g2">
+                <div class="cm">
+
+                    <div class="card" id="sec-goal">
+                        <div class="ch" onclick="toggleSec('sec-goal')">
+                            <div class="sn" style="background:var(--ult);color:var(--u)">01</div>
+                            <h3>í•™ìŠµëª©í‘œ</h3><span class="st">â± 5ë¶„</span><span class="carr">â–¾</span>
+                        </div>
+                        <div class="cb">
+                            <div class="ach">
+                                <div class="ach-c">[9ì •02-03] ë°ì´í„° ë¶„ì„</div>
+                                <div class="ach-t">ë¬¸ì œ í•´ê²° ëª©ì ì— ì í•©í•œ ë°ì´í„°ë¥¼ ë‹¤ì–‘í•œ ë°©ë²•ìœ¼ë¡œ ìˆ˜ì§‘í•˜ê³ , ì‘ìš© ì†Œí”„íŠ¸ì›¨ì–´ë¥¼ ì´ìš©í•˜ì—¬ ë°ì´í„°ë¥¼ ëª©ì ì— ë§ê²Œ êµ¬ë¶„í•˜ê³  ê´€ë¦¬í• 
+                                    ìˆ˜ ìˆë‹¤. (pp.57~63)</div>
+                            </div>
+                            <ul class="glist">
+                                <li>
+                                    <div class="gck">âœ“</div>ë¬¸ì œ í•´ê²°ì— ì í•©í•œ ë°ì´í„°ë¥¼ ì„ ë³„í•˜ê³  ì„¤ëª…í•  ìˆ˜ ìˆë‹¤.
+                                </li>
+                                <li>
+                                    <div class="gck">âœ“</div>ì§ì ‘ ìˆ˜ì§‘(ì¸í„°ë·°Â·ê´€ì°°Â·ì„¤ë¬¸Â·ì„¼ì„œ)ê³¼ ê°„ì ‘ ìˆ˜ì§‘(ê²€ìƒ‰ ì—”ì§„Â·ì›¹ì‚¬ì´íŠ¸)ì˜ ì°¨ì´ë¥¼ ì„¤ëª…í•  ìˆ˜ ìˆë‹¤.
+                                </li>
+                                <li>
+                                    <div class="gck">âœ“</div>ë°ì´í„° ì†ì„±ì˜ ì˜ë¯¸ë¥¼ ì´í•´í•˜ê³  ë²”ì£¼í˜•Â·ìˆ˜ì¹˜í˜• ë°ì´í„°ë¥¼ êµ¬ë¶„í•  ìˆ˜ ìˆë‹¤.
+                                </li>
+                                <li>
+                                    <div class="gck">âœ“</div>ì½”ë‹µ(CODAP)ì„ ì´ìš©í•˜ì—¬ ë°ì´í„°ë¥¼ ê´€ë¦¬í•  ìˆ˜ ìˆë‹¤.
+                                </li>
+                            </ul>
+                            <div class="divl"></div>
+                            <div class="ctags">
+                                <span class="ctag" onclick="goTo('sec-concept')">ë°ì´í„° ìˆ˜ì§‘</span>
+                                <span class="ctag" onclick="goTo('sec-concept')">ë°ì´í„° ì†ì„±</span>
+                                <span class="ctag" onclick="goTo('sec-concept')">ë²”ì£¼í˜•Â·ìˆ˜ì¹˜í˜•</span>
+                                <span class="ctag" onclick="goTo('sec-concept')">ì½”ë‹µ(CODAP)</span>
+                            </div>
+                            <div class="ibox prev">ğŸ“Œ <b>ì¤‘ë‹¨ì›2 ì‹œì‘:</b> ë°ì´í„° í‘œí˜„ì„ ë°°ì› ìŠµë‹ˆë‹¤. ì´ì œ ë¬¸ì œ í•´ê²°ì„ ìœ„í•´ ì–´ë–¤ ë°ì´í„°ë¥¼ ì–´ë–»ê²Œ ëª¨ìœ¼ê³  ê´€ë¦¬í•˜ëŠ”ì§€
+                                íƒêµ¬í•©ë‹ˆë‹¤.</div>
+                        </div>
+                    </div>
+
+                    <div class="card" id="sec-concept">
+                        <div class="ch" onclick="toggleSec('sec-concept')">
+                            <div class="sn" style="background:var(--gbg);color:var(--green)">02</div>
+                            <h3>ê°œë…ì„¤ëª…</h3><span class="st">â± 20ë¶„</span><span class="carr">â–¾</span>
+                        </div>
+                        <div class="cb">
+                            <h4 style="font-size:13px;font-weight:700;margin-bottom:9px">â‘  ë¬¸ì œ í•´ê²°ì— ì í•©í•œ ë°ì´í„° ì„ íƒ</h4>
+                            <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:13px">
+                                <div
+                                    style="background:var(--bg);border:1px solid var(--br);border-radius:var(--rSM);padding:11px">
+                                    <div style="font-size:11px;font-weight:700;color:var(--u);margin-bottom:5px">ğŸ“± ë¬¸ì œ:
+                                        ìŠ¤ë§ˆíŠ¸í° ì‚¬ìš© ìŠµê´€ ê°œì„ </div>
+                                    <div style="font-size:11px;color:var(--mt);line-height:1.75">â†’ ì‚¬ìš© ì•± ì¢…ë¥˜Â·ì‚¬ìš© íšŸìˆ˜Â·ì‚¬ìš© ì¥ì†ŒÂ·ì´
+                                        ì‚¬ìš© ì‹œê°„</div>
+                                </div>
+                                <div
+                                    style="background:var(--bg);border:1px solid var(--br);border-radius:var(--rSM);padding:11px">
+                                    <div style="font-size:11px;font-weight:700;color:var(--u);margin-bottom:5px">ğŸ½ï¸ ë¬¸ì œ:
+                                        ê¸‰ì‹ ì”ë°˜ëŸ‰ ì¤„ì´ê¸°</div>
+                                    <div style="font-size:11px;color:var(--mt);line-height:1.75">â†’ ì‹ë‹¨Â·ê¸‰ì‹ ì¸ì›Â·ì”ë°˜ëŸ‰Â·ë‚ ì§œ ë°ì´í„°
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="divl"></div>
+                            <h4 style="font-size:13px;font-weight:700;margin-bottom:9px">â‘¡ ë°ì´í„° ìˆ˜ì§‘ ë°©ë²•</h4>
+                            <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:12px">
+                                <div
+                                    style="background:var(--ult);border:1px solid var(--umd);border-radius:var(--rSM);padding:12px">
+                                    <div style="font-size:12px;font-weight:700;color:var(--u);margin-bottom:7px">ğŸ“¥ ì§ì ‘
+                                        ìˆ˜ì§‘</div>
+                                    <div style="font-size:11px;color:var(--mt);line-height:1.85">â€¢ <b>ì¸í„°ë·°:</b> ì§ˆë¬¸Â·ë‹µë³€ìœ¼ë¡œ
+                                        ì˜ê²¬ ìˆ˜ì§‘<br>â€¢ <b>ê´€ì°°:</b> ì˜¤ê°Â·ê´€ì°° ë„êµ¬ë¡œ ê¸°ë¡<br>â€¢ <b>ì„¤ë¬¸ ì¡°ì‚¬:</b> ì„¤ë¬¸ì§€ë¡œ ë‹µë³€ ëª¨ìŒ<br>â€¢ <b>ì„¼ì„œ
+                                            ì´ìš©:</b> ë¹›Â·ì˜¨ë„Â·ìŠµë„ ì¸¡ì •<br><span style="color:var(--green)">ì¥ì :</span> ëª©ì ì— ë§ëŠ” ì •í™•í•œ
+                                        ë°ì´í„°<br><span style="color:var(--red)">ë‹¨ì :</span> ì‹œê°„Â·ë¹„ìš© ë§ì´ ë“¦</div>
+                                </div>
+                                <div
+                                    style="background:var(--gbg);border:1px solid #BFDFAA;border-radius:var(--rSM);padding:12px">
+                                    <div style="font-size:12px;font-weight:700;color:var(--green);margin-bottom:7px">ğŸŒ
+                                        ê°„ì ‘ ìˆ˜ì§‘</div>
+                                    <div style="font-size:11px;color:var(--mt);line-height:1.85">â€¢ <b>ê²€ìƒ‰ ì—”ì§„:</b> ì¸í„°ë„·
+                                        ê²€ìƒ‰ìœ¼ë¡œ ìˆ˜ì§‘<br>â€¢ <b>ê³µê³µë°ì´í„°í¬í„¸:</b> data.go.kr<br>â€¢ <b>êµ­ê°€í†µê³„í¬í„¸:</b> kosis.kr<br>â€¢
+                                        <b>ìºê¸€:</b> kaggle.com<br><span style="color:var(--green)">ì¥ì :</span> ë¹ ë¥´ê³ 
+                                        í¸ë¦¬<br><span style="color:var(--red)">ë‹¨ì :</span> ê²€ì¦ í•„ìš”Â·ì í•©í•œ ë°ì´í„° ì°¾ê¸° ì–´ë ¤ì›€</div>
+                                </div>
+                            </div>
+                            <div class="divl"></div>
+                            <h4 style="font-size:13px;font-weight:700;margin-bottom:9px">â‘¢ ë°ì´í„° ì†ì„±ê³¼ êµ¬ë¶„</h4>
+                            <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:12px">
+                                <div
+                                    style="background:var(--bbg);border:1px solid #BACED8;border-radius:var(--rSM);padding:12px">
+                                    <div style="font-size:12px;font-weight:700;color:var(--blue);margin-bottom:5px">ğŸ”¤
+                                        ë²”ì£¼í˜• ë°ì´í„°</div>
+                                    <div style="font-size:12px;color:var(--mt);line-height:1.75">ë¬¸ìë‚˜ ê¸°í˜¸ë¡œ ëŒ€ìƒì„ <b>êµ¬ë¶„</b>í•˜ëŠ”
+                                        ë°ì´í„°<br>ì˜ˆ) ì„±ë³„(ë‚¨Â·ì—¬), í˜ˆì•¡í˜•(AÂ·BÂ·OÂ·AB), ì„±ì·¨ ë“±ê¸‰, ì—¬í–‰ì§€ ì´ë¦„, êµí†µìˆ˜ë‹¨</div>
+                                </div>
+                                <div
+                                    style="background:var(--abg);border:1px solid #EDD070;border-radius:var(--rSM);padding:12px">
+                                    <div style="font-size:12px;font-weight:700;color:var(--amber);margin-bottom:5px">ğŸ”¢
+                                        ìˆ˜ì¹˜í˜• ë°ì´í„°</div>
+                                    <div style="font-size:12px;color:var(--mt);line-height:1.75">ìˆ«ìë¡œ ê°’ì„ í‘œì‹œí•˜ê³  <b>í¬ê¸°Â·ì°¨ì´ë¥¼
+                                            ë¹„êµ</b>í•˜ëŠ” ë°ì´í„°<br>ì˜ˆ) í‚¤Â·ëª¸ë¬´ê²Œ, ê¸°ì˜¨Â·ê°•ìˆ˜ëŸ‰, ìœ„ë„Â·ê²½ë„, ì¶”ì˜ ë¬´ê²Œ</div>
+                                </div>
+                            </div>
+                            <div class="ibox info">ğŸ“– <b>êµê³¼ì„œ ì—°ê³„:</b> pp.57~63 / ì½”ë‹µ(CODAP): https://codap.concord.org
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- â˜… ìˆ˜í–‰ í™œë™ â˜… -->
+                    <div class="activity" id="sec-activity">
+                        <div class="act-head" onclick="toggleSec('act-body-03')">
+                            <span class="act-badge">â˜… ìˆ˜í–‰ í™œë™</span>
+                            <h3>ì‘ìš© ì†Œí”„íŠ¸ì›¨ì–´ë¥¼ ì´ìš©í•´ ìˆ˜ì§‘í•œ ë°ì´í„° ê´€ë¦¬í•˜ê¸°</h3>
+                            <span style="font-size:10px;color:var(--udk);margin-left:auto">ê°œë³„ í™œë™ | pp.63</span>
+                            <span class="carr" style="color:var(--udk)">â–¾</span>
+                        </div>
+                        <div id="act-body-03" class="act-body">
+                            <div class="ibox ok" style="margin-top:0;margin-bottom:14px">ğŸ’¡ ë°ì´í„° ì „ë¬¸ ì›¹ì‚¬ì´íŠ¸ì—ì„œ ë°ì´í„°ë¥¼ ìˆ˜ì§‘í•˜ê³ 
+                                ì½”ë‹µ(CODAP)ìœ¼ë¡œ ê´€ë¦¬í•´ë´…ë‹ˆë‹¤. (êµê³¼ì„œ p.63 í•´ë³´ê¸°)</div>
+                            <div class="act-step">
+                                <div class="act-num">1</div>
+                                <div>
+                                    <h4>ë¬¸ì œ í•´ê²°ì— ì í•©í•œ ë°ì´í„° ì„ ì •</h4>
+                                    <p>í•´ê²°í•˜ê³  ì‹¶ì€ ë¬¸ì œë¥¼ ì •í•˜ê³ , í•„ìš”í•œ ë°ì´í„°ì™€ ìˆ˜ì§‘ ë°©ë²•ì„ ê³„íší•˜ì„¸ìš”.</p>
+                                    <div style="overflow-x:auto">
+                                        <table class="act-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>í•´ê²°í•  ë¬¸ì œ</th>
+                                                    <th>í•„ìš”í•œ ë°ì´í„°</th>
+                                                    <th>ìˆ˜ì§‘ ë°©ë²•</th>
+                                                    <th>ë²”ì£¼í˜•/ìˆ˜ì¹˜í˜•</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td rowspan="3"><input class="act-input" style="min-height:88px"
+                                                            placeholder="ì˜ˆ) ìš°ë¦¬ í•™êµ ì£¼ë³€ ë¬´ë£Œ ì™€ì´íŒŒì´ ìœ„ì¹˜ë¥¼ ì§€ë„ì— í‘œì‹œí•˜ë ¤ë©´?"></td>
+                                                    <td><input class="act-input" style="min-height:44px;resize:none"
+                                                            placeholder="ë°ì´í„° ì†ì„± 1"></td>
+                                                    <td><input class="act-input" style="min-height:44px;resize:none"
+                                                            placeholder="ìˆ˜ì§‘ ë°©ë²•"></td>
+                                                    <td><select
+                                                            style="width:100%;padding:5px;border:1px solid var(--br);border-radius:var(--rSM);font-size:11px;font-family:inherit">
+                                                            <option>ì„ íƒ</option>
+                                                            <option>ë²”ì£¼í˜•</option>
+                                                            <option>ìˆ˜ì¹˜í˜•</option>
+                                                        </select></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><input class="act-input" style="min-height:44px;resize:none"
+                                                            placeholder="ë°ì´í„° ì†ì„± 2"></td>
+                                                    <td><input class="act-input" style="min-height:44px;resize:none"
+                                                            placeholder="ìˆ˜ì§‘ ë°©ë²•"></td>
+                                                    <td><select
+                                                            style="width:100%;padding:5px;border:1px solid var(--br);border-radius:var(--rSM);font-size:11px;font-family:inherit">
+                                                            <option>ì„ íƒ</option>
+                                                            <option>ë²”ì£¼í˜•</option>
+                                                            <option>ìˆ˜ì¹˜í˜•</option>
+                                                        </select></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><input class="act-input" style="min-height:44px;resize:none"
+                                                            placeholder="ë°ì´í„° ì†ì„± 3"></td>
+                                                    <td><input class="act-input" style="min-height:44px;resize:none"
+                                                            placeholder="ìˆ˜ì§‘ ë°©ë²•"></td>
+                                                    <td><select
+                                                            style="width:100%;padding:5px;border:1px solid var(--br);border-radius:var(--rSM);font-size:11px;font-family:inherit">
+                                                            <option>ì„ íƒ</option>
+                                                            <option>ë²”ì£¼í˜•</option>
+                                                            <option>ìˆ˜ì¹˜í˜•</option>
+                                                        </select></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="act-step">
+                                <div class="act-num">2</div>
+                                <div>
+                                    <h4>ë°ì´í„° ìˆ˜ì§‘ ì‹œë®¬ë ˆì´í„°</h4>
+                                    <p>ì•„ë˜ ë²„íŠ¼ì„ í´ë¦­í•˜ì—¬ ë°ì´í„° ì „ë¬¸ ì›¹ì‚¬ì´íŠ¸ì— ì ‘ì†í•˜ê³  ë°ì´í„°ë¥¼ ìˆ˜ì§‘í•©ë‹ˆë‹¤.</p>
+                                    <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px">
+                                        <a href="https://www.data.go.kr" target="_blank" class="btn bsm"
+                                            style="background:var(--u);color:#fff;border-color:var(--udk)">ğŸ”— ê³µê³µë°ì´í„°í¬í„¸
+                                            â†—</a>
+                                        <a href="https://kosis.kr" target="_blank" class="btn bsm"
+                                            style="background:var(--u);color:#fff;border-color:var(--udk)">ğŸ”— êµ­ê°€í†µê³„í¬í„¸
+                                            â†—</a>
+                                        <a href="https://www.localdata.go.kr" target="_blank" class="btn bsm"
+                                            style="background:var(--u);color:#fff;border-color:var(--udk)">ğŸ”— ì§€ë°©í–‰ì • ì¸í—ˆê°€
+                                            ë°ì´í„° â†—</a>
+                                    </div>
+                                    <div id="collect-sim"
+                                        style="background:#1e1e2e;border-radius:var(--rSM);padding:14px;margin-bottom:10px">
+                                        <div style="font-size:10px;color:#aaa;margin-bottom:8px">ê°€ìƒ ë°ì´í„° ìˆ˜ì§‘ ì²´í—˜ (ë¬´ë£Œ ì™€ì´íŒŒì´
+                                            ë°ì´í„° ì˜ˆì‹œ)</div>
+                                        <div id="sim-table"
+                                            style="font-family:monospace;font-size:11px;color:#a0c0ff;line-height:2">ë²„íŠ¼ì„
+                                            í´ë¦­í•˜ì—¬ ë°ì´í„° ë¶ˆëŸ¬ì˜¤ê¸°</div>
+                                        <button class="btn bsm" onclick="loadSampleData()"
+                                            style="background:#1B9E72;color:#fff;border-color:#0F6B4C;margin-top:8px">ğŸ“¥
+                                            ìƒ˜í”Œ ë°ì´í„° ë¶ˆëŸ¬ì˜¤ê¸°</button>
+                                    </div>
+                                    <textarea class="act-input"
+                                        placeholder="ìˆ˜ì§‘í•œ ë°ì´í„°ì˜ ì†ì„±ì„ ê¸°ë¡í•˜ê³ , ë²”ì£¼í˜•Â·ìˆ˜ì¹˜í˜•ì„ êµ¬ë¶„í•´ë³´ì„¸ìš”..."></textarea>
+                                </div>
+                            </div>
+                            <div class="act-step">
+                                <div class="act-num">3</div>
+                                <div>
+                                    <h4>ì½”ë‹µ(CODAP)ìœ¼ë¡œ ë°ì´í„° ê´€ë¦¬í•˜ê¸°</h4>
+                                    <p>ì½”ë‹µì—ì„œ ìˆ˜ì§‘í•œ ë°ì´í„°ë¥¼ ì…ë ¥í•˜ê³ , ë¶ˆí•„ìš”í•œ ì†ì„±ì„ ì‚­ì œí•˜ì—¬ ëª©ì ì— ë§ê²Œ ì •ë¦¬í•©ë‹ˆë‹¤.</p>
+                                    <div style="display:flex;gap:8px;margin-bottom:10px">
+                                        <a href="https://codap.concord.org" target="_blank" class="btn bsm bp">ì½”ë‹µ(CODAP)
+                                            ì—´ê¸° â†—</a>
+                                    </div>
+                                    <div style="overflow-x:auto">
+                                        <table class="act-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>ì½”ë‹µ ì‘ì—… ë‹¨ê³„</th>
+                                                    <th>ì‘ì—… ë‚´ìš©</th>
+                                                    <th>ì™„ë£Œ ì—¬ë¶€</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>â‘  ìƒˆ ë¬¸ì„œ ìƒì„±</td>
+                                                    <td>ì½”ë‹µ ì‹¤í–‰ â†’ 'ìƒˆ ë¬¸ì„œ' í´ë¦­</td>
+                                                    <td><input type="checkbox"
+                                                            style="accent-color:var(--u);width:16px;height:16px"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>â‘¡ ë°ì´í„° íŒŒì¼ ë¶ˆëŸ¬ì˜¤ê¸°</td>
+                                                    <td>CSV íŒŒì¼ì„ ì½”ë‹µìœ¼ë¡œ ë“œë˜ê·¸</td>
+                                                    <td><input type="checkbox"
+                                                            style="accent-color:var(--u);width:16px;height:16px"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>â‘¢ ì†ì„± ì´ë¦„ ë°”ê¾¸ê¸°</td>
+                                                    <td>ì˜ì–´ ì†ì„±ëª… â†’ í•œê¸€ë¡œ ë³€ê²½</td>
+                                                    <td><input type="checkbox"
+                                                            style="accent-color:var(--u);width:16px;height:16px"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>â‘£ ë¶ˆí•„ìš” ì†ì„± ì‚­ì œ</td>
+                                                    <td>ëª©ì ì— ë¶ˆí•„ìš”í•œ ì†ì„± ì‚­ì œ</td>
+                                                    <td><input type="checkbox"
+                                                            style="accent-color:var(--u);width:16px;height:16px"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>â‘¤ íŒŒì¼ ì €ì¥Â·ê³µìœ </td>
+                                                    <td>ì™„ì„±ëœ íŒŒì¼ ì €ì¥ ë° ì¹œêµ¬ì™€ ê³µìœ </td>
+                                                    <td><input type="checkbox"
+                                                            style="accent-color:var(--u);width:16px;height:16px"></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <textarea class="act-input" style="margin-top:8px"
+                                        placeholder="ì½”ë‹µì„ ì‚¬ìš©í•œ ë°ì´í„° ê´€ë¦¬ ê³¼ì •ì—ì„œ ì•Œê²Œ ëœ ì ì„ ê¸°ë¡í•˜ì„¸ìš”..."></textarea>
+                                </div>
+                            </div>
+                            <div style="display:flex;gap:8px;margin-top:12px">
+                                <button class="btn bsm bp" onclick="saveActivity('l203_act')">ğŸ’¾ í™œë™ ì €ì¥</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- â˜… ìˆ˜ì—… ìë£Œ ë‹¤ìš´ë¡œë“œ + ì„¤ë¬¸ì¡°ì‚¬ â˜… -->
+                    <div class="card" id="sec-materials">
+                        <div class="ch" onclick="toggleSec('sec-materials')">
+                            <div class="sn" style="background:#FFF3CD;color:#7A4E0A">ğŸ“‚</div>
+                            <h3>ìˆ˜ì—… ìë£Œ &amp; ì„¤ë¬¸ ì¡°ì‚¬</h3>
+                            <span class="st">ì„¤ë¬¸ì§€ PDF 6ì¢…</span>
+                            <span class="carr">â–¾</span>
+                        </div>
+                        <div class="cb">
+
+                            <!-- ì„¤ë¬¸ì§€ PDF ë‹¤ìš´ë¡œë“œ -->
+                            <h4 style="font-size:13px;font-weight:700;margin-bottom:5px">ğŸ“„ ì„¤ë¬¸ ì¡°ì‚¬ì§€ PDF ë‹¤ìš´ë¡œë“œ</h4>
+                            <p style="font-size:12px;color:var(--mt);margin-bottom:14px">ì•„ë˜ 6ê°€ì§€ ì£¼ì œ ì¤‘ í•˜ë‚˜ë¥¼ ì„ íƒí•˜ì—¬ ì„¤ë¬¸ ì¡°ì‚¬ì§€ë¥¼
+                                ì¶œë ¥í•˜ê³ , í•™ê¸‰ ì¹œêµ¬ë“¤ì„ ëŒ€ìƒìœ¼ë¡œ ë°ì´í„°ë¥¼ ì§ì ‘ ìˆ˜ì§‘í•´ë´…ì‹œë‹¤.</p>
+
+                            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:22px">
+
+                                <a href="ì¤‘1_ì •ë³´_ì„¤ë¬¸ì¡°ì‚¬_01_ìŠ¤ë§ˆíŠ¸í°_ì‚¬ìš©_ì‹¤íƒœ_ì¡°ì‚¬.pdf" download
+                                    style="display:flex;align-items:center;gap:12px;padding:13px 15px;background:#FFF8F0;border:1.5px solid #FFCC80;border-radius:var(--rLG);text-decoration:none;color:inherit;transition:box-shadow .15s"
+                                    onmouseover="this.style.boxShadow='0 4px 14px rgba(255,150,0,.18)'"
+                                    onmouseout="this.style.boxShadow=''">
+                                    <span style="font-size:28px;flex-shrink:0">ğŸ“±</span>
+                                    <div>
+                                        <div style="font-size:12px;font-weight:700;color:#7A4E0A;margin-bottom:2px">ì£¼ì œ
+                                            01</div>
+                                        <div style="font-size:13px;font-weight:700;margin-bottom:3px">ìŠ¤ë§ˆíŠ¸í° ì‚¬ìš© ì‹¤íƒœ ì¡°ì‚¬
+                                        </div>
+                                        <div style="font-size:10px;color:var(--lt)">PDF 184KB &nbsp;â†“ ë‹¤ìš´ë¡œë“œ</div>
+                                    </div>
+                                </a>
+
+                                <a href="ì¤‘1_ì •ë³´_ì„¤ë¬¸ì¡°ì‚¬_02_í•™êµ_ê¸‰ì‹_ë§Œì¡±ë„_ì¡°ì‚¬.pdf" download
+                                    style="display:flex;align-items:center;gap:12px;padding:13px 15px;background:#F0FFF4;border:1.5px solid #A8DFC8;border-radius:var(--rLG);text-decoration:none;color:inherit;transition:box-shadow .15s"
+                                    onmouseover="this.style.boxShadow='0 4px 14px rgba(27,158,114,.18)'"
+                                    onmouseout="this.style.boxShadow=''">
+                                    <span style="font-size:28px;flex-shrink:0">ğŸ½ï¸</span>
+                                    <div>
+                                        <div style="font-size:12px;font-weight:700;color:var(--udk);margin-bottom:2px">
+                                            ì£¼ì œ 02</div>
+                                        <div style="font-size:13px;font-weight:700;margin-bottom:3px">í•™êµ ê¸‰ì‹ ë§Œì¡±ë„ ì¡°ì‚¬</div>
+                                        <div style="font-size:10px;color:var(--lt)">PDF 184KB &nbsp;â†“ ë‹¤ìš´ë¡œë“œ</div>
+                                    </div>
+                                </a>
+
+                                <a href="ì¤‘1_ì •ë³´_ì„¤ë¬¸ì¡°ì‚¬_03_ë…ì„œ_ìŠµê´€_ë°_ì„ í˜¸_ì¡°ì‚¬.pdf" download
+                                    style="display:flex;align-items:center;gap:12px;padding:13px 15px;background:#F0F4FF;border:1.5px solid #BACED8;border-radius:var(--rLG);text-decoration:none;color:inherit;transition:box-shadow .15s"
+                                    onmouseover="this.style.boxShadow='0 4px 14px rgba(10,78,140,.15)'"
+                                    onmouseout="this.style.boxShadow=''">
+                                    <span style="font-size:28px;flex-shrink:0">ğŸ“š</span>
+                                    <div>
+                                        <div style="font-size:12px;font-weight:700;color:var(--blue);margin-bottom:2px">
+                                            ì£¼ì œ 03</div>
+                                        <div style="font-size:13px;font-weight:700;margin-bottom:3px">ë…ì„œ ìŠµê´€ ë° ì„ í˜¸ ì¡°ì‚¬
+                                        </div>
+                                        <div style="font-size:10px;color:var(--lt)">PDF 184KB &nbsp;â†“ ë‹¤ìš´ë¡œë“œ</div>
+                                    </div>
+                                </a>
+
+                                <a href="ì¤‘1_ì •ë³´_ì„¤ë¬¸ì¡°ì‚¬_04_ìˆ˜ë©´_ë°_ìƒí™œ_íŒ¨í„´_ì¡°ì‚¬.pdf" download
+                                    style="display:flex;align-items:center;gap:12px;padding:13px 15px;background:#F5F0FF;border:1.5px solid #C8C4F0;border-radius:var(--rLG);text-decoration:none;color:inherit;transition:box-shadow .15s"
+                                    onmouseover="this.style.boxShadow='0 4px 14px rgba(108,101,204,.18)'"
+                                    onmouseout="this.style.boxShadow=''">
+                                    <span style="font-size:28px;flex-shrink:0">ğŸ˜´</span>
+                                    <div>
+                                        <div style="font-size:12px;font-weight:700;color:#4E48A8;margin-bottom:2px">ì£¼ì œ
+                                            04</div>
+                                        <div style="font-size:13px;font-weight:700;margin-bottom:3px">ìˆ˜ë©´ ë° ìƒí™œ íŒ¨í„´ ì¡°ì‚¬
+                                        </div>
+                                        <div style="font-size:10px;color:var(--lt)">PDF 184KB &nbsp;â†“ ë‹¤ìš´ë¡œë“œ</div>
+                                    </div>
+                                </a>
+
+                                <a href="ì¤‘1_ì •ë³´_ì„¤ë¬¸ì¡°ì‚¬_05_í™˜ê²½_ë³´í˜¸_ì˜ì‹_ì¡°ì‚¬.pdf" download
+                                    style="display:flex;align-items:center;gap:12px;padding:13px 15px;background:#F0FFF8;border:1.5px solid #BFDFAA;border-radius:var(--rLG);text-decoration:none;color:inherit;transition:box-shadow .15s"
+                                    onmouseover="this.style.boxShadow='0 4px 14px rgba(42,114,14,.15)'"
+                                    onmouseout="this.style.boxShadow=''">
+                                    <span style="font-size:28px;flex-shrink:0">ğŸŒ±</span>
+                                    <div>
+                                        <div
+                                            style="font-size:12px;font-weight:700;color:var(--green);margin-bottom:2px">
+                                            ì£¼ì œ 05</div>
+                                        <div style="font-size:13px;font-weight:700;margin-bottom:3px">í™˜ê²½ ë³´í˜¸ ì˜ì‹ ì¡°ì‚¬</div>
+                                        <div style="font-size:10px;color:var(--lt)">PDF 184KB &nbsp;â†“ ë‹¤ìš´ë¡œë“œ</div>
+                                    </div>
+                                </a>
+
+                                <a href="ì¤‘1_ì •ë³´_ì„¤ë¬¸ì¡°ì‚¬_06_ì—¬ê°€_ë°_ì·¨ë¯¸_í™œë™_ì¡°ì‚¬.pdf" download
+                                    style="display:flex;align-items:center;gap:12px;padding:13px 15px;background:#FFF0F5;border:1.5px solid #F0B8A0;border-radius:var(--rLG);text-decoration:none;color:inherit;transition:box-shadow .15s"
+                                    onmouseover="this.style.boxShadow='0 4px 14px rgba(140,30,14,.12)'"
+                                    onmouseout="this.style.boxShadow=''">
+                                    <span style="font-size:28px;flex-shrink:0">ğŸ¨</span>
+                                    <div>
+                                        <div style="font-size:12px;font-weight:700;color:var(--red);margin-bottom:2px">
+                                            ì£¼ì œ 06</div>
+                                        <div style="font-size:13px;font-weight:700;margin-bottom:3px">ì—¬ê°€ ë° ì·¨ë¯¸ í™œë™ ì¡°ì‚¬
+                                        </div>
+                                        <div style="font-size:10px;color:var(--lt)">PDF 184KB &nbsp;â†“ ë‹¤ìš´ë¡œë“œ</div>
+                                    </div>
+                                </a>
+
+                            </div>
+
+                            <!-- êµ¬ë¶„ì„  -->
+                            <div style="height:1px;background:var(--br);margin-bottom:20px"></div>
+
+                            <!-- ì˜¨ë¼ì¸ ì„¤ë¬¸ -->
+                            <h4 style="font-size:13px;font-weight:700;margin-bottom:5px">ğŸ”— ì˜¨ë¼ì¸ ì„¤ë¬¸ ì¡°ì‚¬ ì°¸ì—¬í•˜ê¸°</h4>
+                            <p style="font-size:12px;color:var(--mt);margin-bottom:14px">ì¶œë ¥ ì„¤ë¬¸ì§€ ì‘ì„±ì´ ëë‚¬ë‹¤ë©´, ì•„ë˜ ë²„íŠ¼ì„ í´ë¦­í•˜ì—¬ êµ¬ê¸€
+                                í¼ ì˜¨ë¼ì¸ ì„¤ë¬¸ì—ë„ ì‘ë‹µí•´ë´…ì‹œë‹¤. ìˆ˜ì§‘ëœ ë°ì´í„°ëŠ” ë‹¤ìŒ ìˆ˜ì—…ì—ì„œ í•¨ê»˜ ë¶„ì„í•©ë‹ˆë‹¤.</p>
+
+                            <a href="https://forms.gle/UbcuMx9UW2cpzJwVA" target="_blank" rel="noopener"
+                                style="display:flex;align-items:center;justify-content:center;gap:12px;padding:18px 24px;background:linear-gradient(135deg,#1B9E72,#0F6B4C);border-radius:var(--rLG);text-decoration:none;color:#fff;font-weight:700;font-size:14px;transition:opacity .15s;box-shadow:0 4px 16px rgba(27,158,114,.35)"
+                                onmouseover="this.style.opacity='.88'" onmouseout="this.style.opacity='1'">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <rect x="3" y="3" width="18" height="18" rx="3" fill="white" fill-opacity="0.25" />
+                                    <rect x="7" y="8" width="10" height="1.5" rx="0.75" fill="white" />
+                                    <rect x="7" y="11" width="10" height="1.5" rx="0.75" fill="white" />
+                                    <rect x="7" y="14" width="6" height="1.5" rx="0.75" fill="white" />
+                                </svg>
+                                ğŸ“‹ &nbsp;êµ¬ê¸€ í¼ ì˜¨ë¼ì¸ ì„¤ë¬¸ ì¡°ì‚¬ ì°¸ì—¬í•˜ê¸° &nbsp;â†—
+                            </a>
+
+                            <div
+                                style="display:flex;align-items:flex-start;gap:8px;padding:10px 13px;background:#FFFBEC;border:1px solid #EDD070;border-radius:var(--rSM);font-size:12px;color:#6A5000;margin-top:12px">
+                                âš ï¸ <span>ì„¤ë¬¸ ê²°ê³¼ëŠ” ìˆ˜ì—… í™œë™ì—ë§Œ í™œìš©ë˜ë©°, ê°œì¸ ì •ë³´ëŠ” ìˆ˜ì§‘ë˜ì§€ ì•ŠìŠµë‹ˆë‹¤. ì†”ì§í•˜ê³  ì„±ì‹¤í•˜ê²Œ ì‘ë‹µí•´ì£¼ì„¸ìš”!</span>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="card" id="sec-assess">
+                        <div class="ch" onclick="toggleSec('sec-assess')">
+                            <div class="sn" style="background:var(--bbg);color:var(--blue)">04</div>
+                            <h3>ìˆ˜í–‰í‰ê°€</h3><span class="st">â± 5ë¶„</span><span class="carr">â–¾</span>
+                        </div>
+                        <div class="cb">
+                            <div
+                                style="background:var(--bg);border:1px solid var(--br);border-radius:var(--rSM);padding:12px;margin-bottom:12px;border-left:3px solid var(--u)">
+                                <h4 style="font-size:13px;font-weight:700;color:var(--u);margin-bottom:7px">ğŸ“‹ ë°ì´í„° ìˆ˜ì§‘
+                                    ê³„íšì„œ + ì½”ë‹µ ê´€ë¦¬</h4>
+                                <p style="font-size:13px;color:var(--mt)">ì‹¤ìƒí™œ ë¬¸ì œë¥¼ í•˜ë‚˜ ì„¤ì •í•˜ê³ , í•„ìš”í•œ ë°ì´í„°Â·ìˆ˜ì§‘ ë°©ë²•Â·ë²”ì£¼í˜•/ìˆ˜ì¹˜í˜• êµ¬ë¶„ì„ í¬í•¨í•œ
+                                    ìˆ˜ì§‘ ê³„íšì„œë¥¼ ì‘ì„±í•˜ê³  ì½”ë‹µìœ¼ë¡œ ê´€ë¦¬í•˜ì‹œì˜¤.</p>
+                            </div>
+                            <table class="rub">
+                                <thead>
+                                    <tr>
+                                        <th>í‰ê°€ ìš”ì†Œ</th>
+                                        <th class="lv4">ë§¤ìš° ì˜í•¨(4)</th>
+                                        <th class="lv3">ì˜í•¨(3)</th>
+                                        <th class="lv2">ë³´í†µ(2)</th>
+                                        <th class="lv1">ë…¸ë ¥ í•„ìš”(1)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><b>ë°ì´í„° ì„ ì •</b></td>
+                                        <td class="lv4">ë¬¸ì œì™€ ë°ì´í„° ì í•©ì„± ë†’ìŒ</td>
+                                        <td class="lv3">ëŒ€ì²´ë¡œ ì í•©</td>
+                                        <td class="lv2">ì¼ë¶€ ì í•©</td>
+                                        <td class="lv1">ë¬´ê´€</td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>ì†ì„± êµ¬ë¶„</b></td>
+                                        <td class="lv4">ë²”ì£¼Â·ìˆ˜ì¹˜í˜• ëª¨ë‘ ì •í™•</td>
+                                        <td class="lv3">ëŒ€ì²´ë¡œ ì •í™•</td>
+                                        <td class="lv2">1ê°€ì§€ ì •í™•</td>
+                                        <td class="lv1">êµ¬ë¶„ ì—†ìŒ</td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>ì½”ë‹µ ê´€ë¦¬</b></td>
+                                        <td class="lv4">5ë‹¨ê³„ ì™„ë£Œ</td>
+                                        <td class="lv3">3ë‹¨ê³„ ì´ìƒ</td>
+                                        <td class="lv2">1~2ë‹¨ê³„</td>
+                                        <td class="lv1">ì‚¬ìš© ëª»í•¨</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="sclist">
+                                <div class="scitem"><label>ë¬¸ì œ í•´ê²°ì— ì í•©í•œ ë°ì´í„°ë¥¼ ì„ ë³„í•  ìˆ˜ ìˆë‹¤.</label><select>
+                                        <option value="">ì„ íƒ</option>
+                                        <option>ë§¤ìš° ê·¸ë ‡ë‹¤</option>
+                                        <option>ê·¸ë ‡ë‹¤</option>
+                                        <option>ì•„ì§ ëª¨ë¥´ê² ë‹¤</option>
+                                    </select></div>
+                                <div class="scitem"><label>ì§ì ‘Â·ê°„ì ‘ ìˆ˜ì§‘ ë°©ë²•ì˜ ì°¨ì´ë¥¼ ì„¤ëª…í•  ìˆ˜ ìˆë‹¤.</label><select>
+                                        <option value="">ì„ íƒ</option>
+                                        <option>ë§¤ìš° ê·¸ë ‡ë‹¤</option>
+                                        <option>ê·¸ë ‡ë‹¤</option>
+                                        <option>ì•„ì§ ëª¨ë¥´ê² ë‹¤</option>
+                                    </select></div>
+                                <div class="scitem"><label>ë²”ì£¼í˜•ê³¼ ìˆ˜ì¹˜í˜• ë°ì´í„°ë¥¼ êµ¬ë¶„í•  ìˆ˜ ìˆë‹¤.</label><select>
+                                        <option value="">ì„ íƒ</option>
+                                        <option>ë§¤ìš° ê·¸ë ‡ë‹¤</option>
+                                        <option>ê·¸ë ‡ë‹¤</option>
+                                        <option>ì•„ì§ ëª¨ë¥´ê² ë‹¤</option>
+                                    </select></div>
+                            </div>
+                            <button class="btn bsm bok" style="margin-top:10px" onclick="saveSC('l203sc')">ğŸ’¾
+                                ì €ì¥</button>
+                        </div>
+                    </div>
+
+                    <div class="card" id="sec-review">
+                        <div class="ch" onclick="toggleSec('sec-review')">
+                            <div class="sn" style="background:var(--gbg);color:var(--green)">05</div>
+                            <h3>í™•ì¸í•˜ê¸°</h3><span class="st">â± 5ë¶„</span><span class="carr">â–¾</span>
+                        </div>
+                        <div class="cb">
+                            <div class="sgrid">
+                                <div class="scard"><strong>ì§ì ‘ ìˆ˜ì§‘</strong>ì¸í„°ë·°Â·ê´€ì°°Â·ì„¤ë¬¸Â·ì„¼ì„œ. ì •í™•í•˜ë‚˜ ì‹œê°„Â·ë¹„ìš©â†‘</div>
+                                <div class="scard"><strong>ê°„ì ‘ ìˆ˜ì§‘</strong>ê²€ìƒ‰ì—”ì§„Â·ê³µê³µë°ì´í„°. ë¹ ë¥´ë‚˜ ê²€ì¦ í•„ìš”.</div>
+                                <div class="scard"><strong>ë²”ì£¼í˜• vs ìˆ˜ì¹˜í˜•</strong>ì„±ë³„Â·í˜ˆì•¡í˜• vs í‚¤Â·ëª¸ë¬´ê²ŒÂ·ìœ„ë„Â·ê²½ë„</div>
+                            </div>
+                            <div
+                                style="background:var(--bg);border:1px solid var(--br);border-radius:var(--rSM);padding:13px;margin-bottom:12px">
+                                <b>âœï¸ ë‹¨ë‹µí˜•:</b> ë°ì´í„°ì˜ ì˜ë¯¸ë¥¼ ì§€ë‹ˆë©´ì„œ ë” ì´ìƒ ë¶„ë¦¬ë˜ì§€ ì•ŠëŠ” ìµœì†Œ ë‹¨ìœ„ë¥¼ ë°ì´í„° <span
+                                    style="display:inline-block;width:50px;border-bottom:1.5px solid var(--tx)">&nbsp;</span>(ì´)ë¼ê³ 
+                                í•œë‹¤.<textarea
+                                    style="display:block;width:100%;margin-top:9px;padding:9px;border:1px solid var(--br);border-radius:var(--rSM);font-size:13px;font-family:inherit;resize:vertical;min-height:48px;background:var(--sf)"
+                                    placeholder="ì •ë‹µì„ ì…ë ¥í•˜ì„¸ìš”..."></textarea></div>
+                            <div class="ibox ok">ğŸ“– <div><strong>ë‹¤ìŒ ì°¨ì‹œ ì˜ˆê³ :</strong> ìˆ˜ì§‘í•œ ë°ì´í„°ë¥¼ <strong>í‘œÂ·ê³„ì¸µí˜•Â·ê·¸ë˜í”„í˜•
+                                        ë‹¤ì´ì–´ê·¸ë¨</strong>ìœ¼ë¡œ êµ¬ì¡°í™”í•˜ê³  ë¶„ì„í•˜ëŠ” ë°©ë²•ì„ ë°°ì›ë‹ˆë‹¤! (pp.64~71)</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="ca">
+                    <div class="ap">
+                        <h5>í•™ìŠµ ì§„í–‰</h5>
+                        <div class="slist">
+                            <div class="si" onclick="goTo('sec-goal')">
+                                <div class="dot sd">1</div>í•™ìŠµëª©í‘œ
+                            </div>
+                            <div class="si" onclick="goTo('sec-concept')">
+                                <div class="dot">2</div>ê°œë…ì„¤ëª…
+                            </div>
+                            <div class="si" onclick="goTo('sec-activity')">
+                                <div class="dot sa">â˜…</div>ìˆ˜í–‰ í™œë™
+                            </div>
+                            <div class="si" onclick="goTo('sec-materials')">
+                                <div class="dot" style="background:#FFF3CD;color:#7A4E0A">ğŸ“‚</div>ìˆ˜ì—…ìë£ŒÂ·ì„¤ë¬¸
+                            </div>
+                            <div class="si" onclick="goTo('sec-assess')">
+                                <div class="dot">4</div>ìˆ˜í–‰í‰ê°€
+                            </div>
+                            <div class="si" onclick="goTo('sec-review')">
+                                <div class="dot">5</div>í™•ì¸í•˜ê¸°
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ap" style="background:var(--ult);border-color:var(--umd)">
+                        <h5 style="color:var(--u)">ë‹¨ì› ì§„ë„</h5>
+                        <div style="display:flex;align-items:center;gap:7px">
+                            <div class="pbtrack" style="flex:1">
+                                <div class="pbfill" style="width:54%"></div>
+                            </div><span style="font-size:11px;font-weight:600;color:var(--u)">3/6</span>
+                        </div>
+                    </div>
+                    <div class="ap">
+                        <h5>í•µì‹¬ ìš©ì–´</h5>
+                        <div class="termlist">
+                            <div class="tterm"><span class="tw">ë°ì´í„° ì†ì„±</span><span class="tdef">ë°ì´í„°ì˜ ìµœì†Œ ë‹¨ìœ„</span></div>
+                            <div class="tterm"><span class="tw">ì§ì ‘ ìˆ˜ì§‘</span><span class="tdef">ì¸í„°ë·°Â·ê´€ì°°Â·ì„¤ë¬¸Â·ì„¼ì„œ</span></div>
+                            <div class="tterm"><span class="tw">ê°„ì ‘ ìˆ˜ì§‘</span><span class="tdef">ê²€ìƒ‰ì—”ì§„Â·ê³µê³µë°ì´í„°</span></div>
+                            <div class="tterm"><span class="tw">ë²”ì£¼í˜•</span><span class="tdef">ë¬¸ìÂ·ê¸°í˜¸ë¡œ êµ¬ë¶„</span></div>
+                            <div class="tterm"><span class="tw">ìˆ˜ì¹˜í˜•</span><span class="tdef">ìˆ«ìë¡œ í¬ê¸° ë¹„êµ</span></div>
+                            <div class="tterm"><span class="tw">ì½”ë‹µ</span><span class="tdef">ì›¹ ê¸°ë°˜ ë°ì´í„° ë¶„ì„ ë„êµ¬</span></div>
+                        </div>
+                    </div>
+                    <div class="ap" style="background:#F0FDF4;border-color:#BBF7D0">
+                        <h5 style="color:#166534">ğŸ”— ë°ì´í„° ë„êµ¬</h5>
+                        <a href="https://codap.concord.org" target="_blank" class="btn bsm"
+                            style="width:100%;justify-content:center;background:var(--u);color:#fff;border-color:var(--udk);margin-bottom:5px">ì½”ë‹µ(CODAP)
+                            ì—´ê¸° â†—</a>
+                        <a href="https://kosis.kr" target="_blank" class="btn bsm"
+                            style="width:100%;justify-content:center;font-size:10px;color:var(--mt)">êµ­ê°€í†µê³„í¬í„¸ â†—</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <div id="toast"></div>
+    <script>
+
+        // â”€â”€ Google Sheets ì €ì¥ â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+        var GS_URL = 'YOUR_APPS_SCRIPT_WEB_APP_URL';
+
+        function getUserName() {
+            return localStorage.getItem('user_name') || 'ìµëª…';
+        }
+
+        function postToSheets(payload) {
+            if (!GS_URL || GS_URL === 'YOUR_APPS_SCRIPT_WEB_APP_URL') return;
+            fetch(GS_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            }).catch(function () { });
+        }
+
+
+        function toast(m) { var t = document.getElementById('toast'); t.textContent = m; t.style.opacity = '1'; t.style.transform = 'translateX(-50%) translateY(0)'; clearTimeout(t._t); t._t = setTimeout(function () { t.style.opacity = '0'; t.style.transform = 'translateX(-50%) translateY(10px)'; }, 2400); }
+        function toggleSec(id) { var e = document.getElementById(id); if (e) e.classList.toggle('collapsed'); }
+        function goTo(id) { var e = document.getElementById(id); if (!e) return; window.scrollTo({ top: e.getBoundingClientRect().top + window.pageYOffset - 64, behavior: 'smooth' }); }
+        function checkQ(el, ok, msg) { el.closest('.qopts').querySelectorAll('.opt').forEach(function (o) { o.classList.add('locked'); }); el.classList.add(ok ? 'correct' : 'wrong'); var fb = el.closest('.qwrap').querySelector('.qfb'); if (fb) { fb.className = 'qfb ' + (ok ? 'ok' : 'err'); fb.innerHTML = (ok ? 'âœ“ ì •ë‹µ: ' : 'âœ— íŒíŠ¸: ') + msg; } }
+        function saveSC(key) {
+            var d = {};
+            document.querySelectorAll('.scitem select').forEach(function (s, i) { d['q' + i] = s.value; });
+            try {
+                localStorage.setItem(key, JSON.stringify(d));
+                // Google Sheets ì €ì¥
+                postToSheets({
+                    type: 'sc',
+                    userName: getUserName(),
+                    lessonKey: 'l23',
+                    lessonName: 'l23',
+                    answers: d
+                });
+                toast('ìê¸°í‰ê°€ê°€ ì €ì¥ë˜ì—ˆìŠµë‹ˆë‹¤ âœ“');
+            } catch (e) { }
+        }
+        function loadSC(key) { try { var d = JSON.parse(localStorage.getItem(key) || '{}'); document.querySelectorAll('.scitem select').forEach(function (s, i) { if (d['q' + i]) s.value = d['q' + i]; }); } catch (e) { } }
+        function saveActivity(key) {
+            var d = {};
+            document.querySelectorAll('.act-input').forEach(function (el, i) { d['a' + i] = el.value; });
+            document.querySelectorAll('.peer-check input[type=radio]:checked').forEach(function (el) { d['r_' + el.name] = el.value; });
+            try {
+                localStorage.setItem(key, JSON.stringify(d));
+                // Google Sheets ì €ì¥
+                postToSheets({
+                    type: 'act',
+                    userName: getUserName(),
+                    lessonKey: 'l23',
+                    lessonName: 'l23',
+                    answers: d
+                });
+                toast('âœ… ìˆ˜í–‰ í™œë™ì´ ì €ì¥ë˜ì—ˆìŠµë‹ˆë‹¤!');
+            } catch (e) { }
+        }
+        function loadActivity(key) {
+            try {
+                var d = JSON.parse(localStorage.getItem(key) || '{}');
+                document.querySelectorAll('.act-input').forEach(function (el, i) { if (d['a' + i]) el.value = d['a' + i]; });
+                Object.keys(d).filter(function (k) { return k.startsWith('r_'); }).forEach(function (k) {
+                    var el = document.querySelector('input[type=radio][name="' + k.slice(2) + '"][value="' + d[k] + '"]');
+                    if (el) el.checked = true;
+                });
+            } catch (e) { }
+        }
+
+
+        function loadSampleData() {
+            var data = [
+                ['ì„¤ì¹˜ì¥ì†Œëª…', 'Wi-Fi SSID', 'ì†Œì¬ì§€ ë„ë¡œëª…ì£¼ì†Œ', 'ìœ„ë„(Latitude)', 'ê²½ë„(Longitude)'],
+                ['ì„œìš¸ì‹œì²­', 'PublicWifi-Seoul', 'ì„œìš¸íŠ¹ë³„ì‹œ ì¤‘êµ¬ ì„¸ì¢…ëŒ€ë¡œ 110', '37.5665', '126.9780'],
+                ['ê´‘í™”ë¬¸ê´‘ì¥', 'PublicWifi-KHM', 'ì„œìš¸íŠ¹ë³„ì‹œ ì¢…ë¡œêµ¬ ì„¸ì¢…ëŒ€ë¡œ 172', '37.5759', '126.9768'],
+                ['ì¸ì‚¬ë™', 'PublicWifi-IS', 'ì„œìš¸íŠ¹ë³„ì‹œ ì¢…ë¡œêµ¬ ì¸ì‚¬ë™ê¸¸ 48', '37.5745', '126.9855'],
+            ];
+            var out = document.getElementById('sim-table');
+            if (!out) return;
+            out.innerHTML = '<table style="width:100%;border-collapse:collapse;font-size:10px">' +
+                data.map(function (row, i) {
+                    return '<tr>' + row.map(function (cell) {
+                        return '<td style="padding:3px 6px;border:1px solid #444;color:' + (i === 0 ? '#FF6B35' : '#a0c0ff') + '">' + cell + '</td>';
+                    }).join('') + '</tr>';
+                }).join('') + '</table>';
+            toast('âœ… ìƒ˜í”Œ ë°ì´í„° ë¡œë“œ ì™„ë£Œ! ì½”ë‹µì—ì„œ ì§ì ‘ ë¶„ì„í•´ë³´ì„¸ìš”.');
+        }
+
+        document.addEventListener('DOMContentLoaded', function () { loadSC('l203sc'); loadActivity('l203sc_act'); });
+    </script>
+</body>
+
 </html>

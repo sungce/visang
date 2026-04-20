@@ -1,2026 +1,2012 @@
-<!DOCTYPE html>
-<html lang="ko">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <title>I-3. ?�동 ?�수 ?�시 ?�치 만들�????�보 교과</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
-    <style>
-        *,
-        *::before,
-        *::after {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0
-        }
-
-        html {
-            scroll-behavior: smooth
-        }
-
-        body {
-            font-family: 'Noto Sans KR', -apple-system, sans-serif;
-            background: #F5F4F0;
-            color: #1C1C1C;
-            font-size: 14px;
-            line-height: 1.65;
-            display: flex;
-            min-height: 100vh
-        }
-
-        :root {
-            --u: #6C65CC;
-            --udk: #4E48A8;
-            --ult: #ECEAFE;
-            --umd: #C8C4F0;
-            --bg: #F5F4F0;
-            --sf: #FFF;
-            --br: #E2DFD6;
-            --tx: #1C1C1C;
-            --mt: #696760;
-            --lt: #A8A59E;
-            --green: #2A720E;
-            --gbg: #E8F3DC;
-            --amber: #7A4E0A;
-            --abg: #FAF0DC;
-            --red: #8C1E0E;
-            --rbg: #FAEBE6;
-            --blue: #0A4E8C;
-            --bbg: #E4F0FA;
-            --rLG: 14px;
-            --rSM: 8px;
-            --SW: 240px;
-            --TH: 52px
-        }
-
-        .sb {
-            width: var(--SW);
-            background: var(--sf);
-            border-right: 1px solid var(--br);
-            position: fixed;
-            top: 0;
-            left: 0;
-            bottom: 0;
-            display: flex;
-            flex-direction: column;
-            overflow-y: auto;
-            z-index: 100
-        }
-
-        .sb-top {
-            padding: 16px 14px 12px;
-            border-bottom: 1px solid var(--br)
-        }
-
-        .uchip {
-            display: inline-flex;
-            align-items: center;
-            background: var(--ult);
-            color: var(--u);
-            font-size: 10px;
-            font-weight: 700;
-            letter-spacing: .1em;
-            text-transform: uppercase;
-            padding: 3px 9px;
-            border-radius: 20px;
-            margin-bottom: 6px
-        }
-
-        .sb-top h2 {
-            font-size: 12px;
-            font-weight: 700;
-            line-height: 1.4
-        }
-
-        .smeta {
-            font-size: 10px;
-            color: var(--lt);
-            margin-top: 3px
-        }
-
-        .sb-nav {
-            padding: 4px 0;
-            flex: 1
-        }
-
-        .nlbl {
-            font-size: 9px;
-            font-weight: 700;
-            letter-spacing: .1em;
-            text-transform: uppercase;
-            color: var(--lt);
-            padding: 7px 13px 3px
-        }
-
-        .na {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 7px 13px;
-            font-size: 11px;
-            color: var(--mt);
-            text-decoration: none;
-            border-left: 2.5px solid transparent;
-            transition: background .12s
-        }
-
-        .na:hover {
-            background: var(--bg);
-            color: var(--tx)
-        }
-
-        .na.on {
-            color: var(--u);
-            font-weight: 600;
-            background: var(--ult);
-            border-left-color: var(--u)
-        }
-
-        .na.done .nn {
-            background: var(--gbg);
-            color: var(--green)
-        }
-
-        .nn {
-            width: 18px;
-            height: 18px;
-            border-radius: 50%;
-            background: var(--br);
-            font-size: 9px;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            color: var(--mt)
-        }
-
-        .na.on .nn {
-            background: var(--u);
-            color: #fff
-        }
-
-        .nbadge {
-            margin-left: auto;
-            font-size: 9px;
-            color: var(--lt);
-            background: var(--bg);
-            border: 1px solid var(--br);
-            padding: 1px 5px;
-            border-radius: 10px;
-            white-space: nowrap
-        }
-
-        .sb-foot {
-            padding: 10px 13px;
-            border-top: 1px solid var(--br)
-        }
-
-        .ba {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 11px;
-            color: var(--mt);
-            text-decoration: none;
-            padding: 5px 9px;
-            border-radius: var(--rSM);
-            border: 1px solid var(--br);
-            background: var(--sf);
-            transition: all .12s
-        }
-
-        .ba:hover {
-            background: var(--bg)
-        }
-
-        .main {
-            margin-left: var(--SW);
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            min-width: 0
-        }
-
-        .topbar {
-            background: var(--sf);
-            border-bottom: 1px solid var(--br);
-            height: var(--TH);
-            padding: 0 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            position: sticky;
-            top: 0;
-            z-index: 90
-        }
-
-        .bc {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            font-size: 12px;
-            color: var(--mt);
-            flex: 1
-        }
-
-        .bc a {
-            color: var(--mt);
-            text-decoration: none
-        }
-
-        .bc a:hover {
-            color: var(--tx)
-        }
-
-        .bcsep {
-            color: var(--br)
-        }
-
-        .bccur {
-            color: var(--tx);
-            font-weight: 500
-        }
-
-        .tbr {
-            display: flex;
-            align-items: center;
-            gap: 6px
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            padding: 6px 12px;
-            border-radius: var(--rSM);
-            font-size: 12px;
-            font-family: inherit;
-            font-weight: 500;
-            cursor: pointer;
-            border: 1px solid var(--br);
-            background: var(--sf);
-            color: var(--tx);
-            text-decoration: none;
-            transition: background .12s;
-            white-space: nowrap
-        }
-
-        .btn:hover {
-            background: var(--bg)
-        }
-
-        .bsm {
-            padding: 5px 9px;
-            font-size: 11px
-        }
-
-        .bp {
-            background: var(--u);
-            color: #fff;
-            border-color: var(--u)
-        }
-
-        .bp:hover {
-            background: var(--udk)
-        }
-
-        .bok {
-            background: var(--green);
-            color: #fff;
-            border-color: var(--green)
-        }
-
-        .page {
-            padding: 20px 22px;
-            flex: 1
-        }
-
-        .g2 {
-            display: grid;
-            grid-template-columns: 1fr minmax(0, 248px);
-            gap: 16px;
-            align-items: start
-        }
-
-        .cm {
-            min-width: 0
-        }
-
-        .ca {
-            position: sticky;
-            top: calc(var(--TH)+12px)
-        }
-
-        .card {
-            background: var(--sf);
-            border: 1px solid var(--br);
-            border-radius: var(--rLG);
-            margin-bottom: 11px;
-            overflow: hidden
-        }
-
-        .ch {
-            display: flex;
-            align-items: center;
-            gap: 9px;
-            padding: 12px 16px;
-            cursor: pointer;
-            border-bottom: 1px solid var(--br);
-            transition: background .12s;
-            user-select: none
-        }
-
-        .ch:hover {
-            background: var(--bg)
-        }
-
-        .sn {
-            width: 26px;
-            height: 26px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 11px;
-            font-weight: 800;
-            flex-shrink: 0
-        }
-
-        .ch h3 {
-            font-size: 13px;
-            font-weight: 600;
-            flex: 1
-        }
-
-        .st {
-            font-size: 10px;
-            color: var(--lt);
-            background: var(--bg);
-            border: 1px solid var(--br);
-            padding: 2px 7px;
-            border-radius: 20px;
-            white-space: nowrap
-        }
-
-        .carr {
-            font-size: 11px;
-            color: var(--lt);
-            transition: transform .2s
-        }
-
-        .card.collapsed .carr {
-            transform: rotate(-90deg)
-        }
-
-        .cb {
-            padding: 18px
-        }
-
-        .card.collapsed .cb {
-            display: none
-        }
-
-        .ach {
-            background: var(--ult);
-            border: 1px solid var(--umd);
-            border-radius: var(--rSM);
-            padding: 10px 13px;
-            margin-bottom: 14px
-        }
-
-        .ach-c {
-            font-family: monospace;
-            font-size: 11px;
-            font-weight: 700;
-            color: var(--u);
-            margin-bottom: 3px
-        }
-
-        .ach-t {
-            font-size: 13px;
-            line-height: 1.6
-        }
-
-        .glist {
-            list-style: none
-        }
-
-        .glist li {
-            display: flex;
-            align-items: flex-start;
-            gap: 8px;
-            padding: 6px 0;
-            font-size: 13px;
-            border-bottom: 1px solid var(--br);
-            line-height: 1.6
-        }
-
-        .glist li:last-child {
-            border-bottom: none
-        }
-
-        .gck {
-            width: 17px;
-            height: 17px;
-            border-radius: 50%;
-            background: var(--gbg);
-            color: var(--green);
-            font-size: 9px;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            margin-top: 2px
-        }
-
-        .ctags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 5px;
-            margin-bottom: 12px
-        }
-
-        .ctag {
-            font-size: 11px;
-            padding: 3px 10px;
-            background: var(--bg);
-            border: 1px solid var(--br);
-            border-radius: 20px;
-            cursor: pointer;
-            color: var(--mt);
-            transition: all .12s
-        }
-
-        .ctag:hover {
-            background: var(--ult);
-            border-color: var(--umd);
-            color: var(--u)
-        }
-
-        .ibox {
-            display: flex;
-            align-items: flex-start;
-            gap: 9px;
-            padding: 10px 13px;
-            border-radius: var(--rSM);
-            font-size: 12px;
-            line-height: 1.6;
-            margin-top: 10px
-        }
-
-        .prev {
-            background: var(--bg);
-            border: 1px solid var(--br);
-            color: var(--mt)
-        }
-
-        .warn {
-            background: #FFFBEC;
-            border: 1px solid #EDD070;
-            color: #6A5000
-        }
-
-        .info {
-            background: var(--bbg);
-            border: 1px solid #BACED8;
-            color: var(--blue)
-        }
-
-        .ok {
-            background: var(--gbg);
-            border: 1px solid #BFDFAA;
-            color: var(--green)
-        }
-
-        .divl {
-            height: 1px;
-            background: var(--br);
-            margin: 13px 0
-        }
-
-        .crow {
-            display: grid;
-            grid-template-columns: 1fr minmax(0, 148px);
-            gap: 13px;
-            align-items: start;
-            margin-bottom: 13px
-        }
-
-        .ct h4 {
-            font-size: 13px;
-            font-weight: 700;
-            margin-bottom: 7px
-        }
-
-        .ct p {
-            font-size: 13px;
-            color: var(--mt);
-            line-height: 1.75
-        }
-
-        .ct ul {
-            padding-left: 1rem;
-            margin-top: 5px
-        }
-
-        .ct ul li {
-            font-size: 13px;
-            color: var(--mt);
-            margin-bottom: 3px;
-            line-height: 1.6
-        }
-
-        .cvis {
-            background: var(--bg);
-            border: 1px solid var(--br);
-            border-radius: var(--rSM);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 8px
-        }
-
-        /* ?�?� ?�행?�동 (?�보�? ?�?� */
-        .activity {
-            background: linear-gradient(135deg, var(--ult), #F5F4FF);
-            border: 2px solid var(--umd);
-            border-radius: var(--rLG);
-            margin-bottom: 11px;
-            overflow: hidden
-        }
-
-        .act-head {
-            display: flex;
-            align-items: center;
-            gap: 9px;
-            padding: 12px 16px;
-            border-bottom: 1.5px solid var(--umd);
-            background: var(--ult);
-            cursor: pointer;
-            user-select: none
-        }
-
-        .act-head:hover {
-            background: #E4E0FC
-        }
-
-        .act-badge {
-            background: var(--u);
-            color: #fff;
-            font-size: 10px;
-            font-weight: 700;
-            padding: 3px 10px;
-            border-radius: 20px;
-            white-space: nowrap
-        }
-
-        .act-head h3 {
-            font-size: 13px;
-            font-weight: 700;
-            color: var(--udk);
-            flex: 1
-        }
-
-        .act-body {
-            padding: 18px
-        }
-
-        .act-step {
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            padding: 10px 12px;
-            background: var(--sf);
-            border: 1px solid var(--br);
-            border-radius: var(--rSM);
-            margin-bottom: 8px;
-            min-height: 160px;
-        }
-
-        .act-num {
-            width: 22px;
-            height: 22px;
-            border-radius: 50%;
-            background: var(--u);
-            color: #fff;
-            font-size: 10px;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            flex: none;
-            margin-top: 1px
-        }
-
-        .act-step h4 {
-            font-size: 12px;
-            font-weight: 700;
-            margin-bottom: 4px
-        }
-
-        .act-step p {
-            font-size: 12px;
-            color: var(--mt);
-            line-height: 1.65
-        }
-
-        .act-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 12px;
-            margin-top: 8px
-        }
-
-        .act-table th {
-            background: var(--u);
-            color: #fff;
-            padding: 7px 10px;
-            font-weight: 600;
-            font-size: 11px;
-            text-align: left
-        }
-
-        .act-table td {
-            padding: 8px 10px;
-            border-bottom: 1px solid var(--br);
-            color: var(--mt);
-            vertical-align: top;
-            line-height: 1.55
-        }
-
-        .act-table tr:last-child td {
-            border-bottom: none
-        }
-
-        .act-input {
-            width: 100%;
-            padding: 8px 10px;
-            border: 1.5px solid var(--br);
-            border-radius: var(--rSM);
-            font-size: 12px;
-            font-family: inherit;
-            background: var(--sf);
-            outline: none;
-            resize: vertical;
-            min-height: 88px;
-            margin-top: 4px
-        }
-
-        .act-input:focus {
-            border-color: var(--u)
-        }
-
-        /* ?�?� 마이?�로비트 블록 ?�?� */
-        .mb-workspace {
-            background: #1e1e2e;
-            border-radius: var(--rSM);
-            padding: 14px;
-            margin: 8px 0;
-            display: flex;
-            flex-direction: column;
-            gap: 5px
-        }
-
-        .mb-row {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            flex-wrap: wrap
-        }
-
-        .mb-indent {
-            margin-left: 22px;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            flex-wrap: wrap
-        }
-
-        .mb-indent2 {
-            margin-left: 44px;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            flex-wrap: wrap
-        }
-
-        .mb {
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            padding: 6px 11px;
-            border-radius: 6px;
-            font-size: 11px;
-            font-family: 'Courier New', monospace;
-            font-weight: 700;
-            color: #fff;
-            cursor: default
-        }
-
-        .mb-hole {
-            display: inline-block;
-            background: rgba(255, 255, 255, .2);
-            border-radius: 3px;
-            padding: 1px 7px;
-            font-size: 10px;
-            min-width: 20px;
-            text-align: center
-        }
-
-        .mb-start {
-            background: #FF8C00;
-            box-shadow: 0 3px 0 #B85A00
-        }
-
-        .mb-motion {
-            background: #4A7ED9;
-            box-shadow: 0 3px 0 #2A50A0
-        }
-
-        .mb-led {
-            background: #9B59B6;
-            box-shadow: 0 3px 0 #6C3483
-        }
-
-        .mb-input {
-            background: #F39C12;
-            box-shadow: 0 3px 0 #C07000
-        }
-
-        .mb-logic {
-            background: #E74C3C;
-            box-shadow: 0 3px 0 #A01010
-        }
-
-        .mb-loop {
-            background: #27AE60;
-            box-shadow: 0 3px 0 #1A7A40
-        }
-
-        .mb-var {
-            background: #3498DB;
-            box-shadow: 0 3px 0 #1A5A9A
-        }
-
-        .mb-music {
-            background: #E91E63;
-            box-shadow: 0 3px 0 #880033
-        }
-
-        .mb-radio {
-            background: #00BCD4;
-            box-shadow: 0 3px 0 #007A88
-        }
-
-        .mb-sensor {
-            background: #FF6B35;
-            box-shadow: 0 3px 0 #C04010
-        }
-
-        /* ?�?� quiz ?�?� */
-        .qwrap {
-            background: var(--bg);
-            border: 1px solid var(--br);
-            border-radius: var(--rSM);
-            padding: 14px;
-            margin-top: 13px
-        }
-
-        .qq {
-            font-size: 14px;
-            font-weight: 500;
-            margin-bottom: 11px;
-            line-height: 1.55
-        }
-
-        .qopts {
-            display: flex;
-            flex-direction: column;
-            gap: 7px
-        }
-
-        .opt {
-            display: flex;
-            align-items: flex-start;
-            gap: 9px;
-            padding: 10px 12px;
-            background: var(--sf);
-            border: 1.5px solid var(--br);
-            border-radius: var(--rSM);
-            cursor: pointer;
-            font-size: 13px;
-            line-height: 1.5;
-            transition: all .12s
-        }
-
-        .opt:hover {
-            border-color: var(--u);
-            background: var(--ult)
-        }
-
-        .opt.correct {
-            border-color: #4A9020;
-            background: var(--gbg);
-            color: #1A5000;
-            pointer-events: none
-        }
-
-        .opt.wrong {
-            border-color: #B03020;
-            background: var(--rbg);
-            color: #6A1000;
-            pointer-events: none
-        }
-
-        .opt.locked {
-            pointer-events: none;
-            opacity: .55
-        }
-
-        .onum {
-            width: 21px;
-            height: 21px;
-            border-radius: 50%;
-            background: var(--br);
-            font-size: 11px;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0
-        }
-
-        .opt.correct .onum {
-            background: #4A9020;
-            color: #fff
-        }
-
-        .opt.wrong .onum {
-            background: #B03020;
-            color: #fff
-        }
-
-        .qfb {
-            display: none;
-            margin-top: 9px;
-            padding: 10px 13px;
-            border-radius: var(--rSM);
-            font-size: 12px;
-            line-height: 1.6
-        }
-
-        .qfb.ok {
-            display: block;
-            background: var(--gbg);
-            border: 1px solid #BFDFAA;
-            color: var(--green)
-        }
-
-        .qfb.err {
-            display: block;
-            background: var(--rbg);
-            border: 1px solid #F0B8A0;
-            color: var(--red)
-        }
-
-        /* ?�?� assess ?�?� */
-        .rub {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 12px;
-            margin-bottom: 12px
-        }
-
-        .rub th {
-            background: var(--bg);
-            padding: 7px 8px;
-            font-weight: 600;
-            border-bottom: 1.5px solid var(--br);
-            text-align: left;
-            font-size: 10px;
-            text-transform: uppercase;
-            letter-spacing: .04em;
-            color: var(--mt)
-        }
-
-        .rub td {
-            padding: 8px;
-            border-bottom: 1px solid var(--br);
-            color: var(--mt);
-            vertical-align: top;
-            line-height: 1.5
-        }
-
-        .rub tr:last-child td {
-            border-bottom: none
-        }
-
-        .lv4 {
-            color: #1A6000 !important;
-            font-weight: 500
-        }
-
-        .lv3 {
-            color: #2A6830 !important
-        }
-
-        .lv2 {
-            color: #7A4E00 !important
-        }
-
-        .lv1 {
-            color: #8A2000 !important
-        }
-
-        .peer-check {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 11px;
-            margin-top: 10px
-        }
-
-        .peer-check th {
-            background: var(--ult);
-            padding: 6px 9px;
-            font-weight: 600;
-            border-bottom: 1.5px solid var(--umd);
-            text-align: center;
-            color: var(--u);
-            font-size: 10px
-        }
-
-        .peer-check td {
-            padding: 7px 9px;
-            border-bottom: 1px solid var(--br);
-            color: var(--mt);
-            text-align: center
-        }
-
-        .peer-check td:first-child {
-            text-align: left;
-            font-size: 11px
-        }
-
-        .peer-check input[type=radio] {
-            accent-color: var(--u)
-        }
-
-        /* ?�?� sidebar ?�?� */
-        .ap {
-            background: var(--sf);
-            border: 1px solid var(--br);
-            border-radius: var(--rLG);
-            padding: 13px;
-            margin-bottom: 10px
-        }
-
-        .ap h5 {
-            font-size: 9px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: .1em;
-            color: var(--lt);
-            margin-bottom: 8px
-        }
-
-        .slist {
-            display: flex;
-            flex-direction: column;
-            gap: 3px
-        }
-
-        .si {
-            display: flex;
-            align-items: center;
-            gap: 7px;
-            padding: 6px 8px;
-            border-radius: var(--rSM);
-            font-size: 11px;
-            color: var(--mt);
-            cursor: pointer;
-            transition: background .12s
-        }
-
-        .si:hover {
-            background: var(--bg)
-        }
-
-        .dot {
-            width: 19px;
-            height: 19px;
-            border-radius: 50%;
-            background: var(--br);
-            color: var(--lt);
-            font-size: 9px;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0
-        }
-
-        .dot.sa {
-            background: var(--u);
-            color: #fff
-        }
-
-        .dot.sd {
-            background: var(--gbg);
-            color: var(--green)
-        }
-
-        .sclist {
-            display: flex;
-            flex-direction: column;
-            gap: 4px
-        }
-
-        .scitem {
-            display: flex;
-            align-items: center;
-            gap: 9px;
-            padding: 8px 10px;
-            background: var(--bg);
-            border-radius: var(--rSM);
-            font-size: 12px;
-            border: 1px solid var(--br)
-        }
-
-        .scitem label {
-            flex: 1;
-            line-height: 1.5
-        }
-
-        .scitem select {
-            font-size: 11px;
-            padding: 3px 6px;
-            border: 1px solid var(--br);
-            border-radius: 5px;
-            background: var(--sf);
-            font-family: inherit;
-            color: var(--tx);
-            cursor: pointer;
-            flex-shrink: 0
-        }
-
-        .sgrid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 7px;
-            margin-bottom: 12px
-        }
-
-        .scard {
-            background: var(--bg);
-            border: 1px solid var(--br);
-            border-radius: var(--rSM);
-            padding: 11px 12px;
-            font-size: 12px;
-            line-height: 1.65;
-            color: var(--mt)
-        }
-
-        .scard strong {
-            display: block;
-            font-size: 9px;
-            text-transform: uppercase;
-            letter-spacing: .07em;
-            color: var(--lt);
-            margin-bottom: 4px
-        }
-
-        .termlist {
-            display: flex;
-            flex-direction: column
-        }
-
-        .tterm {
-            display: flex;
-            align-items: baseline;
-            gap: 5px;
-            padding: 4px 0;
-            font-size: 11px;
-            border-bottom: 1px solid var(--br)
-        }
-
-        .tterm:last-child {
-            border-bottom: none
-        }
-
-        .tw {
-            font-weight: 600;
-            color: var(--u);
-            white-space: nowrap
-        }
-
-        .tdef {
-            color: var(--mt)
-        }
-
-        .pbtrack {
-            height: 5px;
-            background: var(--umd);
-            border-radius: 3px;
-            overflow: hidden
-        }
-
-        .pbfill {
-            height: 100%;
-            background: var(--u);
-            border-radius: 3px
-        }
-
-        #toast {
-            position: fixed;
-            bottom: 24px;
-            left: 50%;
-            transform: translateX(-50%) translateY(10px);
-            background: #1C1C1C;
-            color: #fff;
-            padding: 9px 18px;
-            border-radius: 10px;
-            font-size: 12px;
-            font-family: inherit;
-            z-index: 9999;
-            opacity: 0;
-            transition: opacity .2s, transform .2s;
-            pointer-events: none;
-            white-space: nowrap
-        }
-
-        /* ?�═ 반응???�이?�웃 ?�═ */
-        *,
-        *::before,
-        *::after {
-            box-sizing: border-box
-        }
-
-        img,
-        canvas,
-        video {
-            max-width: 100%;
-            height: auto;
-            display: block
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse
-        }
-
-        .act-table,
-        .peer-check,
-        .rub {
-            table-layout: fixed;
-            word-break: break-word
-        }
-
-        .act-table td,
-        .act-table th,
-        .rub td,
-        .rub th,
-        .peer-check td,
-        .peer-check th {
-            min-width: 44px;
-            word-break: break-word;
-            overflow-wrap: break-word
-        }
-
-        .act-step>div:not(.act-num) {
-            min-width: 0;
-            flex: 1;
-            overflow-wrap: break-word;
-            word-break: break-word
-        }
-
-        .act-body,
-        .cb {
-            overflow-x: hidden
-        }
-
-        .act-input {
-            width: 100%;
-            box-sizing: border-box
-        }
-
-        .mb-workspace,
-        .mb-row,
-        .mb-indent,
-        .mb-indent2 {
-            flex-wrap: wrap
-        }
-
-        .sim-wrap {
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch
-        }
-
-        /* 1100px ?�하 */
-        @media(max-width:1100px) {
-            .g2 {
-                grid-template-columns: 1fr
-            }
-
-            .ca {
-                position: static;
-                display: flex;
-                flex-direction: row;
-                flex-wrap: wrap;
-                gap: 10px;
-                margin-top: 12px
-            }
-
-            .ca .ap {
-                flex: 1 1 220px;
-                min-width: 180px
-            }
-
-            .crow {
-                grid-template-columns: 1fr
-            }
-
-            .sgrid {
-                grid-template-columns: 1fr 1fr
-            }
-        }
-
-        /* 900px ?�하 */
-        @media(max-width:900px) {
-            .ca {
-                display: flex;
-                flex-direction: row;
-                flex-wrap: wrap;
-                gap: 8px;
-                margin-top: 10px
-            }
-
-            .ca .ap {
-                flex: 1 1 180px;
-                min-width: 160px
-            }
-
-            .page {
-                padding: 16px 14px
-            }
-
-            .cb,
-            .act-body {
-                padding: 13px
-            }
-
-            .sgrid {
-                grid-template-columns: 1fr 1fr
-            }
-
-            .crow {
-                grid-template-columns: 1fr
-            }
-        }
-
-        /* 640px ?�하 */
-        @media(max-width:640px) {
-            .page {
-                padding: 11px 10px
-            }
-
-            .cb,
-            .act-body {
-                padding: 10px
-            }
-
-            .sgrid {
-                grid-template-columns: 1fr
-            }
-
-            .act-step {
-                flex-direction: column;
-                gap: 5px
-            }
-
-            .act-num {
-                margin-bottom: 0
-            }
-
-            .ch h3 {
-                font-size: 12px
-            }
-
-            .btn {
-                font-size: 11px;
-                padding: 5px 8px
-            }
-
-            .act-table td,
-            .act-table th {
-                padding: 5px 6px;
-                font-size: 11px
-            }
-
-            .rub td,
-            .rub th {
-                padding: 5px 6px;
-                font-size: 11px
-            }
-
-            .peer-check td,
-            .peer-check th {
-                padding: 5px 6px;
-                font-size: 10px
-            }
-
-            .scard {
-                font-size: 11px
-            }
-
-            .opt {
-                font-size: 12px;
-                padding: 8px 10px
-            }
-
-            .mb,
-            .mb-hole {
-                font-size: 10px;
-                padding: 4px 7px
-            }
-        }
-
-        /* 480px ?�하 */
-        @media(max-width:480px) {
-            :root {
-                --SW: 0px
-            }
-
-            .sb {
-                display: none
-            }
-
-            .main {
-                margin-left: 0
-            }
-
-            .topbar {
-                padding: 0 10px
-            }
-
-            .page {
-                padding: 8px 9px
-            }
-
-            .cb,
-            .act-body {
-                padding: 9px
-            }
-
-            .tbr .btn:last-child {
-                display: none
-            }
-
-            .sgrid {
-                grid-template-columns: 1fr
-            }
-        }
-    </style>
-</head>
-
-<body>
-    <aside class="sb">
-        <div class="sb-top">
-            <div class="uchip">??Unit I</div>
-            <h2>컴퓨???�스??/h2>
-            <div class="smeta">중단??: ?��?�?컴퓨???�로그래�?· p.19~23</div>
-        </div>
-        <nav class="sb-nav">
-            <div class="nlbl">?�단??목록</div><a class="na done" href="../lesson-01/index.html">
-                <div class="nn">??/div>컴퓨???�스?�의 구성�??�작 ?�리
-            </a>
-            <a class="na done" href="../lesson-02/index.html">
-                <div class="nn">??/div>?��?�?컴퓨???�스?�의 ?�해
-            </a>
-            <a class="na on" href="../lesson-03/index.html">
-                <div class="nn">3</div>?�동 ?�수 ?�시 ?�치 만들�?span class="nbadge">2차시</span>
-            </a>
-            <a class="na " href="../lesson-04/index.html">
-                <div class="nn">4</div>?�면 ?�도 ?�림???�치 만들�?            </a>
-            <a class="na " href="../lesson-05/index.html">
-                <div class="nn">5</div>?�리??반응?�는 ?�니메이???�치 만들�?            </a>
-            <a class="na " href="../lesson-06/index.html">
-                <div class="nn">6</div>?�심?�심 게임 ?�치 만들�?            </a>
-        </nav>
-        <div class="sb-foot"><a class="ba" href="https://sungce.github.io/lesson/">???�보 교과 ?�습 ?�랫??/a></div>
-    </aside>
-    <main class="main">
-        <header class="topbar">
-            <div class="bc"><a href="https://sungce.github.io/lesson/">?�보 교과 ?�습 ?�랫??/a><span class="bcsep">??/span><a
-                    href="../../index.html">I. 컴퓨???�스??/a><span class="bcsep">??/span><span class="bccur">3. ?�동 ?�수 ?�시 ?�치
-                    만들�?/span></div>
-            <div class="tbr">
-                <button class="btn bsm" onclick="markDone('03')">???�료 ?�시</button>
-                <a class="btn bsm bp" href="../lesson-04/index.html">?�음 ?�단????/a>
-            </div>
-        </header>
-        <div class="page">
-            <div class="g2">
-                <div class="cm">
-
-                    <div class="card" id="sec-goal">
-                        <div class="ch" onclick="toggleSec('sec-goal')">
-                            <div class="sn" style="background:var(--ult);color:var(--u)">01</div>
-                            <h3>?�습목표</h3><span class="st">??5�?/span><span class="carr">??/span>
-                        </div>
-                        <div class="cb">
-                            <div class="ach">
-                                <div class="ach-c">[9??1-03] ?��?�?컴퓨???�로그래�?/div>
-                                <div class="ach-t">문제 ?�결???�합???�서�??�택?�여 ?�작???�어?�는 ?�로그램???�성?�고, 몸의 ?�들림을 감�??�여 ?�동 ?�수�??�려 주는
-                                    ?��?�?컴퓨???�스?�을 만들 ???�다. (pp.19~23)</div>
-                            </div>
-                            <ul class="glist">
-                                <li>
-                                    <div class="gck">??/div>가?�도 ?�서???�리�??�명?�고 문제???�합???�서�??�택?????�다.
-                                </li>
-                                <li>
-                                    <div class="gck">??/div>문제�??��? 문제�??�누�??�고리즘???�계?????�다.
-                                </li>
-                                <li>
-                                    <div class="gck">??/div>?�동 ?�수�?감�??�고 ?�시?�는 ?��?�?컴퓨???�로그램??MakeCode�??�성?????�다.
-                                </li>
-                            </ul>
-                            <div class="divl"></div>
-                            <div class="ctags">
-                                <span class="ctag" onclick="goTo('sec-concept')">가?�도 ?�서</span>
-                                <span class="ctag" onclick="goTo('sec-concept')">변??/span>
-                                <span class="ctag" onclick="goTo('sec-concept')">?�들�?감�?</span>
-                                <span class="ctag" onclick="goTo('sec-concept')">MakeCode</span>
-                            </div>
-                            <div class="ibox prev">?�� <b>중단?? ?�작:</b> ?�제 마이?�로비트�?직접 ?�로그램???�성?�니?? 가?�도 ?�서�??�용?�여 ?�동 ?�수�?                                ?�동?�로 ?�는 ?�치�?만들?�봅?�다.</div>
-                        </div>
-                    </div>
-
-                    <div class="card" id="sec-concept">
-                        <div class="ch" onclick="toggleSec('sec-concept')">
-                            <div class="sn" style="background:var(--gbg);color:var(--green)">02</div>
-                            <h3>개념?�명</h3><span class="st">??15�?/span><span class="carr">??/span>
-                        </div>
-                        <div class="cb">
-                            <div class="crow">
-                                <div class="ct">
-                                    <h4>문제 ?�황 & 분석</h4>
-                                    <p>?�았???�어?�기 ?�동??반복????<strong>�?�??�는지 ?�동?�로 감�?</strong>?�여 ?�려주는 ?�치가 ?�요?�니??</p>
-                                    <ul>
-                                        <li><b>?�용 ?�서:</b> 가?�도 ?�서 (?�들�?감�?)</li>
-                                        <li><b>A 버튼:</b> ?�재 ?�동 ?�수 LED 출력</li>
-                                        <li><b>B 버튼:</b> ?�동 ?�수 초기??0?�로)</li>
-                                    </ul>
-                                    <div
-                                        style="background:var(--bg);border:1px solid var(--br);border-radius:var(--rSM);padding:10px;margin-top:8px;font-size:11px;color:var(--mt)">
-                                        가?�도 ?�서: 물체??가?�도·충격 ?�기 측정.<br>X·Y·Z 3축의 ?�직임??미세?�게 감�?.
-                                    </div>
-                                </div>
-                                <div class="cvis">
-                                    <svg viewBox="0 0 130 110" width="130">
-                                        <rect x="4" y="4" width="122" height="25" rx="5" fill="#1e1e2e" stroke="#444"
-                                            stroke-width="1" />
-                                        <text x="65" y="21" font-size="9" fill="#a0c0ff" text-anchor="middle"
-                                            font-family="monospace" font-weight="bold">micro:bit V2</text>
-                                        <!-- 5x5 LED grid -->
-                                        <g transform="translate(30,36)">
-                                            <text x="35" y="-4" font-size="7" fill="var(--lt)" text-anchor="middle"
-                                                font-family="sans-serif">LED ?�크�?/text>
-                                            <rect x="0" y="0" width="8" height="8" rx="2" fill="#FF6B35" />
-                                            <rect x="11" y="0" width="8" height="8" rx="2" fill="#FF6B35" />
-                                            <rect x="22" y="0" width="8" height="8" rx="2" fill="#FF6B35" />
-                                            <rect x="33" y="0" width="8" height="8" rx="2" fill="#333" />
-                                            <rect x="44" y="0" width="8" height="8" rx="2" fill="#333" />
-                                            <rect x="0" y="11" width="8" height="8" rx="2" fill="#333" />
-                                            <rect x="11" y="11" width="8" height="8" rx="2" fill="#FF6B35" />
-                                            <rect x="22" y="11" width="8" height="8" rx="2" fill="#333" />
-                                            <rect x="33" y="11" width="8" height="8" rx="2" fill="#333" />
-                                            <rect x="44" y="11" width="8" height="8" rx="2" fill="#333" />
-                                            <rect x="0" y="22" width="8" height="8" rx="2" fill="#333" />
-                                            <rect x="11" y="22" width="8" height="8" rx="2" fill="#333" />
-                                            <rect x="22" y="22" width="8" height="8" rx="2" fill="#FF6B35" />
-                                            <rect x="33" y="22" width="8" height="8" rx="2" fill="#333" />
-                                            <rect x="44" y="22" width="8" height="8" rx="2" fill="#333" />
-                                        </g>
-                                        <text x="12" y="95" font-size="8" fill="#fff" text-anchor="middle"
-                                            font-family="sans-serif" font-weight="bold">A</text>
-                                        <rect x="4" y="98" width="16" height="8" rx="4" fill="#555" />
-                                        <text x="118" y="95" font-size="8" fill="#fff" text-anchor="middle"
-                                            font-family="sans-serif" font-weight="bold">B</text>
-                                        <rect x="110" y="98" width="16" height="8" rx="4" fill="#555" />
-                                        <text x="65" y="106" font-size="7" fill="var(--lt)" text-anchor="middle"
-                                            font-family="sans-serif">가?�도 ?�서: ?�들�?감�?</text>
-                                    </svg>
-                                </div>
-                            </div>
-                            <div class="divl"></div>
-                            <h4 style="font-size:13px;font-weight:700;margin-bottom:9px">?�고리즘 ?�계 (4?�계)</h4>
-                            <div
-                                style="background:var(--bg);border:1px solid var(--br);border-radius:var(--rSM);padding:13px;font-size:12px;color:var(--mt);line-height:2;margin-bottom:12px">
-                                ??'?�동 ?�수' 변?��? ?�성?�고 <b>0?�로 초기??/b>?�다.<br>
-                                ???�들림이 감�??�면 '?�동 ?�수' 변?��? <b>1 증�?</b>?�킨??<br>
-                                ??<b>A 버튼</b>???�르�??�재 '?�동 ?�수'�?LED ?�크린에 출력?�다.<br>
-                                ??<b>B 버튼</b>???�르�?'?�동 ?�수' 변?��? 0?�로 ?�설?�한??
-                            </div>
-                            <h4 style="font-size:13px;font-weight:700;margin-bottom:9px">MakeCode 블록 ?�시</h4>
-                            <div class="mb-workspace">
-                                <div class="mb-row"><span class="mb mb-start">?�� ?�작?�면</span></div>
-                                <div class="mb-indent"><span class="mb mb-var">?�동?�수 ??0</span></div>
-                                <div class="mb-row"><span class="mb mb-sensor">?�� ?�들�?감�? ??/span></div>
-                                <div class="mb-indent"><span class="mb mb-var">?�동?�수 ???�동?�수 + 1</span></div>
-                                <div class="mb-row"><span class="mb mb-input">?���?A 버튼 ?��? ??/span></div>
-                                <div class="mb-indent"><span class="mb mb-led">LED???�동?�수 ?�시</span></div>
-                                <div class="mb-row"><span class="mb mb-input">?���?B 버튼 ?��? ??/span></div>
-                                <div class="mb-indent"><span class="mb mb-var">?�동?�수 ??0</span></div>
-                                <div class="mb-indent"><span class="mb mb-led">LED ?�면 지?�기</span></div>
-                            </div>
-                            <div class="ibox info">?�� <b>교과???�계:</b> pp.19~23 / MakeCode: https://makecode.microbit.org
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- ???�행 ?�동 ??-->
-                    <div class="activity" id="sec-activity">
-                        <div class="act-head" onclick="toggleSec('act-body-03')">
-                            <span class="act-badge">???�행 ?�동</span>
-                            <h3>가?�도 ?�서�??�용???��?�?컴퓨???�치 만들�?/h3>
-                            <span style="font-size:10px;color:var(--udk);margin-left:auto">모둠 ?�동 | pp.20·23</span>
-                            <span class="carr" style="color:var(--udk)">??/span>
-                        </div>
-                        <div id="act-body-03" class="act-body">
-                            <div class="ibox ok" style="margin-top:0;margin-bottom:14px">?�� 마이?�로비트??가?�도 ?�서�??�용?�는 ??가지 ?�행
-                                ?�동?�니?? (교과??pp.20·23 ?�보�?</div>
-
-                            <!-- ?�동 1: ?�서 조사 -->
-                            <div
-                                style="background:var(--sf);border:2px solid var(--umd);border-radius:var(--rSM);padding:14px;margin-bottom:14px">
-                                <div style="font-size:12px;font-weight:700;color:var(--u);margin-bottom:10px">?�� ?�동 1 ??                                    마이?�로비트 ?�서 ?�구 (pp.20)</div>
-                                <div style="font-size:12px;color:var(--mt);margin-bottom:10px">마이?�로비트???�장???�서가 ?�용?�는 ?��?�?                                    컴퓨???�스?�을 조사?�세??</div>
-                                <div style="overflow-x:auto">
-                                    <table class="act-table">
-                                        <thead>
-                                            <tr>
-                                                <th>?�서</th>
-                                                <th>?�용?�는 ?��?�?컴퓨???�스??/th>
-                                                <th>?�제·?�떻�??�이?��?</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td style="font-weight:600;color:var(--blue)">??버튼</td>
-                                                <td style="color:var(--lt);font-size:11px">?? ?�계: ?�간??조정????/td>
-                                                <td><input class="act-input" style="min-height:44px;resize:none"
-                                                        placeholder="추�? ?��? ?�성..."></td>
-                                            </tr>
-                                            <tr>
-                                                <td style="font-weight:600;color:var(--blue)">??�?감�?</td>
-                                                <td><input class="act-input" style="min-height:44px;resize:none"
-                                                        placeholder="?�스???�름"></td>
-                                                <td><input class="act-input" style="min-height:44px;resize:none"
-                                                        placeholder="?�용 방법"></td>
-                                            </tr>
-                                            <tr>
-                                                <td style="font-weight:600;color:var(--blue)">???�도</td>
-                                                <td><input class="act-input" style="min-height:44px;resize:none"
-                                                        placeholder="?�스???�름"></td>
-                                                <td><input class="act-input" style="min-height:44px;resize:none"
-                                                        placeholder="?�용 방법"></td>
-                                            </tr>
-                                            <tr>
-                                                <td style="font-weight:600;color:var(--blue)">??가?�도</td>
-                                                <td><input class="act-input" style="min-height:44px;resize:none"
-                                                        placeholder="?�스???�름"></td>
-                                                <td><input class="act-input" style="min-height:44px;resize:none"
-                                                        placeholder="?�용 방법"></td>
-                                            </tr>
-                                            <tr>
-                                                <td style="font-weight:600;color:var(--blue)">???�리</td>
-                                                <td><input class="act-input" style="min-height:44px;resize:none"
-                                                        placeholder="?�스???�름"></td>
-                                                <td><input class="act-input" style="min-height:44px;resize:none"
-                                                        placeholder="?�용 방법"></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-
-                            <!-- ?�동 2: 기울??방향 ?�치 -->
-                            <div
-                                style="background:var(--sf);border:2px solid var(--umd);border-radius:var(--rSM);padding:14px;margin-bottom:14px">
-                                <div style="font-size:12px;font-weight:700;color:var(--u);margin-bottom:8px">?�� ?�동 2 ??                                    기울??방향 ?�살???�치 만들�?(pp.23)</div>
-                                <div
-                                    style="background:var(--bg);border:1px solid var(--br);border-radius:var(--rSM);padding:11px;margin-bottom:10px;font-size:12px;color:var(--mt)">
-                                    <b>조건:</b> ?�쪽 기울?�면 ??| ?�른�?기울?�면 ??| ?�로 기울?�면 ??| ?�래�?기울?�면 ??                                </div>
-                                <div style="font-size:12px;font-weight:600;color:var(--mt);margin-bottom:7px">???�고리즘 ?�계
-                                    (�?방향�?코드 ?�름 ?�성)</div>
-                                <textarea class="act-input"
-                                    placeholder="?? ?�쪽 기울?�면 ??조건(tilted left) ??LED???�쪽 ?�살???�시&#10;?�른�?기울?�면 ??..."></textarea>
-                                <div style="font-size:12px;font-weight:600;color:var(--mt);margin:9px 0 7px">??MakeCode�?                                    ?�로그램 ?�성 ??결과 기록</div>
-                                <div id="tilt-sim"
-                                    style="background:#1e1e2e;border-radius:var(--rSM);padding:14px;text-align:center;margin-bottom:10px">
-                                    <div style="font-size:10px;color:#aaa;margin-bottom:10px">방향 버튼???�러 ?��??�이??/div>
-                                    <div
-                                        style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;max-width:180px;margin:0 auto">
-                                        <div></div>
-                                        <button class="btn bsm" onclick="tiltSim('up','??,'??)"
-                                            style="background:#333;color:#fff;border-color:#555;font-size:16px">??/button>
-                                        <div></div>
-                                        <button class="btn bsm" onclick="tiltSim('left','??,'?�쪽')"
-                                            style="background:#333;color:#fff;border-color:#555;font-size:16px">??/button>
-                                        <div id="tilt-led"
-                                            style="width:100%;aspect-ratio:1;background:#111;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:28px;color:#FF6B35;border:1px solid #444">
-                                            ?</div>
-                                        <button class="btn bsm" onclick="tiltSim('right','??,'?�른�?)"
-                                            style="background:#333;color:#fff;border-color:#555;font-size:16px">??/button>
-                                        <div></div>
-                                        <button class="btn bsm" onclick="tiltSim('down','??,'?�래')"
-                                            style="background:#333;color:#fff;border-color:#555;font-size:16px">??/button>
-                                        <div></div>
-                                    </div>
-                                    <div id="tilt-info" style="font-size:11px;color:#aaa;margin-top:8px">버튼???�러 기울??                                        ?��??�이??/div>
-                                </div>
-                                <textarea class="act-input" placeholder="?�행 결과 �??��? ?�을 기록?�세??.."></textarea>
-                            </div>
-
-                            <!-- ?�동 3: 주사???�로그램 -->
-                            <div
-                                style="background:var(--sf);border:2px solid var(--umd);border-radius:var(--rSM);padding:14px">
-                                <div style="font-size:12px;font-weight:700;color:var(--u);margin-bottom:8px">?�� ?�동 3 ??                                    주사???�로그램 만들�?(pp.23)</div>
-                                <div style="font-size:12px;color:var(--mt);margin-bottom:10px">?�들림을 감�??�면 LED ?�크린에 1~6까�?
-                                    ?�의???��? 주사??모양?�로 ?�시?�는 ?�로그램</div>
-                                <div style="font-size:12px;font-weight:600;color:var(--mt);margin-bottom:7px">주사???��??�이??                                    (?�들�?체험)</div>
-                                <div
-                                    style="background:#1e1e2e;border-radius:var(--rSM);padding:14px;text-align:center;margin-bottom:10px">
-                                    <canvas id="dice-canvas" width="100" height="100"
-                                        style="max-width:100%;height:auto;display:block;margin:0 auto 10px;cursor:pointer;border-radius:8px"
-                                        onclick="rollDice()"></canvas>
-                                    <button class="btn bsm bp" onclick="rollDice()">?�� ?�들�?</button>
-                                    <div id="dice-val" style="font-size:12px;color:#aaa;margin-top:6px">?�릭?�여 주사??굴리�?                                    </div>
-                                </div>
-                                <textarea class="act-input"
-                                    placeholder="?�고리즘: ?�들�?감�? ??1~6 �??�의 ?�자 ?�택 ??LED??주사??모양?�로 ?�시&#10;?�제 MakeCode?�서 '?�의????고르�?1~6)' 블록???�용?�니??"></textarea>
-                            </div>
-
-                            <!-- ?��??�기 -->
-                            <div style="margin-top:14px">
-                                <div style="font-size:12px;font-weight:700;color:var(--mt);margin-bottom:8px">?�� ?��??�기
-                                    (교과??p.22)</div>
-                                <div style="overflow-x:auto;margin-top:12px">
-                                    <table class="peer-check">
-                                        <thead>
-                                            <tr>
-                                                <th style="text-align:left">?��? ??��</th>
-                                                <th colspan="2">?�기 ?��?</th>
-                                                <th colspan="2">?�료 ?��?</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>?�로그램???�행?�기 ???�동 ?�수가 0?��??</td>
-                                                <td><label><input type="radio" name="pe0a" value="??> ??/label></td>
-                                                <td><label><input type="radio" name="pe0a" value="?�니??> ?�니??/label></td>
-                                                <td><label><input type="radio" name="pe0b" value="??> ??/label></td>
-                                                <td><label><input type="radio" name="pe0b" value="?�니??> ?�니??/label></td>
-                                            </tr>
-                                            <tr>
-                                                <td>?�동 ?�수가 몸의 ?�들림을 감�??�여 ?�적?�는가?</td>
-                                                <td><label><input type="radio" name="pe1a" value="??> ??/label></td>
-                                                <td><label><input type="radio" name="pe1a" value="?�니??> ?�니??/label></td>
-                                                <td><label><input type="radio" name="pe1b" value="??> ??/label></td>
-                                                <td><label><input type="radio" name="pe1b" value="?�니??> ?�니??/label></td>
-                                            </tr>
-                                            <tr>
-                                                <td>A 버튼???�르�??�재 ?�동 ?�수�?보여 주는가?</td>
-                                                <td><label><input type="radio" name="pe2a" value="??> ??/label></td>
-                                                <td><label><input type="radio" name="pe2a" value="?�니??> ?�니??/label></td>
-                                                <td><label><input type="radio" name="pe2b" value="??> ??/label></td>
-                                                <td><label><input type="radio" name="pe2b" value="?�니??> ?�니??/label></td>
-                                            </tr>
-                                            <tr>
-                                                <td>B 버튼???�르�??�동 ?�수가 0?�로 ?�설?�되?��??</td>
-                                                <td><label><input type="radio" name="pe3a" value="??> ??/label></td>
-                                                <td><label><input type="radio" name="pe3a" value="?�니??> ?�니??/label></td>
-                                                <td><label><input type="radio" name="pe3b" value="??> ??/label></td>
-                                                <td><label><input type="radio" name="pe3b" value="?�니??> ?�니??/label></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                            <div style="display:flex;gap:8px;margin-top:12px">
-                                <button class="btn bsm bp" onclick="saveActivity('l103_act')">?�� ?�동 ?�??/button>
-                                <a href="https://makecode.microbit.org" target="_blank" class="btn bsm"
-                                    style="background:#0078D4;color:#fff;border-color:#005A9E">MakeCode ?�기 ??/a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card" id="sec-assess">
-                        <div class="ch" onclick="toggleSec('sec-assess')">
-                            <div class="sn" style="background:var(--bbg);color:var(--blue)">04</div>
-                            <h3>?�행?��?</h3><span class="st">??5�?/span><span class="carr">??/span>
-                        </div>
-                        <div class="cb">
-                            <div
-                                style="background:var(--bg);border:1px solid var(--br);border-radius:var(--rSM);padding:12px;margin-bottom:12px;border-left:3px solid var(--u)">
-                                <h4 style="font-size:13px;font-weight:700;color:var(--u);margin-bottom:7px">?�� ?�동 ?�수 ?�시
-                                    ?�치 + 기울??방향 ?�치</h4>
-                                <p style="font-size:13px;color:var(--mt)">가?�도 ?�서�??�용???��?�?컴퓨???�로그램 2가지�?MakeCode�??�성?�고
-                                    결과�??�출?�시??</p>
-                            </div>
-                            <table class="rub">
-                                <thead>
-                                    <tr>
-                                        <th>?��? ?�소</th>
-                                        <th class="lv4">매우 ?�함(4)</th>
-                                        <th class="lv3">?�함(3)</th>
-                                        <th class="lv2">보통(2)</th>
-                                        <th class="lv1">?�력 ?�요(1)</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><b>?�고리즘 ?�계</b></td>
-                                        <td class="lv4">문제 분해·4?�계 ?�계 ?�확</td>
-                                        <td class="lv3">3?�계 ?�계</td>
-                                        <td class="lv2">2?�계</td>
-                                        <td class="lv1">1?�계 ?�하</td>
-                                    </tr>
-                                    <tr>
-                                        <td><b>?�로그램 ?�성</b></td>
-                                        <td class="lv4">2�??�상 ?�동</td>
-                                        <td class="lv3">1�??�상</td>
-                                        <td class="lv2">부�??�동</td>
-                                        <td class="lv1">?�동 불�?</td>
-                                    </tr>
-                                    <tr>
-                                        <td><b>발표·공유</b></td>
-                                        <td class="lv4">?�리 명확 ?�명</td>
-                                        <td class="lv3">?�체로 ?�명</td>
-                                        <td class="lv2">?�순 ?�연</td>
-                                        <td class="lv1">?�음</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <div class="sclist">
-                                <div class="scitem"><label>가?�도 ?�서???�리�??�명?????�다.</label><select>
-                                        <option value="">?�택</option>
-                                        <option>매우 그렇??/option>
-                                        <option>그렇??/option>
-                                        <option>?�직 모르겠다</option>
-                                    </select></div>
-                                <div class="scitem"><label>문제�??��? 문제�??�누�??�고리즘???�계?????�다.</label><select>
-                                        <option value="">?�택</option>
-                                        <option>매우 그렇??/option>
-                                        <option>그렇??/option>
-                                        <option>?�직 모르겠다</option>
-                                    </select></div>
-                                <div class="scitem"><label>MakeCode�??�동 ?�수 ?�시 ?�로그램???�성?????�다.</label><select>
-                                        <option value="">?�택</option>
-                                        <option>매우 그렇??/option>
-                                        <option>그렇??/option>
-                                        <option>?�직 모르겠다</option>
-                                    </select></div>
-                            </div>
-                            <button class="btn bsm bok" style="margin-top:10px" onclick="saveSC('l103sc')">?��
-                                ?�??/button>
-                        </div>
-                    </div>
-
-                    <div class="card" id="sec-review">
-                        <div class="ch" onclick="toggleSec('sec-review')">
-                            <div class="sn" style="background:var(--gbg);color:var(--green)">05</div>
-                            <h3>?�인?�기</h3><span class="st">??5�?/span><span class="carr">??/span>
-                        </div>
-                        <div class="cb">
-                            <div class="sgrid">
-                                <div class="scard"><strong>가?�도 ?�서</strong>X·Y·Z 3�??�직임 감�?. ?�들림·기?�임 측정.</div>
-                                <div class="scard"><strong>변??/strong>값을 ?�?�하�?참조?�는 메모�?공간.</div>
-                                <div class="scard"><strong>?�고리즘 4?�계</strong>초기?�→?�들림감지?�횟?�출?�→?�설??/div>
-                            </div>
-                            <div
-                                style="background:var(--bg);border:1px solid var(--br);border-radius:var(--rSM);padding:13px;margin-bottom:12px">
-                                <b>?�️ ?�답??</b> ?�동 ?�수 ?�시 ?�치?�서 몸의 ?�들림을 감�??�는 ???�용?�는 ?�서??<span
-                                    style="display:inline-block;width:80px;border-bottom:1.5px solid var(--tx)">&nbsp;</span>
-                                ?�서?�다.<textarea
-                                    style="display:block;width:100%;margin-top:9px;padding:9px;border:1px solid var(--br);border-radius:var(--rSM);font-size:13px;font-family:inherit;resize:vertical;min-height:48px;background:var(--sf)"
-                                    placeholder="?�답???�력?�세??.."></textarea></div>
-                            <div class="ibox ok">?�� <div><strong>?�음 차시 ?�고:</strong> ?�도 ?�서?� �?감�? ?�서�?<strong>?�면 ?�도 ?�림??                                        ?�치</strong>�?만들?�봅?�다! (pp.24~27)</div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="ca">
-                    <div class="ap">
-                        <h5>?�습 진행</h5>
-                        <div class="slist">
-                            <div class="si" onclick="goTo('sec-goal')">
-                                <div class="dot sd">1</div>?�습목표
-                            </div>
-                            <div class="si" onclick="goTo('sec-concept')">
-                                <div class="dot">2</div>개념?�명
-                            </div>
-                            <div class="si" onclick="goTo('sec-activity')">
-                                <div class="dot sa">??/div>?�행 ?�동
-                            </div>
-                            <div class="si" onclick="goTo('sec-assess')">
-                                <div class="dot">4</div>?�행?��?
-                            </div>
-                            <div class="si" onclick="goTo('sec-review')">
-                                <div class="dot">5</div>?�인?�기
-                            </div>
-                        </div>
-                    </div>
-                    <div class="ap" style="background:var(--ult);border-color:var(--umd)">
-                        <h5 style="color:var(--u)">?�원 진도</h5>
-                        <div style="display:flex;align-items:center;gap:7px">
-                            <div class="pbtrack" style="flex:1">
-                                <div class="pbfill" style="width:38%"></div>
-                            </div><span style="font-size:11px;font-weight:600;color:var(--u)">3/6</span>
-                        </div>
-                    </div>
-                    <div class="ap">
-                        <h5>?�심 ?�어</h5>
-                        <div class="termlist">
-                            <div class="tterm"><span class="tw">가?�도 ?�서</span><span class="tdef">3�??�직임·?�들�?감�?</span>
-                            </div>
-                            <div class="tterm"><span class="tw">변??/span><span class="tdef">�??�?�·참�?공간</span></div>
-                            <div class="tterm"><span class="tw">?�들�??�벤??/span><span class="tdef">shake 감�?</span></div>
-                            <div class="tterm"><span class="tw">LED ?�크�?/span><span class="tdef">5×5 ?��? 출력</span></div>
-                            <div class="tterm"><span class="tw">초기??/span><span class="tdef">변?��? 0?�로 ?�정</span></div>
-                        </div>
-                    </div>
-                    <div class="ap" style="background:#F0FDF4;border-color:#BBF7D0">
-                        <h5 style="color:#166534">?�� 마이?�로비트</h5>
-                        <a href="https://makecode.microbit.org" target="_blank" class="btn bsm"
-                            style="width:100%;justify-content:center;background:#0078D4;color:#fff;border-color:#005A9E;margin-bottom:5px">MakeCode
-                            ?�기 ??/a>
-                        <a href="https://makecode.microbit.org/#editor" target="_blank" class="btn bsm"
-                            style="width:100%;justify-content:center;font-size:10px;color:var(--mt)">?��??�이????/a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
-    <div id="toast"></div>
-    <script>
-
-        // ?�?� Google Sheets ?�???�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�
-        var GS_URL = 'https://script.google.com/macros/s/AKfycbwOMGuuboaYzZCHvIQpu3V_Lo-Fu02CiY4nj1BDktSinJM41H_EqAkulbcUsC-2Sxt6/exec';
-        var LESSON_KEY = 'l13';
-        var UNIT_ID = 'I';
-        var LESSON_NAME = '?�동 ?�수 ?�시 ?�치 만들�?;
-
-        function getUserName() {
-            return localStorage.getItem('user_name') || '?�명';
-        }
-
-        function postToSheets(payload) {
-            if (!GS_URL || GS_URL === 'https://script.google.com/macros/s/AKfycbwOMGuuboaYzZCHvIQpu3V_Lo-Fu02CiY4nj1BDktSinJM41H_EqAkulbcUsC-2Sxt6/exec') return;
-            fetch(GS_URL, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            }).catch(function () { });
-        }
-
-
-        function toast(m) { var t = document.getElementById('toast'); t.textContent = m; t.style.opacity = '1'; t.style.transform = 'translateX(-50%) translateY(0)'; clearTimeout(t._t); t._t = setTimeout(function () { t.style.opacity = '0'; t.style.transform = 'translateX(-50%) translateY(10px)'; }, 2400); }
-        function toggleSec(id) { var e = document.getElementById(id); if (e) e.classList.toggle('collapsed'); }
-        function goTo(id) { var e = document.getElementById(id); if (!e) return; window.scrollTo({ top: e.getBoundingClientRect().top + window.pageYOffset - 64, behavior: 'smooth' }); }
-        function checkQ(el, ok, msg) { 
-            el.closest('.qopts').querySelectorAll('.opt').forEach(function (o) { o.classList.add('locked'); }); 
-            el.classList.add(ok ? 'correct' : 'wrong'); 
-            var fb = el.closest('.qwrap').querySelector('.qfb'); 
-            if (fb) { fb.className = 'qfb ' + (ok ? 'ok' : 'err'); fb.innerHTML = (ok ? '???�답: ' : '???�트: ') + msg; } 
-            saveQuizResult();
-        }
-
-        function saveQuizResult() {
-            var correct = document.querySelectorAll('.opt.correct').length;
-            var total = document.querySelectorAll('.qwrap').length;
-            var score = { correct: correct, total: total, ratio: Math.round((correct/total)*100) };
-            localStorage.setItem(LESSON_KEY + '_quiz', JSON.stringify(score));
-            postToSheets({
-                type: 'quiz',
-                userName: getUserName(),
-                unit: UNIT_ID,
-                lessonKey: LESSON_KEY,
-                lessonName: LESSON_NAME,
-                score: score
-            });
-        }
-        function saveSC() {
-            var key = LESSON_KEY + '_sc';
-            var d = {};
-            document.querySelectorAll('.scitem select').forEach(function (s, i) { d['q' + i] = s.value; });
-            try {
-                localStorage.setItem(key, JSON.stringify(d));
-                postToSheets({
-                    type: 'sc',
-                    userName: getUserName(),
-                    unit: UNIT_ID,
-                    lessonKey: LESSON_KEY,
-                    lessonName: LESSON_NAME,
-                    answers: d
-                });
-                toast('?�기?��?가 ?�?�되?�습?�다 ??);
-            } catch (e) { }
-        }
-        function loadSC(key) { try { var d = JSON.parse(localStorage.getItem(key) || '{}'); document.querySelectorAll('.scitem select').forEach(function (s, i) { if (d['q' + i]) s.value = d['q' + i]; }); } catch (e) { } }
-        function markDone(n) {
-            try {
-                var d = JSON.parse(localStorage.getItem('u01done') || '[]');
-                if (!d.includes(n)) d.push(n);
-                localStorage.setItem('u01done', JSON.stringify(d));
-                // Google Sheets ?�??                postToSheets({
-                    type: 'done',
-                    userName: getUserName(),
-                    unit: 'I',
-                    lessonNum: n,
-                    lessonName: '컴퓨???�스??
-                });
-            } catch (e) { }
-            toast('???�단??' + n + ' ?�료 ?�시!');
-        }
-        function saveActivity() {
-            var key = LESSON_KEY + '_act';
-            var d = {};
-            document.querySelectorAll('.act-input').forEach(function (el, i) { d['a' + i] = el.value; });
-            document.querySelectorAll('.peer-check input[type=radio]:checked').forEach(function (el) { d['r_' + el.name] = el.value; });
-            try {
-                localStorage.setItem(key, JSON.stringify(d));
-                postToSheets({
-                    type: 'act',
-                    userName: getUserName(),
-                    unit: UNIT_ID,
-                    lessonKey: LESSON_KEY,
-                    lessonName: LESSON_NAME,
-                    answers: d
-                });
-                toast('???�행 ?�동???�?�되?�습?�다!');
-            } catch (e) { }
-        }
-        function loadActivity(key) {
-            try {
-                var d = JSON.parse(localStorage.getItem(key) || '{}');
-                document.querySelectorAll('.act-input').forEach(function (el, i) { if (d['a' + i]) el.value = d['a' + i]; });
-                Object.keys(d).filter(function (k) { return k.startsWith('r_'); }).forEach(function (k) {
-                    var el = document.querySelector('input[type=radio][name="' + k.slice(2) + '"][value="' + d[k] + '"]');
-                    if (el) el.checked = true;
-                });
-            } catch (e) { }
-        }
-
-
-        function tiltSim(dir, arrow, label) {
-            document.getElementById('tilt-led').textContent = arrow;
-            document.getElementById('tilt-info').textContent = '기울?? ' + label + ' ??LED??' + arrow + ' ?�시';
-        }
-        var dicePatterns = {
-            1: [[2, 2]],
-            2: [[1, 1], [3, 3]],
-            3: [[1, 1], [2, 2], [3, 3]],
-            4: [[1, 1], [1, 3], [3, 1], [3, 3]],
-            5: [[1, 1], [1, 3], [2, 2], [3, 1], [3, 3]],
-            6: [[1, 1], [1, 3], [2, 1], [2, 3], [3, 1], [3, 3]]
-        };
-        function rollDice() {
-            var n = Math.floor(Math.random() * 6) + 1;
-            var cv = document.getElementById('dice-canvas');
-            if (!cv) return;
-            var ctx = cv.getContext('2d');
-            ctx.fillStyle = '#2C2C2C'; ctx.fillRect(0, 0, 100, 100);
-            ctx.strokeStyle = '#555'; ctx.lineWidth = 2; ctx.roundRect(2, 2, 96, 96, 10); ctx.stroke();
-            var pts = dicePatterns[n];
-            ctx.fillStyle = '#FF6B35';
-            pts.forEach(function (p) {
-                ctx.beginPath();
-                ctx.arc(p[1] * 25, p[0] * 25, 8, 0, Math.PI * 2);
-                ctx.fill();
-            });
-            document.getElementById('dice-val').textContent = '주사?? ' + n + '???�왔?�니??';
-        }
-        document.addEventListener('DOMContentLoaded', function () {
-            var cv = document.getElementById('dice-canvas');
-            if (cv) { var ctx = cv.getContext('2d'); ctx.fillStyle = '#2C2C2C'; ctx.fillRect(0, 0, 100, 100); ctx.strokeStyle = '#555'; ctx.lineWidth = 2; ctx.beginPath(); ctx.roundRect(2, 2, 96, 96, 10); ctx.stroke(); ctx.fillStyle = '#aaa'; ctx.font = '12px sans-serif'; ctx.textAlign = 'center'; ctx.fillText('?�릭?�여 굴리�?, 50, 55); }
-        });
-
-        document.addEventListener('DOMContentLoaded', function () { 
-            loadSC(LESSON_KEY + '_sc'); 
-            loadActivity(LESSON_KEY + '_act'); 
-        });
-    </script>
-</body>
-
+﻿<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>I-3. 운동 횟수 표시 장치 만들기 — 정보 교과</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        html {
+            scroll-behavior: smooth
+        }
+
+        body {
+            font-family: 'Noto Sans KR', -apple-system, sans-serif;
+            background: #F5F4F0;
+            color: #1C1C1C;
+            font-size: 14px;
+            line-height: 1.65;
+            display: flex;
+            min-height: 100vh
+        }
+
+        :root {
+            --u: #6C65CC;
+            --udk: #4E48A8;
+            --ult: #ECEAFE;
+            --umd: #C8C4F0;
+            --bg: #F5F4F0;
+            --sf: #FFF;
+            --br: #E2DFD6;
+            --tx: #1C1C1C;
+            --mt: #696760;
+            --lt: #A8A59E;
+            --green: #2A720E;
+            --gbg: #E8F3DC;
+            --amber: #7A4E0A;
+            --abg: #FAF0DC;
+            --red: #8C1E0E;
+            --rbg: #FAEBE6;
+            --blue: #0A4E8C;
+            --bbg: #E4F0FA;
+            --rLG: 14px;
+            --rSM: 8px;
+            --SW: 240px;
+            --TH: 52px
+        }
+
+        .sb {
+            width: var(--SW);
+            background: var(--sf);
+            border-right: 1px solid var(--br);
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            z-index: 100
+        }
+
+        .sb-top {
+            padding: 16px 14px 12px;
+            border-bottom: 1px solid var(--br)
+        }
+
+        .uchip {
+            display: inline-flex;
+            align-items: center;
+            background: var(--ult);
+            color: var(--u);
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            padding: 3px 9px;
+            border-radius: 20px;
+            margin-bottom: 6px
+        }
+
+        .sb-top h2 {
+            font-size: 12px;
+            font-weight: 700;
+            line-height: 1.4
+        }
+
+        .smeta {
+            font-size: 10px;
+            color: var(--lt);
+            margin-top: 3px
+        }
+
+        .sb-nav {
+            padding: 4px 0;
+            flex: 1
+        }
+
+        .nlbl {
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            color: var(--lt);
+            padding: 7px 13px 3px
+        }
+
+        .na {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 7px 13px;
+            font-size: 11px;
+            color: var(--mt);
+            text-decoration: none;
+            border-left: 2.5px solid transparent;
+            transition: background .12s
+        }
+
+        .na:hover {
+            background: var(--bg);
+            color: var(--tx)
+        }
+
+        .na.on {
+            color: var(--u);
+            font-weight: 600;
+            background: var(--ult);
+            border-left-color: var(--u)
+        }
+
+        .na.done .nn {
+            background: var(--gbg);
+            color: var(--green)
+        }
+
+        .nn {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--br);
+            font-size: 9px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            color: var(--mt)
+        }
+
+        .na.on .nn {
+            background: var(--u);
+            color: #fff
+        }
+
+        .nbadge {
+            margin-left: auto;
+            font-size: 9px;
+            color: var(--lt);
+            background: var(--bg);
+            border: 1px solid var(--br);
+            padding: 1px 5px;
+            border-radius: 10px;
+            white-space: nowrap
+        }
+
+        .sb-foot {
+            padding: 10px 13px;
+            border-top: 1px solid var(--br)
+        }
+
+        .ba {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            color: var(--mt);
+            text-decoration: none;
+            padding: 5px 9px;
+            border-radius: var(--rSM);
+            border: 1px solid var(--br);
+            background: var(--sf);
+            transition: all .12s
+        }
+
+        .ba:hover {
+            background: var(--bg)
+        }
+
+        .main {
+            margin-left: var(--SW);
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            min-width: 0
+        }
+
+        .topbar {
+            background: var(--sf);
+            border-bottom: 1px solid var(--br);
+            height: var(--TH);
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            position: sticky;
+            top: 0;
+            z-index: 90
+        }
+
+        .bc {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 12px;
+            color: var(--mt);
+            flex: 1
+        }
+
+        .bc a {
+            color: var(--mt);
+            text-decoration: none
+        }
+
+        .bc a:hover {
+            color: var(--tx)
+        }
+
+        .bcsep {
+            color: var(--br)
+        }
+
+        .bccur {
+            color: var(--tx);
+            font-weight: 500
+        }
+
+        .tbr {
+            display: flex;
+            align-items: center;
+            gap: 6px
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 6px 12px;
+            border-radius: var(--rSM);
+            font-size: 12px;
+            font-family: inherit;
+            font-weight: 500;
+            cursor: pointer;
+            border: 1px solid var(--br);
+            background: var(--sf);
+            color: var(--tx);
+            text-decoration: none;
+            transition: background .12s;
+            white-space: nowrap
+        }
+
+        .btn:hover {
+            background: var(--bg)
+        }
+
+        .bsm {
+            padding: 5px 9px;
+            font-size: 11px
+        }
+
+        .bp {
+            background: var(--u);
+            color: #fff;
+            border-color: var(--u)
+        }
+
+        .bp:hover {
+            background: var(--udk)
+        }
+
+        .bok {
+            background: var(--green);
+            color: #fff;
+            border-color: var(--green)
+        }
+
+        .page {
+            padding: 20px 22px;
+            flex: 1
+        }
+
+        .g2 {
+            display: grid;
+            grid-template-columns: 1fr minmax(0, 248px);
+            gap: 16px;
+            align-items: start
+        }
+
+        .cm {
+            min-width: 0
+        }
+
+        .ca {
+            position: sticky;
+            top: calc(var(--TH)+12px)
+        }
+
+        .card {
+            background: var(--sf);
+            border: 1px solid var(--br);
+            border-radius: var(--rLG);
+            margin-bottom: 11px;
+            overflow: hidden
+        }
+
+        .ch {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            padding: 12px 16px;
+            cursor: pointer;
+            border-bottom: 1px solid var(--br);
+            transition: background .12s;
+            user-select: none
+        }
+
+        .ch:hover {
+            background: var(--bg)
+        }
+
+        .sn {
+            width: 26px;
+            height: 26px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 800;
+            flex-shrink: 0
+        }
+
+        .ch h3 {
+            font-size: 13px;
+            font-weight: 600;
+            flex: 1
+        }
+
+        .st {
+            font-size: 10px;
+            color: var(--lt);
+            background: var(--bg);
+            border: 1px solid var(--br);
+            padding: 2px 7px;
+            border-radius: 20px;
+            white-space: nowrap
+        }
+
+        .carr {
+            font-size: 11px;
+            color: var(--lt);
+            transition: transform .2s
+        }
+
+        .card.collapsed .carr {
+            transform: rotate(-90deg)
+        }
+
+        .cb {
+            padding: 18px
+        }
+
+        .card.collapsed .cb {
+            display: none
+        }
+
+        .ach {
+            background: var(--ult);
+            border: 1px solid var(--umd);
+            border-radius: var(--rSM);
+            padding: 10px 13px;
+            margin-bottom: 14px
+        }
+
+        .ach-c {
+            font-family: monospace;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--u);
+            margin-bottom: 3px
+        }
+
+        .ach-t {
+            font-size: 13px;
+            line-height: 1.6
+        }
+
+        .glist {
+            list-style: none
+        }
+
+        .glist li {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            padding: 6px 0;
+            font-size: 13px;
+            border-bottom: 1px solid var(--br);
+            line-height: 1.6
+        }
+
+        .glist li:last-child {
+            border-bottom: none
+        }
+
+        .gck {
+            width: 17px;
+            height: 17px;
+            border-radius: 50%;
+            background: var(--gbg);
+            color: var(--green);
+            font-size: 9px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 2px
+        }
+
+        .ctags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-bottom: 12px
+        }
+
+        .ctag {
+            font-size: 11px;
+            padding: 3px 10px;
+            background: var(--bg);
+            border: 1px solid var(--br);
+            border-radius: 20px;
+            cursor: pointer;
+            color: var(--mt);
+            transition: all .12s
+        }
+
+        .ctag:hover {
+            background: var(--ult);
+            border-color: var(--umd);
+            color: var(--u)
+        }
+
+        .ibox {
+            display: flex;
+            align-items: flex-start;
+            gap: 9px;
+            padding: 10px 13px;
+            border-radius: var(--rSM);
+            font-size: 12px;
+            line-height: 1.6;
+            margin-top: 10px
+        }
+
+        .prev {
+            background: var(--bg);
+            border: 1px solid var(--br);
+            color: var(--mt)
+        }
+
+        .warn {
+            background: #FFFBEC;
+            border: 1px solid #EDD070;
+            color: #6A5000
+        }
+
+        .info {
+            background: var(--bbg);
+            border: 1px solid #BACED8;
+            color: var(--blue)
+        }
+
+        .ok {
+            background: var(--gbg);
+            border: 1px solid #BFDFAA;
+            color: var(--green)
+        }
+
+        .divl {
+            height: 1px;
+            background: var(--br);
+            margin: 13px 0
+        }
+
+        .crow {
+            display: grid;
+            grid-template-columns: 1fr minmax(0, 148px);
+            gap: 13px;
+            align-items: start;
+            margin-bottom: 13px
+        }
+
+        .ct h4 {
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 7px
+        }
+
+        .ct p {
+            font-size: 13px;
+            color: var(--mt);
+            line-height: 1.75
+        }
+
+        .ct ul {
+            padding-left: 1rem;
+            margin-top: 5px
+        }
+
+        .ct ul li {
+            font-size: 13px;
+            color: var(--mt);
+            margin-bottom: 3px;
+            line-height: 1.6
+        }
+
+        .cvis {
+            background: var(--bg);
+            border: 1px solid var(--br);
+            border-radius: var(--rSM);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px
+        }
+
+        /* ── 수행활동 (해보기) ── */
+        .activity {
+            background: linear-gradient(135deg, var(--ult), #F5F4FF);
+            border: 2px solid var(--umd);
+            border-radius: var(--rLG);
+            margin-bottom: 11px;
+            overflow: hidden
+        }
+
+        .act-head {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            padding: 12px 16px;
+            border-bottom: 1.5px solid var(--umd);
+            background: var(--ult);
+            cursor: pointer;
+            user-select: none
+        }
+
+        .act-head:hover {
+            background: #E4E0FC
+        }
+
+        .act-badge {
+            background: var(--u);
+            color: #fff;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 20px;
+            white-space: nowrap
+        }
+
+        .act-head h3 {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--udk);
+            flex: 1
+        }
+
+        .act-body {
+            padding: 18px
+        }
+
+        .act-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 10px 12px;
+            background: var(--sf);
+            border: 1px solid var(--br);
+            border-radius: var(--rSM);
+            margin-bottom: 8px;
+            min-height: 160px;
+        }
+
+        .act-num {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: var(--u);
+            color: #fff;
+            font-size: 10px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            flex: none;
+            margin-top: 1px
+        }
+
+        .act-step h4 {
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 4px
+        }
+
+        .act-step p {
+            font-size: 12px;
+            color: var(--mt);
+            line-height: 1.65
+        }
+
+        .act-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+            margin-top: 8px
+        }
+
+        .act-table th {
+            background: var(--u);
+            color: #fff;
+            padding: 7px 10px;
+            font-weight: 600;
+            font-size: 11px;
+            text-align: left
+        }
+
+        .act-table td {
+            padding: 8px 10px;
+            border-bottom: 1px solid var(--br);
+            color: var(--mt);
+            vertical-align: top;
+            line-height: 1.55
+        }
+
+        .act-table tr:last-child td {
+            border-bottom: none
+        }
+
+        .act-input {
+            width: 100%;
+            padding: 8px 10px;
+            border: 1.5px solid var(--br);
+            border-radius: var(--rSM);
+            font-size: 12px;
+            font-family: inherit;
+            background: var(--sf);
+            outline: none;
+            resize: vertical;
+            min-height: 88px;
+            margin-top: 4px
+        }
+
+        .act-input:focus {
+            border-color: var(--u)
+        }
+
+        /* ── 마이크로비트 블록 ── */
+        .mb-workspace {
+            background: #1e1e2e;
+            border-radius: var(--rSM);
+            padding: 14px;
+            margin: 8px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 5px
+        }
+
+        .mb-row {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            flex-wrap: wrap
+        }
+
+        .mb-indent {
+            margin-left: 22px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            flex-wrap: wrap
+        }
+
+        .mb-indent2 {
+            margin-left: 44px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            flex-wrap: wrap
+        }
+
+        .mb {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 6px 11px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-family: 'Courier New', monospace;
+            font-weight: 700;
+            color: #fff;
+            cursor: default
+        }
+
+        .mb-hole {
+            display: inline-block;
+            background: rgba(255, 255, 255, .2);
+            border-radius: 3px;
+            padding: 1px 7px;
+            font-size: 10px;
+            min-width: 20px;
+            text-align: center
+        }
+
+        .mb-start {
+            background: #FF8C00;
+            box-shadow: 0 3px 0 #B85A00
+        }
+
+        .mb-motion {
+            background: #4A7ED9;
+            box-shadow: 0 3px 0 #2A50A0
+        }
+
+        .mb-led {
+            background: #9B59B6;
+            box-shadow: 0 3px 0 #6C3483
+        }
+
+        .mb-input {
+            background: #F39C12;
+            box-shadow: 0 3px 0 #C07000
+        }
+
+        .mb-logic {
+            background: #E74C3C;
+            box-shadow: 0 3px 0 #A01010
+        }
+
+        .mb-loop {
+            background: #27AE60;
+            box-shadow: 0 3px 0 #1A7A40
+        }
+
+        .mb-var {
+            background: #3498DB;
+            box-shadow: 0 3px 0 #1A5A9A
+        }
+
+        .mb-music {
+            background: #E91E63;
+            box-shadow: 0 3px 0 #880033
+        }
+
+        .mb-radio {
+            background: #00BCD4;
+            box-shadow: 0 3px 0 #007A88
+        }
+
+        .mb-sensor {
+            background: #FF6B35;
+            box-shadow: 0 3px 0 #C04010
+        }
+
+        /* ── quiz ── */
+        .qwrap {
+            background: var(--bg);
+            border: 1px solid var(--br);
+            border-radius: var(--rSM);
+            padding: 14px;
+            margin-top: 13px
+        }
+
+        .qq {
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 11px;
+            line-height: 1.55
+        }
+
+        .qopts {
+            display: flex;
+            flex-direction: column;
+            gap: 7px
+        }
+
+        .opt {
+            display: flex;
+            align-items: flex-start;
+            gap: 9px;
+            padding: 10px 12px;
+            background: var(--sf);
+            border: 1.5px solid var(--br);
+            border-radius: var(--rSM);
+            cursor: pointer;
+            font-size: 13px;
+            line-height: 1.5;
+            transition: all .12s
+        }
+
+        .opt:hover {
+            border-color: var(--u);
+            background: var(--ult)
+        }
+
+        .opt.correct {
+            border-color: #4A9020;
+            background: var(--gbg);
+            color: #1A5000;
+            pointer-events: none
+        }
+
+        .opt.wrong {
+            border-color: #B03020;
+            background: var(--rbg);
+            color: #6A1000;
+            pointer-events: none
+        }
+
+        .opt.locked {
+            pointer-events: none;
+            opacity: .55
+        }
+
+        .onum {
+            width: 21px;
+            height: 21px;
+            border-radius: 50%;
+            background: var(--br);
+            font-size: 11px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0
+        }
+
+        .opt.correct .onum {
+            background: #4A9020;
+            color: #fff
+        }
+
+        .opt.wrong .onum {
+            background: #B03020;
+            color: #fff
+        }
+
+        .qfb {
+            display: none;
+            margin-top: 9px;
+            padding: 10px 13px;
+            border-radius: var(--rSM);
+            font-size: 12px;
+            line-height: 1.6
+        }
+
+        .qfb.ok {
+            display: block;
+            background: var(--gbg);
+            border: 1px solid #BFDFAA;
+            color: var(--green)
+        }
+
+        .qfb.err {
+            display: block;
+            background: var(--rbg);
+            border: 1px solid #F0B8A0;
+            color: var(--red)
+        }
+
+        /* ── assess ── */
+        .rub {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+            margin-bottom: 12px
+        }
+
+        .rub th {
+            background: var(--bg);
+            padding: 7px 8px;
+            font-weight: 600;
+            border-bottom: 1.5px solid var(--br);
+            text-align: left;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: .04em;
+            color: var(--mt)
+        }
+
+        .rub td {
+            padding: 8px;
+            border-bottom: 1px solid var(--br);
+            color: var(--mt);
+            vertical-align: top;
+            line-height: 1.5
+        }
+
+        .rub tr:last-child td {
+            border-bottom: none
+        }
+
+        .lv4 {
+            color: #1A6000 !important;
+            font-weight: 500
+        }
+
+        .lv3 {
+            color: #2A6830 !important
+        }
+
+        .lv2 {
+            color: #7A4E00 !important
+        }
+
+        .lv1 {
+            color: #8A2000 !important
+        }
+
+        .peer-check {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 11px;
+            margin-top: 10px
+        }
+
+        .peer-check th {
+            background: var(--ult);
+            padding: 6px 9px;
+            font-weight: 600;
+            border-bottom: 1.5px solid var(--umd);
+            text-align: center;
+            color: var(--u);
+            font-size: 10px
+        }
+
+        .peer-check td {
+            padding: 7px 9px;
+            border-bottom: 1px solid var(--br);
+            color: var(--mt);
+            text-align: center
+        }
+
+        .peer-check td:first-child {
+            text-align: left;
+            font-size: 11px
+        }
+
+        .peer-check input[type=radio] {
+            accent-color: var(--u)
+        }
+
+        /* ── sidebar ── */
+        .ap {
+            background: var(--sf);
+            border: 1px solid var(--br);
+            border-radius: var(--rLG);
+            padding: 13px;
+            margin-bottom: 10px
+        }
+
+        .ap h5 {
+            font-size: 9px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .1em;
+            color: var(--lt);
+            margin-bottom: 8px
+        }
+
+        .slist {
+            display: flex;
+            flex-direction: column;
+            gap: 3px
+        }
+
+        .si {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            padding: 6px 8px;
+            border-radius: var(--rSM);
+            font-size: 11px;
+            color: var(--mt);
+            cursor: pointer;
+            transition: background .12s
+        }
+
+        .si:hover {
+            background: var(--bg)
+        }
+
+        .dot {
+            width: 19px;
+            height: 19px;
+            border-radius: 50%;
+            background: var(--br);
+            color: var(--lt);
+            font-size: 9px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0
+        }
+
+        .dot.sa {
+            background: var(--u);
+            color: #fff
+        }
+
+        .dot.sd {
+            background: var(--gbg);
+            color: var(--green)
+        }
+
+        .sclist {
+            display: flex;
+            flex-direction: column;
+            gap: 4px
+        }
+
+        .scitem {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            padding: 8px 10px;
+            background: var(--bg);
+            border-radius: var(--rSM);
+            font-size: 12px;
+            border: 1px solid var(--br)
+        }
+
+        .scitem label {
+            flex: 1;
+            line-height: 1.5
+        }
+
+        .scitem select {
+            font-size: 11px;
+            padding: 3px 6px;
+            border: 1px solid var(--br);
+            border-radius: 5px;
+            background: var(--sf);
+            font-family: inherit;
+            color: var(--tx);
+            cursor: pointer;
+            flex-shrink: 0
+        }
+
+        .sgrid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 7px;
+            margin-bottom: 12px
+        }
+
+        .scard {
+            background: var(--bg);
+            border: 1px solid var(--br);
+            border-radius: var(--rSM);
+            padding: 11px 12px;
+            font-size: 12px;
+            line-height: 1.65;
+            color: var(--mt)
+        }
+
+        .scard strong {
+            display: block;
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: .07em;
+            color: var(--lt);
+            margin-bottom: 4px
+        }
+
+        .termlist {
+            display: flex;
+            flex-direction: column
+        }
+
+        .tterm {
+            display: flex;
+            align-items: baseline;
+            gap: 5px;
+            padding: 4px 0;
+            font-size: 11px;
+            border-bottom: 1px solid var(--br)
+        }
+
+        .tterm:last-child {
+            border-bottom: none
+        }
+
+        .tw {
+            font-weight: 600;
+            color: var(--u);
+            white-space: nowrap
+        }
+
+        .tdef {
+            color: var(--mt)
+        }
+
+        .pbtrack {
+            height: 5px;
+            background: var(--umd);
+            border-radius: 3px;
+            overflow: hidden
+        }
+
+        .pbfill {
+            height: 100%;
+            background: var(--u);
+            border-radius: 3px
+        }
+
+        #toast {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%) translateY(10px);
+            background: #1C1C1C;
+            color: #fff;
+            padding: 9px 18px;
+            border-radius: 10px;
+            font-size: 12px;
+            font-family: inherit;
+            z-index: 9999;
+            opacity: 0;
+            transition: opacity .2s, transform .2s;
+            pointer-events: none;
+            white-space: nowrap
+        }
+
+        /* ══ 반응형 레이아웃 ══ */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box
+        }
+
+        img,
+        canvas,
+        video {
+            max-width: 100%;
+            height: auto;
+            display: block
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse
+        }
+
+        .act-table,
+        .peer-check,
+        .rub {
+            table-layout: fixed;
+            word-break: break-word
+        }
+
+        .act-table td,
+        .act-table th,
+        .rub td,
+        .rub th,
+        .peer-check td,
+        .peer-check th {
+            min-width: 44px;
+            word-break: break-word;
+            overflow-wrap: break-word
+        }
+
+        .act-step>div:not(.act-num) {
+            min-width: 0;
+            flex: 1;
+            overflow-wrap: break-word;
+            word-break: break-word
+        }
+
+        .act-body,
+        .cb {
+            overflow-x: hidden
+        }
+
+        .act-input {
+            width: 100%;
+            box-sizing: border-box
+        }
+
+        .mb-workspace,
+        .mb-row,
+        .mb-indent,
+        .mb-indent2 {
+            flex-wrap: wrap
+        }
+
+        .sim-wrap {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch
+        }
+
+        /* 1100px 이하 */
+        @media(max-width:1100px) {
+            .g2 {
+                grid-template-columns: 1fr
+            }
+
+            .ca {
+                position: static;
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 10px;
+                margin-top: 12px
+            }
+
+            .ca .ap {
+                flex: 1 1 220px;
+                min-width: 180px
+            }
+
+            .crow {
+                grid-template-columns: 1fr
+            }
+
+            .sgrid {
+                grid-template-columns: 1fr 1fr
+            }
+        }
+
+        /* 900px 이하 */
+        @media(max-width:900px) {
+            .ca {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 8px;
+                margin-top: 10px
+            }
+
+            .ca .ap {
+                flex: 1 1 180px;
+                min-width: 160px
+            }
+
+            .page {
+                padding: 16px 14px
+            }
+
+            .cb,
+            .act-body {
+                padding: 13px
+            }
+
+            .sgrid {
+                grid-template-columns: 1fr 1fr
+            }
+
+            .crow {
+                grid-template-columns: 1fr
+            }
+        }
+
+        /* 640px 이하 */
+        @media(max-width:640px) {
+            .page {
+                padding: 11px 10px
+            }
+
+            .cb,
+            .act-body {
+                padding: 10px
+            }
+
+            .sgrid {
+                grid-template-columns: 1fr
+            }
+
+            .act-step {
+                flex-direction: column;
+                gap: 5px
+            }
+
+            .act-num {
+                margin-bottom: 0
+            }
+
+            .ch h3 {
+                font-size: 12px
+            }
+
+            .btn {
+                font-size: 11px;
+                padding: 5px 8px
+            }
+
+            .act-table td,
+            .act-table th {
+                padding: 5px 6px;
+                font-size: 11px
+            }
+
+            .rub td,
+            .rub th {
+                padding: 5px 6px;
+                font-size: 11px
+            }
+
+            .peer-check td,
+            .peer-check th {
+                padding: 5px 6px;
+                font-size: 10px
+            }
+
+            .scard {
+                font-size: 11px
+            }
+
+            .opt {
+                font-size: 12px;
+                padding: 8px 10px
+            }
+
+            .mb,
+            .mb-hole {
+                font-size: 10px;
+                padding: 4px 7px
+            }
+        }
+
+        /* 480px 이하 */
+        @media(max-width:480px) {
+            :root {
+                --SW: 0px
+            }
+
+            .sb {
+                display: none
+            }
+
+            .main {
+                margin-left: 0
+            }
+
+            .topbar {
+                padding: 0 10px
+            }
+
+            .page {
+                padding: 8px 9px
+            }
+
+            .cb,
+            .act-body {
+                padding: 9px
+            }
+
+            .tbr .btn:last-child {
+                display: none
+            }
+
+            .sgrid {
+                grid-template-columns: 1fr
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <aside class="sb">
+        <div class="sb-top">
+            <div class="uchip">◈ Unit I</div>
+            <h2>컴퓨팅 시스템</h2>
+            <div class="smeta">중단원2: 피지컬 컴퓨팅 프로그래밍 · p.19~23</div>
+        </div>
+        <nav class="sb-nav">
+            <div class="nlbl">소단원 목록</div><a class="na done" href="../lesson-01/index.html">
+                <div class="nn">✓</div>컴퓨팅 시스템의 구성과 동작 원리
+            </a>
+            <a class="na done" href="../lesson-02/index.html">
+                <div class="nn">✓</div>피지컬 컴퓨팅 시스템의 이해
+            </a>
+            <a class="na on" href="../lesson-03/index.html">
+                <div class="nn">3</div>운동 횟수 표시 장치 만들기<span class="nbadge">2차시</span>
+            </a>
+            <a class="na " href="../lesson-04/index.html">
+                <div class="nn">4</div>수면 온도 알림이 장치 만들기
+            </a>
+            <a class="na " href="../lesson-05/index.html">
+                <div class="nn">5</div>소리에 반응하는 애니메이션 장치 만들기
+            </a>
+            <a class="na " href="../lesson-06/index.html">
+                <div class="nn">6</div>이심전심 게임 장치 만들기
+            </a>
+        </nav>
+        <div class="sb-foot"><a class="ba" href="https://sungce.github.io/lesson/">← 정보 교과 학습 플랫폼</a></div>
+    </aside>
+    <main class="main">
+        <header class="topbar">
+            <div class="bc"><a href="https://sungce.github.io/lesson/">정보 교과 학습 플랫폼</a><span class="bcsep">›</span><a
+                    href="../../index.html">I. 컴퓨팅 시스템</a><span class="bcsep">›</span><span class="bccur">3. 운동 횟수 표시 장치
+                    만들기</span></div>
+            <div class="tbr">
+                <button class="btn bsm" onclick="markDone('03')">✓ 완료 표시</button>
+                <a class="btn bsm bp" href="../lesson-04/index.html">다음 소단원 →</a>
+            </div>
+        </header>
+        <div class="page">
+            <div class="g2">
+                <div class="cm">
+
+                    <div class="card" id="sec-goal">
+                        <div class="ch" onclick="toggleSec('sec-goal')">
+                            <div class="sn" style="background:var(--ult);color:var(--u)">01</div>
+                            <h3>학습목표</h3><span class="st">⏱ 5분</span><span class="carr">▾</span>
+                        </div>
+                        <div class="cb">
+                            <div class="ach">
+                                <div class="ach-c">[9정01-03] 피지컬 컴퓨팅 프로그래밍</div>
+                                <div class="ach-t">문제 해결에 적합한 센서를 선택하여 동작을 제어하는 프로그램을 작성하고, 몸의 흔들림을 감지하여 운동 횟수를 알려 주는
+                                    피지컬 컴퓨팅 시스템을 만들 수 있다. (pp.19~23)</div>
+                            </div>
+                            <ul class="glist">
+                                <li>
+                                    <div class="gck">✓</div>가속도 센서의 원리를 설명하고 문제에 적합한 센서를 선택할 수 있다.
+                                </li>
+                                <li>
+                                    <div class="gck">✓</div>문제를 작은 문제로 나누고 알고리즘을 설계할 수 있다.
+                                </li>
+                                <li>
+                                    <div class="gck">✓</div>운동 횟수를 감지하고 표시하는 피지컬 컴퓨팅 프로그램을 MakeCode로 작성할 수 있다.
+                                </li>
+                            </ul>
+                            <div class="divl"></div>
+                            <div class="ctags">
+                                <span class="ctag" onclick="goTo('sec-concept')">가속도 센서</span>
+                                <span class="ctag" onclick="goTo('sec-concept')">변수</span>
+                                <span class="ctag" onclick="goTo('sec-concept')">흔들림 감지</span>
+                                <span class="ctag" onclick="goTo('sec-concept')">MakeCode</span>
+                            </div>
+                            <div class="ibox prev">📌 <b>중단원2 시작:</b> 이제 마이크로비트로 직접 프로그램을 작성합니다! 가속도 센서를 활용하여 운동 횟수를
+                                자동으로 세는 장치를 만들어봅니다.</div>
+                        </div>
+                    </div>
+
+                    <div class="card" id="sec-concept">
+                        <div class="ch" onclick="toggleSec('sec-concept')">
+                            <div class="sn" style="background:var(--gbg);color:var(--green)">02</div>
+                            <h3>개념설명</h3><span class="st">⏱ 15분</span><span class="carr">▾</span>
+                        </div>
+                        <div class="cb">
+                            <div class="crow">
+                                <div class="ct">
+                                    <h4>문제 상황 & 분석</h4>
+                                    <p>앉았다 일어서기 운동을 반복할 때 <strong>몇 번 했는지 자동으로 감지</strong>하여 알려주는 장치가 필요합니다.</p>
+                                    <ul>
+                                        <li><b>사용 센서:</b> 가속도 센서 (흔들림 감지)</li>
+                                        <li><b>A 버튼:</b> 현재 운동 횟수 LED 출력</li>
+                                        <li><b>B 버튼:</b> 운동 횟수 초기화(0으로)</li>
+                                    </ul>
+                                    <div
+                                        style="background:var(--bg);border:1px solid var(--br);border-radius:var(--rSM);padding:10px;margin-top:8px;font-size:11px;color:var(--mt)">
+                                        가속도 센서: 물체의 가속도·충격 세기 측정.<br>X·Y·Z 3축의 움직임을 미세하게 감지.
+                                    </div>
+                                </div>
+                                <div class="cvis">
+                                    <svg viewBox="0 0 130 110" width="130">
+                                        <rect x="4" y="4" width="122" height="25" rx="5" fill="#1e1e2e" stroke="#444"
+                                            stroke-width="1" />
+                                        <text x="65" y="21" font-size="9" fill="#a0c0ff" text-anchor="middle"
+                                            font-family="monospace" font-weight="bold">micro:bit V2</text>
+                                        <!-- 5x5 LED grid -->
+                                        <g transform="translate(30,36)">
+                                            <text x="35" y="-4" font-size="7" fill="var(--lt)" text-anchor="middle"
+                                                font-family="sans-serif">LED 스크린</text>
+                                            <rect x="0" y="0" width="8" height="8" rx="2" fill="#FF6B35" />
+                                            <rect x="11" y="0" width="8" height="8" rx="2" fill="#FF6B35" />
+                                            <rect x="22" y="0" width="8" height="8" rx="2" fill="#FF6B35" />
+                                            <rect x="33" y="0" width="8" height="8" rx="2" fill="#333" />
+                                            <rect x="44" y="0" width="8" height="8" rx="2" fill="#333" />
+                                            <rect x="0" y="11" width="8" height="8" rx="2" fill="#333" />
+                                            <rect x="11" y="11" width="8" height="8" rx="2" fill="#FF6B35" />
+                                            <rect x="22" y="11" width="8" height="8" rx="2" fill="#333" />
+                                            <rect x="33" y="11" width="8" height="8" rx="2" fill="#333" />
+                                            <rect x="44" y="11" width="8" height="8" rx="2" fill="#333" />
+                                            <rect x="0" y="22" width="8" height="8" rx="2" fill="#333" />
+                                            <rect x="11" y="22" width="8" height="8" rx="2" fill="#333" />
+                                            <rect x="22" y="22" width="8" height="8" rx="2" fill="#FF6B35" />
+                                            <rect x="33" y="22" width="8" height="8" rx="2" fill="#333" />
+                                            <rect x="44" y="22" width="8" height="8" rx="2" fill="#333" />
+                                        </g>
+                                        <text x="12" y="95" font-size="8" fill="#fff" text-anchor="middle"
+                                            font-family="sans-serif" font-weight="bold">A</text>
+                                        <rect x="4" y="98" width="16" height="8" rx="4" fill="#555" />
+                                        <text x="118" y="95" font-size="8" fill="#fff" text-anchor="middle"
+                                            font-family="sans-serif" font-weight="bold">B</text>
+                                        <rect x="110" y="98" width="16" height="8" rx="4" fill="#555" />
+                                        <text x="65" y="106" font-size="7" fill="var(--lt)" text-anchor="middle"
+                                            font-family="sans-serif">가속도 센서: 흔들림 감지</text>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="divl"></div>
+                            <h4 style="font-size:13px;font-weight:700;margin-bottom:9px">알고리즘 설계 (4단계)</h4>
+                            <div
+                                style="background:var(--bg);border:1px solid var(--br);border-radius:var(--rSM);padding:13px;font-size:12px;color:var(--mt);line-height:2;margin-bottom:12px">
+                                ➊ '운동 횟수' 변수를 생성하고 <b>0으로 초기화</b>한다.<br>
+                                ➋ 흔들림이 감지되면 '운동 횟수' 변수를 <b>1 증가</b>시킨다.<br>
+                                ➌ <b>A 버튼</b>을 누르면 현재 '운동 횟수'를 LED 스크린에 출력한다.<br>
+                                ➍ <b>B 버튼</b>을 누르면 '운동 횟수' 변수를 0으로 재설정한다.
+                            </div>
+                            <h4 style="font-size:13px;font-weight:700;margin-bottom:9px">MakeCode 블록 예시</h4>
+                            <div class="mb-workspace">
+                                <div class="mb-row"><span class="mb mb-start">🟢 시작하면</span></div>
+                                <div class="mb-indent"><span class="mb mb-var">운동횟수 ← 0</span></div>
+                                <div class="mb-row"><span class="mb mb-sensor">📳 흔들림 감지 시</span></div>
+                                <div class="mb-indent"><span class="mb mb-var">운동횟수 ← 운동횟수 + 1</span></div>
+                                <div class="mb-row"><span class="mb mb-input">🅰️ A 버튼 누를 때</span></div>
+                                <div class="mb-indent"><span class="mb mb-led">LED에 운동횟수 표시</span></div>
+                                <div class="mb-row"><span class="mb mb-input">🅱️ B 버튼 누를 때</span></div>
+                                <div class="mb-indent"><span class="mb mb-var">운동횟수 ← 0</span></div>
+                                <div class="mb-indent"><span class="mb mb-led">LED 화면 지우기</span></div>
+                            </div>
+                            <div class="ibox info">📖 <b>교과서 연계:</b> pp.19~23 / MakeCode: https://makecode.microbit.org
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ★ 수행 활동 ★ -->
+                    <div class="activity" id="sec-activity">
+                        <div class="act-head" onclick="toggleSec('act-body-03')">
+                            <span class="act-badge">★ 수행 활동</span>
+                            <h3>가속도 센서를 활용한 피지컬 컴퓨팅 장치 만들기</h3>
+                            <span style="font-size:10px;color:var(--udk);margin-left:auto">모둠 활동 | pp.20·23</span>
+                            <span class="carr" style="color:var(--udk)">▾</span>
+                        </div>
+                        <div id="act-body-03" class="act-body">
+                            <div class="ibox ok" style="margin-top:0;margin-bottom:14px">💡 마이크로비트의 가속도 센서를 활용하는 두 가지 수행
+                                활동입니다. (교과서 pp.20·23 해보기)</div>
+
+                            <!-- 활동 1: 센서 조사 -->
+                            <div
+                                style="background:var(--sf);border:2px solid var(--umd);border-radius:var(--rSM);padding:14px;margin-bottom:14px">
+                                <div style="font-size:12px;font-weight:700;color:var(--u);margin-bottom:10px">📋 활동 1 —
+                                    마이크로비트 센서 탐구 (pp.20)</div>
+                                <div style="font-size:12px;color:var(--mt);margin-bottom:10px">마이크로비트에 내장된 센서가 사용되는 피지컬
+                                    컴퓨팅 시스템을 조사하세요.</div>
+                                <div style="overflow-x:auto">
+                                    <table class="act-table">
+                                        <thead>
+                                            <tr>
+                                                <th>센서</th>
+                                                <th>사용되는 피지컬 컴퓨팅 시스템</th>
+                                                <th>언제·어떻게 쓰이는지</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td style="font-weight:600;color:var(--blue)">① 버튼</td>
+                                                <td style="color:var(--lt);font-size:11px">예) 시계: 시간을 조정할 때</td>
+                                                <td><input class="act-input" style="min-height:44px;resize:none"
+                                                        placeholder="추가 사례 작성..."></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-weight:600;color:var(--blue)">② 빛 감지</td>
+                                                <td><input class="act-input" style="min-height:44px;resize:none"
+                                                        placeholder="시스템 이름"></td>
+                                                <td><input class="act-input" style="min-height:44px;resize:none"
+                                                        placeholder="활용 방법"></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-weight:600;color:var(--blue)">④ 온도</td>
+                                                <td><input class="act-input" style="min-height:44px;resize:none"
+                                                        placeholder="시스템 이름"></td>
+                                                <td><input class="act-input" style="min-height:44px;resize:none"
+                                                        placeholder="활용 방법"></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-weight:600;color:var(--blue)">⑥ 가속도</td>
+                                                <td><input class="act-input" style="min-height:44px;resize:none"
+                                                        placeholder="시스템 이름"></td>
+                                                <td><input class="act-input" style="min-height:44px;resize:none"
+                                                        placeholder="활용 방법"></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-weight:600;color:var(--blue)">⑦ 소리</td>
+                                                <td><input class="act-input" style="min-height:44px;resize:none"
+                                                        placeholder="시스템 이름"></td>
+                                                <td><input class="act-input" style="min-height:44px;resize:none"
+                                                        placeholder="활용 방법"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <!-- 활동 2: 기울임 방향 장치 -->
+                            <div
+                                style="background:var(--sf);border:2px solid var(--umd);border-radius:var(--rSM);padding:14px;margin-bottom:14px">
+                                <div style="font-size:12px;font-weight:700;color:var(--u);margin-bottom:8px">📋 활동 2 —
+                                    기울임 방향 화살표 장치 만들기 (pp.23)</div>
+                                <div
+                                    style="background:var(--bg);border:1px solid var(--br);border-radius:var(--rSM);padding:11px;margin-bottom:10px;font-size:12px;color:var(--mt)">
+                                    <b>조건:</b> 왼쪽 기울이면 ⇠ | 오른쪽 기울이면 ⇢ | 위로 기울이면 ↑ | 아래로 기울이면 ↓
+                                </div>
+                                <div style="font-size:12px;font-weight:600;color:var(--mt);margin-bottom:7px">① 알고리즘 설계
+                                    (각 방향별 코드 흐름 작성)</div>
+                                <textarea class="act-input"
+                                    placeholder="예) 왼쪽 기울이면 → 조건(tilted left) → LED에 왼쪽 화살표 표시&#10;오른쪽 기울이면 → ..."></textarea>
+                                <div style="font-size:12px;font-weight:600;color:var(--mt);margin:9px 0 7px">② MakeCode로
+                                    프로그램 작성 후 결과 기록</div>
+                                <div id="tilt-sim"
+                                    style="background:#1e1e2e;border-radius:var(--rSM);padding:14px;text-align:center;margin-bottom:10px">
+                                    <div style="font-size:10px;color:#aaa;margin-bottom:10px">방향 버튼을 눌러 시뮬레이션</div>
+                                    <div
+                                        style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;max-width:180px;margin:0 auto">
+                                        <div></div>
+                                        <button class="btn bsm" onclick="tiltSim('up','↑','위')"
+                                            style="background:#333;color:#fff;border-color:#555;font-size:16px">↑</button>
+                                        <div></div>
+                                        <button class="btn bsm" onclick="tiltSim('left','⇠','왼쪽')"
+                                            style="background:#333;color:#fff;border-color:#555;font-size:16px">←</button>
+                                        <div id="tilt-led"
+                                            style="width:100%;aspect-ratio:1;background:#111;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:28px;color:#FF6B35;border:1px solid #444">
+                                            ?</div>
+                                        <button class="btn bsm" onclick="tiltSim('right','⇢','오른쪽')"
+                                            style="background:#333;color:#fff;border-color:#555;font-size:16px">→</button>
+                                        <div></div>
+                                        <button class="btn bsm" onclick="tiltSim('down','↓','아래')"
+                                            style="background:#333;color:#fff;border-color:#555;font-size:16px">↓</button>
+                                        <div></div>
+                                    </div>
+                                    <div id="tilt-info" style="font-size:11px;color:#aaa;margin-top:8px">버튼을 눌러 기울임
+                                        시뮬레이션</div>
+                                </div>
+                                <textarea class="act-input" placeholder="실행 결과 및 느낀 점을 기록하세요..."></textarea>
+                            </div>
+
+                            <!-- 활동 3: 주사위 프로그램 -->
+                            <div
+                                style="background:var(--sf);border:2px solid var(--umd);border-radius:var(--rSM);padding:14px">
+                                <div style="font-size:12px;font-weight:700;color:var(--u);margin-bottom:8px">📋 활동 3 —
+                                    주사위 프로그램 만들기 (pp.23)</div>
+                                <div style="font-size:12px;color:var(--mt);margin-bottom:10px">흔들림을 감지하면 LED 스크린에 1~6까지
+                                    임의의 수를 주사위 모양으로 표시하는 프로그램</div>
+                                <div style="font-size:12px;font-weight:600;color:var(--mt);margin-bottom:7px">주사위 시뮬레이터
+                                    (흔들기 체험)</div>
+                                <div
+                                    style="background:#1e1e2e;border-radius:var(--rSM);padding:14px;text-align:center;margin-bottom:10px">
+                                    <canvas id="dice-canvas" width="100" height="100"
+                                        style="max-width:100%;height:auto;display:block;margin:0 auto 10px;cursor:pointer;border-radius:8px"
+                                        onclick="rollDice()"></canvas>
+                                    <button class="btn bsm bp" onclick="rollDice()">📳 흔들기!</button>
+                                    <div id="dice-val" style="font-size:12px;color:#aaa;margin-top:6px">클릭하여 주사위 굴리기
+                                    </div>
+                                </div>
+                                <textarea class="act-input"
+                                    placeholder="알고리즘: 흔들림 감지 → 1~6 중 임의 숫자 선택 → LED에 주사위 모양으로 표시&#10;실제 MakeCode에서 '임의의 수 고르기(1~6)' 블록을 사용합니다."></textarea>
+                            </div>
+
+                            <!-- 평가하기 -->
+                            <div style="margin-top:14px">
+                                <div style="font-size:12px;font-weight:700;color:var(--mt);margin-bottom:8px">📝 평가하기
+                                    (교과서 p.22)</div>
+                                <div style="overflow-x:auto;margin-top:12px">
+                                    <table class="peer-check">
+                                        <thead>
+                                            <tr>
+                                                <th style="text-align:left">평가 항목</th>
+                                                <th colspan="2">자기 평가</th>
+                                                <th colspan="2">동료 평가</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>프로그램을 실행하기 전 운동 횟수가 0인가?</td>
+                                                <td><label><input type="radio" name="pe0a" value="예"> 예</label></td>
+                                                <td><label><input type="radio" name="pe0a" value="아니요"> 아니요</label></td>
+                                                <td><label><input type="radio" name="pe0b" value="예"> 예</label></td>
+                                                <td><label><input type="radio" name="pe0b" value="아니요"> 아니요</label></td>
+                                            </tr>
+                                            <tr>
+                                                <td>운동 횟수가 몸의 흔들림을 감지하여 누적되는가?</td>
+                                                <td><label><input type="radio" name="pe1a" value="예"> 예</label></td>
+                                                <td><label><input type="radio" name="pe1a" value="아니요"> 아니요</label></td>
+                                                <td><label><input type="radio" name="pe1b" value="예"> 예</label></td>
+                                                <td><label><input type="radio" name="pe1b" value="아니요"> 아니요</label></td>
+                                            </tr>
+                                            <tr>
+                                                <td>A 버튼을 누르면 현재 운동 횟수를 보여 주는가?</td>
+                                                <td><label><input type="radio" name="pe2a" value="예"> 예</label></td>
+                                                <td><label><input type="radio" name="pe2a" value="아니요"> 아니요</label></td>
+                                                <td><label><input type="radio" name="pe2b" value="예"> 예</label></td>
+                                                <td><label><input type="radio" name="pe2b" value="아니요"> 아니요</label></td>
+                                            </tr>
+                                            <tr>
+                                                <td>B 버튼을 누르면 운동 횟수가 0으로 재설정되는가?</td>
+                                                <td><label><input type="radio" name="pe3a" value="예"> 예</label></td>
+                                                <td><label><input type="radio" name="pe3a" value="아니요"> 아니요</label></td>
+                                                <td><label><input type="radio" name="pe3b" value="예"> 예</label></td>
+                                                <td><label><input type="radio" name="pe3b" value="아니요"> 아니요</label></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div style="display:flex;gap:8px;margin-top:12px">
+                                <button class="btn bsm bp" onclick="saveActivity('l103_act')">💾 활동 저장</button>
+                                <a href="https://makecode.microbit.org" target="_blank" class="btn bsm"
+                                    style="background:#0078D4;color:#fff;border-color:#005A9E">MakeCode 열기 ↗</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card" id="sec-assess">
+                        <div class="ch" onclick="toggleSec('sec-assess')">
+                            <div class="sn" style="background:var(--bbg);color:var(--blue)">04</div>
+                            <h3>수행평가</h3><span class="st">⏱ 5분</span><span class="carr">▾</span>
+                        </div>
+                        <div class="cb">
+                            <div
+                                style="background:var(--bg);border:1px solid var(--br);border-radius:var(--rSM);padding:12px;margin-bottom:12px;border-left:3px solid var(--u)">
+                                <h4 style="font-size:13px;font-weight:700;color:var(--u);margin-bottom:7px">📋 운동 횟수 표시
+                                    장치 + 기울임 방향 장치</h4>
+                                <p style="font-size:13px;color:var(--mt)">가속도 센서를 활용한 피지컬 컴퓨팅 프로그램 2가지를 MakeCode로 완성하고
+                                    결과를 제출하시오.</p>
+                            </div>
+                            <table class="rub">
+                                <thead>
+                                    <tr>
+                                        <th>평가 요소</th>
+                                        <th class="lv4">매우 잘함(4)</th>
+                                        <th class="lv3">잘함(3)</th>
+                                        <th class="lv2">보통(2)</th>
+                                        <th class="lv1">노력 필요(1)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><b>알고리즘 설계</b></td>
+                                        <td class="lv4">문제 분해·4단계 설계 정확</td>
+                                        <td class="lv3">3단계 설계</td>
+                                        <td class="lv2">2단계</td>
+                                        <td class="lv1">1단계 이하</td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>프로그램 완성</b></td>
+                                        <td class="lv4">2개 정상 작동</td>
+                                        <td class="lv3">1개 정상</td>
+                                        <td class="lv2">부분 작동</td>
+                                        <td class="lv1">작동 불가</td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>발표·공유</b></td>
+                                        <td class="lv4">원리 명확 설명</td>
+                                        <td class="lv3">대체로 설명</td>
+                                        <td class="lv2">단순 시연</td>
+                                        <td class="lv1">없음</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="sclist">
+                                <div class="scitem"><label>가속도 센서의 원리를 설명할 수 있다.</label><select>
+                                        <option value="">선택</option>
+                                        <option>매우 그렇다</option>
+                                        <option>그렇다</option>
+                                        <option>아직 모르겠다</option>
+                                    </select></div>
+                                <div class="scitem"><label>문제를 작은 문제로 나누고 알고리즘을 설계할 수 있다.</label><select>
+                                        <option value="">선택</option>
+                                        <option>매우 그렇다</option>
+                                        <option>그렇다</option>
+                                        <option>아직 모르겠다</option>
+                                    </select></div>
+                                <div class="scitem"><label>MakeCode로 운동 횟수 표시 프로그램을 작성할 수 있다.</label><select>
+                                        <option value="">선택</option>
+                                        <option>매우 그렇다</option>
+                                        <option>그렇다</option>
+                                        <option>아직 모르겠다</option>
+                                    </select></div>
+                            </div>
+                            <button class="btn bsm bok" style="margin-top:10px" onclick="saveSC('l103sc')">💾
+                                저장</button>
+                        </div>
+                    </div>
+
+                    <div class="card" id="sec-review">
+                        <div class="ch" onclick="toggleSec('sec-review')">
+                            <div class="sn" style="background:var(--gbg);color:var(--green)">05</div>
+                            <h3>확인하기</h3><span class="st">⏱ 5분</span><span class="carr">▾</span>
+                        </div>
+                        <div class="cb">
+                            <div class="sgrid">
+                                <div class="scard"><strong>가속도 센서</strong>X·Y·Z 3축 움직임 감지. 흔들림·기울임 측정.</div>
+                                <div class="scard"><strong>변수</strong>값을 저장하고 참조하는 메모리 공간.</div>
+                                <div class="scard"><strong>알고리즘 4단계</strong>초기화→흔들림감지→횟수출력→재설정</div>
+                            </div>
+                            <div
+                                style="background:var(--bg);border:1px solid var(--br);border-radius:var(--rSM);padding:13px;margin-bottom:12px">
+                                <b>✏️ 단답형:</b> 운동 횟수 표시 장치에서 몸의 흔들림을 감지하는 데 사용하는 센서는 <span
+                                    style="display:inline-block;width:80px;border-bottom:1.5px solid var(--tx)">&nbsp;</span>
+                                센서이다.<textarea
+                                    style="display:block;width:100%;margin-top:9px;padding:9px;border:1px solid var(--br);border-radius:var(--rSM);font-size:13px;font-family:inherit;resize:vertical;min-height:48px;background:var(--sf)"
+                                    placeholder="정답을 입력하세요..."></textarea></div>
+                            <div class="ibox ok">📖 <div><strong>다음 차시 예고:</strong> 온도 센서와 빛 감지 센서로 <strong>수면 온도 알림이
+                                        장치</strong>를 만들어봅니다! (pp.24~27)</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="ca">
+                    <div class="ap">
+                        <h5>학습 진행</h5>
+                        <div class="slist">
+                            <div class="si" onclick="goTo('sec-goal')">
+                                <div class="dot sd">1</div>학습목표
+                            </div>
+                            <div class="si" onclick="goTo('sec-concept')">
+                                <div class="dot">2</div>개념설명
+                            </div>
+                            <div class="si" onclick="goTo('sec-activity')">
+                                <div class="dot sa">★</div>수행 활동
+                            </div>
+                            <div class="si" onclick="goTo('sec-assess')">
+                                <div class="dot">4</div>수행평가
+                            </div>
+                            <div class="si" onclick="goTo('sec-review')">
+                                <div class="dot">5</div>확인하기
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ap" style="background:var(--ult);border-color:var(--umd)">
+                        <h5 style="color:var(--u)">단원 진도</h5>
+                        <div style="display:flex;align-items:center;gap:7px">
+                            <div class="pbtrack" style="flex:1">
+                                <div class="pbfill" style="width:38%"></div>
+                            </div><span style="font-size:11px;font-weight:600;color:var(--u)">3/6</span>
+                        </div>
+                    </div>
+                    <div class="ap">
+                        <h5>핵심 용어</h5>
+                        <div class="termlist">
+                            <div class="tterm"><span class="tw">가속도 센서</span><span class="tdef">3축 움직임·흔들림 감지</span>
+                            </div>
+                            <div class="tterm"><span class="tw">변수</span><span class="tdef">값 저장·참조 공간</span></div>
+                            <div class="tterm"><span class="tw">흔들림 이벤트</span><span class="tdef">shake 감지</span></div>
+                            <div class="tterm"><span class="tw">LED 스크린</span><span class="tdef">5×5 픽셀 출력</span></div>
+                            <div class="tterm"><span class="tw">초기화</span><span class="tdef">변수를 0으로 설정</span></div>
+                        </div>
+                    </div>
+                    <div class="ap" style="background:#F0FDF4;border-color:#BBF7D0">
+                        <h5 style="color:#166534">🔧 마이크로비트</h5>
+                        <a href="https://makecode.microbit.org" target="_blank" class="btn bsm"
+                            style="width:100%;justify-content:center;background:#0078D4;color:#fff;border-color:#005A9E;margin-bottom:5px">MakeCode
+                            열기 ↗</a>
+                        <a href="https://makecode.microbit.org/#editor" target="_blank" class="btn bsm"
+                            style="width:100%;justify-content:center;font-size:10px;color:var(--mt)">시뮬레이터 ↗</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <div id="toast"></div>
+    <script>
+
+        // ── Google Sheets 저장 ──────────────────────────────────
+        var GS_URL = 'YOUR_APPS_SCRIPT_WEB_APP_URL';
+
+        function getUserName() {
+            return localStorage.getItem('user_name') || '익명';
+        }
+
+        function postToSheets(payload) {
+            if (!GS_URL || GS_URL === 'YOUR_APPS_SCRIPT_WEB_APP_URL') return;
+            fetch(GS_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            }).catch(function () { });
+        }
+
+
+        function toast(m) { var t = document.getElementById('toast'); t.textContent = m; t.style.opacity = '1'; t.style.transform = 'translateX(-50%) translateY(0)'; clearTimeout(t._t); t._t = setTimeout(function () { t.style.opacity = '0'; t.style.transform = 'translateX(-50%) translateY(10px)'; }, 2400); }
+        function toggleSec(id) { var e = document.getElementById(id); if (e) e.classList.toggle('collapsed'); }
+        function goTo(id) { var e = document.getElementById(id); if (!e) return; window.scrollTo({ top: e.getBoundingClientRect().top + window.pageYOffset - 64, behavior: 'smooth' }); }
+        function checkQ(el, ok, msg) { el.closest('.qopts').querySelectorAll('.opt').forEach(function (o) { o.classList.add('locked'); }); el.classList.add(ok ? 'correct' : 'wrong'); var fb = el.closest('.qwrap').querySelector('.qfb'); if (fb) { fb.className = 'qfb ' + (ok ? 'ok' : 'err'); fb.innerHTML = (ok ? '✓ 정답: ' : '✗ 힌트: ') + msg; } }
+        function saveSC(key) {
+            var d = {};
+            document.querySelectorAll('.scitem select').forEach(function (s, i) { d['q' + i] = s.value; });
+            try {
+                localStorage.setItem(key, JSON.stringify(d));
+                // Google Sheets 저장
+                postToSheets({
+                    type: 'sc',
+                    userName: getUserName(),
+                    lessonKey: 'l13',
+                    lessonName: 'l13',
+                    answers: d
+                });
+                toast('자기평가가 저장되었습니다 ✓');
+            } catch (e) { }
+        }
+        function loadSC(key) { try { var d = JSON.parse(localStorage.getItem(key) || '{}'); document.querySelectorAll('.scitem select').forEach(function (s, i) { if (d['q' + i]) s.value = d['q' + i]; }); } catch (e) { } }
+        function markDone(n) {
+            try {
+                var d = JSON.parse(localStorage.getItem('u01done') || '[]');
+                if (!d.includes(n)) d.push(n);
+                localStorage.setItem('u01done', JSON.stringify(d));
+                // Google Sheets 저장
+                postToSheets({
+                    type: 'done',
+                    userName: getUserName(),
+                    unit: 'I',
+                    lessonNum: n,
+                    lessonName: '컴퓨팅 시스템'
+                });
+            } catch (e) { }
+            toast('✅ 소단원 ' + n + ' 완료 표시!');
+        }
+        function saveActivity(key) {
+            var d = {};
+            document.querySelectorAll('.act-input').forEach(function (el, i) { d['a' + i] = el.value; });
+            document.querySelectorAll('.peer-check input[type=radio]:checked').forEach(function (el) { d['r_' + el.name] = el.value; });
+            try {
+                localStorage.setItem(key, JSON.stringify(d));
+                // Google Sheets 저장
+                postToSheets({
+                    type: 'act',
+                    userName: getUserName(),
+                    lessonKey: 'l13',
+                    lessonName: 'l13',
+                    answers: d
+                });
+                toast('✅ 수행 활동이 저장되었습니다!');
+            } catch (e) { }
+        }
+        function loadActivity(key) {
+            try {
+                var d = JSON.parse(localStorage.getItem(key) || '{}');
+                document.querySelectorAll('.act-input').forEach(function (el, i) { if (d['a' + i]) el.value = d['a' + i]; });
+                Object.keys(d).filter(function (k) { return k.startsWith('r_'); }).forEach(function (k) {
+                    var el = document.querySelector('input[type=radio][name="' + k.slice(2) + '"][value="' + d[k] + '"]');
+                    if (el) el.checked = true;
+                });
+            } catch (e) { }
+        }
+
+
+        function tiltSim(dir, arrow, label) {
+            document.getElementById('tilt-led').textContent = arrow;
+            document.getElementById('tilt-info').textContent = '기울임: ' + label + ' → LED에 ' + arrow + ' 표시';
+        }
+        var dicePatterns = {
+            1: [[2, 2]],
+            2: [[1, 1], [3, 3]],
+            3: [[1, 1], [2, 2], [3, 3]],
+            4: [[1, 1], [1, 3], [3, 1], [3, 3]],
+            5: [[1, 1], [1, 3], [2, 2], [3, 1], [3, 3]],
+            6: [[1, 1], [1, 3], [2, 1], [2, 3], [3, 1], [3, 3]]
+        };
+        function rollDice() {
+            var n = Math.floor(Math.random() * 6) + 1;
+            var cv = document.getElementById('dice-canvas');
+            if (!cv) return;
+            var ctx = cv.getContext('2d');
+            ctx.fillStyle = '#2C2C2C'; ctx.fillRect(0, 0, 100, 100);
+            ctx.strokeStyle = '#555'; ctx.lineWidth = 2; ctx.roundRect(2, 2, 96, 96, 10); ctx.stroke();
+            var pts = dicePatterns[n];
+            ctx.fillStyle = '#FF6B35';
+            pts.forEach(function (p) {
+                ctx.beginPath();
+                ctx.arc(p[1] * 25, p[0] * 25, 8, 0, Math.PI * 2);
+                ctx.fill();
+            });
+            document.getElementById('dice-val').textContent = '주사위: ' + n + '이 나왔습니다!';
+        }
+        document.addEventListener('DOMContentLoaded', function () {
+            var cv = document.getElementById('dice-canvas');
+            if (cv) { var ctx = cv.getContext('2d'); ctx.fillStyle = '#2C2C2C'; ctx.fillRect(0, 0, 100, 100); ctx.strokeStyle = '#555'; ctx.lineWidth = 2; ctx.beginPath(); ctx.roundRect(2, 2, 96, 96, 10); ctx.stroke(); ctx.fillStyle = '#aaa'; ctx.font = '12px sans-serif'; ctx.textAlign = 'center'; ctx.fillText('클릭하여 굴리기', 50, 55); }
+        });
+
+        document.addEventListener('DOMContentLoaded', function () { loadSC('l103sc'); loadActivity('l103sc_act'); });
+    </script>
+</body>
+
 </html>

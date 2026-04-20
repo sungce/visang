@@ -1,215 +1,215 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>수행평가 대시보드 - 정보 교과</title>
-    <!-- Phosphor Icons -->
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
-    <style>
-        :root {
-            --bg: #F5F4F0;
-            --surface: #FFFFFF;
-            --border: #E2DFD6;
-            --text: #1C1C1C;
-            --text-muted: #696760;
-            --u1: #7B74D9;
-            --u2: #1B9E72;
-            --u3: #D85A30;
-            --u4: #3080D9;
-            --u5: #5A9622;
-        }
-
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body {
-            font-family: 'Pretendard', -apple-system, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.6;
-            padding: 40px 20px;
-        }
-
-        .container { max-width: 1000px; mx-auto; margin: 0 auto; }
-
-        .header {
-            margin-bottom: 40px;
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 24px;
-        }
-
-        .header h1 {
-            font-size: 28px;
-            font-weight: 800;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .header p {
-            color: var(--text-muted);
-            margin-top: 8px;
-            font-size: 14px;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
-        }
-
-        .card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 24px;
-            position: relative;
-            overflow: hidden;
-            transition: transform 0.2s, box-shadow 0.2s;
-            text-decoration: none;
-            color: inherit;
-        }
-
-        .card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 24px rgba(0,0,0,0.05);
-        }
-
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-        }
-
-        .u1::before { background: var(--u1); }
-        .u2::before { background: var(--u2); }
-        .u3::before { background: var(--u3); }
-        .u4::before { background: var(--u4); }
-        .u5::before { background: var(--u5); }
-
-        .card-num {
-            font-size: 12px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            margin-bottom: 8px;
-            display: block;
-        }
-
-        .u1 .card-num { color: var(--u1); }
-        .u2 .card-num { color: var(--u2); }
-        .u3 .card-num { color: var(--u3); }
-        .u4 .card-num { color: var(--u4); }
-        .u5 .card-num { color: var(--u5); }
-
-        .card h2 {
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 12px;
-        }
-
-        .card p {
-            font-size: 13px;
-            color: var(--text-muted);
-            margin-bottom: 20px;
-            height: 40px;
-            overflow: hidden;
-        }
-
-        .footer-link {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            font-size: 13px;
-            font-weight: 600;
-            border-top: 1px solid var(--border);
-            padding-top: 16px;
-        }
-
-        .btn-back {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 600;
-            margin-bottom: 20px;
-            transition: color 0.15s;
-        }
-
-        .btn-back:hover { color: var(--text); }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <a href="../admin.html" class="btn-back">
-            <i class="ph ph-arrow-left"></i> 대시보드로 돌아가기
-        </a>
-        
-        <div class="header">
-            <h1><i class="ph-fill ph-notebook text-indigo-500"></i> 과정 중심 수행활동</h1>
-            <p>2022 개정 교육과정 정보 교과의 각 단원별 수행 활동 기록장입니다.</p>
-        </div>
-
-        <div class="grid">
-            <!-- Unit 1 -->
-            <a href="unit1.html" class="card u1">
-                <span class="card-num">Unit I</span>
-                <h2>컴퓨팅 시스템</h2>
-                <p>컴퓨팅 시스템의 구성 요소와 동작 원리, 피지컬 컴퓨팅 입출력 활동 기록</p>
-                <div class="footer-link">
-                    <span>수행 활동 시작하기</span>
-                    <i class="ph ph-arrow-right"></i>
-                </div>
-            </a>
-
-            <!-- Unit 2 -->
-            <a href="unit2.html" class="card u2">
-                <span class="card-num">Unit II</span>
-                <h2>데이터</h2>
-                <p>다양한 정보의 디지털 표현 방식과 데이터 수집 및 분석 과정 기록</p>
-                <div class="footer-link">
-                    <span>수행 활동 시작하기</span>
-                    <i class="ph ph-arrow-right"></i>
-                </div>
-            </a>
-
-            <!-- Unit 3 -->
-            <a href="unit3.html" class="card u3">
-                <span class="card-num">Unit III</span>
-                <h2>알고리즘과 프로그래밍</h2>
-                <p>문제 해결을 위한 알고리즘 설계와 블록 코딩 프로그래밍 과정 기록</p>
-                <div class="footer-link">
-                    <span>수행 활동 시작하기</span>
-                    <i class="ph ph-arrow-right"></i>
-                </div>
-            </a>
-
-            <!-- Unit 4 -->
-            <a href="unit4.html" class="card u4">
-                <span class="card-num">Unit IV</span>
-                <h2>인공지능</h2>
-                <p>기계학습의 원리 이해, 데이터 학습 및 인공지능 모델 구현 과정 기록</p>
-                <div class="footer-link">
-                    <span>수행 활동 시작하기</span>
-                    <i class="ph ph-arrow-right"></i>
-                </div>
-            </a>
-
-            <!-- Unit 5 -->
-            <a href="unit5.html" class="card u5">
-                <span class="card-num">Unit V</span>
-                <h2>디지털 문화</h2>
-                <p>디지털 사회의 윤리, 개인정보 보호 및 저작권 준수 활동 과정 기록</p>
-                <div class="footer-link">
-                    <span>수행 활동 시작하기</span>
-                    <i class="ph ph-arrow-right"></i>
-                </div>
-            </a>
-        </div>
-    </div>
-</body>
-</html>
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>수행평가 대시보드 - 정보 교과</title>
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <style>
+        :root {
+            --bg: #F5F4F0;
+            --surface: #FFFFFF;
+            --border: #E2DFD6;
+            --text: #1C1C1C;
+            --text-muted: #696760;
+            --u1: #7B74D9;
+            --u2: #1B9E72;
+            --u3: #D85A30;
+            --u4: #3080D9;
+            --u5: #5A9622;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Pretendard', -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            padding: 40px 20px;
+        }
+
+        .container { max-width: 1000px; mx-auto; margin: 0 auto; }
+
+        .header {
+            margin-bottom: 40px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 24px;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header p {
+            color: var(--text-muted);
+            margin-top: 8px;
+            font-size: 14px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.05);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+        }
+
+        .u1::before { background: var(--u1); }
+        .u2::before { background: var(--u2); }
+        .u3::before { background: var(--u3); }
+        .u4::before { background: var(--u4); }
+        .u5::before { background: var(--u5); }
+
+        .card-num {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .u1 .card-num { color: var(--u1); }
+        .u2 .card-num { color: var(--u2); }
+        .u3 .card-num { color: var(--u3); }
+        .u4 .card-num { color: var(--u4); }
+        .u5 .card-num { color: var(--u5); }
+
+        .card h2 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .card p {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            height: 40px;
+            overflow: hidden;
+        }
+
+        .footer-link {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 13px;
+            font-weight: 600;
+            border-top: 1px solid var(--border);
+            padding-top: 16px;
+        }
+
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            transition: color 0.15s;
+        }
+
+        .btn-back:hover { color: var(--text); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="../admin.html" class="btn-back">
+            <i class="ph ph-arrow-left"></i> 대시보드로 돌아가기
+        </a>
+        
+        <div class="header">
+            <h1><i class="ph-fill ph-notebook text-indigo-500"></i> 과정 중심 수행활동</h1>
+            <p>2022 개정 교육과정 정보 교과의 각 단원별 수행 활동 기록장입니다.</p>
+        </div>
+
+        <div class="grid">
+            <!-- Unit 1 -->
+            <a href="unit1.html" class="card u1">
+                <span class="card-num">Unit I</span>
+                <h2>컴퓨팅 시스템</h2>
+                <p>컴퓨팅 시스템의 구성 요소와 동작 원리, 피지컬 컴퓨팅 입출력 활동 기록</p>
+                <div class="footer-link">
+                    <span>수행 활동 시작하기</span>
+                    <i class="ph ph-arrow-right"></i>
+                </div>
+            </a>
+
+            <!-- Unit 2 -->
+            <a href="unit2.html" class="card u2">
+                <span class="card-num">Unit II</span>
+                <h2>데이터</h2>
+                <p>다양한 정보의 디지털 표현 방식과 데이터 수집 및 분석 과정 기록</p>
+                <div class="footer-link">
+                    <span>수행 활동 시작하기</span>
+                    <i class="ph ph-arrow-right"></i>
+                </div>
+            </a>
+
+            <!-- Unit 3 -->
+            <a href="unit3.html" class="card u3">
+                <span class="card-num">Unit III</span>
+                <h2>알고리즘과 프로그래밍</h2>
+                <p>문제 해결을 위한 알고리즘 설계와 블록 코딩 프로그래밍 과정 기록</p>
+                <div class="footer-link">
+                    <span>수행 활동 시작하기</span>
+                    <i class="ph ph-arrow-right"></i>
+                </div>
+            </a>
+
+            <!-- Unit 4 -->
+            <a href="unit4.html" class="card u4">
+                <span class="card-num">Unit IV</span>
+                <h2>인공지능</h2>
+                <p>기계학습의 원리 이해, 데이터 학습 및 인공지능 모델 구현 과정 기록</p>
+                <div class="footer-link">
+                    <span>수행 활동 시작하기</span>
+                    <i class="ph ph-arrow-right"></i>
+                </div>
+            </a>
+
+            <!-- Unit 5 -->
+            <a href="unit5.html" class="card u5">
+                <span class="card-num">Unit V</span>
+                <h2>디지털 문화</h2>
+                <p>디지털 사회의 윤리, 개인정보 보호 및 저작권 준수 활동 과정 기록</p>
+                <div class="footer-link">
+                    <span>수행 활동 시작하기</span>
+                    <i class="ph ph-arrow-right"></i>
+                </div>
+            </a>
+        </div>
+    </div>
+</body>
+</html>

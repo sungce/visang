@@ -1,2036 +1,2036 @@
-<!DOCTYPE html>
-<html lang="ko">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <title>I-5. ¼Ò¸®¿¡ ¹İÀÀÇÏ´Â ¾Ö´Ï¸ŞÀÌ¼Ç ÀåÄ¡ ¸¸µé±â ? Á¤º¸ ±³°ú</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
-    <style>
-        *,
-        *::before,
-        *::after {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0
-        }
-
-        html {
-            scroll-behavior: smooth
-        }
-
-        body {
-            font-family: 'Noto Sans KR', -apple-system, sans-serif;
-            background: #F5F4F0;
-            color: #1C1C1C;
-            font-size: 14px;
-            line-height: 1.65;
-            display: flex;
-            min-height: 100vh
-        }
-
-        :root {
-            --u: #6C65CC;
-            --udk: #4E48A8;
-            --ult: #ECEAFE;
-            --umd: #C8C4F0;
-            --bg: #F5F4F0;
-            --sf: #FFF;
-            --br: #E2DFD6;
-            --tx: #1C1C1C;
-            --mt: #696760;
-            --lt: #A8A59E;
-            --green: #2A720E;
-            --gbg: #E8F3DC;
-            --amber: #7A4E0A;
-            --abg: #FAF0DC;
-            --red: #8C1E0E;
-            --rbg: #FAEBE6;
-            --blue: #0A4E8C;
-            --bbg: #E4F0FA;
-            --rLG: 14px;
-            --rSM: 8px;
-            --SW: 240px;
-            --TH: 52px
-        }
-
-        .sb {
-            width: var(--SW);
-            background: var(--sf);
-            border-right: 1px solid var(--br);
-            position: fixed;
-            top: 0;
-            left: 0;
-            bottom: 0;
-            display: flex;
-            flex-direction: column;
-            overflow-y: auto;
-            z-index: 100
-        }
-
-        .sb-top {
-            padding: 16px 14px 12px;
-            border-bottom: 1px solid var(--br)
-        }
-
-        .uchip {
-            display: inline-flex;
-            align-items: center;
-            background: var(--ult);
-            color: var(--u);
-            font-size: 10px;
-            font-weight: 700;
-            letter-spacing: .1em;
-            text-transform: uppercase;
-            padding: 3px 9px;
-            border-radius: 20px;
-            margin-bottom: 6px
-        }
-
-        .sb-top h2 {
-            font-size: 12px;
-            font-weight: 700;
-            line-height: 1.4
-        }
-
-        .smeta {
-            font-size: 10px;
-            color: var(--lt);
-            margin-top: 3px
-        }
-
-        .sb-nav {
-            padding: 4px 0;
-            flex: 1
-        }
-
-        .nlbl {
-            font-size: 9px;
-            font-weight: 700;
-            letter-spacing: .1em;
-            text-transform: uppercase;
-            color: var(--lt);
-            padding: 7px 13px 3px
-        }
-
-        .na {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 7px 13px;
-            font-size: 11px;
-            color: var(--mt);
-            text-decoration: none;
-            border-left: 2.5px solid transparent;
-            transition: background .12s
-        }
-
-        .na:hover {
-            background: var(--bg);
-            color: var(--tx)
-        }
-
-        .na.on {
-            color: var(--u);
-            font-weight: 600;
-            background: var(--ult);
-            border-left-color: var(--u)
-        }
-
-        .na.done .nn {
-            background: var(--gbg);
-            color: var(--green)
-        }
-
-        .nn {
-            width: 18px;
-            height: 18px;
-            border-radius: 50%;
-            background: var(--br);
-            font-size: 9px;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            color: var(--mt)
-        }
-
-        .na.on .nn {
-            background: var(--u);
-            color: #fff
-        }
-
-        .nbadge {
-            margin-left: auto;
-            font-size: 9px;
-            color: var(--lt);
-            background: var(--bg);
-            border: 1px solid var(--br);
-            padding: 1px 5px;
-            border-radius: 10px;
-            white-space: nowrap
-        }
-
-        .sb-foot {
-            padding: 10px 13px;
-            border-top: 1px solid var(--br)
-        }
-
-        .ba {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 11px;
-            color: var(--mt);
-            text-decoration: none;
-            padding: 5px 9px;
-            border-radius: var(--rSM);
-            border: 1px solid var(--br);
-            background: var(--sf);
-            transition: all .12s
-        }
-
-        .ba:hover {
-            background: var(--bg)
-        }
-
-        .main {
-            margin-left: var(--SW);
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            min-width: 0
-        }
-
-        .topbar {
-            background: var(--sf);
-            border-bottom: 1px solid var(--br);
-            height: var(--TH);
-            padding: 0 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            position: sticky;
-            top: 0;
-            z-index: 90
-        }
-
-        .bc {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            font-size: 12px;
-            color: var(--mt);
-            flex: 1
-        }
-
-        .bc a {
-            color: var(--mt);
-            text-decoration: none
-        }
-
-        .bc a:hover {
-            color: var(--tx)
-        }
-
-        .bcsep {
-            color: var(--br)
-        }
-
-        .bccur {
-            color: var(--tx);
-            font-weight: 500
-        }
-
-        .tbr {
-            display: flex;
-            align-items: center;
-            gap: 6px
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            padding: 6px 12px;
-            border-radius: var(--rSM);
-            font-size: 12px;
-            font-family: inherit;
-            font-weight: 500;
-            cursor: pointer;
-            border: 1px solid var(--br);
-            background: var(--sf);
-            color: var(--tx);
-            text-decoration: none;
-            transition: background .12s;
-            white-space: nowrap
-        }
-
-        .btn:hover {
-            background: var(--bg)
-        }
-
-        .bsm {
-            padding: 5px 9px;
-            font-size: 11px
-        }
-
-        .bp {
-            background: var(--u);
-            color: #fff;
-            border-color: var(--u)
-        }
-
-        .bp:hover {
-            background: var(--udk)
-        }
-
-        .bok {
-            background: var(--green);
-            color: #fff;
-            border-color: var(--green)
-        }
-
-        .page {
-            padding: 20px 22px;
-            flex: 1
-        }
-
-        .g2 {
-            display: grid;
-            grid-template-columns: 1fr minmax(0, 248px);
-            gap: 16px;
-            align-items: start
-        }
-
-        .cm {
-            min-width: 0
-        }
-
-        .ca {
-            position: sticky;
-            top: calc(var(--TH)+12px)
-        }
-
-        .card {
-            background: var(--sf);
-            border: 1px solid var(--br);
-            border-radius: var(--rLG);
-            margin-bottom: 11px;
-            overflow: hidden
-        }
-
-        .ch {
-            display: flex;
-            align-items: center;
-            gap: 9px;
-            padding: 12px 16px;
-            cursor: pointer;
-            border-bottom: 1px solid var(--br);
-            transition: background .12s;
-            user-select: none
-        }
-
-        .ch:hover {
-            background: var(--bg)
-        }
-
-        .sn {
-            width: 26px;
-            height: 26px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 11px;
-            font-weight: 800;
-            flex-shrink: 0
-        }
-
-        .ch h3 {
-            font-size: 13px;
-            font-weight: 600;
-            flex: 1
-        }
-
-        .st {
-            font-size: 10px;
-            color: var(--lt);
-            background: var(--bg);
-            border: 1px solid var(--br);
-            padding: 2px 7px;
-            border-radius: 20px;
-            white-space: nowrap
-        }
-
-        .carr {
-            font-size: 11px;
-            color: var(--lt);
-            transition: transform .2s
-        }
-
-        .card.collapsed .carr {
-            transform: rotate(-90deg)
-        }
-
-        .cb {
-            padding: 18px
-        }
-
-        .card.collapsed .cb {
-            display: none
-        }
-
-        .ach {
-            background: var(--ult);
-            border: 1px solid var(--umd);
-            border-radius: var(--rSM);
-            padding: 10px 13px;
-            margin-bottom: 14px
-        }
-
-        .ach-c {
-            font-family: monospace;
-            font-size: 11px;
-            font-weight: 700;
-            color: var(--u);
-            margin-bottom: 3px
-        }
-
-        .ach-t {
-            font-size: 13px;
-            line-height: 1.6
-        }
-
-        .glist {
-            list-style: none
-        }
-
-        .glist li {
-            display: flex;
-            align-items: flex-start;
-            gap: 8px;
-            padding: 6px 0;
-            font-size: 13px;
-            border-bottom: 1px solid var(--br);
-            line-height: 1.6
-        }
-
-        .glist li:last-child {
-            border-bottom: none
-        }
-
-        .gck {
-            width: 17px;
-            height: 17px;
-            border-radius: 50%;
-            background: var(--gbg);
-            color: var(--green);
-            font-size: 9px;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            margin-top: 2px
-        }
-
-        .ctags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 5px;
-            margin-bottom: 12px
-        }
-
-        .ctag {
-            font-size: 11px;
-            padding: 3px 10px;
-            background: var(--bg);
-            border: 1px solid var(--br);
-            border-radius: 20px;
-            cursor: pointer;
-            color: var(--mt);
-            transition: all .12s
-        }
-
-        .ctag:hover {
-            background: var(--ult);
-            border-color: var(--umd);
-            color: var(--u)
-        }
-
-        .ibox {
-            display: flex;
-            align-items: flex-start;
-            gap: 9px;
-            padding: 10px 13px;
-            border-radius: var(--rSM);
-            font-size: 12px;
-            line-height: 1.6;
-            margin-top: 10px
-        }
-
-        .prev {
-            background: var(--bg);
-            border: 1px solid var(--br);
-            color: var(--mt)
-        }
-
-        .warn {
-            background: #FFFBEC;
-            border: 1px solid #EDD070;
-            color: #6A5000
-        }
-
-        .info {
-            background: var(--bbg);
-            border: 1px solid #BACED8;
-            color: var(--blue)
-        }
-
-        .ok {
-            background: var(--gbg);
-            border: 1px solid #BFDFAA;
-            color: var(--green)
-        }
-
-        .divl {
-            height: 1px;
-            background: var(--br);
-            margin: 13px 0
-        }
-
-        .crow {
-            display: grid;
-            grid-template-columns: 1fr minmax(0, 148px);
-            gap: 13px;
-            align-items: start;
-            margin-bottom: 13px
-        }
-
-        .ct h4 {
-            font-size: 13px;
-            font-weight: 700;
-            margin-bottom: 7px
-        }
-
-        .ct p {
-            font-size: 13px;
-            color: var(--mt);
-            line-height: 1.75
-        }
-
-        .ct ul {
-            padding-left: 1rem;
-            margin-top: 5px
-        }
-
-        .ct ul li {
-            font-size: 13px;
-            color: var(--mt);
-            margin-bottom: 3px;
-            line-height: 1.6
-        }
-
-        .cvis {
-            background: var(--bg);
-            border: 1px solid var(--br);
-            border-radius: var(--rSM);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 8px
-        }
-
-        /* ¦¡¦¡ ¼öÇàÈ°µ¿ (ÇØº¸±â) ¦¡¦¡ */
-        .activity {
-            background: linear-gradient(135deg, var(--ult), #F5F4FF);
-            border: 2px solid var(--umd);
-            border-radius: var(--rLG);
-            margin-bottom: 11px;
-            overflow: hidden
-        }
-
-        .act-head {
-            display: flex;
-            align-items: center;
-            gap: 9px;
-            padding: 12px 16px;
-            border-bottom: 1.5px solid var(--umd);
-            background: var(--ult);
-            cursor: pointer;
-            user-select: none
-        }
-
-        .act-head:hover {
-            background: #E4E0FC
-        }
-
-        .act-badge {
-            background: var(--u);
-            color: #fff;
-            font-size: 10px;
-            font-weight: 700;
-            padding: 3px 10px;
-            border-radius: 20px;
-            white-space: nowrap
-        }
-
-        .act-head h3 {
-            font-size: 13px;
-            font-weight: 700;
-            color: var(--udk);
-            flex: 1
-        }
-
-        .act-body {
-            padding: 18px
-        }
-
-        .act-step {
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            padding: 10px 12px;
-            background: var(--sf);
-            border: 1px solid var(--br);
-            border-radius: var(--rSM);
-            margin-bottom: 8px;
-            min-height: 160px;
-        }
-
-        .act-num {
-            width: 22px;
-            height: 22px;
-            border-radius: 50%;
-            background: var(--u);
-            color: #fff;
-            font-size: 10px;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            flex: none;
-            margin-top: 1px
-        }
-
-        .act-step h4 {
-            font-size: 12px;
-            font-weight: 700;
-            margin-bottom: 4px
-        }
-
-        .act-step p {
-            font-size: 12px;
-            color: var(--mt);
-            line-height: 1.65
-        }
-
-        .act-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 12px;
-            margin-top: 8px
-        }
-
-        .act-table th {
-            background: var(--u);
-            color: #fff;
-            padding: 7px 10px;
-            font-weight: 600;
-            font-size: 11px;
-            text-align: left
-        }
-
-        .act-table td {
-            padding: 8px 10px;
-            border-bottom: 1px solid var(--br);
-            color: var(--mt);
-            vertical-align: top;
-            line-height: 1.55
-        }
-
-        .act-table tr:last-child td {
-            border-bottom: none
-        }
-
-        .act-input {
-            width: 100%;
-            padding: 8px 10px;
-            border: 1.5px solid var(--br);
-            border-radius: var(--rSM);
-            font-size: 12px;
-            font-family: inherit;
-            background: var(--sf);
-            outline: none;
-            resize: vertical;
-            min-height: 88px;
-            margin-top: 4px
-        }
-
-        .act-input:focus {
-            border-color: var(--u)
-        }
-
-        /* ¦¡¦¡ ¸¶ÀÌÅ©·ÎºñÆ® ºí·Ï ¦¡¦¡ */
-        .mb-workspace {
-            background: #1e1e2e;
-            border-radius: var(--rSM);
-            padding: 14px;
-            margin: 8px 0;
-            display: flex;
-            flex-direction: column;
-            gap: 5px
-        }
-
-        .mb-row {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            flex-wrap: wrap
-        }
-
-        .mb-indent {
-            margin-left: 22px;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            flex-wrap: wrap
-        }
-
-        .mb-indent2 {
-            margin-left: 44px;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            flex-wrap: wrap
-        }
-
-        .mb {
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            padding: 6px 11px;
-            border-radius: 6px;
-            font-size: 11px;
-            font-family: 'Courier New', monospace;
-            font-weight: 700;
-            color: #fff;
-            cursor: default
-        }
-
-        .mb-hole {
-            display: inline-block;
-            background: rgba(255, 255, 255, .2);
-            border-radius: 3px;
-            padding: 1px 7px;
-            font-size: 10px;
-            min-width: 20px;
-            text-align: center
-        }
-
-        .mb-start {
-            background: #FF8C00;
-            box-shadow: 0 3px 0 #B85A00
-        }
-
-        .mb-motion {
-            background: #4A7ED9;
-            box-shadow: 0 3px 0 #2A50A0
-        }
-
-        .mb-led {
-            background: #9B59B6;
-            box-shadow: 0 3px 0 #6C3483
-        }
-
-        .mb-input {
-            background: #F39C12;
-            box-shadow: 0 3px 0 #C07000
-        }
-
-        .mb-logic {
-            background: #E74C3C;
-            box-shadow: 0 3px 0 #A01010
-        }
-
-        .mb-loop {
-            background: #27AE60;
-            box-shadow: 0 3px 0 #1A7A40
-        }
-
-        .mb-var {
-            background: #3498DB;
-            box-shadow: 0 3px 0 #1A5A9A
-        }
-
-        .mb-music {
-            background: #E91E63;
-            box-shadow: 0 3px 0 #880033
-        }
-
-        .mb-radio {
-            background: #00BCD4;
-            box-shadow: 0 3px 0 #007A88
-        }
-
-        .mb-sensor {
-            background: #FF6B35;
-            box-shadow: 0 3px 0 #C04010
-        }
-
-        /* ¦¡¦¡ quiz ¦¡¦¡ */
-        .qwrap {
-            background: var(--bg);
-            border: 1px solid var(--br);
-            border-radius: var(--rSM);
-            padding: 14px;
-            margin-top: 13px
-        }
-
-        .qq {
-            font-size: 14px;
-            font-weight: 500;
-            margin-bottom: 11px;
-            line-height: 1.55
-        }
-
-        .qopts {
-            display: flex;
-            flex-direction: column;
-            gap: 7px
-        }
-
-        .opt {
-            display: flex;
-            align-items: flex-start;
-            gap: 9px;
-            padding: 10px 12px;
-            background: var(--sf);
-            border: 1.5px solid var(--br);
-            border-radius: var(--rSM);
-            cursor: pointer;
-            font-size: 13px;
-            line-height: 1.5;
-            transition: all .12s
-        }
-
-        .opt:hover {
-            border-color: var(--u);
-            background: var(--ult)
-        }
-
-        .opt.correct {
-            border-color: #4A9020;
-            background: var(--gbg);
-            color: #1A5000;
-            pointer-events: none
-        }
-
-        .opt.wrong {
-            border-color: #B03020;
-            background: var(--rbg);
-            color: #6A1000;
-            pointer-events: none
-        }
-
-        .opt.locked {
-            pointer-events: none;
-            opacity: .55
-        }
-
-        .onum {
-            width: 21px;
-            height: 21px;
-            border-radius: 50%;
-            background: var(--br);
-            font-size: 11px;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0
-        }
-
-        .opt.correct .onum {
-            background: #4A9020;
-            color: #fff
-        }
-
-        .opt.wrong .onum {
-            background: #B03020;
-            color: #fff
-        }
-
-        .qfb {
-            display: none;
-            margin-top: 9px;
-            padding: 10px 13px;
-            border-radius: var(--rSM);
-            font-size: 12px;
-            line-height: 1.6
-        }
-
-        .qfb.ok {
-            display: block;
-            background: var(--gbg);
-            border: 1px solid #BFDFAA;
-            color: var(--green)
-        }
-
-        .qfb.err {
-            display: block;
-            background: var(--rbg);
-            border: 1px solid #F0B8A0;
-            color: var(--red)
-        }
-
-        /* ¦¡¦¡ assess ¦¡¦¡ */
-        .rub {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 12px;
-            margin-bottom: 12px
-        }
-
-        .rub th {
-            background: var(--bg);
-            padding: 7px 8px;
-            font-weight: 600;
-            border-bottom: 1.5px solid var(--br);
-            text-align: left;
-            font-size: 10px;
-            text-transform: uppercase;
-            letter-spacing: .04em;
-            color: var(--mt)
-        }
-
-        .rub td {
-            padding: 8px;
-            border-bottom: 1px solid var(--br);
-            color: var(--mt);
-            vertical-align: top;
-            line-height: 1.5
-        }
-
-        .rub tr:last-child td {
-            border-bottom: none
-        }
-
-        .lv4 {
-            color: #1A6000 !important;
-            font-weight: 500
-        }
-
-        .lv3 {
-            color: #2A6830 !important
-        }
-
-        .lv2 {
-            color: #7A4E00 !important
-        }
-
-        .lv1 {
-            color: #8A2000 !important
-        }
-
-        .peer-check {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 11px;
-            margin-top: 10px
-        }
-
-        .peer-check th {
-            background: var(--ult);
-            padding: 6px 9px;
-            font-weight: 600;
-            border-bottom: 1.5px solid var(--umd);
-            text-align: center;
-            color: var(--u);
-            font-size: 10px
-        }
-
-        .peer-check td {
-            padding: 7px 9px;
-            border-bottom: 1px solid var(--br);
-            color: var(--mt);
-            text-align: center
-        }
-
-        .peer-check td:first-child {
-            text-align: left;
-            font-size: 11px
-        }
-
-        .peer-check input[type=radio] {
-            accent-color: var(--u)
-        }
-
-        /* ¦¡¦¡ sidebar ¦¡¦¡ */
-        .ap {
-            background: var(--sf);
-            border: 1px solid var(--br);
-            border-radius: var(--rLG);
-            padding: 13px;
-            margin-bottom: 10px
-        }
-
-        .ap h5 {
-            font-size: 9px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: .1em;
-            color: var(--lt);
-            margin-bottom: 8px
-        }
-
-        .slist {
-            display: flex;
-            flex-direction: column;
-            gap: 3px
-        }
-
-        .si {
-            display: flex;
-            align-items: center;
-            gap: 7px;
-            padding: 6px 8px;
-            border-radius: var(--rSM);
-            font-size: 11px;
-            color: var(--mt);
-            cursor: pointer;
-            transition: background .12s
-        }
-
-        .si:hover {
-            background: var(--bg)
-        }
-
-        .dot {
-            width: 19px;
-            height: 19px;
-            border-radius: 50%;
-            background: var(--br);
-            color: var(--lt);
-            font-size: 9px;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0
-        }
-
-        .dot.sa {
-            background: var(--u);
-            color: #fff
-        }
-
-        .dot.sd {
-            background: var(--gbg);
-            color: var(--green)
-        }
-
-        .sclist {
-            display: flex;
-            flex-direction: column;
-            gap: 4px
-        }
-
-        .scitem {
-            display: flex;
-            align-items: center;
-            gap: 9px;
-            padding: 8px 10px;
-            background: var(--bg);
-            border-radius: var(--rSM);
-            font-size: 12px;
-            border: 1px solid var(--br)
-        }
-
-        .scitem label {
-            flex: 1;
-            line-height: 1.5
-        }
-
-        .scitem select {
-            font-size: 11px;
-            padding: 3px 6px;
-            border: 1px solid var(--br);
-            border-radius: 5px;
-            background: var(--sf);
-            font-family: inherit;
-            color: var(--tx);
-            cursor: pointer;
-            flex-shrink: 0
-        }
-
-        .sgrid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 7px;
-            margin-bottom: 12px
-        }
-
-        .scard {
-            background: var(--bg);
-            border: 1px solid var(--br);
-            border-radius: var(--rSM);
-            padding: 11px 12px;
-            font-size: 12px;
-            line-height: 1.65;
-            color: var(--mt)
-        }
-
-        .scard strong {
-            display: block;
-            font-size: 9px;
-            text-transform: uppercase;
-            letter-spacing: .07em;
-            color: var(--lt);
-            margin-bottom: 4px
-        }
-
-        .termlist {
-            display: flex;
-            flex-direction: column
-        }
-
-        .tterm {
-            display: flex;
-            align-items: baseline;
-            gap: 5px;
-            padding: 4px 0;
-            font-size: 11px;
-            border-bottom: 1px solid var(--br)
-        }
-
-        .tterm:last-child {
-            border-bottom: none
-        }
-
-        .tw {
-            font-weight: 600;
-            color: var(--u);
-            white-space: nowrap
-        }
-
-        .tdef {
-            color: var(--mt)
-        }
-
-        .pbtrack {
-            height: 5px;
-            background: var(--umd);
-            border-radius: 3px;
-            overflow: hidden
-        }
-
-        .pbfill {
-            height: 100%;
-            background: var(--u);
-            border-radius: 3px
-        }
-
-        #toast {
-            position: fixed;
-            bottom: 24px;
-            left: 50%;
-            transform: translateX(-50%) translateY(10px);
-            background: #1C1C1C;
-            color: #fff;
-            padding: 9px 18px;
-            border-radius: 10px;
-            font-size: 12px;
-            font-family: inherit;
-            z-index: 9999;
-            opacity: 0;
-            transition: opacity .2s, transform .2s;
-            pointer-events: none;
-            white-space: nowrap
-        }
-
-        /* ?? ¹İÀÀÇü ·¹ÀÌ¾Æ¿ô ?? */
-        *,
-        *::before,
-        *::after {
-            box-sizing: border-box
-        }
-
-        img,
-        canvas,
-        video {
-            max-width: 100%;
-            height: auto;
-            display: block
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse
-        }
-
-        .act-table,
-        .peer-check,
-        .rub {
-            table-layout: fixed;
-            word-break: break-word
-        }
-
-        .act-table td,
-        .act-table th,
-        .rub td,
-        .rub th,
-        .peer-check td,
-        .peer-check th {
-            min-width: 44px;
-            word-break: break-word;
-            overflow-wrap: break-word
-        }
-
-        .act-step>div:not(.act-num) {
-            min-width: 0;
-            flex: 1;
-            overflow-wrap: break-word;
-            word-break: break-word
-        }
-
-        .act-body,
-        .cb {
-            overflow-x: hidden
-        }
-
-        .act-input {
-            width: 100%;
-            box-sizing: border-box
-        }
-
-        .mb-workspace,
-        .mb-row,
-        .mb-indent,
-        .mb-indent2 {
-            flex-wrap: wrap
-        }
-
-        .sim-wrap {
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch
-        }
-
-        /* 1100px ÀÌÇÏ */
-        @media(max-width:1100px) {
-            .g2 {
-                grid-template-columns: 1fr
-            }
-
-            .ca {
-                position: static;
-                display: flex;
-                flex-direction: row;
-                flex-wrap: wrap;
-                gap: 10px;
-                margin-top: 12px
-            }
-
-            .ca .ap {
-                flex: 1 1 220px;
-                min-width: 180px
-            }
-
-            .crow {
-                grid-template-columns: 1fr
-            }
-
-            .sgrid {
-                grid-template-columns: 1fr 1fr
-            }
-        }
-
-        /* 900px ÀÌÇÏ */
-        @media(max-width:900px) {
-            .ca {
-                display: flex;
-                flex-direction: row;
-                flex-wrap: wrap;
-                gap: 8px;
-                margin-top: 10px
-            }
-
-            .ca .ap {
-                flex: 1 1 180px;
-                min-width: 160px
-            }
-
-            .page {
-                padding: 16px 14px
-            }
-
-            .cb,
-            .act-body {
-                padding: 13px
-            }
-
-            .sgrid {
-                grid-template-columns: 1fr 1fr
-            }
-
-            .crow {
-                grid-template-columns: 1fr
-            }
-        }
-
-        /* 640px ÀÌÇÏ */
-        @media(max-width:640px) {
-            .page {
-                padding: 11px 10px
-            }
-
-            .cb,
-            .act-body {
-                padding: 10px
-            }
-
-            .sgrid {
-                grid-template-columns: 1fr
-            }
-
-            .act-step {
-                flex-direction: column;
-                gap: 5px
-            }
-
-            .act-num {
-                margin-bottom: 0
-            }
-
-            .ch h3 {
-                font-size: 12px
-            }
-
-            .btn {
-                font-size: 11px;
-                padding: 5px 8px
-            }
-
-            .act-table td,
-            .act-table th {
-                padding: 5px 6px;
-                font-size: 11px
-            }
-
-            .rub td,
-            .rub th {
-                padding: 5px 6px;
-                font-size: 11px
-            }
-
-            .peer-check td,
-            .peer-check th {
-                padding: 5px 6px;
-                font-size: 10px
-            }
-
-            .scard {
-                font-size: 11px
-            }
-
-            .opt {
-                font-size: 12px;
-                padding: 8px 10px
-            }
-
-            .mb,
-            .mb-hole {
-                font-size: 10px;
-                padding: 4px 7px
-            }
-        }
-
-        /* 480px ÀÌÇÏ */
-        @media(max-width:480px) {
-            :root {
-                --SW: 0px
-            }
-
-            .sb {
-                display: none
-            }
-
-            .main {
-                margin-left: 0
-            }
-
-            .topbar {
-                padding: 0 10px
-            }
-
-            .page {
-                padding: 8px 9px
-            }
-
-            .cb,
-            .act-body {
-                padding: 9px
-            }
-
-            .tbr .btn:last-child {
-                display: none
-            }
-
-            .sgrid {
-                grid-template-columns: 1fr
-            }
-        }
-    </style>
-</head>
-
-<body>
-    <aside class="sb">
-        <div class="sb-top">
-            <div class="uchip">¢Â Unit I</div>
-            <h2>ÄÄÇ»ÆÃ ½Ã½ºÅÛ</h2>
-            <div class="smeta">Áß´Ü¿ø2: ÇÇÁöÄÃ ÄÄÇ»ÆÃ ÇÁ·Î±×·¡¹Ö ¡¤ p.28~31</div>
-        </div>
-        <nav class="sb-nav">
-            <div class="nlbl">¼Ò´Ü¿ø ¸ñ·Ï</div><a class="na done" href="../lesson-01/index.html">
-                <div class="nn">?</div>ÄÄÇ»ÆÃ ½Ã½ºÅÛÀÇ ±¸¼º°ú µ¿ÀÛ ¿ø¸®
-            </a>
-            <a class="na done" href="../lesson-02/index.html">
-                <div class="nn">?</div>ÇÇÁöÄÃ ÄÄÇ»ÆÃ ½Ã½ºÅÛÀÇ ÀÌÇØ
-            </a>
-            <a class="na done" href="../lesson-03/index.html">
-                <div class="nn">?</div>¿îµ¿ È½¼ö Ç¥½Ã ÀåÄ¡ ¸¸µé±â
-            </a>
-            <a class="na done" href="../lesson-04/index.html">
-                <div class="nn">?</div>¼ö¸é ¿Âµµ ¾Ë¸²ÀÌ ÀåÄ¡ ¸¸µé±â
-            </a>
-            <a class="na on" href="../lesson-05/index.html">
-                <div class="nn">5</div>¼Ò¸®¿¡ ¹İÀÀÇÏ´Â ¾Ö´Ï¸ŞÀÌ¼Ç ÀåÄ¡ ¸¸µé±â<span class="nbadge">3Â÷½Ã</span>
-            </a>
-            <a class="na " href="../lesson-06/index.html">
-                <div class="nn">6</div>ÀÌ½ÉÀü½É °ÔÀÓ ÀåÄ¡ ¸¸µé±â
-            </a>
-        </nav>
-        <div class="sb-foot"><a class="ba" href="https://sungce.github.io/lesson/">¡ç Á¤º¸ ±³°ú ÇĞ½À ÇÃ·§Æû</a></div>
-    </aside>
-    <main class="main">
-        <header class="topbar">
-            <div class="bc"><a href="https://sungce.github.io/lesson/">Á¤º¸ ±³°ú ÇĞ½À ÇÃ·§Æû</a><span class="bcsep">?</span><a
-                    href="../../index.html">I. ÄÄÇ»ÆÃ ½Ã½ºÅÛ</a><span class="bcsep">?</span><span class="bccur">5. ¼Ò¸®¿¡ ¹İÀÀÇÏ´Â
-                    ¾Ö´Ï¸ŞÀÌ¼Ç ÀåÄ¡ ¸¸µé±â</span></div>
-            <div class="tbr">
-                <button class="btn bsm" onclick="markDone('05')">? ¿Ï·á Ç¥½Ã</button>
-                <a class="btn bsm bp" href="../lesson-06/index.html">´ÙÀ½ ¼Ò´Ü¿ø ¡æ</a>
-            </div>
-        </header>
-        <div class="page">
-            <div class="g2">
-                <div class="cm">
-
-                    <div class="card" id="sec-goal">
-                        <div class="ch" onclick="toggleSec('sec-goal')">
-                            <div class="sn" style="background:var(--ult);color:var(--u)">01</div>
-                            <h3>ÇĞ½À¸ñÇ¥</h3><span class="st">? 5ºĞ</span><span class="carr">?</span>
-                        </div>
-                        <div class="cb">
-                            <div class="ach">
-                                <div class="ach-c">[9Á¤01-05] ÇÇÁöÄÃ ÄÄÇ»ÆÃ ÇÁ·Î±×·¡¹Ö</div>
-                                <div class="ach-t">¼Ò¸® ¼¾¼­¿Í ½ºÇÇÄ¿¸¦ È°¿ëÇÏ¿© Å« ¼Ò¸®°¡ ³ª¸é ¾Ö´Ï¸ŞÀÌ¼Ç°ú ¸á·Îµğ°¡ Àç»ıµÇ´Â ÇÇÁöÄÃ ÄÄÇ»ÆÃ ½Ã½ºÅÛÀ» ¸¸µé ¼ö ÀÖ´Ù.
-                                    (pp.28~31)</div>
-                            </div>
-                            <ul class="glist">
-                                <li>
-                                    <div class="gck">?</div>¼Ò¸® ¼¾¼­¿Í ½ºÇÇÄ¿ÀÇ Æ¯¼ºÀ» ¼³¸íÇÒ ¼ö ÀÖ´Ù.
-                                </li>
-                                <li>
-                                    <div class="gck">?</div>º¯¼ö¿Í Á¶°ÇÀ» È°¿ëÇÑ ¾Ë°í¸®ÁòÀ» ¼³°èÇÒ ¼ö ÀÖ´Ù.
-                                </li>
-                                <li>
-                                    <div class="gck">?</div>¼Ò¸®¿¡ ¹İÀÀÇÏ´Â LED ¾Ö´Ï¸ŞÀÌ¼Ç¡¤¸á·Îµğ ÀåÄ¡¸¦ MakeCode·Î ¿Ï¼ºÇÒ ¼ö ÀÖ´Ù.
-                                </li>
-                            </ul>
-                            <div class="divl"></div>
-                            <div class="ctags">
-                                <span class="ctag" onclick="goTo('sec-concept')">¼Ò¸® ¼¾¼­</span>
-                                <span class="ctag" onclick="goTo('sec-concept')">½ºÇÇÄ¿</span>
-                                <span class="ctag" onclick="goTo('sec-concept')">º¯¼ö</span>
-                                <span class="ctag" onclick="goTo('sec-concept')">¾Ö´Ï¸ŞÀÌ¼Ç</span>
-                                <span class="ctag" onclick="goTo('sec-concept')">¸á·Îµğ</span>
-                            </div>
-                            <div class="ibox prev">?? <b>ÀÌÀü Â÷½Ã:</b> ¿Âµµ¡¤ºû ¼¾¼­·Î ¼ö¸é ¿Âµµ ¾Ë¸²ÀÌ¸¦ ¸¸µé¾ú½À´Ï´Ù. ÀÌ¹ø¿¡´Â ¼Ò¸® ¼¾¼­¿Í ½ºÇÇÄ¿·Î Àç¹ÌÀÖ´Â
-                                ¾Ö´Ï¸ŞÀÌ¼Ç ÀåÄ¡¸¦ ¸¸µé¾îº¾´Ï´Ù!</div>
-                        </div>
-                    </div>
-
-                    <div class="card" id="sec-concept">
-                        <div class="ch" onclick="toggleSec('sec-concept')">
-                            <div class="sn" style="background:var(--gbg);color:var(--green)">02</div>
-                            <h3>°³³ä¼³¸í</h3><span class="st">? 20ºĞ</span><span class="carr">?</span>
-                        </div>
-                        <div class="cb">
-                            <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:12px">
-                                <div
-                                    style="background:var(--rbg);border:1px solid #F0B8A0;border-radius:var(--rSM);padding:12px">
-                                    <div style="font-size:12px;font-weight:700;color:var(--red);margin-bottom:5px">?? ¼Ò¸®
-                                        ¼¾¼­</div>
-                                    <div style="font-size:12px;color:var(--mt);line-height:1.75">ÃøÁ¤ ¹üÀ§: <b>0 ~
-                                            255</b><br>µŞ¸é MICROPHONE Ä¨¿¡ ³»Àå<br>Å« ¼Ò¸® °¨Áö ½Ã ¾Õ¸é ¸¶ÀÌÅ© LED Á¡µî<br>±âÁØ°ªÀ¸·Î Å« ¼Ò¸® ¿©ºÎ
-                                        ÆÇº°</div>
-                                </div>
-                                <div
-                                    style="background:var(--gbg);border:1px solid #BFDFAA;border-radius:var(--rSM);padding:12px">
-                                    <div style="font-size:12px;font-weight:700;color:var(--green);margin-bottom:5px">??
-                                        ½ºÇÇÄ¿</div>
-                                    <div style="font-size:12px;color:var(--mt);line-height:1.75">´Ù¾çÇÑ ÁÖÆÄ¼ö·Î À½ Ãâ·Â<br>¸á·Îµğ ºí·Ï
-                                        ¡æ °î Àç»ı<br>À½Ç¥ ºí·Ï ¡æ °³º° À½ Àç»ı<br>bpm ¼³Á¤À¸·Î ¼Óµµ Á¶Àı</div>
-                                </div>
-                            </div>
-                            <div class="divl"></div>
-                            <h4 style="font-size:13px;font-weight:700;margin-bottom:9px">¾Ë°í¸®Áò ¼³°è (4´Ü°è)</h4>
-                            <div
-                                style="background:var(--bg);border:1px solid var(--br);border-radius:var(--rSM);padding:13px;font-size:12px;color:var(--mt);line-height:2;margin-bottom:12px">
-                                ? ½ÃÀÛ ¡æ 'ÀÛµ¿ ½ÃÀÛ' º¯¼ö 0 ÃÊ±âÈ­ + ¼Ò¸® ±âÁØ°ª 250 ¼³Á¤ + ½ÃÀÛ ¸á·Îµğ Àç»ı<br>
-                                ? Å« ¼Ò¸® °¨Áö ¡æ 'ÀÛµ¿ ½ÃÀÛ' º¯¼ö¿¡ <b>1</b> ÀúÀå<br>
-                                ? 'ÀÛµ¿ ½ÃÀÛ' = 1 ÀÌ¸é ¡æ ¶Ù¾î¿À¸£´Â¡¤¶Ù¾î³»¸®´Â <b>¸á·Îµğ</b> ¼ø¼­´ë·Î Ãâ·Â<br>
-                                ? 'ÀÛµ¿ ½ÃÀÛ' = 1 ÀÌ¸é ¡æ LED¿¡ <b>Ãã Ãß´Â ¾Ö´Ï¸ŞÀÌ¼Ç</b> Ãâ·Â
-                            </div>
-                            <h4 style="font-size:13px;font-weight:700;margin-bottom:9px">MakeCode ºí·Ï ¿¹½Ã</h4>
-                            <div class="mb-workspace">
-                                <div class="mb-row"><span class="mb mb-start">?? ½ÃÀÛÇÏ¸é</span></div>
-                                <div class="mb-indent"><span class="mb mb-var">ÀÛµ¿½ÃÀÛ ¡ç 0</span></div>
-                                <div class="mb-indent"><span class="mb mb-sensor">¼Ò¸® ±âÁØ°ª 250À¸·Î ¼³Á¤</span></div>
-                                <div class="mb-indent"><span class="mb mb-music">?? Àü¿øÄÑ´Â ¸á·Îµğ Àç»ı</span></div>
-                                <div class="mb-row"><span class="mb mb-sensor">?? Å« ¼Ò¸® °¨Áö ½Ã</span></div>
-                                <div class="mb-indent"><span class="mb mb-var">ÀÛµ¿½ÃÀÛ ¡ç 1</span></div>
-                                <div class="mb-row"><span class="mb mb-loop">?? ¹«ÇÑ ¹İº¹</span></div>
-                                <div class="mb-indent"><span class="mb mb-logic">¸¸¾à ÀÛµ¿½ÃÀÛ = 1</span></div>
-                                <div class="mb-indent2"><span class="mb mb-music">?? ¶Ù¾î¿À¸£´Â ¸á·Îµğ (1¹ø)</span></div>
-                                <div class="mb-indent2"><span class="mb mb-music">?? ¶Ù¾î³»¸®´Â ¸á·Îµğ (1¹ø)</span></div>
-                                <div class="mb-indent2"><span class="mb mb-var">ÀÛµ¿½ÃÀÛ ¡ç 0</span></div>
-                            </div>
-                            <div class="ibox warn">?? <b>ÇÙ½É:</b> ¸á·Îµğ ºí·Ï°ú ¾Ö´Ï¸ŞÀÌ¼Ç ºí·ÏÀ» º°µµÀÇ <b>¹«ÇÑ ¹İº¹</b>¿¡ ³Ö¾î µ¿½Ã¿¡ ½ÇÇàµÇµµ·Ï ¼³°èÇÕ´Ï´Ù.
-                            </div>
-                            <div class="ibox info">?? <b>±³°ú¼­ ¿¬°è:</b> pp.28~31</div>
-                        </div>
-                    </div>
-
-                    <!-- ¡Ú ¼öÇà È°µ¿ ¡Ú -->
-                    <div class="activity" id="sec-activity">
-                        <div class="act-head" onclick="toggleSec('act-body-05')">
-                            <span class="act-badge">¡Ú ¼öÇà È°µ¿</span>
-                            <h3>½ºÇÇÄ¿¡¤¼Ò¸® ¼¾¼­¸¦ È°¿ëÇÑ ÀåÄ¡ ¸¸µé±â</h3>
-                            <span style="font-size:10px;color:var(--udk);margin-left:auto">¸ğµÒ È°µ¿ | pp.31</span>
-                            <span class="carr" style="color:var(--udk)">?</span>
-                        </div>
-                        <div id="act-body-05" class="act-body">
-                            <div class="ibox ok" style="margin-top:0;margin-bottom:14px">?? ½ºÇÇÄ¿¿Í ¼Ò¸® ¼¾¼­¸¦ È°¿ëÇÑ ¼¼ °¡Áö ¼öÇà
-                                È°µ¿ÀÔ´Ï´Ù. (±³°ú¼­ p.31 ÇØº¸±â)</div>
-
-                            <!-- È°µ¿ 1: ÇĞ±³ Á¾ ³ë·¡ -->
-                            <div
-                                style="background:var(--sf);border:2px solid var(--umd);border-radius:var(--rSM);padding:14px;margin-bottom:14px">
-                                <div style="font-size:12px;font-weight:700;color:var(--u);margin-bottom:8px">?? È°µ¿ 1 ?
-                                    ÇĞ±³ Á¾ ³ë·¡ Àç»ı ÇÁ·Î±×·¥ (pp.31)</div>
-                                <div
-                                    style="background:var(--bg);border:1px solid var(--br);border-radius:var(--rSM);padding:12px;margin-bottom:10px">
-                                    <div style="font-size:11px;font-weight:700;color:var(--mt);margin-bottom:8px">?? ÇĞ±³
-                                        Á¾ ¾Çº¸ (¼Ö=G4, ¶ó=A4, ¹Ì=E4, µµ=C4, ·¹=D4)</div>
-                                    <div style="font-family:monospace;font-size:11px;color:var(--mt);line-height:2">
-                                        ÇĞ-±³-Á¾-ÀÌ-¶¯-¶¯-¶¯: ¼Ö¼Ö¶ó¶ó¼Ö¼Ö¹Ì<br>
-                                        ¾î-¼­-¸ğ-ÀÌ-ÀÚ: ¼Ö¼Ö¹Ì¹Ì·¹<br>
-                                        ¼±-»ı-´Ô-ÀÌ-¿ì-¸®-¸¦: ¼Ö¼Ö¶ó¶ó¼Ö¼Ö¹Ì<br>
-                                        ±â-´Ù-¸®-½Å-´Ù: ¼Ö¹Ì·¹¹Ìµµ
-                                    </div>
-                                    <div style="display:flex;flex-wrap:wrap;gap:5px;margin-top:10px" id="piano-keys">
-                                    </div>
-                                    <div id="song-display"
-                                        style="font-size:12px;color:var(--u);margin-top:7px;font-weight:700;min-height:18px">
-                                    </div>
-                                </div>
-                                <div style="display:flex;gap:8px;margin-bottom:10px">
-                                    <button class="btn bsm bp" onclick="playSong()">¢º ÇĞ±³ Á¾ Àç»ı</button>
-                                    <button class="btn bsm" onclick="stopSong()">? Á¤Áö</button>
-                                </div>
-                                <textarea class="act-input"
-                                    placeholder="MakeCode·Î ÇĞ±³ Á¾ ³ë·¡¸¦ ÀÛ¼ºÇÏ´Â ¹æ¹ıÀ» ±â·ÏÇÏ¼¼¿ä.&#10;ÈùÆ®: À½¾Ç ºí·ÏÀÇ 'À½Ç¥ ¿¬ÁÖ' ºí·ÏÀ» »ç¿ëÇÕ´Ï´Ù.&#10;G4=¼Ö, A4=¶ó, E4=¹Ì, C4=µµ, D4=·¹"></textarea>
-                            </div>
-
-                            <!-- È°µ¿ 2: ¾î¿ï¸®´Â ¾Ö´Ï¸ŞÀÌ¼Ç -->
-                            <div
-                                style="background:var(--sf);border:2px solid var(--umd);border-radius:var(--rSM);padding:14px;margin-bottom:14px">
-                                <div style="font-size:12px;font-weight:700;color:var(--u);margin-bottom:8px">?? È°µ¿ 2 ?
-                                    ³ë·¡¿¡ ¾î¿ï¸®´Â ¾Ö´Ï¸ŞÀÌ¼Ç ±¸»ó</div>
-                                <div style="font-size:12px;color:var(--mt);margin-bottom:9px">ÇĞ±³ Á¾ ³ë·¡¿Í ¾î¿ï¸®´Â LED ¾Ö´Ï¸ŞÀÌ¼ÇÀ»
-                                    ±¸»óÇÏ°í, °¢ Àå¸éÀ» 5¡¿5 LED °İÀÚ¿¡ ±×·Áº¸¼¼¿ä.</div>
-                                <div
-                                    style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:10px">
-                                    <div id="led-grid-1"
-                                        style="padding:10px;background:#1e1e2e;border-radius:var(--rSM);cursor:pointer">
-                                    </div>
-                                    <div id="led-grid-2"
-                                        style="padding:10px;background:#1e1e2e;border-radius:var(--rSM);cursor:pointer">
-                                    </div>
-                                    <div id="led-grid-3"
-                                        style="padding:10px;background:#1e1e2e;border-radius:var(--rSM);cursor:pointer">
-                                    </div>
-                                </div>
-                                <div style="font-size:10px;color:var(--lt);margin-bottom:8px">LED °İÀÚ¸¦ Å¬¸¯ÇÏ¿© ÄÑ°í ²ô¼¼¿ä</div>
-                                <textarea class="act-input"
-                                    placeholder="¾Ö´Ï¸ŞÀÌ¼Ç ±¸»ó ¼³¸í:&#10;¿¹) ÇĞ±³ Á¾ ¼Ò¸®¿¡ ¸ÂÃç ÇĞ±³ °Ç¹° ¸ğ¾ç, Á¾ ¸ğ¾ç µîÀ» Ç¥Çö..."></textarea>
-                            </div>
-
-                            <!-- È°µ¿ 3: ¹Ú¼ö ¼Ò¸® ´©Àû ºñ±³ -->
-                            <div
-                                style="background:var(--sf);border:2px solid var(--umd);border-radius:var(--rSM);padding:14px">
-                                <div style="font-size:12px;font-weight:700;color:var(--u);margin-bottom:8px">?? È°µ¿ 3 ? µÎ
-                                    ¸ğµÒ ¹Ú¼ö ¼Ò¸® ´©Àû ºñ±³ ÀåÄ¡ (pp.31)</div>
-                                <div
-                                    style="background:var(--bg);border:1px solid var(--br);border-radius:var(--rSM);padding:11px;margin-bottom:10px;font-size:12px;color:var(--mt);line-height:1.9">
-                                    <b>Á¶°Ç:</b><br>¨ç A ¹öÆ° ¡æ 5ÃÊ µ¿¾È ¼Ò¸® Å©±â¸¦ ±×·¡ÇÁ·Î º¸¿©ÁÖ¸ç °ª ´©Àû ÀúÀå<br>¨è B ¹öÆ° ¡æ 5ÃÊ µ¿¾È ¼Ò¸® Å©±â¸¦ ±×·¡ÇÁ·Î
-                                    º¸¿©ÁÖ¸ç °ª ´©Àû ÀúÀå<br>¨é ·Î°í ÅÍÄ¡ ¡æ A¿Í B ´©Àû°ª ºñ±³ ÈÄ Å« ÂÊ ¹®ÀÚ('A' or 'B') Ãâ·Â
-                                </div>
-                                <div
-                                    style="background:#1e1e2e;border-radius:var(--rSM);padding:14px;margin-bottom:10px">
-                                    <div style="font-size:10px;color:#aaa;margin-bottom:8px;text-align:center">¹Ú¼ö ¼Ò¸® ´ë°á
-                                        ½Ã¹Ä·¹ÀÌÅÍ</div>
-                                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">
-                                        <div style="text-align:center">
-                                            <button class="btn bsm" id="btn-a-clap" onclick="startClap('A')"
-                                                style="width:100%;background:#4A7ED9;color:#fff;border-color:#2A50A0;font-size:13px;font-weight:700">A
-                                                ¸ğµÒ ¹Ú¼ö!</button>
-                                            <div id="a-bar"
-                                                style="height:60px;background:#333;border-radius:4px;margin-top:7px;overflow:hidden;position:relative">
-                                                <div id="a-fill"
-                                                    style="position:absolute;bottom:0;width:100%;background:#4A7ED9;height:0%;transition:height .3s;border-radius:4px">
-                                                </div>
-                                            </div>
-                                            <div id="a-score"
-                                                style="font-size:12px;color:#4A7ED9;margin-top:4px;font-weight:700">0Á¡
-                                            </div>
-                                        </div>
-                                        <div style="text-align:center">
-                                            <button class="btn bsm" id="btn-b-clap" onclick="startClap('B')"
-                                                style="width:100%;background:#E74C3C;color:#fff;border-color:#A01010;font-size:13px;font-weight:700">B
-                                                ¸ğµÒ ¹Ú¼ö!</button>
-                                            <div id="b-bar"
-                                                style="height:60px;background:#333;border-radius:4px;margin-top:7px;overflow:hidden;position:relative">
-                                                <div id="b-fill"
-                                                    style="position:absolute;bottom:0;width:100%;background:#E74C3C;height:0%;transition:height .3s;border-radius:4px">
-                                                </div>
-                                            </div>
-                                            <div id="b-score"
-                                                style="font-size:12px;color:#E74C3C;margin-top:4px;font-weight:700">0Á¡
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <button class="btn bsm" id="btn-logo" onclick="showResult()"
-                                        style="width:100%;background:#FF6B35;color:#fff;border-color:#C04010;font-size:13px">??
-                                        ·Î°í ÅÍÄ¡ ¡æ °á°ú È®ÀÎ</button>
-                                    <div id="clap-result"
-                                        style="font-size:16px;font-weight:700;text-align:center;margin-top:10px;color:#FF6B35;min-height:24px">
-                                    </div>
-                                    <div id="clap-timer"
-                                        style="font-size:10px;color:#aaa;text-align:center;min-height:16px"></div>
-                                </div>
-                                <textarea class="act-input"
-                                    placeholder="¾Ë°í¸®Áò ÀÛ¼º:&#10;A ¹öÆ° ¡æ 5ÃÊ Å¸ÀÌ¸Ó ½ÃÀÛ, ¼Ò¸® ¼¾¼­°ª ´©Àû(A_´©Àû)&#10;B ¹öÆ° ¡æ 5ÃÊ Å¸ÀÌ¸Ó ½ÃÀÛ, ¼Ò¸® ¼¾¼­°ª ´©Àû(B_´©Àû)&#10;·Î°í ÅÍÄ¡ ¡æ ¸¸¾à A_´©Àû > B_´©Àû ÀÌ¸é: 'A' Ãâ·Â..."></textarea>
-                            </div>
-
-                            <!-- Æò°¡ÇÏ±â -->
-                            <div style="margin-top:14px">
-                                <div style="font-size:12px;font-weight:700;color:var(--mt);margin-bottom:8px">?? Æò°¡ÇÏ±â
-                                    (±³°ú¼­ p.30)</div>
-                                <div style="overflow-x:auto;margin-top:12px">
-                                    <table class="peer-check">
-                                        <thead>
-                                            <tr>
-                                                <th style="text-align:left">Æò°¡ Ç×¸ñ</th>
-                                                <th colspan="2">ÀÚ±â Æò°¡</th>
-                                                <th colspan="2">µ¿·á Æò°¡</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>¾Ö´Ï¸ŞÀÌ¼Ç ½ÃÀÛÀ» °¨ÁöÇÏ¿© ÀÛµ¿ ½ÃÀÛ º¯¼ö°¡ È°¼ºÈ­µÇ´Â°¡?</td>
-                                                <td><label><input type="radio" name="pe0a" value="¿¹"> ¿¹</label></td>
-                                                <td><label><input type="radio" name="pe0a" value="¾Æ´Ï¿ä"> ¾Æ´Ï¿ä</label></td>
-                                                <td><label><input type="radio" name="pe0b" value="¿¹"> ¿¹</label></td>
-                                                <td><label><input type="radio" name="pe0b" value="¾Æ´Ï¿ä"> ¾Æ´Ï¿ä</label></td>
-                                            </tr>
-                                            <tr>
-                                                <td>À½¾ÇÀÌ³ª ¾Ö´Ï¸ŞÀÌ¼ÇÀ» ÇÑ ¹ø ½ÇÇàÇÏ¸é ÀÛµ¿ ½ÃÀÛ º¯¼ö°¡ ÃÊ±âÈ­µÇ´Â°¡?</td>
-                                                <td><label><input type="radio" name="pe1a" value="¿¹"> ¿¹</label></td>
-                                                <td><label><input type="radio" name="pe1a" value="¾Æ´Ï¿ä"> ¾Æ´Ï¿ä</label></td>
-                                                <td><label><input type="radio" name="pe1b" value="¿¹"> ¿¹</label></td>
-                                                <td><label><input type="radio" name="pe1b" value="¾Æ´Ï¿ä"> ¾Æ´Ï¿ä</label></td>
-                                            </tr>
-                                            <tr>
-                                                <td>À½¾Ç°ú ¾Ö´Ï¸ŞÀÌ¼ÇÀÇ Àç»ı ¼Óµµ¿Í °£°İÀÌ ¸Â´Â°¡?</td>
-                                                <td><label><input type="radio" name="pe2a" value="¿¹"> ¿¹</label></td>
-                                                <td><label><input type="radio" name="pe2a" value="¾Æ´Ï¿ä"> ¾Æ´Ï¿ä</label></td>
-                                                <td><label><input type="radio" name="pe2b" value="¿¹"> ¿¹</label></td>
-                                                <td><label><input type="radio" name="pe2b" value="¾Æ´Ï¿ä"> ¾Æ´Ï¿ä</label></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                            <div style="display:flex;gap:8px;margin-top:12px">
-                                <button class="btn bsm bp" onclick="saveActivity('l105_act')">?? È°µ¿ ÀúÀå</button>
-                                <a href="https://makecode.microbit.org" target="_blank" class="btn bsm"
-                                    style="background:#0078D4;color:#fff;border-color:#005A9E">MakeCode ¿­±â ¢Ö</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card" id="sec-assess">
-                        <div class="ch" onclick="toggleSec('sec-assess')">
-                            <div class="sn" style="background:var(--bbg);color:var(--blue)">04</div>
-                            <h3>¼öÇàÆò°¡</h3><span class="st">? 5ºĞ</span><span class="carr">?</span>
-                        </div>
-                        <div class="cb">
-                            <div
-                                style="background:var(--bg);border:1px solid var(--br);border-radius:var(--rSM);padding:12px;margin-bottom:12px;border-left:3px solid var(--u)">
-                                <h4 style="font-size:13px;font-weight:700;color:var(--u);margin-bottom:7px">?? ¼Ò¸® ¹İÀÀ
-                                    ¾Ö´Ï¸ŞÀÌ¼Ç + ÇĞ±³ Á¾ ³ë·¡ ÇÁ·Î±×·¥</h4>
-                                <p style="font-size:13px;color:var(--mt)">¼Ò¸® ¼¾¼­¿Í ½ºÇÇÄ¿¸¦ È°¿ëÇÑ ÇÁ·Î±×·¥ 2°¡Áö¸¦ MakeCode·Î ¿Ï¼ºÇÏ°í ¸ğµÒ
-                                    ¹ßÇ¥¸¦ ¼öÇàÇÏ½Ã¿À.</p>
-                            </div>
-                            <table class="rub">
-                                <thead>
-                                    <tr>
-                                        <th>Æò°¡ ¿ä¼Ò</th>
-                                        <th class="lv4">¸Å¿ì ÀßÇÔ(4)</th>
-                                        <th class="lv3">ÀßÇÔ(3)</th>
-                                        <th class="lv2">º¸Åë(2)</th>
-                                        <th class="lv1">³ë·Â ÇÊ¿ä(1)</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><b>¼Ò¸® °¨Áö</b></td>
-                                        <td class="lv4">±âÁØ°ª ¼³Á¤¡¤Å« ¼Ò¸® °¨Áö Á¤È®</td>
-                                        <td class="lv3">ºÎºĞ Á¤È®</td>
-                                        <td class="lv2">°¨Áö¸¸</td>
-                                        <td class="lv1">¾øÀ½</td>
-                                    </tr>
-                                    <tr>
-                                        <td><b>¸á·Îµğ¡¤¾Ö´Ï¸ŞÀÌ¼Ç</b></td>
-                                        <td class="lv4">¸á·Îµğ+¾Ö´Ï¸ŞÀÌ¼Ç µ¿½Ã ½ÇÇà</td>
-                                        <td class="lv3">ÇÑ °¡Áö ½ÇÇà</td>
-                                        <td class="lv2">Àç»ı¸¸</td>
-                                        <td class="lv1">¾øÀ½</td>
-                                    </tr>
-                                    <tr>
-                                        <td><b>³ë·¡ ÇÁ·Î±×·¥</b></td>
-                                        <td class="lv4">ÇĞ±³ Á¾ ÀüÃ¼ À½ Á¤È® ±¸Çö</td>
-                                        <td class="lv3">Àı¹İ ÀÌ»ó</td>
-                                        <td class="lv2">ÀÏºÎ¸¸</td>
-                                        <td class="lv1">¾øÀ½</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <div class="sclist">
-                                <div class="scitem"><label>¼Ò¸® ¼¾¼­¿Í ½ºÇÇÄ¿ÀÇ Æ¯¼ºÀ» ¼³¸íÇÒ ¼ö ÀÖ´Ù.</label><select>
-                                        <option value="">¼±ÅÃ</option>
-                                        <option>¸Å¿ì ±×·¸´Ù</option>
-                                        <option>±×·¸´Ù</option>
-                                        <option>¾ÆÁ÷ ¸ğ¸£°Ú´Ù</option>
-                                    </select></div>
-                                <div class="scitem"><label>º¯¼ö¿Í Á¶°ÇÀ¸·Î ¾Ë°í¸®ÁòÀ» ¼³°èÇÒ ¼ö ÀÖ´Ù.</label><select>
-                                        <option value="">¼±ÅÃ</option>
-                                        <option>¸Å¿ì ±×·¸´Ù</option>
-                                        <option>±×·¸´Ù</option>
-                                        <option>¾ÆÁ÷ ¸ğ¸£°Ú´Ù</option>
-                                    </select></div>
-                                <div class="scitem"><label>¼Ò¸®¿¡ ¹İÀÀÇÏ´Â ¾Ö´Ï¸ŞÀÌ¼Ç¡¤¸á·Îµğ ÇÁ·Î±×·¥À» ÀÛ¼ºÇÒ ¼ö ÀÖ´Ù.</label><select>
-                                        <option value="">¼±ÅÃ</option>
-                                        <option>¸Å¿ì ±×·¸´Ù</option>
-                                        <option>±×·¸´Ù</option>
-                                        <option>¾ÆÁ÷ ¸ğ¸£°Ú´Ù</option>
-                                    </select></div>
-                            </div>
-                            <button class="btn bsm bok" style="margin-top:10px" onclick="saveSC('l105sc')">??
-                                ÀúÀå</button>
-                        </div>
-                    </div>
-
-                    <div class="card" id="sec-review">
-                        <div class="ch" onclick="toggleSec('sec-review')">
-                            <div class="sn" style="background:var(--gbg);color:var(--green)">05</div>
-                            <h3>È®ÀÎÇÏ±â</h3><span class="st">? 5ºĞ</span><span class="carr">?</span>
-                        </div>
-                        <div class="cb">
-                            <div class="sgrid">
-                                <div class="scard"><strong>¼Ò¸® ¼¾¼­</strong>0~255 ¼Ò¸® Å©±â. ±âÁØ°ªÀ¸·Î Å« ¼Ò¸® ÆÇº°.</div>
-                                <div class="scard"><strong>ÀÛµ¿ ½ÃÀÛ º¯¼ö</strong>0=´ë±â, 1=ÀÛµ¿. Å« ¼Ò¸® ½Ã 1·Î º¯°æ.</div>
-                                <div class="scard"><strong>¹«ÇÑ ¹İº¹ º´·Ä</strong>¸á·Îµğ¡¤¾Ö´Ï¸ŞÀÌ¼ÇÀ» º°µµ ¹İº¹À¸·Î µ¿½Ã ½ÇÇà.</div>
-                            </div>
-                            <div
-                                style="background:var(--bg);border:1px solid var(--br);border-radius:var(--rSM);padding:13px;margin-bottom:12px">
-                                <b>?? ´Ü´äÇü:</b> ¼Ò¸®¿¡ ¹İÀÀÇÏ´Â ¾Ö´Ï¸ŞÀÌ¼Ç ÀåÄ¡¿¡¼­ Å« ¼Ò¸®°¡ °¨ÁöµÇ¾úÀ» ¶§ 1, ´ë±â »óÅÂÀÏ ¶§ 0À» ÀúÀåÇÏ´Â °ÍÀ» <span
-                                    style="display:inline-block;width:50px;border-bottom:1.5px solid var(--tx)">&nbsp;</span>(ÀÌ)¶ó°í
-                                ÇÑ´Ù.<textarea
-                                    style="display:block;width:100%;margin-top:9px;padding:9px;border:1px solid var(--br);border-radius:var(--rSM);font-size:13px;font-family:inherit;resize:vertical;min-height:48px;background:var(--sf)"
-                                    placeholder="Á¤´äÀ» ÀÔ·ÂÇÏ¼¼¿ä..."></textarea></div>
-                            <div class="ibox ok">?? <div><strong>´ÙÀ½ Â÷½Ã ¿¹°í:</strong> ¸¶Áö¸·À¸·Î <strong>¶óµğ¿À ¹«¼± Åë½Å</strong>À¸·Î
-                                    ÀÌ½ÉÀü½É °ÔÀÓ ÀåÄ¡¸¦ ¸¸µé¾îº¾´Ï´Ù! (pp.32~35)</div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="ca">
-                    <div class="ap">
-                        <h5>ÇĞ½À ÁøÇà</h5>
-                        <div class="slist">
-                            <div class="si" onclick="goTo('sec-goal')">
-                                <div class="dot sd">1</div>ÇĞ½À¸ñÇ¥
-                            </div>
-                            <div class="si" onclick="goTo('sec-concept')">
-                                <div class="dot">2</div>°³³ä¼³¸í
-                            </div>
-                            <div class="si" onclick="goTo('sec-activity')">
-                                <div class="dot sa">¡Ú</div>¼öÇà È°µ¿
-                            </div>
-                            <div class="si" onclick="goTo('sec-assess')">
-                                <div class="dot">4</div>¼öÇàÆò°¡
-                            </div>
-                            <div class="si" onclick="goTo('sec-review')">
-                                <div class="dot">5</div>È®ÀÎÇÏ±â
-                            </div>
-                        </div>
-                    </div>
-                    <div class="ap" style="background:var(--ult);border-color:var(--umd)">
-                        <h5 style="color:var(--u)">´Ü¿ø Áøµµ</h5>
-                        <div style="display:flex;align-items:center;gap:7px">
-                            <div class="pbtrack" style="flex:1">
-                                <div class="pbfill" style="width:77%"></div>
-                            </div><span style="font-size:11px;font-weight:600;color:var(--u)">5/6</span>
-                        </div>
-                    </div>
-                    <div class="ap">
-                        <h5>ÇÙ½É ¿ë¾î</h5>
-                        <div class="termlist">
-                            <div class="tterm"><span class="tw">¼Ò¸® ¼¾¼­</span><span class="tdef">0~255 ¼Ò¸® Å©±â</span></div>
-                            <div class="tterm"><span class="tw">Å« ¼Ò¸® ÀÌº¥Æ®</span><span class="tdef">±âÁØ°ª ÃÊ°ú ½Ã ½ÇÇà</span>
-                            </div>
-                            <div class="tterm"><span class="tw">º¯¼ö ÇÃ·¡±×</span><span class="tdef">0=´ë±â, 1=ÀÛµ¿</span></div>
-                            <div class="tterm"><span class="tw">¸á·Îµğ ºí·Ï</span><span class="tdef">À½¾Ç Àç»ı ºí·Ï</span></div>
-                            <div class="tterm"><span class="tw">¹«ÇÑ ¹İº¹</span><span class="tdef">º´·Ä ½ÇÇà</span></div>
-                        </div>
-                    </div>
-                    <div class="ap" style="background:#F0FDF4;border-color:#BBF7D0">
-                        <h5 style="color:#166534">?? ¸¶ÀÌÅ©·ÎºñÆ®</h5>
-                        <a href="https://makecode.microbit.org" target="_blank" class="btn bsm"
-                            style="width:100%;justify-content:center;background:#0078D4;color:#fff;border-color:#005A9E;margin-bottom:5px">MakeCode
-                            ¿­±â ¢Ö</a>
-                        <a href="https://makecode.microbit.org/#editor" target="_blank" class="btn bsm"
-                            style="width:100%;justify-content:center;font-size:10px;color:var(--mt)">½Ã¹Ä·¹ÀÌÅÍ ¢Ö</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
-    <div id="toast"></div>
-    <script>
-
-        // ¦¡¦¡ Google Sheets ÀúÀå ¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡
-        var GS_URL = 'https://script.google.com/macros/s/AKfycbwOMGuuboaYzZCHvIQpu3V_Lo-Fu02CiY4nj1BDktSinJM41H_EqAkulbcUsC-2Sxt6/exec';
-
-        function getUserName() {
-            return localStorage.getItem('user_name') || 'ÀÍ¸í';
-        }
-
-        function postToSheets(payload) {
-            if (!GS_URL || GS_URL === 'https://script.google.com/macros/s/AKfycbwOMGuuboaYzZCHvIQpu3V_Lo-Fu02CiY4nj1BDktSinJM41H_EqAkulbcUsC-2Sxt6/exec') return;
-            fetch(GS_URL, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            }).catch(function () { });
-        }
-
-
-        function toast(m) { var t = document.getElementById('toast'); t.textContent = m; t.style.opacity = '1'; t.style.transform = 'translateX(-50%) translateY(0)'; clearTimeout(t._t); t._t = setTimeout(function () { t.style.opacity = '0'; t.style.transform = 'translateX(-50%) translateY(10px)'; }, 2400); }
-        function toggleSec(id) { var e = document.getElementById(id); if (e) e.classList.toggle('collapsed'); }
-        function goTo(id) { var e = document.getElementById(id); if (!e) return; window.scrollTo({ top: e.getBoundingClientRect().top + window.pageYOffset - 64, behavior: 'smooth' }); }
-        function checkQ(el, ok, msg) { el.closest('.qopts').querySelectorAll('.opt').forEach(function (o) { o.classList.add('locked'); }); el.classList.add(ok ? 'correct' : 'wrong'); var fb = el.closest('.qwrap').querySelector('.qfb'); if (fb) { fb.className = 'qfb ' + (ok ? 'ok' : 'err'); fb.innerHTML = (ok ? '? Á¤´ä: ' : '? ÈùÆ®: ') + msg; } }
-        function saveSC(key) {
-            var d = {};
-            document.querySelectorAll('.scitem select').forEach(function (s, i) { d['q' + i] = s.value; });
-            try {
-                localStorage.setItem(key, JSON.stringify(d));
-                // Google Sheets ÀúÀå
-                postToSheets({
-                    type: 'sc',
-                    userName: getUserName(),
-                    lessonKey: 'l15',
-                    lessonName: 'l15',
-                    answers: d
-                });
-                toast('ÀÚ±âÆò°¡°¡ ÀúÀåµÇ¾ú½À´Ï´Ù ?');
-            } catch (e) { }
-        }
-        function loadSC(key) { try { var d = JSON.parse(localStorage.getItem(key) || '{}'); document.querySelectorAll('.scitem select').forEach(function (s, i) { if (d['q' + i]) s.value = d['q' + i]; }); } catch (e) { } }
-        function markDone(n) {
-            try {
-                var d = JSON.parse(localStorage.getItem('u01done') || '[]');
-                if (!d.includes(n)) d.push(n);
-                localStorage.setItem('u01done', JSON.stringify(d));
-                // Google Sheets ÀúÀå
-                postToSheets({
-                    type: 'done',
-                    userName: getUserName(),
-                    unit: 'I',
-                    lessonNum: n,
-                    lessonName: 'ÄÄÇ»ÆÃ ½Ã½ºÅÛ'
-                });
-            } catch (e) { }
-            toast('? ¼Ò´Ü¿ø ' + n + ' ¿Ï·á Ç¥½Ã!');
-        }
-        function saveActivity(key) {
-            var d = {};
-            document.querySelectorAll('.act-input').forEach(function (el, i) { d['a' + i] = el.value; });
-            document.querySelectorAll('.peer-check input[type=radio]:checked').forEach(function (el) { d['r_' + el.name] = el.value; });
-            try {
-                localStorage.setItem(key, JSON.stringify(d));
-                // Google Sheets ÀúÀå
-                postToSheets({
-                    type: 'act',
-                    userName: getUserName(),
-                    lessonKey: 'l15',
-                    lessonName: 'l15',
-                    answers: d
-                });
-                toast('? ¼öÇà È°µ¿ÀÌ ÀúÀåµÇ¾ú½À´Ï´Ù!');
-            } catch (e) { }
-        }
-        function loadActivity(key) {
-            try {
-                var d = JSON.parse(localStorage.getItem(key) || '{}');
-                document.querySelectorAll('.act-input').forEach(function (el, i) { if (d['a' + i]) el.value = d['a' + i]; });
-                Object.keys(d).filter(function (k) { return k.startsWith('r_'); }).forEach(function (k) {
-                    var el = document.querySelector('input[type=radio][name="' + k.slice(2) + '"][value="' + d[k] + '"]');
-                    if (el) el.checked = true;
-                });
-            } catch (e) { }
-        }
-
-
-        // ÇĞ±³ Á¾ À½Ç¥
-        var songNotes = [
-            { note: 'G4', dur: 0.5 }, { note: 'G4', dur: 0.5 }, { note: 'A4', dur: 0.5 }, { note: 'A4', dur: 0.5 },
-            { note: 'G4', dur: 0.5 }, { note: 'G4', dur: 0.5 }, { note: 'E4', dur: 1 },
-            { note: 'G4', dur: 0.5 }, { note: 'G4', dur: 0.5 }, { note: 'E4', dur: 0.5 }, { note: 'E4', dur: 0.5 }, { note: 'D4', dur: 1 },
-            { note: 'G4', dur: 0.5 }, { note: 'G4', dur: 0.5 }, { note: 'A4', dur: 0.5 }, { note: 'A4', dur: 0.5 },
-            { note: 'G4', dur: 0.5 }, { note: 'G4', dur: 0.5 }, { note: 'E4', dur: 1 },
-            { note: 'G4', dur: 0.5 }, { note: 'E4', dur: 0.5 }, { note: 'D4', dur: 0.5 }, { note: 'E4', dur: 0.5 }, { note: 'C4', dur: 1 }
-        ];
-        var noteFreq = { C4: 261, D4: 293, E4: 329, G4: 392, A4: 440 };
-        var noteNames = { C4: 'µµ', D4: '·¹', E4: '¹Ì', G4: '¼Ö', A4: '¶ó' };
-        var audioCtx = null;
-        var songTimer = null;
-
-        function playSong() {
-            if (songTimer) { clearTimeout(songTimer); }
-            try { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) { toast('¿Àµğ¿À Àç»ı ºÒ°¡'); return; }
-            var idx = 0;
-            var disp = document.getElementById('song-display');
-            function playNext() {
-                if (idx >= songNotes.length) { if (disp) disp.textContent = '?? Àç»ı ¿Ï·á!'; return; }
-                var n = songNotes[idx];
-                var osc = audioCtx.createOscillator();
-                var gain = audioCtx.createGain();
-                osc.connect(gain); gain.connect(audioCtx.destination);
-                osc.frequency.value = noteFreq[n.note] || 440;
-                osc.type = 'square';
-                gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + n.dur * 0.45);
-                osc.start(); osc.stop(audioCtx.currentTime + n.dur * 0.5);
-                if (disp) disp.textContent = '¢Ü ' + (noteNames[n.note] || n.note) + ' (' + n.note + ')';
-                idx++;
-                songTimer = setTimeout(playNext, n.dur * 500);
-            }
-            playNext();
-        }
-        function stopSong() { if (songTimer) clearTimeout(songTimer); if (audioCtx) audioCtx.close(); var d = document.getElementById('song-display'); if (d) d.textContent = '? Á¤Áö'; }
-
-        // LED ±×¸®µå
-        var ledGrids = { 1: Array(25).fill(0), 2: Array(25).fill(0), 3: Array(25).fill(0) };
-        function buildLedGrid(id) {
-            var div = document.getElementById('led-grid-' + id);
-            if (!div) return;
-            div.innerHTML = '';
-            var grid = document.createElement('div');
-            grid.style.cssText = 'display:grid;grid-template-columns:repeat(5,1fr);gap:3px';
-            for (var i = 0; i < 25; i++) {
-                (function (idx) {
-                    var dot = document.createElement('div');
-                    dot.style.cssText = 'width:14px;height:14px;border-radius:50%;background:' + (ledGrids[id][idx] ? '#FF6B35' : '#333') + ';cursor:pointer;transition:background .15s';
-                    dot.onclick = function () { ledGrids[id][idx] = ledGrids[id][idx] ? 0 : 1; buildLedGrid(id); };
-                    grid.appendChild(dot);
-                })(i);
-            }
-            div.appendChild(grid);
-            var lbl = document.createElement('div');
-            lbl.style.cssText = 'font-size:9px;color:#888;text-align:center;margin-top:4px';
-            lbl.textContent = 'Àå¸é ' + id;
-            div.appendChild(lbl);
-        }
-
-        // ¹Ú¼ö ½Ã¹Ä·¹ÀÌÅÍ
-        var clapScores = { A: 0, B: 0 };
-        var clapActive = null;
-        var clapIv = null;
-        function startClap(team) {
-            if (clapActive) return;
-            clapActive = team;
-            var other = team === 'A' ? 'B' : 'A';
-            document.getElementById('btn-' + team.toLowerCase() + '-clap').disabled = true;
-            document.getElementById('btn-' + other.toLowerCase() + '-clap').disabled = true;
-            var t = 0; var score = 0;
-            var disp = document.getElementById('clap-timer');
-            clapIv = setInterval(function () {
-                t += 0.2;
-                var rand = Math.floor(Math.random() * 30);
-                score += rand;
-                var pct = Math.min(100, score / 500 * 100);
-                document.getElementById(team.toLowerCase() + '-fill').style.height = pct + '%';
-                document.getElementById(team.toLowerCase() + '-score').textContent = score + 'Á¡';
-                if (disp) disp.textContent = team + ' ¸ğµÒ ÃøÁ¤ Áß... ' + (5 - t).toFixed(1) + 'ÃÊ';
-                if (t >= 5) {
-                    clearInterval(clapIv);
-                    clapScores[team] = score;
-                    clapActive = null;
-                    document.getElementById('btn-' + team.toLowerCase() + '-clap').disabled = false;
-                    document.getElementById('btn-' + other.toLowerCase() + '-clap').disabled = false;
-                    if (disp) disp.textContent = 'ÃøÁ¤ ¿Ï·á! ·Î°í ¹öÆ°À¸·Î °á°ú È®ÀÎ';
-                }
-            }, 200);
-        }
-        function showResult() {
-            var r = document.getElementById('clap-result');
-            if (!r) return;
-            if (clapScores.A === 0 && clapScores.B === 0) { r.textContent = '¸ÕÀú A¡¤B ¸ğµÒ ¹Ú¼ö¸¦ ÃøÁ¤ÇÏ¼¼¿ä!'; return; }
-            if (clapScores.A > clapScores.B) r.innerHTML = '?? A ¸ğµÒ ½Â¸®! (' + clapScores.A + ' > ' + clapScores.B + ')';
-            else if (clapScores.B > clapScores.A) r.innerHTML = '?? B ¸ğµÒ ½Â¸®! (' + clapScores.B + ' > ' + clapScores.A + ')';
-            else r.innerHTML = '?? ¹«½ÂºÎ! (' + clapScores.A + ' = ' + clapScores.B + ')';
-        }
-
-        document.addEventListener('DOMContentLoaded', function () {
-            [1, 2, 3].forEach(buildLedGrid);
-        });
-
-        document.addEventListener('DOMContentLoaded', function () { loadSC('l105sc'); loadActivity('l105sc_act'); });
-    </script>
-</body>
-
+ï»¿<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>I-5. ì†Œë¦¬ì— ë°˜ì‘í•˜ëŠ” ì• ë‹ˆë©”ì´ì…˜ ì¥ì¹˜ ë§Œë“¤ê¸° â€” ì •ë³´ êµê³¼</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        html {
+            scroll-behavior: smooth
+        }
+
+        body {
+            font-family: 'Noto Sans KR', -apple-system, sans-serif;
+            background: #F5F4F0;
+            color: #1C1C1C;
+            font-size: 14px;
+            line-height: 1.65;
+            display: flex;
+            min-height: 100vh
+        }
+
+        :root {
+            --u: #6C65CC;
+            --udk: #4E48A8;
+            --ult: #ECEAFE;
+            --umd: #C8C4F0;
+            --bg: #F5F4F0;
+            --sf: #FFF;
+            --br: #E2DFD6;
+            --tx: #1C1C1C;
+            --mt: #696760;
+            --lt: #A8A59E;
+            --green: #2A720E;
+            --gbg: #E8F3DC;
+            --amber: #7A4E0A;
+            --abg: #FAF0DC;
+            --red: #8C1E0E;
+            --rbg: #FAEBE6;
+            --blue: #0A4E8C;
+            --bbg: #E4F0FA;
+            --rLG: 14px;
+            --rSM: 8px;
+            --SW: 240px;
+            --TH: 52px
+        }
+
+        .sb {
+            width: var(--SW);
+            background: var(--sf);
+            border-right: 1px solid var(--br);
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            z-index: 100
+        }
+
+        .sb-top {
+            padding: 16px 14px 12px;
+            border-bottom: 1px solid var(--br)
+        }
+
+        .uchip {
+            display: inline-flex;
+            align-items: center;
+            background: var(--ult);
+            color: var(--u);
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            padding: 3px 9px;
+            border-radius: 20px;
+            margin-bottom: 6px
+        }
+
+        .sb-top h2 {
+            font-size: 12px;
+            font-weight: 700;
+            line-height: 1.4
+        }
+
+        .smeta {
+            font-size: 10px;
+            color: var(--lt);
+            margin-top: 3px
+        }
+
+        .sb-nav {
+            padding: 4px 0;
+            flex: 1
+        }
+
+        .nlbl {
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            color: var(--lt);
+            padding: 7px 13px 3px
+        }
+
+        .na {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 7px 13px;
+            font-size: 11px;
+            color: var(--mt);
+            text-decoration: none;
+            border-left: 2.5px solid transparent;
+            transition: background .12s
+        }
+
+        .na:hover {
+            background: var(--bg);
+            color: var(--tx)
+        }
+
+        .na.on {
+            color: var(--u);
+            font-weight: 600;
+            background: var(--ult);
+            border-left-color: var(--u)
+        }
+
+        .na.done .nn {
+            background: var(--gbg);
+            color: var(--green)
+        }
+
+        .nn {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--br);
+            font-size: 9px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            color: var(--mt)
+        }
+
+        .na.on .nn {
+            background: var(--u);
+            color: #fff
+        }
+
+        .nbadge {
+            margin-left: auto;
+            font-size: 9px;
+            color: var(--lt);
+            background: var(--bg);
+            border: 1px solid var(--br);
+            padding: 1px 5px;
+            border-radius: 10px;
+            white-space: nowrap
+        }
+
+        .sb-foot {
+            padding: 10px 13px;
+            border-top: 1px solid var(--br)
+        }
+
+        .ba {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            color: var(--mt);
+            text-decoration: none;
+            padding: 5px 9px;
+            border-radius: var(--rSM);
+            border: 1px solid var(--br);
+            background: var(--sf);
+            transition: all .12s
+        }
+
+        .ba:hover {
+            background: var(--bg)
+        }
+
+        .main {
+            margin-left: var(--SW);
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            min-width: 0
+        }
+
+        .topbar {
+            background: var(--sf);
+            border-bottom: 1px solid var(--br);
+            height: var(--TH);
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            position: sticky;
+            top: 0;
+            z-index: 90
+        }
+
+        .bc {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 12px;
+            color: var(--mt);
+            flex: 1
+        }
+
+        .bc a {
+            color: var(--mt);
+            text-decoration: none
+        }
+
+        .bc a:hover {
+            color: var(--tx)
+        }
+
+        .bcsep {
+            color: var(--br)
+        }
+
+        .bccur {
+            color: var(--tx);
+            font-weight: 500
+        }
+
+        .tbr {
+            display: flex;
+            align-items: center;
+            gap: 6px
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 6px 12px;
+            border-radius: var(--rSM);
+            font-size: 12px;
+            font-family: inherit;
+            font-weight: 500;
+            cursor: pointer;
+            border: 1px solid var(--br);
+            background: var(--sf);
+            color: var(--tx);
+            text-decoration: none;
+            transition: background .12s;
+            white-space: nowrap
+        }
+
+        .btn:hover {
+            background: var(--bg)
+        }
+
+        .bsm {
+            padding: 5px 9px;
+            font-size: 11px
+        }
+
+        .bp {
+            background: var(--u);
+            color: #fff;
+            border-color: var(--u)
+        }
+
+        .bp:hover {
+            background: var(--udk)
+        }
+
+        .bok {
+            background: var(--green);
+            color: #fff;
+            border-color: var(--green)
+        }
+
+        .page {
+            padding: 20px 22px;
+            flex: 1
+        }
+
+        .g2 {
+            display: grid;
+            grid-template-columns: 1fr minmax(0, 248px);
+            gap: 16px;
+            align-items: start
+        }
+
+        .cm {
+            min-width: 0
+        }
+
+        .ca {
+            position: sticky;
+            top: calc(var(--TH)+12px)
+        }
+
+        .card {
+            background: var(--sf);
+            border: 1px solid var(--br);
+            border-radius: var(--rLG);
+            margin-bottom: 11px;
+            overflow: hidden
+        }
+
+        .ch {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            padding: 12px 16px;
+            cursor: pointer;
+            border-bottom: 1px solid var(--br);
+            transition: background .12s;
+            user-select: none
+        }
+
+        .ch:hover {
+            background: var(--bg)
+        }
+
+        .sn {
+            width: 26px;
+            height: 26px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 800;
+            flex-shrink: 0
+        }
+
+        .ch h3 {
+            font-size: 13px;
+            font-weight: 600;
+            flex: 1
+        }
+
+        .st {
+            font-size: 10px;
+            color: var(--lt);
+            background: var(--bg);
+            border: 1px solid var(--br);
+            padding: 2px 7px;
+            border-radius: 20px;
+            white-space: nowrap
+        }
+
+        .carr {
+            font-size: 11px;
+            color: var(--lt);
+            transition: transform .2s
+        }
+
+        .card.collapsed .carr {
+            transform: rotate(-90deg)
+        }
+
+        .cb {
+            padding: 18px
+        }
+
+        .card.collapsed .cb {
+            display: none
+        }
+
+        .ach {
+            background: var(--ult);
+            border: 1px solid var(--umd);
+            border-radius: var(--rSM);
+            padding: 10px 13px;
+            margin-bottom: 14px
+        }
+
+        .ach-c {
+            font-family: monospace;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--u);
+            margin-bottom: 3px
+        }
+
+        .ach-t {
+            font-size: 13px;
+            line-height: 1.6
+        }
+
+        .glist {
+            list-style: none
+        }
+
+        .glist li {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            padding: 6px 0;
+            font-size: 13px;
+            border-bottom: 1px solid var(--br);
+            line-height: 1.6
+        }
+
+        .glist li:last-child {
+            border-bottom: none
+        }
+
+        .gck {
+            width: 17px;
+            height: 17px;
+            border-radius: 50%;
+            background: var(--gbg);
+            color: var(--green);
+            font-size: 9px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 2px
+        }
+
+        .ctags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-bottom: 12px
+        }
+
+        .ctag {
+            font-size: 11px;
+            padding: 3px 10px;
+            background: var(--bg);
+            border: 1px solid var(--br);
+            border-radius: 20px;
+            cursor: pointer;
+            color: var(--mt);
+            transition: all .12s
+        }
+
+        .ctag:hover {
+            background: var(--ult);
+            border-color: var(--umd);
+            color: var(--u)
+        }
+
+        .ibox {
+            display: flex;
+            align-items: flex-start;
+            gap: 9px;
+            padding: 10px 13px;
+            border-radius: var(--rSM);
+            font-size: 12px;
+            line-height: 1.6;
+            margin-top: 10px
+        }
+
+        .prev {
+            background: var(--bg);
+            border: 1px solid var(--br);
+            color: var(--mt)
+        }
+
+        .warn {
+            background: #FFFBEC;
+            border: 1px solid #EDD070;
+            color: #6A5000
+        }
+
+        .info {
+            background: var(--bbg);
+            border: 1px solid #BACED8;
+            color: var(--blue)
+        }
+
+        .ok {
+            background: var(--gbg);
+            border: 1px solid #BFDFAA;
+            color: var(--green)
+        }
+
+        .divl {
+            height: 1px;
+            background: var(--br);
+            margin: 13px 0
+        }
+
+        .crow {
+            display: grid;
+            grid-template-columns: 1fr minmax(0, 148px);
+            gap: 13px;
+            align-items: start;
+            margin-bottom: 13px
+        }
+
+        .ct h4 {
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 7px
+        }
+
+        .ct p {
+            font-size: 13px;
+            color: var(--mt);
+            line-height: 1.75
+        }
+
+        .ct ul {
+            padding-left: 1rem;
+            margin-top: 5px
+        }
+
+        .ct ul li {
+            font-size: 13px;
+            color: var(--mt);
+            margin-bottom: 3px;
+            line-height: 1.6
+        }
+
+        .cvis {
+            background: var(--bg);
+            border: 1px solid var(--br);
+            border-radius: var(--rSM);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px
+        }
+
+        /* â”€â”€ ìˆ˜í–‰í™œë™ (í•´ë³´ê¸°) â”€â”€ */
+        .activity {
+            background: linear-gradient(135deg, var(--ult), #F5F4FF);
+            border: 2px solid var(--umd);
+            border-radius: var(--rLG);
+            margin-bottom: 11px;
+            overflow: hidden
+        }
+
+        .act-head {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            padding: 12px 16px;
+            border-bottom: 1.5px solid var(--umd);
+            background: var(--ult);
+            cursor: pointer;
+            user-select: none
+        }
+
+        .act-head:hover {
+            background: #E4E0FC
+        }
+
+        .act-badge {
+            background: var(--u);
+            color: #fff;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 20px;
+            white-space: nowrap
+        }
+
+        .act-head h3 {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--udk);
+            flex: 1
+        }
+
+        .act-body {
+            padding: 18px
+        }
+
+        .act-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 10px 12px;
+            background: var(--sf);
+            border: 1px solid var(--br);
+            border-radius: var(--rSM);
+            margin-bottom: 8px;
+            min-height: 160px;
+        }
+
+        .act-num {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: var(--u);
+            color: #fff;
+            font-size: 10px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            flex: none;
+            margin-top: 1px
+        }
+
+        .act-step h4 {
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 4px
+        }
+
+        .act-step p {
+            font-size: 12px;
+            color: var(--mt);
+            line-height: 1.65
+        }
+
+        .act-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+            margin-top: 8px
+        }
+
+        .act-table th {
+            background: var(--u);
+            color: #fff;
+            padding: 7px 10px;
+            font-weight: 600;
+            font-size: 11px;
+            text-align: left
+        }
+
+        .act-table td {
+            padding: 8px 10px;
+            border-bottom: 1px solid var(--br);
+            color: var(--mt);
+            vertical-align: top;
+            line-height: 1.55
+        }
+
+        .act-table tr:last-child td {
+            border-bottom: none
+        }
+
+        .act-input {
+            width: 100%;
+            padding: 8px 10px;
+            border: 1.5px solid var(--br);
+            border-radius: var(--rSM);
+            font-size: 12px;
+            font-family: inherit;
+            background: var(--sf);
+            outline: none;
+            resize: vertical;
+            min-height: 88px;
+            margin-top: 4px
+        }
+
+        .act-input:focus {
+            border-color: var(--u)
+        }
+
+        /* â”€â”€ ë§ˆì´í¬ë¡œë¹„íŠ¸ ë¸”ë¡ â”€â”€ */
+        .mb-workspace {
+            background: #1e1e2e;
+            border-radius: var(--rSM);
+            padding: 14px;
+            margin: 8px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 5px
+        }
+
+        .mb-row {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            flex-wrap: wrap
+        }
+
+        .mb-indent {
+            margin-left: 22px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            flex-wrap: wrap
+        }
+
+        .mb-indent2 {
+            margin-left: 44px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            flex-wrap: wrap
+        }
+
+        .mb {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 6px 11px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-family: 'Courier New', monospace;
+            font-weight: 700;
+            color: #fff;
+            cursor: default
+        }
+
+        .mb-hole {
+            display: inline-block;
+            background: rgba(255, 255, 255, .2);
+            border-radius: 3px;
+            padding: 1px 7px;
+            font-size: 10px;
+            min-width: 20px;
+            text-align: center
+        }
+
+        .mb-start {
+            background: #FF8C00;
+            box-shadow: 0 3px 0 #B85A00
+        }
+
+        .mb-motion {
+            background: #4A7ED9;
+            box-shadow: 0 3px 0 #2A50A0
+        }
+
+        .mb-led {
+            background: #9B59B6;
+            box-shadow: 0 3px 0 #6C3483
+        }
+
+        .mb-input {
+            background: #F39C12;
+            box-shadow: 0 3px 0 #C07000
+        }
+
+        .mb-logic {
+            background: #E74C3C;
+            box-shadow: 0 3px 0 #A01010
+        }
+
+        .mb-loop {
+            background: #27AE60;
+            box-shadow: 0 3px 0 #1A7A40
+        }
+
+        .mb-var {
+            background: #3498DB;
+            box-shadow: 0 3px 0 #1A5A9A
+        }
+
+        .mb-music {
+            background: #E91E63;
+            box-shadow: 0 3px 0 #880033
+        }
+
+        .mb-radio {
+            background: #00BCD4;
+            box-shadow: 0 3px 0 #007A88
+        }
+
+        .mb-sensor {
+            background: #FF6B35;
+            box-shadow: 0 3px 0 #C04010
+        }
+
+        /* â”€â”€ quiz â”€â”€ */
+        .qwrap {
+            background: var(--bg);
+            border: 1px solid var(--br);
+            border-radius: var(--rSM);
+            padding: 14px;
+            margin-top: 13px
+        }
+
+        .qq {
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 11px;
+            line-height: 1.55
+        }
+
+        .qopts {
+            display: flex;
+            flex-direction: column;
+            gap: 7px
+        }
+
+        .opt {
+            display: flex;
+            align-items: flex-start;
+            gap: 9px;
+            padding: 10px 12px;
+            background: var(--sf);
+            border: 1.5px solid var(--br);
+            border-radius: var(--rSM);
+            cursor: pointer;
+            font-size: 13px;
+            line-height: 1.5;
+            transition: all .12s
+        }
+
+        .opt:hover {
+            border-color: var(--u);
+            background: var(--ult)
+        }
+
+        .opt.correct {
+            border-color: #4A9020;
+            background: var(--gbg);
+            color: #1A5000;
+            pointer-events: none
+        }
+
+        .opt.wrong {
+            border-color: #B03020;
+            background: var(--rbg);
+            color: #6A1000;
+            pointer-events: none
+        }
+
+        .opt.locked {
+            pointer-events: none;
+            opacity: .55
+        }
+
+        .onum {
+            width: 21px;
+            height: 21px;
+            border-radius: 50%;
+            background: var(--br);
+            font-size: 11px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0
+        }
+
+        .opt.correct .onum {
+            background: #4A9020;
+            color: #fff
+        }
+
+        .opt.wrong .onum {
+            background: #B03020;
+            color: #fff
+        }
+
+        .qfb {
+            display: none;
+            margin-top: 9px;
+            padding: 10px 13px;
+            border-radius: var(--rSM);
+            font-size: 12px;
+            line-height: 1.6
+        }
+
+        .qfb.ok {
+            display: block;
+            background: var(--gbg);
+            border: 1px solid #BFDFAA;
+            color: var(--green)
+        }
+
+        .qfb.err {
+            display: block;
+            background: var(--rbg);
+            border: 1px solid #F0B8A0;
+            color: var(--red)
+        }
+
+        /* â”€â”€ assess â”€â”€ */
+        .rub {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+            margin-bottom: 12px
+        }
+
+        .rub th {
+            background: var(--bg);
+            padding: 7px 8px;
+            font-weight: 600;
+            border-bottom: 1.5px solid var(--br);
+            text-align: left;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: .04em;
+            color: var(--mt)
+        }
+
+        .rub td {
+            padding: 8px;
+            border-bottom: 1px solid var(--br);
+            color: var(--mt);
+            vertical-align: top;
+            line-height: 1.5
+        }
+
+        .rub tr:last-child td {
+            border-bottom: none
+        }
+
+        .lv4 {
+            color: #1A6000 !important;
+            font-weight: 500
+        }
+
+        .lv3 {
+            color: #2A6830 !important
+        }
+
+        .lv2 {
+            color: #7A4E00 !important
+        }
+
+        .lv1 {
+            color: #8A2000 !important
+        }
+
+        .peer-check {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 11px;
+            margin-top: 10px
+        }
+
+        .peer-check th {
+            background: var(--ult);
+            padding: 6px 9px;
+            font-weight: 600;
+            border-bottom: 1.5px solid var(--umd);
+            text-align: center;
+            color: var(--u);
+            font-size: 10px
+        }
+
+        .peer-check td {
+            padding: 7px 9px;
+            border-bottom: 1px solid var(--br);
+            color: var(--mt);
+            text-align: center
+        }
+
+        .peer-check td:first-child {
+            text-align: left;
+            font-size: 11px
+        }
+
+        .peer-check input[type=radio] {
+            accent-color: var(--u)
+        }
+
+        /* â”€â”€ sidebar â”€â”€ */
+        .ap {
+            background: var(--sf);
+            border: 1px solid var(--br);
+            border-radius: var(--rLG);
+            padding: 13px;
+            margin-bottom: 10px
+        }
+
+        .ap h5 {
+            font-size: 9px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .1em;
+            color: var(--lt);
+            margin-bottom: 8px
+        }
+
+        .slist {
+            display: flex;
+            flex-direction: column;
+            gap: 3px
+        }
+
+        .si {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            padding: 6px 8px;
+            border-radius: var(--rSM);
+            font-size: 11px;
+            color: var(--mt);
+            cursor: pointer;
+            transition: background .12s
+        }
+
+        .si:hover {
+            background: var(--bg)
+        }
+
+        .dot {
+            width: 19px;
+            height: 19px;
+            border-radius: 50%;
+            background: var(--br);
+            color: var(--lt);
+            font-size: 9px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0
+        }
+
+        .dot.sa {
+            background: var(--u);
+            color: #fff
+        }
+
+        .dot.sd {
+            background: var(--gbg);
+            color: var(--green)
+        }
+
+        .sclist {
+            display: flex;
+            flex-direction: column;
+            gap: 4px
+        }
+
+        .scitem {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            padding: 8px 10px;
+            background: var(--bg);
+            border-radius: var(--rSM);
+            font-size: 12px;
+            border: 1px solid var(--br)
+        }
+
+        .scitem label {
+            flex: 1;
+            line-height: 1.5
+        }
+
+        .scitem select {
+            font-size: 11px;
+            padding: 3px 6px;
+            border: 1px solid var(--br);
+            border-radius: 5px;
+            background: var(--sf);
+            font-family: inherit;
+            color: var(--tx);
+            cursor: pointer;
+            flex-shrink: 0
+        }
+
+        .sgrid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 7px;
+            margin-bottom: 12px
+        }
+
+        .scard {
+            background: var(--bg);
+            border: 1px solid var(--br);
+            border-radius: var(--rSM);
+            padding: 11px 12px;
+            font-size: 12px;
+            line-height: 1.65;
+            color: var(--mt)
+        }
+
+        .scard strong {
+            display: block;
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: .07em;
+            color: var(--lt);
+            margin-bottom: 4px
+        }
+
+        .termlist {
+            display: flex;
+            flex-direction: column
+        }
+
+        .tterm {
+            display: flex;
+            align-items: baseline;
+            gap: 5px;
+            padding: 4px 0;
+            font-size: 11px;
+            border-bottom: 1px solid var(--br)
+        }
+
+        .tterm:last-child {
+            border-bottom: none
+        }
+
+        .tw {
+            font-weight: 600;
+            color: var(--u);
+            white-space: nowrap
+        }
+
+        .tdef {
+            color: var(--mt)
+        }
+
+        .pbtrack {
+            height: 5px;
+            background: var(--umd);
+            border-radius: 3px;
+            overflow: hidden
+        }
+
+        .pbfill {
+            height: 100%;
+            background: var(--u);
+            border-radius: 3px
+        }
+
+        #toast {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%) translateY(10px);
+            background: #1C1C1C;
+            color: #fff;
+            padding: 9px 18px;
+            border-radius: 10px;
+            font-size: 12px;
+            font-family: inherit;
+            z-index: 9999;
+            opacity: 0;
+            transition: opacity .2s, transform .2s;
+            pointer-events: none;
+            white-space: nowrap
+        }
+
+        /* â•â• ë°˜ì‘í˜• ë ˆì´ì•„ì›ƒ â•â• */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box
+        }
+
+        img,
+        canvas,
+        video {
+            max-width: 100%;
+            height: auto;
+            display: block
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse
+        }
+
+        .act-table,
+        .peer-check,
+        .rub {
+            table-layout: fixed;
+            word-break: break-word
+        }
+
+        .act-table td,
+        .act-table th,
+        .rub td,
+        .rub th,
+        .peer-check td,
+        .peer-check th {
+            min-width: 44px;
+            word-break: break-word;
+            overflow-wrap: break-word
+        }
+
+        .act-step>div:not(.act-num) {
+            min-width: 0;
+            flex: 1;
+            overflow-wrap: break-word;
+            word-break: break-word
+        }
+
+        .act-body,
+        .cb {
+            overflow-x: hidden
+        }
+
+        .act-input {
+            width: 100%;
+            box-sizing: border-box
+        }
+
+        .mb-workspace,
+        .mb-row,
+        .mb-indent,
+        .mb-indent2 {
+            flex-wrap: wrap
+        }
+
+        .sim-wrap {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch
+        }
+
+        /* 1100px ì´í•˜ */
+        @media(max-width:1100px) {
+            .g2 {
+                grid-template-columns: 1fr
+            }
+
+            .ca {
+                position: static;
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 10px;
+                margin-top: 12px
+            }
+
+            .ca .ap {
+                flex: 1 1 220px;
+                min-width: 180px
+            }
+
+            .crow {
+                grid-template-columns: 1fr
+            }
+
+            .sgrid {
+                grid-template-columns: 1fr 1fr
+            }
+        }
+
+        /* 900px ì´í•˜ */
+        @media(max-width:900px) {
+            .ca {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 8px;
+                margin-top: 10px
+            }
+
+            .ca .ap {
+                flex: 1 1 180px;
+                min-width: 160px
+            }
+
+            .page {
+                padding: 16px 14px
+            }
+
+            .cb,
+            .act-body {
+                padding: 13px
+            }
+
+            .sgrid {
+                grid-template-columns: 1fr 1fr
+            }
+
+            .crow {
+                grid-template-columns: 1fr
+            }
+        }
+
+        /* 640px ì´í•˜ */
+        @media(max-width:640px) {
+            .page {
+                padding: 11px 10px
+            }
+
+            .cb,
+            .act-body {
+                padding: 10px
+            }
+
+            .sgrid {
+                grid-template-columns: 1fr
+            }
+
+            .act-step {
+                flex-direction: column;
+                gap: 5px
+            }
+
+            .act-num {
+                margin-bottom: 0
+            }
+
+            .ch h3 {
+                font-size: 12px
+            }
+
+            .btn {
+                font-size: 11px;
+                padding: 5px 8px
+            }
+
+            .act-table td,
+            .act-table th {
+                padding: 5px 6px;
+                font-size: 11px
+            }
+
+            .rub td,
+            .rub th {
+                padding: 5px 6px;
+                font-size: 11px
+            }
+
+            .peer-check td,
+            .peer-check th {
+                padding: 5px 6px;
+                font-size: 10px
+            }
+
+            .scard {
+                font-size: 11px
+            }
+
+            .opt {
+                font-size: 12px;
+                padding: 8px 10px
+            }
+
+            .mb,
+            .mb-hole {
+                font-size: 10px;
+                padding: 4px 7px
+            }
+        }
+
+        /* 480px ì´í•˜ */
+        @media(max-width:480px) {
+            :root {
+                --SW: 0px
+            }
+
+            .sb {
+                display: none
+            }
+
+            .main {
+                margin-left: 0
+            }
+
+            .topbar {
+                padding: 0 10px
+            }
+
+            .page {
+                padding: 8px 9px
+            }
+
+            .cb,
+            .act-body {
+                padding: 9px
+            }
+
+            .tbr .btn:last-child {
+                display: none
+            }
+
+            .sgrid {
+                grid-template-columns: 1fr
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <aside class="sb">
+        <div class="sb-top">
+            <div class="uchip">â—ˆ Unit I</div>
+            <h2>ì»´í“¨íŒ… ì‹œìŠ¤í…œ</h2>
+            <div class="smeta">ì¤‘ë‹¨ì›2: í”¼ì§€ì»¬ ì»´í“¨íŒ… í”„ë¡œê·¸ë˜ë° Â· p.28~31</div>
+        </div>
+        <nav class="sb-nav">
+            <div class="nlbl">ì†Œë‹¨ì› ëª©ë¡</div><a class="na done" href="../lesson-01/index.html">
+                <div class="nn">âœ“</div>ì»´í“¨íŒ… ì‹œìŠ¤í…œì˜ êµ¬ì„±ê³¼ ë™ì‘ ì›ë¦¬
+            </a>
+            <a class="na done" href="../lesson-02/index.html">
+                <div class="nn">âœ“</div>í”¼ì§€ì»¬ ì»´í“¨íŒ… ì‹œìŠ¤í…œì˜ ì´í•´
+            </a>
+            <a class="na done" href="../lesson-03/index.html">
+                <div class="nn">âœ“</div>ìš´ë™ íšŸìˆ˜ í‘œì‹œ ì¥ì¹˜ ë§Œë“¤ê¸°
+            </a>
+            <a class="na done" href="../lesson-04/index.html">
+                <div class="nn">âœ“</div>ìˆ˜ë©´ ì˜¨ë„ ì•Œë¦¼ì´ ì¥ì¹˜ ë§Œë“¤ê¸°
+            </a>
+            <a class="na on" href="../lesson-05/index.html">
+                <div class="nn">5</div>ì†Œë¦¬ì— ë°˜ì‘í•˜ëŠ” ì• ë‹ˆë©”ì´ì…˜ ì¥ì¹˜ ë§Œë“¤ê¸°<span class="nbadge">3ì°¨ì‹œ</span>
+            </a>
+            <a class="na " href="../lesson-06/index.html">
+                <div class="nn">6</div>ì´ì‹¬ì „ì‹¬ ê²Œì„ ì¥ì¹˜ ë§Œë“¤ê¸°
+            </a>
+        </nav>
+        <div class="sb-foot"><a class="ba" href="https://sungce.github.io/lesson/">â† ì •ë³´ êµê³¼ í•™ìŠµ í”Œë«í¼</a></div>
+    </aside>
+    <main class="main">
+        <header class="topbar">
+            <div class="bc"><a href="https://sungce.github.io/lesson/">ì •ë³´ êµê³¼ í•™ìŠµ í”Œë«í¼</a><span class="bcsep">â€º</span><a
+                    href="../../index.html">I. ì»´í“¨íŒ… ì‹œìŠ¤í…œ</a><span class="bcsep">â€º</span><span class="bccur">5. ì†Œë¦¬ì— ë°˜ì‘í•˜ëŠ”
+                    ì• ë‹ˆë©”ì´ì…˜ ì¥ì¹˜ ë§Œë“¤ê¸°</span></div>
+            <div class="tbr">
+                <button class="btn bsm" onclick="markDone('05')">âœ“ ì™„ë£Œ í‘œì‹œ</button>
+                <a class="btn bsm bp" href="../lesson-06/index.html">ë‹¤ìŒ ì†Œë‹¨ì› â†’</a>
+            </div>
+        </header>
+        <div class="page">
+            <div class="g2">
+                <div class="cm">
+
+                    <div class="card" id="sec-goal">
+                        <div class="ch" onclick="toggleSec('sec-goal')">
+                            <div class="sn" style="background:var(--ult);color:var(--u)">01</div>
+                            <h3>í•™ìŠµëª©í‘œ</h3><span class="st">â± 5ë¶„</span><span class="carr">â–¾</span>
+                        </div>
+                        <div class="cb">
+                            <div class="ach">
+                                <div class="ach-c">[9ì •01-05] í”¼ì§€ì»¬ ì»´í“¨íŒ… í”„ë¡œê·¸ë˜ë°</div>
+                                <div class="ach-t">ì†Œë¦¬ ì„¼ì„œì™€ ìŠ¤í”¼ì»¤ë¥¼ í™œìš©í•˜ì—¬ í° ì†Œë¦¬ê°€ ë‚˜ë©´ ì• ë‹ˆë©”ì´ì…˜ê³¼ ë©œë¡œë””ê°€ ì¬ìƒë˜ëŠ” í”¼ì§€ì»¬ ì»´í“¨íŒ… ì‹œìŠ¤í…œì„ ë§Œë“¤ ìˆ˜ ìˆë‹¤.
+                                    (pp.28~31)</div>
+                            </div>
+                            <ul class="glist">
+                                <li>
+                                    <div class="gck">âœ“</div>ì†Œë¦¬ ì„¼ì„œì™€ ìŠ¤í”¼ì»¤ì˜ íŠ¹ì„±ì„ ì„¤ëª…í•  ìˆ˜ ìˆë‹¤.
+                                </li>
+                                <li>
+                                    <div class="gck">âœ“</div>ë³€ìˆ˜ì™€ ì¡°ê±´ì„ í™œìš©í•œ ì•Œê³ ë¦¬ì¦˜ì„ ì„¤ê³„í•  ìˆ˜ ìˆë‹¤.
+                                </li>
+                                <li>
+                                    <div class="gck">âœ“</div>ì†Œë¦¬ì— ë°˜ì‘í•˜ëŠ” LED ì• ë‹ˆë©”ì´ì…˜Â·ë©œë¡œë”” ì¥ì¹˜ë¥¼ MakeCodeë¡œ ì™„ì„±í•  ìˆ˜ ìˆë‹¤.
+                                </li>
+                            </ul>
+                            <div class="divl"></div>
+                            <div class="ctags">
+                                <span class="ctag" onclick="goTo('sec-concept')">ì†Œë¦¬ ì„¼ì„œ</span>
+                                <span class="ctag" onclick="goTo('sec-concept')">ìŠ¤í”¼ì»¤</span>
+                                <span class="ctag" onclick="goTo('sec-concept')">ë³€ìˆ˜</span>
+                                <span class="ctag" onclick="goTo('sec-concept')">ì• ë‹ˆë©”ì´ì…˜</span>
+                                <span class="ctag" onclick="goTo('sec-concept')">ë©œë¡œë””</span>
+                            </div>
+                            <div class="ibox prev">ğŸ“Œ <b>ì´ì „ ì°¨ì‹œ:</b> ì˜¨ë„Â·ë¹› ì„¼ì„œë¡œ ìˆ˜ë©´ ì˜¨ë„ ì•Œë¦¼ì´ë¥¼ ë§Œë“¤ì—ˆìŠµë‹ˆë‹¤. ì´ë²ˆì—ëŠ” ì†Œë¦¬ ì„¼ì„œì™€ ìŠ¤í”¼ì»¤ë¡œ ì¬ë¯¸ìˆëŠ”
+                                ì• ë‹ˆë©”ì´ì…˜ ì¥ì¹˜ë¥¼ ë§Œë“¤ì–´ë´…ë‹ˆë‹¤!</div>
+                        </div>
+                    </div>
+
+                    <div class="card" id="sec-concept">
+                        <div class="ch" onclick="toggleSec('sec-concept')">
+                            <div class="sn" style="background:var(--gbg);color:var(--green)">02</div>
+                            <h3>ê°œë…ì„¤ëª…</h3><span class="st">â± 20ë¶„</span><span class="carr">â–¾</span>
+                        </div>
+                        <div class="cb">
+                            <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:12px">
+                                <div
+                                    style="background:var(--rbg);border:1px solid #F0B8A0;border-radius:var(--rSM);padding:12px">
+                                    <div style="font-size:12px;font-weight:700;color:var(--red);margin-bottom:5px">ğŸ¤ ì†Œë¦¬
+                                        ì„¼ì„œ</div>
+                                    <div style="font-size:12px;color:var(--mt);line-height:1.75">ì¸¡ì • ë²”ìœ„: <b>0 ~
+                                            255</b><br>ë’·ë©´ MICROPHONE ì¹©ì— ë‚´ì¥<br>í° ì†Œë¦¬ ê°ì§€ ì‹œ ì•ë©´ ë§ˆì´í¬ LED ì ë“±<br>ê¸°ì¤€ê°’ìœ¼ë¡œ í° ì†Œë¦¬ ì—¬ë¶€
+                                        íŒë³„</div>
+                                </div>
+                                <div
+                                    style="background:var(--gbg);border:1px solid #BFDFAA;border-radius:var(--rSM);padding:12px">
+                                    <div style="font-size:12px;font-weight:700;color:var(--green);margin-bottom:5px">ğŸ”Š
+                                        ìŠ¤í”¼ì»¤</div>
+                                    <div style="font-size:12px;color:var(--mt);line-height:1.75">ë‹¤ì–‘í•œ ì£¼íŒŒìˆ˜ë¡œ ìŒ ì¶œë ¥<br>ë©œë¡œë”” ë¸”ë¡
+                                        â†’ ê³¡ ì¬ìƒ<br>ìŒí‘œ ë¸”ë¡ â†’ ê°œë³„ ìŒ ì¬ìƒ<br>bpm ì„¤ì •ìœ¼ë¡œ ì†ë„ ì¡°ì ˆ</div>
+                                </div>
+                            </div>
+                            <div class="divl"></div>
+                            <h4 style="font-size:13px;font-weight:700;margin-bottom:9px">ì•Œê³ ë¦¬ì¦˜ ì„¤ê³„ (4ë‹¨ê³„)</h4>
+                            <div
+                                style="background:var(--bg);border:1px solid var(--br);border-radius:var(--rSM);padding:13px;font-size:12px;color:var(--mt);line-height:2;margin-bottom:12px">
+                                âŠ ì‹œì‘ â†’ 'ì‘ë™ ì‹œì‘' ë³€ìˆ˜ 0 ì´ˆê¸°í™” + ì†Œë¦¬ ê¸°ì¤€ê°’ 250 ì„¤ì • + ì‹œì‘ ë©œë¡œë”” ì¬ìƒ<br>
+                                â‹ í° ì†Œë¦¬ ê°ì§€ â†’ 'ì‘ë™ ì‹œì‘' ë³€ìˆ˜ì— <b>1</b> ì €ì¥<br>
+                                âŒ 'ì‘ë™ ì‹œì‘' = 1 ì´ë©´ â†’ ë›°ì–´ì˜¤ë¥´ëŠ”Â·ë›°ì–´ë‚´ë¦¬ëŠ” <b>ë©œë¡œë””</b> ìˆœì„œëŒ€ë¡œ ì¶œë ¥<br>
+                                â 'ì‘ë™ ì‹œì‘' = 1 ì´ë©´ â†’ LEDì— <b>ì¶¤ ì¶”ëŠ” ì• ë‹ˆë©”ì´ì…˜</b> ì¶œë ¥
+                            </div>
+                            <h4 style="font-size:13px;font-weight:700;margin-bottom:9px">MakeCode ë¸”ë¡ ì˜ˆì‹œ</h4>
+                            <div class="mb-workspace">
+                                <div class="mb-row"><span class="mb mb-start">ğŸŸ¢ ì‹œì‘í•˜ë©´</span></div>
+                                <div class="mb-indent"><span class="mb mb-var">ì‘ë™ì‹œì‘ â† 0</span></div>
+                                <div class="mb-indent"><span class="mb mb-sensor">ì†Œë¦¬ ê¸°ì¤€ê°’ 250ìœ¼ë¡œ ì„¤ì •</span></div>
+                                <div class="mb-indent"><span class="mb mb-music">ğŸµ ì „ì›ì¼œëŠ” ë©œë¡œë”” ì¬ìƒ</span></div>
+                                <div class="mb-row"><span class="mb mb-sensor">ğŸ”Š í° ì†Œë¦¬ ê°ì§€ ì‹œ</span></div>
+                                <div class="mb-indent"><span class="mb mb-var">ì‘ë™ì‹œì‘ â† 1</span></div>
+                                <div class="mb-row"><span class="mb mb-loop">ğŸ” ë¬´í•œ ë°˜ë³µ</span></div>
+                                <div class="mb-indent"><span class="mb mb-logic">ë§Œì•½ ì‘ë™ì‹œì‘ = 1</span></div>
+                                <div class="mb-indent2"><span class="mb mb-music">ğŸµ ë›°ì–´ì˜¤ë¥´ëŠ” ë©œë¡œë”” (1ë²ˆ)</span></div>
+                                <div class="mb-indent2"><span class="mb mb-music">ğŸµ ë›°ì–´ë‚´ë¦¬ëŠ” ë©œë¡œë”” (1ë²ˆ)</span></div>
+                                <div class="mb-indent2"><span class="mb mb-var">ì‘ë™ì‹œì‘ â† 0</span></div>
+                            </div>
+                            <div class="ibox warn">âš ï¸ <b>í•µì‹¬:</b> ë©œë¡œë”” ë¸”ë¡ê³¼ ì• ë‹ˆë©”ì´ì…˜ ë¸”ë¡ì„ ë³„ë„ì˜ <b>ë¬´í•œ ë°˜ë³µ</b>ì— ë„£ì–´ ë™ì‹œì— ì‹¤í–‰ë˜ë„ë¡ ì„¤ê³„í•©ë‹ˆë‹¤.
+                            </div>
+                            <div class="ibox info">ğŸ“– <b>êµê³¼ì„œ ì—°ê³„:</b> pp.28~31</div>
+                        </div>
+                    </div>
+
+                    <!-- â˜… ìˆ˜í–‰ í™œë™ â˜… -->
+                    <div class="activity" id="sec-activity">
+                        <div class="act-head" onclick="toggleSec('act-body-05')">
+                            <span class="act-badge">â˜… ìˆ˜í–‰ í™œë™</span>
+                            <h3>ìŠ¤í”¼ì»¤Â·ì†Œë¦¬ ì„¼ì„œë¥¼ í™œìš©í•œ ì¥ì¹˜ ë§Œë“¤ê¸°</h3>
+                            <span style="font-size:10px;color:var(--udk);margin-left:auto">ëª¨ë‘  í™œë™ | pp.31</span>
+                            <span class="carr" style="color:var(--udk)">â–¾</span>
+                        </div>
+                        <div id="act-body-05" class="act-body">
+                            <div class="ibox ok" style="margin-top:0;margin-bottom:14px">ğŸ’¡ ìŠ¤í”¼ì»¤ì™€ ì†Œë¦¬ ì„¼ì„œë¥¼ í™œìš©í•œ ì„¸ ê°€ì§€ ìˆ˜í–‰
+                                í™œë™ì…ë‹ˆë‹¤. (êµê³¼ì„œ p.31 í•´ë³´ê¸°)</div>
+
+                            <!-- í™œë™ 1: í•™êµ ì¢… ë…¸ë˜ -->
+                            <div
+                                style="background:var(--sf);border:2px solid var(--umd);border-radius:var(--rSM);padding:14px;margin-bottom:14px">
+                                <div style="font-size:12px;font-weight:700;color:var(--u);margin-bottom:8px">ğŸ“‹ í™œë™ 1 â€”
+                                    í•™êµ ì¢… ë…¸ë˜ ì¬ìƒ í”„ë¡œê·¸ë¨ (pp.31)</div>
+                                <div
+                                    style="background:var(--bg);border:1px solid var(--br);border-radius:var(--rSM);padding:12px;margin-bottom:10px">
+                                    <div style="font-size:11px;font-weight:700;color:var(--mt);margin-bottom:8px">ğŸµ í•™êµ
+                                        ì¢… ì•…ë³´ (ì†”=G4, ë¼=A4, ë¯¸=E4, ë„=C4, ë ˆ=D4)</div>
+                                    <div style="font-family:monospace;font-size:11px;color:var(--mt);line-height:2">
+                                        í•™-êµ-ì¢…-ì´-ë•¡-ë•¡-ë•¡: ì†”ì†”ë¼ë¼ì†”ì†”ë¯¸<br>
+                                        ì–´-ì„œ-ëª¨-ì´-ì: ì†”ì†”ë¯¸ë¯¸ë ˆ<br>
+                                        ì„ -ìƒ-ë‹˜-ì´-ìš°-ë¦¬-ë¥¼: ì†”ì†”ë¼ë¼ì†”ì†”ë¯¸<br>
+                                        ê¸°-ë‹¤-ë¦¬-ì‹ -ë‹¤: ì†”ë¯¸ë ˆë¯¸ë„
+                                    </div>
+                                    <div style="display:flex;flex-wrap:wrap;gap:5px;margin-top:10px" id="piano-keys">
+                                    </div>
+                                    <div id="song-display"
+                                        style="font-size:12px;color:var(--u);margin-top:7px;font-weight:700;min-height:18px">
+                                    </div>
+                                </div>
+                                <div style="display:flex;gap:8px;margin-bottom:10px">
+                                    <button class="btn bsm bp" onclick="playSong()">â–¶ í•™êµ ì¢… ì¬ìƒ</button>
+                                    <button class="btn bsm" onclick="stopSong()">â¹ ì •ì§€</button>
+                                </div>
+                                <textarea class="act-input"
+                                    placeholder="MakeCodeë¡œ í•™êµ ì¢… ë…¸ë˜ë¥¼ ì‘ì„±í•˜ëŠ” ë°©ë²•ì„ ê¸°ë¡í•˜ì„¸ìš”.&#10;íŒíŠ¸: ìŒì•… ë¸”ë¡ì˜ 'ìŒí‘œ ì—°ì£¼' ë¸”ë¡ì„ ì‚¬ìš©í•©ë‹ˆë‹¤.&#10;G4=ì†”, A4=ë¼, E4=ë¯¸, C4=ë„, D4=ë ˆ"></textarea>
+                            </div>
+
+                            <!-- í™œë™ 2: ì–´ìš¸ë¦¬ëŠ” ì• ë‹ˆë©”ì´ì…˜ -->
+                            <div
+                                style="background:var(--sf);border:2px solid var(--umd);border-radius:var(--rSM);padding:14px;margin-bottom:14px">
+                                <div style="font-size:12px;font-weight:700;color:var(--u);margin-bottom:8px">ğŸ“‹ í™œë™ 2 â€”
+                                    ë…¸ë˜ì— ì–´ìš¸ë¦¬ëŠ” ì• ë‹ˆë©”ì´ì…˜ êµ¬ìƒ</div>
+                                <div style="font-size:12px;color:var(--mt);margin-bottom:9px">í•™êµ ì¢… ë…¸ë˜ì™€ ì–´ìš¸ë¦¬ëŠ” LED ì• ë‹ˆë©”ì´ì…˜ì„
+                                    êµ¬ìƒí•˜ê³ , ê° ì¥ë©´ì„ 5Ã—5 LED ê²©ìì— ê·¸ë ¤ë³´ì„¸ìš”.</div>
+                                <div
+                                    style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:10px">
+                                    <div id="led-grid-1"
+                                        style="padding:10px;background:#1e1e2e;border-radius:var(--rSM);cursor:pointer">
+                                    </div>
+                                    <div id="led-grid-2"
+                                        style="padding:10px;background:#1e1e2e;border-radius:var(--rSM);cursor:pointer">
+                                    </div>
+                                    <div id="led-grid-3"
+                                        style="padding:10px;background:#1e1e2e;border-radius:var(--rSM);cursor:pointer">
+                                    </div>
+                                </div>
+                                <div style="font-size:10px;color:var(--lt);margin-bottom:8px">LED ê²©ìë¥¼ í´ë¦­í•˜ì—¬ ì¼œê³  ë„ì„¸ìš”</div>
+                                <textarea class="act-input"
+                                    placeholder="ì• ë‹ˆë©”ì´ì…˜ êµ¬ìƒ ì„¤ëª…:&#10;ì˜ˆ) í•™êµ ì¢… ì†Œë¦¬ì— ë§ì¶° í•™êµ ê±´ë¬¼ ëª¨ì–‘, ì¢… ëª¨ì–‘ ë“±ì„ í‘œí˜„..."></textarea>
+                            </div>
+
+                            <!-- í™œë™ 3: ë°•ìˆ˜ ì†Œë¦¬ ëˆ„ì  ë¹„êµ -->
+                            <div
+                                style="background:var(--sf);border:2px solid var(--umd);border-radius:var(--rSM);padding:14px">
+                                <div style="font-size:12px;font-weight:700;color:var(--u);margin-bottom:8px">ğŸ“‹ í™œë™ 3 â€” ë‘
+                                    ëª¨ë‘  ë°•ìˆ˜ ì†Œë¦¬ ëˆ„ì  ë¹„êµ ì¥ì¹˜ (pp.31)</div>
+                                <div
+                                    style="background:var(--bg);border:1px solid var(--br);border-radius:var(--rSM);padding:11px;margin-bottom:10px;font-size:12px;color:var(--mt);line-height:1.9">
+                                    <b>ì¡°ê±´:</b><br>â‘  A ë²„íŠ¼ â†’ 5ì´ˆ ë™ì•ˆ ì†Œë¦¬ í¬ê¸°ë¥¼ ê·¸ë˜í”„ë¡œ ë³´ì—¬ì£¼ë©° ê°’ ëˆ„ì  ì €ì¥<br>â‘¡ B ë²„íŠ¼ â†’ 5ì´ˆ ë™ì•ˆ ì†Œë¦¬ í¬ê¸°ë¥¼ ê·¸ë˜í”„ë¡œ
+                                    ë³´ì—¬ì£¼ë©° ê°’ ëˆ„ì  ì €ì¥<br>â‘¢ ë¡œê³  í„°ì¹˜ â†’ Aì™€ B ëˆ„ì ê°’ ë¹„êµ í›„ í° ìª½ ë¬¸ì('A' or 'B') ì¶œë ¥
+                                </div>
+                                <div
+                                    style="background:#1e1e2e;border-radius:var(--rSM);padding:14px;margin-bottom:10px">
+                                    <div style="font-size:10px;color:#aaa;margin-bottom:8px;text-align:center">ë°•ìˆ˜ ì†Œë¦¬ ëŒ€ê²°
+                                        ì‹œë®¬ë ˆì´í„°</div>
+                                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">
+                                        <div style="text-align:center">
+                                            <button class="btn bsm" id="btn-a-clap" onclick="startClap('A')"
+                                                style="width:100%;background:#4A7ED9;color:#fff;border-color:#2A50A0;font-size:13px;font-weight:700">A
+                                                ëª¨ë‘  ë°•ìˆ˜!</button>
+                                            <div id="a-bar"
+                                                style="height:60px;background:#333;border-radius:4px;margin-top:7px;overflow:hidden;position:relative">
+                                                <div id="a-fill"
+                                                    style="position:absolute;bottom:0;width:100%;background:#4A7ED9;height:0%;transition:height .3s;border-radius:4px">
+                                                </div>
+                                            </div>
+                                            <div id="a-score"
+                                                style="font-size:12px;color:#4A7ED9;margin-top:4px;font-weight:700">0ì 
+                                            </div>
+                                        </div>
+                                        <div style="text-align:center">
+                                            <button class="btn bsm" id="btn-b-clap" onclick="startClap('B')"
+                                                style="width:100%;background:#E74C3C;color:#fff;border-color:#A01010;font-size:13px;font-weight:700">B
+                                                ëª¨ë‘  ë°•ìˆ˜!</button>
+                                            <div id="b-bar"
+                                                style="height:60px;background:#333;border-radius:4px;margin-top:7px;overflow:hidden;position:relative">
+                                                <div id="b-fill"
+                                                    style="position:absolute;bottom:0;width:100%;background:#E74C3C;height:0%;transition:height .3s;border-radius:4px">
+                                                </div>
+                                            </div>
+                                            <div id="b-score"
+                                                style="font-size:12px;color:#E74C3C;margin-top:4px;font-weight:700">0ì 
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button class="btn bsm" id="btn-logo" onclick="showResult()"
+                                        style="width:100%;background:#FF6B35;color:#fff;border-color:#C04010;font-size:13px">ğŸ†
+                                        ë¡œê³  í„°ì¹˜ â†’ ê²°ê³¼ í™•ì¸</button>
+                                    <div id="clap-result"
+                                        style="font-size:16px;font-weight:700;text-align:center;margin-top:10px;color:#FF6B35;min-height:24px">
+                                    </div>
+                                    <div id="clap-timer"
+                                        style="font-size:10px;color:#aaa;text-align:center;min-height:16px"></div>
+                                </div>
+                                <textarea class="act-input"
+                                    placeholder="ì•Œê³ ë¦¬ì¦˜ ì‘ì„±:&#10;A ë²„íŠ¼ â†’ 5ì´ˆ íƒ€ì´ë¨¸ ì‹œì‘, ì†Œë¦¬ ì„¼ì„œê°’ ëˆ„ì (A_ëˆ„ì )&#10;B ë²„íŠ¼ â†’ 5ì´ˆ íƒ€ì´ë¨¸ ì‹œì‘, ì†Œë¦¬ ì„¼ì„œê°’ ëˆ„ì (B_ëˆ„ì )&#10;ë¡œê³  í„°ì¹˜ â†’ ë§Œì•½ A_ëˆ„ì  > B_ëˆ„ì  ì´ë©´: 'A' ì¶œë ¥..."></textarea>
+                            </div>
+
+                            <!-- í‰ê°€í•˜ê¸° -->
+                            <div style="margin-top:14px">
+                                <div style="font-size:12px;font-weight:700;color:var(--mt);margin-bottom:8px">ğŸ“ í‰ê°€í•˜ê¸°
+                                    (êµê³¼ì„œ p.30)</div>
+                                <div style="overflow-x:auto;margin-top:12px">
+                                    <table class="peer-check">
+                                        <thead>
+                                            <tr>
+                                                <th style="text-align:left">í‰ê°€ í•­ëª©</th>
+                                                <th colspan="2">ìê¸° í‰ê°€</th>
+                                                <th colspan="2">ë™ë£Œ í‰ê°€</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>ì• ë‹ˆë©”ì´ì…˜ ì‹œì‘ì„ ê°ì§€í•˜ì—¬ ì‘ë™ ì‹œì‘ ë³€ìˆ˜ê°€ í™œì„±í™”ë˜ëŠ”ê°€?</td>
+                                                <td><label><input type="radio" name="pe0a" value="ì˜ˆ"> ì˜ˆ</label></td>
+                                                <td><label><input type="radio" name="pe0a" value="ì•„ë‹ˆìš”"> ì•„ë‹ˆìš”</label></td>
+                                                <td><label><input type="radio" name="pe0b" value="ì˜ˆ"> ì˜ˆ</label></td>
+                                                <td><label><input type="radio" name="pe0b" value="ì•„ë‹ˆìš”"> ì•„ë‹ˆìš”</label></td>
+                                            </tr>
+                                            <tr>
+                                                <td>ìŒì•…ì´ë‚˜ ì• ë‹ˆë©”ì´ì…˜ì„ í•œ ë²ˆ ì‹¤í–‰í•˜ë©´ ì‘ë™ ì‹œì‘ ë³€ìˆ˜ê°€ ì´ˆê¸°í™”ë˜ëŠ”ê°€?</td>
+                                                <td><label><input type="radio" name="pe1a" value="ì˜ˆ"> ì˜ˆ</label></td>
+                                                <td><label><input type="radio" name="pe1a" value="ì•„ë‹ˆìš”"> ì•„ë‹ˆìš”</label></td>
+                                                <td><label><input type="radio" name="pe1b" value="ì˜ˆ"> ì˜ˆ</label></td>
+                                                <td><label><input type="radio" name="pe1b" value="ì•„ë‹ˆìš”"> ì•„ë‹ˆìš”</label></td>
+                                            </tr>
+                                            <tr>
+                                                <td>ìŒì•…ê³¼ ì• ë‹ˆë©”ì´ì…˜ì˜ ì¬ìƒ ì†ë„ì™€ ê°„ê²©ì´ ë§ëŠ”ê°€?</td>
+                                                <td><label><input type="radio" name="pe2a" value="ì˜ˆ"> ì˜ˆ</label></td>
+                                                <td><label><input type="radio" name="pe2a" value="ì•„ë‹ˆìš”"> ì•„ë‹ˆìš”</label></td>
+                                                <td><label><input type="radio" name="pe2b" value="ì˜ˆ"> ì˜ˆ</label></td>
+                                                <td><label><input type="radio" name="pe2b" value="ì•„ë‹ˆìš”"> ì•„ë‹ˆìš”</label></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div style="display:flex;gap:8px;margin-top:12px">
+                                <button class="btn bsm bp" onclick="saveActivity('l105_act')">ğŸ’¾ í™œë™ ì €ì¥</button>
+                                <a href="https://makecode.microbit.org" target="_blank" class="btn bsm"
+                                    style="background:#0078D4;color:#fff;border-color:#005A9E">MakeCode ì—´ê¸° â†—</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card" id="sec-assess">
+                        <div class="ch" onclick="toggleSec('sec-assess')">
+                            <div class="sn" style="background:var(--bbg);color:var(--blue)">04</div>
+                            <h3>ìˆ˜í–‰í‰ê°€</h3><span class="st">â± 5ë¶„</span><span class="carr">â–¾</span>
+                        </div>
+                        <div class="cb">
+                            <div
+                                style="background:var(--bg);border:1px solid var(--br);border-radius:var(--rSM);padding:12px;margin-bottom:12px;border-left:3px solid var(--u)">
+                                <h4 style="font-size:13px;font-weight:700;color:var(--u);margin-bottom:7px">ğŸ“‹ ì†Œë¦¬ ë°˜ì‘
+                                    ì• ë‹ˆë©”ì´ì…˜ + í•™êµ ì¢… ë…¸ë˜ í”„ë¡œê·¸ë¨</h4>
+                                <p style="font-size:13px;color:var(--mt)">ì†Œë¦¬ ì„¼ì„œì™€ ìŠ¤í”¼ì»¤ë¥¼ í™œìš©í•œ í”„ë¡œê·¸ë¨ 2ê°€ì§€ë¥¼ MakeCodeë¡œ ì™„ì„±í•˜ê³  ëª¨ë‘ 
+                                    ë°œí‘œë¥¼ ìˆ˜í–‰í•˜ì‹œì˜¤.</p>
+                            </div>
+                            <table class="rub">
+                                <thead>
+                                    <tr>
+                                        <th>í‰ê°€ ìš”ì†Œ</th>
+                                        <th class="lv4">ë§¤ìš° ì˜í•¨(4)</th>
+                                        <th class="lv3">ì˜í•¨(3)</th>
+                                        <th class="lv2">ë³´í†µ(2)</th>
+                                        <th class="lv1">ë…¸ë ¥ í•„ìš”(1)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><b>ì†Œë¦¬ ê°ì§€</b></td>
+                                        <td class="lv4">ê¸°ì¤€ê°’ ì„¤ì •Â·í° ì†Œë¦¬ ê°ì§€ ì •í™•</td>
+                                        <td class="lv3">ë¶€ë¶„ ì •í™•</td>
+                                        <td class="lv2">ê°ì§€ë§Œ</td>
+                                        <td class="lv1">ì—†ìŒ</td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>ë©œë¡œë””Â·ì• ë‹ˆë©”ì´ì…˜</b></td>
+                                        <td class="lv4">ë©œë¡œë””+ì• ë‹ˆë©”ì´ì…˜ ë™ì‹œ ì‹¤í–‰</td>
+                                        <td class="lv3">í•œ ê°€ì§€ ì‹¤í–‰</td>
+                                        <td class="lv2">ì¬ìƒë§Œ</td>
+                                        <td class="lv1">ì—†ìŒ</td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>ë…¸ë˜ í”„ë¡œê·¸ë¨</b></td>
+                                        <td class="lv4">í•™êµ ì¢… ì „ì²´ ìŒ ì •í™• êµ¬í˜„</td>
+                                        <td class="lv3">ì ˆë°˜ ì´ìƒ</td>
+                                        <td class="lv2">ì¼ë¶€ë§Œ</td>
+                                        <td class="lv1">ì—†ìŒ</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="sclist">
+                                <div class="scitem"><label>ì†Œë¦¬ ì„¼ì„œì™€ ìŠ¤í”¼ì»¤ì˜ íŠ¹ì„±ì„ ì„¤ëª…í•  ìˆ˜ ìˆë‹¤.</label><select>
+                                        <option value="">ì„ íƒ</option>
+                                        <option>ë§¤ìš° ê·¸ë ‡ë‹¤</option>
+                                        <option>ê·¸ë ‡ë‹¤</option>
+                                        <option>ì•„ì§ ëª¨ë¥´ê² ë‹¤</option>
+                                    </select></div>
+                                <div class="scitem"><label>ë³€ìˆ˜ì™€ ì¡°ê±´ìœ¼ë¡œ ì•Œê³ ë¦¬ì¦˜ì„ ì„¤ê³„í•  ìˆ˜ ìˆë‹¤.</label><select>
+                                        <option value="">ì„ íƒ</option>
+                                        <option>ë§¤ìš° ê·¸ë ‡ë‹¤</option>
+                                        <option>ê·¸ë ‡ë‹¤</option>
+                                        <option>ì•„ì§ ëª¨ë¥´ê² ë‹¤</option>
+                                    </select></div>
+                                <div class="scitem"><label>ì†Œë¦¬ì— ë°˜ì‘í•˜ëŠ” ì• ë‹ˆë©”ì´ì…˜Â·ë©œë¡œë”” í”„ë¡œê·¸ë¨ì„ ì‘ì„±í•  ìˆ˜ ìˆë‹¤.</label><select>
+                                        <option value="">ì„ íƒ</option>
+                                        <option>ë§¤ìš° ê·¸ë ‡ë‹¤</option>
+                                        <option>ê·¸ë ‡ë‹¤</option>
+                                        <option>ì•„ì§ ëª¨ë¥´ê² ë‹¤</option>
+                                    </select></div>
+                            </div>
+                            <button class="btn bsm bok" style="margin-top:10px" onclick="saveSC('l105sc')">ğŸ’¾
+                                ì €ì¥</button>
+                        </div>
+                    </div>
+
+                    <div class="card" id="sec-review">
+                        <div class="ch" onclick="toggleSec('sec-review')">
+                            <div class="sn" style="background:var(--gbg);color:var(--green)">05</div>
+                            <h3>í™•ì¸í•˜ê¸°</h3><span class="st">â± 5ë¶„</span><span class="carr">â–¾</span>
+                        </div>
+                        <div class="cb">
+                            <div class="sgrid">
+                                <div class="scard"><strong>ì†Œë¦¬ ì„¼ì„œ</strong>0~255 ì†Œë¦¬ í¬ê¸°. ê¸°ì¤€ê°’ìœ¼ë¡œ í° ì†Œë¦¬ íŒë³„.</div>
+                                <div class="scard"><strong>ì‘ë™ ì‹œì‘ ë³€ìˆ˜</strong>0=ëŒ€ê¸°, 1=ì‘ë™. í° ì†Œë¦¬ ì‹œ 1ë¡œ ë³€ê²½.</div>
+                                <div class="scard"><strong>ë¬´í•œ ë°˜ë³µ ë³‘ë ¬</strong>ë©œë¡œë””Â·ì• ë‹ˆë©”ì´ì…˜ì„ ë³„ë„ ë°˜ë³µìœ¼ë¡œ ë™ì‹œ ì‹¤í–‰.</div>
+                            </div>
+                            <div
+                                style="background:var(--bg);border:1px solid var(--br);border-radius:var(--rSM);padding:13px;margin-bottom:12px">
+                                <b>âœï¸ ë‹¨ë‹µí˜•:</b> ì†Œë¦¬ì— ë°˜ì‘í•˜ëŠ” ì• ë‹ˆë©”ì´ì…˜ ì¥ì¹˜ì—ì„œ í° ì†Œë¦¬ê°€ ê°ì§€ë˜ì—ˆì„ ë•Œ 1, ëŒ€ê¸° ìƒíƒœì¼ ë•Œ 0ì„ ì €ì¥í•˜ëŠ” ê²ƒì„ <span
+                                    style="display:inline-block;width:50px;border-bottom:1.5px solid var(--tx)">&nbsp;</span>(ì´)ë¼ê³ 
+                                í•œë‹¤.<textarea
+                                    style="display:block;width:100%;margin-top:9px;padding:9px;border:1px solid var(--br);border-radius:var(--rSM);font-size:13px;font-family:inherit;resize:vertical;min-height:48px;background:var(--sf)"
+                                    placeholder="ì •ë‹µì„ ì…ë ¥í•˜ì„¸ìš”..."></textarea></div>
+                            <div class="ibox ok">ğŸ“– <div><strong>ë‹¤ìŒ ì°¨ì‹œ ì˜ˆê³ :</strong> ë§ˆì§€ë§‰ìœ¼ë¡œ <strong>ë¼ë””ì˜¤ ë¬´ì„  í†µì‹ </strong>ìœ¼ë¡œ
+                                    ì´ì‹¬ì „ì‹¬ ê²Œì„ ì¥ì¹˜ë¥¼ ë§Œë“¤ì–´ë´…ë‹ˆë‹¤! (pp.32~35)</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="ca">
+                    <div class="ap">
+                        <h5>í•™ìŠµ ì§„í–‰</h5>
+                        <div class="slist">
+                            <div class="si" onclick="goTo('sec-goal')">
+                                <div class="dot sd">1</div>í•™ìŠµëª©í‘œ
+                            </div>
+                            <div class="si" onclick="goTo('sec-concept')">
+                                <div class="dot">2</div>ê°œë…ì„¤ëª…
+                            </div>
+                            <div class="si" onclick="goTo('sec-activity')">
+                                <div class="dot sa">â˜…</div>ìˆ˜í–‰ í™œë™
+                            </div>
+                            <div class="si" onclick="goTo('sec-assess')">
+                                <div class="dot">4</div>ìˆ˜í–‰í‰ê°€
+                            </div>
+                            <div class="si" onclick="goTo('sec-review')">
+                                <div class="dot">5</div>í™•ì¸í•˜ê¸°
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ap" style="background:var(--ult);border-color:var(--umd)">
+                        <h5 style="color:var(--u)">ë‹¨ì› ì§„ë„</h5>
+                        <div style="display:flex;align-items:center;gap:7px">
+                            <div class="pbtrack" style="flex:1">
+                                <div class="pbfill" style="width:77%"></div>
+                            </div><span style="font-size:11px;font-weight:600;color:var(--u)">5/6</span>
+                        </div>
+                    </div>
+                    <div class="ap">
+                        <h5>í•µì‹¬ ìš©ì–´</h5>
+                        <div class="termlist">
+                            <div class="tterm"><span class="tw">ì†Œë¦¬ ì„¼ì„œ</span><span class="tdef">0~255 ì†Œë¦¬ í¬ê¸°</span></div>
+                            <div class="tterm"><span class="tw">í° ì†Œë¦¬ ì´ë²¤íŠ¸</span><span class="tdef">ê¸°ì¤€ê°’ ì´ˆê³¼ ì‹œ ì‹¤í–‰</span>
+                            </div>
+                            <div class="tterm"><span class="tw">ë³€ìˆ˜ í”Œë˜ê·¸</span><span class="tdef">0=ëŒ€ê¸°, 1=ì‘ë™</span></div>
+                            <div class="tterm"><span class="tw">ë©œë¡œë”” ë¸”ë¡</span><span class="tdef">ìŒì•… ì¬ìƒ ë¸”ë¡</span></div>
+                            <div class="tterm"><span class="tw">ë¬´í•œ ë°˜ë³µ</span><span class="tdef">ë³‘ë ¬ ì‹¤í–‰</span></div>
+                        </div>
+                    </div>
+                    <div class="ap" style="background:#F0FDF4;border-color:#BBF7D0">
+                        <h5 style="color:#166534">ğŸ”§ ë§ˆì´í¬ë¡œë¹„íŠ¸</h5>
+                        <a href="https://makecode.microbit.org" target="_blank" class="btn bsm"
+                            style="width:100%;justify-content:center;background:#0078D4;color:#fff;border-color:#005A9E;margin-bottom:5px">MakeCode
+                            ì—´ê¸° â†—</a>
+                        <a href="https://makecode.microbit.org/#editor" target="_blank" class="btn bsm"
+                            style="width:100%;justify-content:center;font-size:10px;color:var(--mt)">ì‹œë®¬ë ˆì´í„° â†—</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <div id="toast"></div>
+    <script>
+
+        // â”€â”€ Google Sheets ì €ì¥ â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+        var GS_URL = 'YOUR_APPS_SCRIPT_WEB_APP_URL';
+
+        function getUserName() {
+            return localStorage.getItem('user_name') || 'ìµëª…';
+        }
+
+        function postToSheets(payload) {
+            if (!GS_URL || GS_URL === 'YOUR_APPS_SCRIPT_WEB_APP_URL') return;
+            fetch(GS_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            }).catch(function () { });
+        }
+
+
+        function toast(m) { var t = document.getElementById('toast'); t.textContent = m; t.style.opacity = '1'; t.style.transform = 'translateX(-50%) translateY(0)'; clearTimeout(t._t); t._t = setTimeout(function () { t.style.opacity = '0'; t.style.transform = 'translateX(-50%) translateY(10px)'; }, 2400); }
+        function toggleSec(id) { var e = document.getElementById(id); if (e) e.classList.toggle('collapsed'); }
+        function goTo(id) { var e = document.getElementById(id); if (!e) return; window.scrollTo({ top: e.getBoundingClientRect().top + window.pageYOffset - 64, behavior: 'smooth' }); }
+        function checkQ(el, ok, msg) { el.closest('.qopts').querySelectorAll('.opt').forEach(function (o) { o.classList.add('locked'); }); el.classList.add(ok ? 'correct' : 'wrong'); var fb = el.closest('.qwrap').querySelector('.qfb'); if (fb) { fb.className = 'qfb ' + (ok ? 'ok' : 'err'); fb.innerHTML = (ok ? 'âœ“ ì •ë‹µ: ' : 'âœ— íŒíŠ¸: ') + msg; } }
+        function saveSC(key) {
+            var d = {};
+            document.querySelectorAll('.scitem select').forEach(function (s, i) { d['q' + i] = s.value; });
+            try {
+                localStorage.setItem(key, JSON.stringify(d));
+                // Google Sheets ì €ì¥
+                postToSheets({
+                    type: 'sc',
+                    userName: getUserName(),
+                    lessonKey: 'l15',
+                    lessonName: 'l15',
+                    answers: d
+                });
+                toast('ìê¸°í‰ê°€ê°€ ì €ì¥ë˜ì—ˆìŠµë‹ˆë‹¤ âœ“');
+            } catch (e) { }
+        }
+        function loadSC(key) { try { var d = JSON.parse(localStorage.getItem(key) || '{}'); document.querySelectorAll('.scitem select').forEach(function (s, i) { if (d['q' + i]) s.value = d['q' + i]; }); } catch (e) { } }
+        function markDone(n) {
+            try {
+                var d = JSON.parse(localStorage.getItem('u01done') || '[]');
+                if (!d.includes(n)) d.push(n);
+                localStorage.setItem('u01done', JSON.stringify(d));
+                // Google Sheets ì €ì¥
+                postToSheets({
+                    type: 'done',
+                    userName: getUserName(),
+                    unit: 'I',
+                    lessonNum: n,
+                    lessonName: 'ì»´í“¨íŒ… ì‹œìŠ¤í…œ'
+                });
+            } catch (e) { }
+            toast('âœ… ì†Œë‹¨ì› ' + n + ' ì™„ë£Œ í‘œì‹œ!');
+        }
+        function saveActivity(key) {
+            var d = {};
+            document.querySelectorAll('.act-input').forEach(function (el, i) { d['a' + i] = el.value; });
+            document.querySelectorAll('.peer-check input[type=radio]:checked').forEach(function (el) { d['r_' + el.name] = el.value; });
+            try {
+                localStorage.setItem(key, JSON.stringify(d));
+                // Google Sheets ì €ì¥
+                postToSheets({
+                    type: 'act',
+                    userName: getUserName(),
+                    lessonKey: 'l15',
+                    lessonName: 'l15',
+                    answers: d
+                });
+                toast('âœ… ìˆ˜í–‰ í™œë™ì´ ì €ì¥ë˜ì—ˆìŠµë‹ˆë‹¤!');
+            } catch (e) { }
+        }
+        function loadActivity(key) {
+            try {
+                var d = JSON.parse(localStorage.getItem(key) || '{}');
+                document.querySelectorAll('.act-input').forEach(function (el, i) { if (d['a' + i]) el.value = d['a' + i]; });
+                Object.keys(d).filter(function (k) { return k.startsWith('r_'); }).forEach(function (k) {
+                    var el = document.querySelector('input[type=radio][name="' + k.slice(2) + '"][value="' + d[k] + '"]');
+                    if (el) el.checked = true;
+                });
+            } catch (e) { }
+        }
+
+
+        // í•™êµ ì¢… ìŒí‘œ
+        var songNotes = [
+            { note: 'G4', dur: 0.5 }, { note: 'G4', dur: 0.5 }, { note: 'A4', dur: 0.5 }, { note: 'A4', dur: 0.5 },
+            { note: 'G4', dur: 0.5 }, { note: 'G4', dur: 0.5 }, { note: 'E4', dur: 1 },
+            { note: 'G4', dur: 0.5 }, { note: 'G4', dur: 0.5 }, { note: 'E4', dur: 0.5 }, { note: 'E4', dur: 0.5 }, { note: 'D4', dur: 1 },
+            { note: 'G4', dur: 0.5 }, { note: 'G4', dur: 0.5 }, { note: 'A4', dur: 0.5 }, { note: 'A4', dur: 0.5 },
+            { note: 'G4', dur: 0.5 }, { note: 'G4', dur: 0.5 }, { note: 'E4', dur: 1 },
+            { note: 'G4', dur: 0.5 }, { note: 'E4', dur: 0.5 }, { note: 'D4', dur: 0.5 }, { note: 'E4', dur: 0.5 }, { note: 'C4', dur: 1 }
+        ];
+        var noteFreq = { C4: 261, D4: 293, E4: 329, G4: 392, A4: 440 };
+        var noteNames = { C4: 'ë„', D4: 'ë ˆ', E4: 'ë¯¸', G4: 'ì†”', A4: 'ë¼' };
+        var audioCtx = null;
+        var songTimer = null;
+
+        function playSong() {
+            if (songTimer) { clearTimeout(songTimer); }
+            try { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) { toast('ì˜¤ë””ì˜¤ ì¬ìƒ ë¶ˆê°€'); return; }
+            var idx = 0;
+            var disp = document.getElementById('song-display');
+            function playNext() {
+                if (idx >= songNotes.length) { if (disp) disp.textContent = 'ğŸµ ì¬ìƒ ì™„ë£Œ!'; return; }
+                var n = songNotes[idx];
+                var osc = audioCtx.createOscillator();
+                var gain = audioCtx.createGain();
+                osc.connect(gain); gain.connect(audioCtx.destination);
+                osc.frequency.value = noteFreq[n.note] || 440;
+                osc.type = 'square';
+                gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + n.dur * 0.45);
+                osc.start(); osc.stop(audioCtx.currentTime + n.dur * 0.5);
+                if (disp) disp.textContent = 'â™ª ' + (noteNames[n.note] || n.note) + ' (' + n.note + ')';
+                idx++;
+                songTimer = setTimeout(playNext, n.dur * 500);
+            }
+            playNext();
+        }
+        function stopSong() { if (songTimer) clearTimeout(songTimer); if (audioCtx) audioCtx.close(); var d = document.getElementById('song-display'); if (d) d.textContent = 'â¹ ì •ì§€'; }
+
+        // LED ê·¸ë¦¬ë“œ
+        var ledGrids = { 1: Array(25).fill(0), 2: Array(25).fill(0), 3: Array(25).fill(0) };
+        function buildLedGrid(id) {
+            var div = document.getElementById('led-grid-' + id);
+            if (!div) return;
+            div.innerHTML = '';
+            var grid = document.createElement('div');
+            grid.style.cssText = 'display:grid;grid-template-columns:repeat(5,1fr);gap:3px';
+            for (var i = 0; i < 25; i++) {
+                (function (idx) {
+                    var dot = document.createElement('div');
+                    dot.style.cssText = 'width:14px;height:14px;border-radius:50%;background:' + (ledGrids[id][idx] ? '#FF6B35' : '#333') + ';cursor:pointer;transition:background .15s';
+                    dot.onclick = function () { ledGrids[id][idx] = ledGrids[id][idx] ? 0 : 1; buildLedGrid(id); };
+                    grid.appendChild(dot);
+                })(i);
+            }
+            div.appendChild(grid);
+            var lbl = document.createElement('div');
+            lbl.style.cssText = 'font-size:9px;color:#888;text-align:center;margin-top:4px';
+            lbl.textContent = 'ì¥ë©´ ' + id;
+            div.appendChild(lbl);
+        }
+
+        // ë°•ìˆ˜ ì‹œë®¬ë ˆì´í„°
+        var clapScores = { A: 0, B: 0 };
+        var clapActive = null;
+        var clapIv = null;
+        function startClap(team) {
+            if (clapActive) return;
+            clapActive = team;
+            var other = team === 'A' ? 'B' : 'A';
+            document.getElementById('btn-' + team.toLowerCase() + '-clap').disabled = true;
+            document.getElementById('btn-' + other.toLowerCase() + '-clap').disabled = true;
+            var t = 0; var score = 0;
+            var disp = document.getElementById('clap-timer');
+            clapIv = setInterval(function () {
+                t += 0.2;
+                var rand = Math.floor(Math.random() * 30);
+                score += rand;
+                var pct = Math.min(100, score / 500 * 100);
+                document.getElementById(team.toLowerCase() + '-fill').style.height = pct + '%';
+                document.getElementById(team.toLowerCase() + '-score').textContent = score + 'ì ';
+                if (disp) disp.textContent = team + ' ëª¨ë‘  ì¸¡ì • ì¤‘... ' + (5 - t).toFixed(1) + 'ì´ˆ';
+                if (t >= 5) {
+                    clearInterval(clapIv);
+                    clapScores[team] = score;
+                    clapActive = null;
+                    document.getElementById('btn-' + team.toLowerCase() + '-clap').disabled = false;
+                    document.getElementById('btn-' + other.toLowerCase() + '-clap').disabled = false;
+                    if (disp) disp.textContent = 'ì¸¡ì • ì™„ë£Œ! ë¡œê³  ë²„íŠ¼ìœ¼ë¡œ ê²°ê³¼ í™•ì¸';
+                }
+            }, 200);
+        }
+        function showResult() {
+            var r = document.getElementById('clap-result');
+            if (!r) return;
+            if (clapScores.A === 0 && clapScores.B === 0) { r.textContent = 'ë¨¼ì € AÂ·B ëª¨ë‘  ë°•ìˆ˜ë¥¼ ì¸¡ì •í•˜ì„¸ìš”!'; return; }
+            if (clapScores.A > clapScores.B) r.innerHTML = 'ğŸ† A ëª¨ë‘  ìŠ¹ë¦¬! (' + clapScores.A + ' > ' + clapScores.B + ')';
+            else if (clapScores.B > clapScores.A) r.innerHTML = 'ğŸ† B ëª¨ë‘  ìŠ¹ë¦¬! (' + clapScores.B + ' > ' + clapScores.A + ')';
+            else r.innerHTML = 'ğŸ¤ ë¬´ìŠ¹ë¶€! (' + clapScores.A + ' = ' + clapScores.B + ')';
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            [1, 2, 3].forEach(buildLedGrid);
+        });
+
+        document.addEventListener('DOMContentLoaded', function () { loadSC('l105sc'); loadActivity('l105sc_act'); });
+    </script>
+</body>
+
 </html>

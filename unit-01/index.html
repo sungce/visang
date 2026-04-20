@@ -1,427 +1,428 @@
-<!DOCTYPE html>
-<html lang="ko">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <title>I. 컴퓨???�스?????�보 교과</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
-    <style>
-        :root {
-            --bg: #F5F4F0;
-            --sf: #FFF;
-            --br: #E2DFD6;
-            --tx: #1C1C1C;
-            --mt: #696760;
-            --lt: #A8A59E;
-            --u: #6C65CC;
-            --udk: #4E48A8;
-            --ult: #ECEAFE;
-            --umd: #C8C4F0;
-            --rLG: 14px;
-            --rSM: 8px
-        }
-
-        *,
-        *::before,
-        *::after {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0
-        }
-
-        html {
-            scroll-behavior: smooth
-        }
-
-        body {
-            font-family: 'Noto Sans KR', -apple-system, sans-serif;
-            background: var(--bg);
-            color: var(--tx);
-            font-size: 14px;
-            line-height: 1.65;
-            min-height: 100vh
-        }
-
-        .topbar {
-            background: var(--sf);
-            border-bottom: 1px solid var(--br);
-            height: 52px;
-            padding: 0 28px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            position: sticky;
-            top: 0;
-            z-index: 90
-        }
-
-        .bc {
-            display: flex;
-            align-items: center;
-            gap: 7px;
-            font-size: 12px;
-            color: var(--mt);
-            flex: 1
-        }
-
-        .bc a {
-            color: var(--mt);
-            text-decoration: none
-        }
-
-        .bc a:hover {
-            color: var(--tx)
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            padding: 7px 14px;
-            border-radius: var(--rSM);
-            font-size: 12px;
-            font-family: inherit;
-            font-weight: 500;
-            cursor: pointer;
-            border: 1px solid var(--br);
-            background: var(--sf);
-            color: var(--tx);
-            text-decoration: none;
-            transition: background .12s
-        }
-
-        .btn:hover {
-            background: var(--bg)
-        }
-
-        .bp {
-            background: var(--u);
-            color: #fff;
-            border-color: var(--u)
-        }
-
-        .bp:hover {
-            background: var(--udk)
-        }
-
-        .page {
-            padding: 28px 32px;
-            max-width: 1100px;
-            margin: 0 auto
-        }
-
-        .hero {
-            background: var(--sf);
-            border: 1px solid var(--br);
-            border-radius: var(--rLG);
-            padding: 26px 30px;
-            margin-bottom: 22px;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            gap: 20px
-        }
-
-        .hero-stats {
-            display: flex;
-            gap: 12px;
-            flex-shrink: 0
-        }
-
-        .stat {
-            text-align: center;
-            padding: 12px 16px;
-            background: var(--bg);
-            border-radius: var(--rSM);
-            min-width: 72px
-        }
-
-        .stat-n {
-            font-size: 22px;
-            font-weight: 700;
-            color: var(--u)
-        }
-
-        .stat-l {
-            font-size: 11px;
-            color: var(--mt);
-            margin-top: 2px
-        }
-
-        .mid-title {
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: .1em;
-            color: var(--lt);
-            margin: 0 0 12px;
-            display: flex;
-            align-items: center;
-            gap: 10px
-        }
-
-        .mid-title::after {
-            content: '';
-            flex: 1;
-            height: 1px;
-            background: var(--br)
-        }
-
-        .card-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-            margin-bottom: 22px
-        }
-
-        .lcard {
-            display: flex;
-            flex-direction: column;
-            background: var(--sf);
-            border: 1.5px solid var(--br);
-            border-radius: var(--rLG);
-            padding: 18px;
-            text-decoration: none;
-            color: inherit;
-            transition: all .18s;
-            position: relative;
-            overflow: hidden
-        }
-
-        .lcard::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: var(--u);
-            opacity: 0;
-            transition: opacity .18s
-        }
-
-        .lcard:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 22px rgba(108, 101, 204, .13);
-            border-color: var(--umd)
-        }
-
-        .lcard:hover::before {
-            opacity: 1
-        }
-
-        .ln {
-            font-size: 10px;
-            font-weight: 700;
-            padding: 2px 9px;
-            border-radius: 20px;
-            background: var(--ult);
-            color: var(--u);
-            font-family: monospace;
-            display: inline-block;
-            margin-bottom: 7px
-        }
-
-        .li {
-            font-size: 24px;
-            margin-bottom: 5px
-        }
-
-        .lt {
-            font-size: 13px;
-            font-weight: 700;
-            margin-bottom: 4px
-        }
-
-        .ld {
-            font-size: 11px;
-            color: var(--mt);
-            line-height: 1.6;
-            flex: 1
-        }
-
-        .lf {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            margin-top: 9px;
-            flex-wrap: wrap
-        }
-
-        .ltag {
-            font-size: 10px;
-            padding: 2px 8px;
-            background: var(--bg);
-            border: 1px solid var(--br);
-            border-radius: 20px;
-            color: var(--mt);
-            font-weight: 500
-        }
-
-        .ltag-u {
-            background: var(--ult);
-            color: var(--u);
-            border-color: var(--umd)
-        }
-
-        .ltag-act {
-            background: #FFF9E6;
-            color: #7A4E0A;
-            border-color: #EDD070;
-            font-weight: 700
-        }
-
-        .lgo {
-            margin-left: auto;
-            font-size: 11px;
-            font-weight: 700;
-            color: var(--u);
-            opacity: 0;
-            transition: opacity .15s
-        }
-
-        .lcard:hover .lgo {
-            opacity: 1
-        }
-
-        @media(max-width:900px) {
-            .card-grid {
-                grid-template-columns: 1fr
-            }
-
-            .hero {
-                flex-direction: column
-            }
-        }
-
-        @media(max-width:600px) {
-            .page {
-                padding: 16px 18px
-            }
-        }
-    </style>
-</head>
-
-<body>
-    <header class="topbar">
-        <div class="bc"><a href="https://sungce.github.io/lesson/">?�보 교과 ?�습 ?�랫??/a> ??<span
-                style="color:var(--tx);font-weight:500">I. 컴퓨???�스??/span></div>
-        <a class="btn bp" href="lesson-01/index.html">?�작?�기 ??/a>
-    </header>
-    <div class="page">
-        <div class="hero">
-            <div>
-                <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
-                    <span style="font-size:36px;font-weight:300;color:var(--u);line-height:1">I</span>
-                    <div>
-                        <div
-                            style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--lt);margin-bottom:3px">
-                            Unit I</div>
-                        <h2 style="font-size:22px;font-weight:700">컴퓨???�스??/h2>
-                    </div>
-                </div>
-                <p style="font-size:13px;color:var(--mt);line-height:1.7">컴퓨???�스?�의 구성·?�작 ?�리?� ?�영 체제�?                    ?�해?�고,<br>마이?�로비트(micro:bit)�??�서 기반 ?��?�?컴퓨???�로그램??만들?�봅?�다.<br>모든 ?�단?�에??교과??<b
-                        style="color:var(--u)">?�보�??�행 ?�동</b>???�함?�어 ?�습?�다.</p>
-                <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
-                    <div
-                        style="display:inline-flex;align-items:center;gap:5px;padding:4px 12px;background:var(--ult);border:1px solid var(--umd);border-radius:20px;font-size:11px;font-weight:700;color:var(--u)">
-                        ?�� 마이?�로비트(micro:bit)</div>
-                    <div
-                        style="display:inline-flex;align-items:center;gap:5px;padding:4px 12px;background:#FFF9E6;border:1px solid #EDD070;border-radius:20px;font-size:11px;font-weight:700;color:#7A4E0A">
-                        ???�보�??�행 ?�동 ?�함</div>
-                    <div
-                        style="display:inline-flex;align-items:center;gap:5px;padding:4px 12px;background:#F0FDF4;border:1px solid #BBF7D0;border-radius:20px;font-size:11px;font-weight:700;color:#166534">
-                        MakeCode ?�습</div>
-                </div>
-            </div>
-            <div class="hero-stats">
-                <div class="stat">
-                    <div class="stat-n">6</div>
-                    <div class="stat-l">?�단??/div>
-                </div>
-                <div class="stat">
-                    <div class="stat-n">13</div>
-                    <div class="stat-l">차시</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-n">6</div>
-                    <div class="stat-l">?�행?�동</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="mid-title">중단??1 ??컴퓨???�스?�과 ?��?�?컴퓨??(2?�단??· 3차시)</div>
-        <div class="card-grid">
-            <a href="lesson-01/index.html" class="lcard">
-                <div class="ln">I-01</div>
-                <div class="li">?��</div>
-                <div class="lt">컴퓨???�스?�의 구성�??�작 ?�리</div>
-                <div class="ld">HW 5�??�치·SW 구분·?�영 체제 ??��. ?�영???�생 ???�행 과정 분석</div>
-                <div class="lf"><span class="ltag">1차시</span><span class="ltag ltag-u">pp.9~12</span><span
-                        class="ltag ltag-act">?????�작 ?�리 분석</span>
-                    <div class="lgo">??/div>
-                </div>
-            </a>
-            <a href="lesson-02/index.html" class="lcard">
-                <div class="ln">I-02</div>
-                <div class="li">?��</div>
-                <div class="lt">?��?�?컴퓨???�스?�의 ?�해</div>
-                <div class="ld">?��?�?컴퓨??개념·마이?�로비트 구성 ?�소(7?�서·2출력·1?�신). 주차 ?�도 ?�스??/div>
-                <div class="lf"><span class="ltag">2차시</span><span class="ltag ltag-u">pp.13~16</span><span
-                        class="ltag ltag-act">???�요?�·�?�??�단</span>
-                    <div class="lgo">??/div>
-                </div>
-            </a>
-        </div>
-
-        <div class="mid-title">중단??2 ???��?�?컴퓨???�로그래�?(4?�단??· 10차시)</div>
-        <div class="card-grid">
-            <a href="lesson-03/index.html" class="lcard">
-                <div class="ln">I-03</div>
-                <div class="li">?��</div>
-                <div class="lt">?�동 ?�수 ?�시 ?�치 만들�?/div>
-                <div class="ld">가?�도 ?�서�??�들�?감�? ???�동 ?�수 ?�적. A버튼=?�시, B버튼=초기??/div>
-                <div class="lf"><span class="ltag">2차시</span><span class="ltag ltag-u">pp.19~23</span><span
-                        class="ltag ltag-act">???�서?�구·기울?�·주?�위</span>
-                    <div class="lgo">??/div>
-                </div>
-            </a>
-            <a href="lesson-04/index.html" class="lcard">
-                <div class="ln">I-04</div>
-                <div class="li">?���?/div>
-                <div class="lt">?�면 ?�도 ?�림???�치 만들�?/div>
-                <div class="ld">?�도 ?�서(-5~50??·�?감�? ?�서(0~255)�??�간 ?�정 ?�도 ?�내</div>
-                <div class="lf"><span class="ltag">2차시</span><span class="ltag ltag-u">pp.24~27</span><span
-                        class="ltag ltag-act">???�마??가로등·?�풍�?/span>
-                    <div class="lgo">??/div>
-                </div>
-            </a>
-            <a href="lesson-05/index.html" class="lcard">
-                <div class="ln">I-05</div>
-                <div class="li">?��</div>
-                <div class="lt">?�리??반응?�는 ?�니메이???�치 만들�?/div>
-                <div class="ld">?�리 ?�서(0~255)·?�피�? ???�리 감�? ??LED ?�니메이??+ 멜로???�생</div>
-                <div class="lf"><span class="ltag">3차시</span><span class="ltag ltag-u">pp.28~31</span><span
-                        class="ltag ltag-act">???�교종·애?�메?�션·박수?��?/span>
-                    <div class="lgo">??/div>
-                </div>
-            </a>
-            <a href="lesson-06/index.html" class="lcard">
-                <div class="ln">I-06</div>
-                <div class="li">?��</div>
-                <div class="lt">?�심?�심 게임 ?�치 만들�?/div>
-                <div class="ld">?�디??무선 ?�신(그룹 0~255)?�로 ??마이?�로비트 �??�택 ?�보 비교</div>
-                <div class="lf"><span class="ltag">3차시</span><span class="ltag ltag-u">pp.32~35</span><span
-                        class="ltag ltag-act">??가?�바?�보·찬반?�표</span>
-                    <div class="lgo">??/div>
-                </div>
-            </a>
-        </div>
-    </div>
-</body>
-
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>I. 컴퓨팅 시스템 — 정보 교과</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg: #F5F4F0;
+            --sf: #FFF;
+            --br: #E2DFD6;
+            --tx: #1C1C1C;
+            --mt: #696760;
+            --lt: #A8A59E;
+            --u: #6C65CC;
+            --udk: #4E48A8;
+            --ult: #ECEAFE;
+            --umd: #C8C4F0;
+            --rLG: 14px;
+            --rSM: 8px
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        html {
+            scroll-behavior: smooth
+        }
+
+        body {
+            font-family: 'Noto Sans KR', -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--tx);
+            font-size: 14px;
+            line-height: 1.65;
+            min-height: 100vh
+        }
+
+        .topbar {
+            background: var(--sf);
+            border-bottom: 1px solid var(--br);
+            height: 52px;
+            padding: 0 28px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            position: sticky;
+            top: 0;
+            z-index: 90
+        }
+
+        .bc {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            font-size: 12px;
+            color: var(--mt);
+            flex: 1
+        }
+
+        .bc a {
+            color: var(--mt);
+            text-decoration: none
+        }
+
+        .bc a:hover {
+            color: var(--tx)
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 7px 14px;
+            border-radius: var(--rSM);
+            font-size: 12px;
+            font-family: inherit;
+            font-weight: 500;
+            cursor: pointer;
+            border: 1px solid var(--br);
+            background: var(--sf);
+            color: var(--tx);
+            text-decoration: none;
+            transition: background .12s
+        }
+
+        .btn:hover {
+            background: var(--bg)
+        }
+
+        .bp {
+            background: var(--u);
+            color: #fff;
+            border-color: var(--u)
+        }
+
+        .bp:hover {
+            background: var(--udk)
+        }
+
+        .page {
+            padding: 28px 32px;
+            max-width: 1100px;
+            margin: 0 auto
+        }
+
+        .hero {
+            background: var(--sf);
+            border: 1px solid var(--br);
+            border-radius: var(--rLG);
+            padding: 26px 30px;
+            margin-bottom: 22px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 20px
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 12px;
+            flex-shrink: 0
+        }
+
+        .stat {
+            text-align: center;
+            padding: 12px 16px;
+            background: var(--bg);
+            border-radius: var(--rSM);
+            min-width: 72px
+        }
+
+        .stat-n {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--u)
+        }
+
+        .stat-l {
+            font-size: 11px;
+            color: var(--mt);
+            margin-top: 2px
+        }
+
+        .mid-title {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .1em;
+            color: var(--lt);
+            margin: 0 0 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px
+        }
+
+        .mid-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--br)
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 22px
+        }
+
+        .lcard {
+            display: flex;
+            flex-direction: column;
+            background: var(--sf);
+            border: 1.5px solid var(--br);
+            border-radius: var(--rLG);
+            padding: 18px;
+            text-decoration: none;
+            color: inherit;
+            transition: all .18s;
+            position: relative;
+            overflow: hidden
+        }
+
+        .lcard::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--u);
+            opacity: 0;
+            transition: opacity .18s
+        }
+
+        .lcard:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 22px rgba(108, 101, 204, .13);
+            border-color: var(--umd)
+        }
+
+        .lcard:hover::before {
+            opacity: 1
+        }
+
+        .ln {
+            font-size: 10px;
+            font-weight: 700;
+            padding: 2px 9px;
+            border-radius: 20px;
+            background: var(--ult);
+            color: var(--u);
+            font-family: monospace;
+            display: inline-block;
+            margin-bottom: 7px
+        }
+
+        .li {
+            font-size: 24px;
+            margin-bottom: 5px
+        }
+
+        .lt {
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 4px
+        }
+
+        .ld {
+            font-size: 11px;
+            color: var(--mt);
+            line-height: 1.6;
+            flex: 1
+        }
+
+        .lf {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-top: 9px;
+            flex-wrap: wrap
+        }
+
+        .ltag {
+            font-size: 10px;
+            padding: 2px 8px;
+            background: var(--bg);
+            border: 1px solid var(--br);
+            border-radius: 20px;
+            color: var(--mt);
+            font-weight: 500
+        }
+
+        .ltag-u {
+            background: var(--ult);
+            color: var(--u);
+            border-color: var(--umd)
+        }
+
+        .ltag-act {
+            background: #FFF9E6;
+            color: #7A4E0A;
+            border-color: #EDD070;
+            font-weight: 700
+        }
+
+        .lgo {
+            margin-left: auto;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--u);
+            opacity: 0;
+            transition: opacity .15s
+        }
+
+        .lcard:hover .lgo {
+            opacity: 1
+        }
+
+        @media(max-width:900px) {
+            .card-grid {
+                grid-template-columns: 1fr
+            }
+
+            .hero {
+                flex-direction: column
+            }
+        }
+
+        @media(max-width:600px) {
+            .page {
+                padding: 16px 18px
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="topbar">
+        <div class="bc"><a href="https://sungce.github.io/lesson/">정보 교과 학습 플랫폼</a> › <span
+                style="color:var(--tx);font-weight:500">I. 컴퓨팅 시스템</span></div>
+        <a class="btn bp" href="lesson-01/index.html">시작하기 →</a>
+    </header>
+    <div class="page">
+        <div class="hero">
+            <div>
+                <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+                    <span style="font-size:36px;font-weight:300;color:var(--u);line-height:1">I</span>
+                    <div>
+                        <div
+                            style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--lt);margin-bottom:3px">
+                            Unit I</div>
+                        <h2 style="font-size:22px;font-weight:700">컴퓨팅 시스템</h2>
+                    </div>
+                </div>
+                <p style="font-size:13px;color:var(--mt);line-height:1.7">컴퓨팅 시스템의 구성·동작 원리와 운영 체제를
+                    이해하고,<br>마이크로비트(micro:bit)로 센서 기반 피지컬 컴퓨팅 프로그램을 만들어봅니다.<br>모든 소단원에는 교과서 <b
+                        style="color:var(--u)">해보기 수행 활동</b>이 포함되어 있습니다.</p>
+                <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
+                    <div
+                        style="display:inline-flex;align-items:center;gap:5px;padding:4px 12px;background:var(--ult);border:1px solid var(--umd);border-radius:20px;font-size:11px;font-weight:700;color:var(--u)">
+                        🔧 마이크로비트(micro:bit)</div>
+                    <div
+                        style="display:inline-flex;align-items:center;gap:5px;padding:4px 12px;background:#FFF9E6;border:1px solid #EDD070;border-radius:20px;font-size:11px;font-weight:700;color:#7A4E0A">
+                        ★ 해보기 수행 활동 포함</div>
+                    <div
+                        style="display:inline-flex;align-items:center;gap:5px;padding:4px 12px;background:#F0FDF4;border:1px solid #BBF7D0;border-radius:20px;font-size:11px;font-weight:700;color:#166534">
+                        MakeCode 실습</div>
+                </div>
+            </div>
+            <div class="hero-stats">
+                <div class="stat">
+                    <div class="stat-n">6</div>
+                    <div class="stat-l">소단원</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-n">13</div>
+                    <div class="stat-l">차시</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-n">6</div>
+                    <div class="stat-l">수행활동</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mid-title">중단원 1 — 컴퓨팅 시스템과 피지컬 컴퓨팅 (2소단원 · 3차시)</div>
+        <div class="card-grid">
+            <a href="lesson-01/index.html" class="lcard">
+                <div class="ln">I-01</div>
+                <div class="li">💻</div>
+                <div class="lt">컴퓨팅 시스템의 구성과 동작 원리</div>
+                <div class="ld">HW 5종 장치·SW 구분·운영 체제 역할. 동영상 재생 앱 실행 과정 분석</div>
+                <div class="lf"><span class="ltag">1차시</span><span class="ltag ltag-u">pp.9~12</span><span
+                        class="ltag ltag-act">★ 앱 동작 원리 분석</span>
+                    <div class="lgo">→</div>
+                </div>
+            </a>
+            <a href="lesson-02/index.html" class="lcard">
+                <div class="ln">I-02</div>
+                <div class="li">🤖</div>
+                <div class="lt">피지컬 컴퓨팅 시스템의 이해</div>
+                <div class="ld">피지컬 컴퓨팅 개념·마이크로비트 구성 요소(7센서·2출력·1통신). 주차 유도 시스템</div>
+                <div class="lf"><span class="ltag">2차시</span><span class="ltag ltag-u">pp.13~16</span><span
+                        class="ltag ltag-act">★ 필요성·가치 판단</span>
+                    <div class="lgo">→</div>
+                </div>
+            </a>
+        </div>
+
+        <div class="mid-title">중단원 2 — 피지컬 컴퓨팅 프로그래밍 (4소단원 · 10차시)</div>
+        <div class="card-grid">
+            <a href="lesson-03/index.html" class="lcard">
+                <div class="ln">I-03</div>
+                <div class="li">🏃</div>
+                <div class="lt">운동 횟수 표시 장치 만들기</div>
+                <div class="ld">가속도 센서로 흔들림 감지 → 운동 횟수 누적. A버튼=표시, B버튼=초기화</div>
+                <div class="lf"><span class="ltag">2차시</span><span class="ltag ltag-u">pp.19~23</span><span
+                        class="ltag ltag-act">★ 센서탐구·기울임·주사위</span>
+                    <div class="lgo">→</div>
+                </div>
+            </a>
+            <a href="lesson-04/index.html" class="lcard">
+                <div class="ln">I-04</div>
+                <div class="li">🌡️</div>
+                <div class="lt">수면 온도 알림이 장치 만들기</div>
+                <div class="ld">온도 센서(-5~50℃)·빛 감지 센서(0~255)로 야간 적정 온도 안내</div>
+                <div class="lf"><span class="ltag">2차시</span><span class="ltag ltag-u">pp.24~27</span><span
+                        class="ltag ltag-act">★ 스마트 가로등·선풍기</span>
+                    <div class="lgo">→</div>
+                </div>
+            </a>
+            <a href="lesson-05/index.html" class="lcard">
+                <div class="ln">I-05</div>
+                <div class="li">🎵</div>
+                <div class="lt">소리에 반응하는 애니메이션 장치 만들기</div>
+                <div class="ld">소리 센서(0~255)·스피커. 큰 소리 감지 시 LED 애니메이션 + 멜로디 재생</div>
+                <div class="lf"><span class="ltag">3차시</span><span class="ltag ltag-u">pp.28~31</span><span
+                        class="ltag ltag-act">★ 학교종·애니메이션·박수대결</span>
+                    <div class="lgo">→</div>
+                </div>
+            </a>
+            <a href="lesson-06/index.html" class="lcard">
+                <div class="ln">I-06</div>
+                <div class="li">📡</div>
+                <div class="lt">이심전심 게임 장치 만들기</div>
+                <div class="ld">라디오 무선 통신(그룹 0~255)으로 두 마이크로비트 간 선택 정보 비교</div>
+                <div class="lf"><span class="ltag">3차시</span><span class="ltag ltag-u">pp.32~35</span><span
+                        class="ltag ltag-act">★ 가위바위보·찬반투표</span>
+                    <div class="lgo">→</div>
+                </div>
+            </a>
+        </div>
+    </div>
+</body>
+
 </html>

@@ -1,1961 +1,1952 @@
-<!DOCTYPE html>
-<html lang="ko">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <title>I-1. 컴퓨???�스?�의 구성�??�작 ?�리 ???�보 교과</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
-    <style>
-        *,
-        *::before,
-        *::after {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0
-        }
-
-        html {
-            scroll-behavior: smooth
-        }
-
-        body {
-            font-family: 'Noto Sans KR', -apple-system, sans-serif;
-            background: #F5F4F0;
-            color: #1C1C1C;
-            font-size: 14px;
-            line-height: 1.65;
-            display: flex;
-            min-height: 100vh
-        }
-
-        :root {
-            --u: #6C65CC;
-            --udk: #4E48A8;
-            --ult: #ECEAFE;
-            --umd: #C8C4F0;
-            --bg: #F5F4F0;
-            --sf: #FFF;
-            --br: #E2DFD6;
-            --tx: #1C1C1C;
-            --mt: #696760;
-            --lt: #A8A59E;
-            --green: #2A720E;
-            --gbg: #E8F3DC;
-            --amber: #7A4E0A;
-            --abg: #FAF0DC;
-            --red: #8C1E0E;
-            --rbg: #FAEBE6;
-            --blue: #0A4E8C;
-            --bbg: #E4F0FA;
-            --rLG: 14px;
-            --rSM: 8px;
-            --SW: 240px;
-            --TH: 52px
-        }
-
-        .sb {
-            width: var(--SW);
-            background: var(--sf);
-            border-right: 1px solid var(--br);
-            position: fixed;
-            top: 0;
-            left: 0;
-            bottom: 0;
-            display: flex;
-            flex-direction: column;
-            overflow-y: auto;
-            z-index: 100
-        }
-
-        .sb-top {
-            padding: 16px 14px 12px;
-            border-bottom: 1px solid var(--br)
-        }
-
-        .uchip {
-            display: inline-flex;
-            align-items: center;
-            background: var(--ult);
-            color: var(--u);
-            font-size: 10px;
-            font-weight: 700;
-            letter-spacing: .1em;
-            text-transform: uppercase;
-            padding: 3px 9px;
-            border-radius: 20px;
-            margin-bottom: 6px
-        }
-
-        .sb-top h2 {
-            font-size: 12px;
-            font-weight: 700;
-            line-height: 1.4
-        }
-
-        .smeta {
-            font-size: 10px;
-            color: var(--lt);
-            margin-top: 3px
-        }
-
-        .sb-nav {
-            padding: 4px 0;
-            flex: 1
-        }
-
-        .nlbl {
-            font-size: 9px;
-            font-weight: 700;
-            letter-spacing: .1em;
-            text-transform: uppercase;
-            color: var(--lt);
-            padding: 7px 13px 3px
-        }
-
-        .na {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 7px 13px;
-            font-size: 11px;
-            color: var(--mt);
-            text-decoration: none;
-            border-left: 2.5px solid transparent;
-            transition: background .12s
-        }
-
-        .na:hover {
-            background: var(--bg);
-            color: var(--tx)
-        }
-
-        .na.on {
-            color: var(--u);
-            font-weight: 600;
-            background: var(--ult);
-            border-left-color: var(--u)
-        }
-
-        .na.done .nn {
-            background: var(--gbg);
-            color: var(--green)
-        }
-
-        .nn {
-            width: 18px;
-            height: 18px;
-            border-radius: 50%;
-            background: var(--br);
-            font-size: 9px;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            color: var(--mt)
-        }
-
-        .na.on .nn {
-            background: var(--u);
-            color: #fff
-        }
-
-        .nbadge {
-            margin-left: auto;
-            font-size: 9px;
-            color: var(--lt);
-            background: var(--bg);
-            border: 1px solid var(--br);
-            padding: 1px 5px;
-            border-radius: 10px;
-            white-space: nowrap
-        }
-
-        .sb-foot {
-            padding: 10px 13px;
-            border-top: 1px solid var(--br)
-        }
-
-        .ba {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 11px;
-            color: var(--mt);
-            text-decoration: none;
-            padding: 5px 9px;
-            border-radius: var(--rSM);
-            border: 1px solid var(--br);
-            background: var(--sf);
-            transition: all .12s
-        }
-
-        .ba:hover {
-            background: var(--bg)
-        }
-
-        .main {
-            margin-left: var(--SW);
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            min-width: 0
-        }
-
-        .topbar {
-            background: var(--sf);
-            border-bottom: 1px solid var(--br);
-            height: var(--TH);
-            padding: 0 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            position: sticky;
-            top: 0;
-            z-index: 90
-        }
-
-        .bc {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            font-size: 12px;
-            color: var(--mt);
-            flex: 1
-        }
-
-        .bc a {
-            color: var(--mt);
-            text-decoration: none
-        }
-
-        .bc a:hover {
-            color: var(--tx)
-        }
-
-        .bcsep {
-            color: var(--br)
-        }
-
-        .bccur {
-            color: var(--tx);
-            font-weight: 500
-        }
-
-        .tbr {
-            display: flex;
-            align-items: center;
-            gap: 6px
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            padding: 6px 12px;
-            border-radius: var(--rSM);
-            font-size: 12px;
-            font-family: inherit;
-            font-weight: 500;
-            cursor: pointer;
-            border: 1px solid var(--br);
-            background: var(--sf);
-            color: var(--tx);
-            text-decoration: none;
-            transition: background .12s;
-            white-space: nowrap
-        }
-
-        .btn:hover {
-            background: var(--bg)
-        }
-
-        .bsm {
-            padding: 5px 9px;
-            font-size: 11px
-        }
-
-        .bp {
-            background: var(--u);
-            color: #fff;
-            border-color: var(--u)
-        }
-
-        .bp:hover {
-            background: var(--udk)
-        }
-
-        .bok {
-            background: var(--green);
-            color: #fff;
-            border-color: var(--green)
-        }
-
-        .page {
-            padding: 20px 22px;
-            flex: 1
-        }
-
-        .g2 {
-            display: grid;
-            grid-template-columns: 1fr minmax(0, 248px);
-            gap: 16px;
-            align-items: start
-        }
-
-        .cm {
-            min-width: 0
-        }
-
-        .ca {
-            position: sticky;
-            top: calc(var(--TH)+12px)
-        }
-
-        .card {
-            background: var(--sf);
-            border: 1px solid var(--br);
-            border-radius: var(--rLG);
-            margin-bottom: 11px;
-            overflow: hidden
-        }
-
-        .ch {
-            display: flex;
-            align-items: center;
-            gap: 9px;
-            padding: 12px 16px;
-            cursor: pointer;
-            border-bottom: 1px solid var(--br);
-            transition: background .12s;
-            user-select: none
-        }
-
-        .ch:hover {
-            background: var(--bg)
-        }
-
-        .sn {
-            width: 26px;
-            height: 26px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 11px;
-            font-weight: 800;
-            flex-shrink: 0
-        }
-
-        .ch h3 {
-            font-size: 13px;
-            font-weight: 600;
-            flex: 1
-        }
-
-        .st {
-            font-size: 10px;
-            color: var(--lt);
-            background: var(--bg);
-            border: 1px solid var(--br);
-            padding: 2px 7px;
-            border-radius: 20px;
-            white-space: nowrap
-        }
-
-        .carr {
-            font-size: 11px;
-            color: var(--lt);
-            transition: transform .2s
-        }
-
-        .card.collapsed .carr {
-            transform: rotate(-90deg)
-        }
-
-        .cb {
-            padding: 18px
-        }
-
-        .card.collapsed .cb {
-            display: none
-        }
-
-        .ach {
-            background: var(--ult);
-            border: 1px solid var(--umd);
-            border-radius: var(--rSM);
-            padding: 10px 13px;
-            margin-bottom: 14px
-        }
-
-        .ach-c {
-            font-family: monospace;
-            font-size: 11px;
-            font-weight: 700;
-            color: var(--u);
-            margin-bottom: 3px
-        }
-
-        .ach-t {
-            font-size: 13px;
-            line-height: 1.6
-        }
-
-        .glist {
-            list-style: none
-        }
-
-        .glist li {
-            display: flex;
-            align-items: flex-start;
-            gap: 8px;
-            padding: 6px 0;
-            font-size: 13px;
-            border-bottom: 1px solid var(--br);
-            line-height: 1.6
-        }
-
-        .glist li:last-child {
-            border-bottom: none
-        }
-
-        .gck {
-            width: 17px;
-            height: 17px;
-            border-radius: 50%;
-            background: var(--gbg);
-            color: var(--green);
-            font-size: 9px;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            margin-top: 2px
-        }
-
-        .ctags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 5px;
-            margin-bottom: 12px
-        }
-
-        .ctag {
-            font-size: 11px;
-            padding: 3px 10px;
-            background: var(--bg);
-            border: 1px solid var(--br);
-            border-radius: 20px;
-            cursor: pointer;
-            color: var(--mt);
-            transition: all .12s
-        }
-
-        .ctag:hover {
-            background: var(--ult);
-            border-color: var(--umd);
-            color: var(--u)
-        }
-
-        .ibox {
-            display: flex;
-            align-items: flex-start;
-            gap: 9px;
-            padding: 10px 13px;
-            border-radius: var(--rSM);
-            font-size: 12px;
-            line-height: 1.6;
-            margin-top: 10px
-        }
-
-        .prev {
-            background: var(--bg);
-            border: 1px solid var(--br);
-            color: var(--mt)
-        }
-
-        .warn {
-            background: #FFFBEC;
-            border: 1px solid #EDD070;
-            color: #6A5000
-        }
-
-        .info {
-            background: var(--bbg);
-            border: 1px solid #BACED8;
-            color: var(--blue)
-        }
-
-        .ok {
-            background: var(--gbg);
-            border: 1px solid #BFDFAA;
-            color: var(--green)
-        }
-
-        .divl {
-            height: 1px;
-            background: var(--br);
-            margin: 13px 0
-        }
-
-        .crow {
-            display: grid;
-            grid-template-columns: 1fr minmax(0, 148px);
-            gap: 13px;
-            align-items: start;
-            margin-bottom: 13px
-        }
-
-        .ct h4 {
-            font-size: 13px;
-            font-weight: 700;
-            margin-bottom: 7px
-        }
-
-        .ct p {
-            font-size: 13px;
-            color: var(--mt);
-            line-height: 1.75
-        }
-
-        .ct ul {
-            padding-left: 1rem;
-            margin-top: 5px
-        }
-
-        .ct ul li {
-            font-size: 13px;
-            color: var(--mt);
-            margin-bottom: 3px;
-            line-height: 1.6
-        }
-
-        .cvis {
-            background: var(--bg);
-            border: 1px solid var(--br);
-            border-radius: var(--rSM);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 8px
-        }
-
-        /* ?�?� ?�행?�동 (?�보�? ?�?� */
-        .activity {
-            background: linear-gradient(135deg, var(--ult), #F5F4FF);
-            border: 2px solid var(--umd);
-            border-radius: var(--rLG);
-            margin-bottom: 11px;
-            overflow: hidden
-        }
-
-        .act-head {
-            display: flex;
-            align-items: center;
-            gap: 9px;
-            padding: 12px 16px;
-            border-bottom: 1.5px solid var(--umd);
-            background: var(--ult);
-            cursor: pointer;
-            user-select: none
-        }
-
-        .act-head:hover {
-            background: #E4E0FC
-        }
-
-        .act-badge {
-            background: var(--u);
-            color: #fff;
-            font-size: 10px;
-            font-weight: 700;
-            padding: 3px 10px;
-            border-radius: 20px;
-            white-space: nowrap
-        }
-
-        .act-head h3 {
-            font-size: 13px;
-            font-weight: 700;
-            color: var(--udk);
-            flex: 1
-        }
-
-        .act-body {
-            padding: 18px
-        }
-
-        .act-step {
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            padding: 10px 12px;
-            background: var(--sf);
-            border: 1px solid var(--br);
-            border-radius: var(--rSM);
-            margin-bottom: 8px;
-            min-height: 160px;
-        }
-
-        .act-num {
-            width: 22px;
-            height: 22px;
-            border-radius: 50%;
-            background: var(--u);
-            color: #fff;
-            font-size: 10px;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            flex: none;
-            margin-top: 1px
-        }
-
-        .act-step h4 {
-            font-size: 12px;
-            font-weight: 700;
-            margin-bottom: 4px
-        }
-
-        .act-step p {
-            font-size: 12px;
-            color: var(--mt);
-            line-height: 1.65
-        }
-
-        .act-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 12px;
-            margin-top: 8px
-        }
-
-        .act-table th {
-            background: var(--u);
-            color: #fff;
-            padding: 7px 10px;
-            font-weight: 600;
-            font-size: 11px;
-            text-align: left
-        }
-
-        .act-table td {
-            padding: 8px 10px;
-            border-bottom: 1px solid var(--br);
-            color: var(--mt);
-            vertical-align: top;
-            line-height: 1.55
-        }
-
-        .act-table tr:last-child td {
-            border-bottom: none
-        }
-
-        .act-input {
-            width: 100%;
-            padding: 8px 10px;
-            border: 1.5px solid var(--br);
-            border-radius: var(--rSM);
-            font-size: 12px;
-            font-family: inherit;
-            background: var(--sf);
-            outline: none;
-            resize: vertical;
-            min-height: 88px;
-            margin-top: 4px
-        }
-
-        .act-input:focus {
-            border-color: var(--u)
-        }
-
-        /* ?�?� 마이?�로비트 블록 ?�?� */
-        .mb-workspace {
-            background: #1e1e2e;
-            border-radius: var(--rSM);
-            padding: 14px;
-            margin: 8px 0;
-            display: flex;
-            flex-direction: column;
-            gap: 5px
-        }
-
-        .mb-row {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            flex-wrap: wrap
-        }
-
-        .mb-indent {
-            margin-left: 22px;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            flex-wrap: wrap
-        }
-
-        .mb-indent2 {
-            margin-left: 44px;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            flex-wrap: wrap
-        }
-
-        .mb {
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            padding: 6px 11px;
-            border-radius: 6px;
-            font-size: 11px;
-            font-family: 'Courier New', monospace;
-            font-weight: 700;
-            color: #fff;
-            cursor: default
-        }
-
-        .mb-hole {
-            display: inline-block;
-            background: rgba(255, 255, 255, .2);
-            border-radius: 3px;
-            padding: 1px 7px;
-            font-size: 10px;
-            min-width: 20px;
-            text-align: center
-        }
-
-        .mb-start {
-            background: #FF8C00;
-            box-shadow: 0 3px 0 #B85A00
-        }
-
-        .mb-motion {
-            background: #4A7ED9;
-            box-shadow: 0 3px 0 #2A50A0
-        }
-
-        .mb-led {
-            background: #9B59B6;
-            box-shadow: 0 3px 0 #6C3483
-        }
-
-        .mb-input {
-            background: #F39C12;
-            box-shadow: 0 3px 0 #C07000
-        }
-
-        .mb-logic {
-            background: #E74C3C;
-            box-shadow: 0 3px 0 #A01010
-        }
-
-        .mb-loop {
-            background: #27AE60;
-            box-shadow: 0 3px 0 #1A7A40
-        }
-
-        .mb-var {
-            background: #3498DB;
-            box-shadow: 0 3px 0 #1A5A9A
-        }
-
-        .mb-music {
-            background: #E91E63;
-            box-shadow: 0 3px 0 #880033
-        }
-
-        .mb-radio {
-            background: #00BCD4;
-            box-shadow: 0 3px 0 #007A88
-        }
-
-        .mb-sensor {
-            background: #FF6B35;
-            box-shadow: 0 3px 0 #C04010
-        }
-
-        /* ?�?� quiz ?�?� */
-        .qwrap {
-            background: var(--bg);
-            border: 1px solid var(--br);
-            border-radius: var(--rSM);
-            padding: 14px;
-            margin-top: 13px
-        }
-
-        .qq {
-            font-size: 14px;
-            font-weight: 500;
-            margin-bottom: 11px;
-            line-height: 1.55
-        }
-
-        .qopts {
-            display: flex;
-            flex-direction: column;
-            gap: 7px
-        }
-
-        .opt {
-            display: flex;
-            align-items: flex-start;
-            gap: 9px;
-            padding: 10px 12px;
-            background: var(--sf);
-            border: 1.5px solid var(--br);
-            border-radius: var(--rSM);
-            cursor: pointer;
-            font-size: 13px;
-            line-height: 1.5;
-            transition: all .12s
-        }
-
-        .opt:hover {
-            border-color: var(--u);
-            background: var(--ult)
-        }
-
-        .opt.correct {
-            border-color: #4A9020;
-            background: var(--gbg);
-            color: #1A5000;
-            pointer-events: none
-        }
-
-        .opt.wrong {
-            border-color: #B03020;
-            background: var(--rbg);
-            color: #6A1000;
-            pointer-events: none
-        }
-
-        .opt.locked {
-            pointer-events: none;
-            opacity: .55
-        }
-
-        .onum {
-            width: 21px;
-            height: 21px;
-            border-radius: 50%;
-            background: var(--br);
-            font-size: 11px;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0
-        }
-
-        .opt.correct .onum {
-            background: #4A9020;
-            color: #fff
-        }
-
-        .opt.wrong .onum {
-            background: #B03020;
-            color: #fff
-        }
-
-        .qfb {
-            display: none;
-            margin-top: 9px;
-            padding: 10px 13px;
-            border-radius: var(--rSM);
-            font-size: 12px;
-            line-height: 1.6
-        }
-
-        .qfb.ok {
-            display: block;
-            background: var(--gbg);
-            border: 1px solid #BFDFAA;
-            color: var(--green)
-        }
-
-        .qfb.err {
-            display: block;
-            background: var(--rbg);
-            border: 1px solid #F0B8A0;
-            color: var(--red)
-        }
-
-        /* ?�?� assess ?�?� */
-        .rub {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 12px;
-            margin-bottom: 12px
-        }
-
-        .rub th {
-            background: var(--bg);
-            padding: 7px 8px;
-            font-weight: 600;
-            border-bottom: 1.5px solid var(--br);
-            text-align: left;
-            font-size: 10px;
-            text-transform: uppercase;
-            letter-spacing: .04em;
-            color: var(--mt)
-        }
-
-        .rub td {
-            padding: 8px;
-            border-bottom: 1px solid var(--br);
-            color: var(--mt);
-            vertical-align: top;
-            line-height: 1.5
-        }
-
-        .rub tr:last-child td {
-            border-bottom: none
-        }
-
-        .lv4 {
-            color: #1A6000 !important;
-            font-weight: 500
-        }
-
-        .lv3 {
-            color: #2A6830 !important
-        }
-
-        .lv2 {
-            color: #7A4E00 !important
-        }
-
-        .lv1 {
-            color: #8A2000 !important
-        }
-
-        .peer-check {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 11px;
-            margin-top: 10px
-        }
-
-        .peer-check th {
-            background: var(--ult);
-            padding: 6px 9px;
-            font-weight: 600;
-            border-bottom: 1.5px solid var(--umd);
-            text-align: center;
-            color: var(--u);
-            font-size: 10px
-        }
-
-        .peer-check td {
-            padding: 7px 9px;
-            border-bottom: 1px solid var(--br);
-            color: var(--mt);
-            text-align: center
-        }
-
-        .peer-check td:first-child {
-            text-align: left;
-            font-size: 11px
-        }
-
-        .peer-check input[type=radio] {
-            accent-color: var(--u)
-        }
-
-        /* ?�?� sidebar ?�?� */
-        .ap {
-            background: var(--sf);
-            border: 1px solid var(--br);
-            border-radius: var(--rLG);
-            padding: 13px;
-            margin-bottom: 10px
-        }
-
-        .ap h5 {
-            font-size: 9px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: .1em;
-            color: var(--lt);
-            margin-bottom: 8px
-        }
-
-        .slist {
-            display: flex;
-            flex-direction: column;
-            gap: 3px
-        }
-
-        .si {
-            display: flex;
-            align-items: center;
-            gap: 7px;
-            padding: 6px 8px;
-            border-radius: var(--rSM);
-            font-size: 11px;
-            color: var(--mt);
-            cursor: pointer;
-            transition: background .12s
-        }
-
-        .si:hover {
-            background: var(--bg)
-        }
-
-        .dot {
-            width: 19px;
-            height: 19px;
-            border-radius: 50%;
-            background: var(--br);
-            color: var(--lt);
-            font-size: 9px;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0
-        }
-
-        .dot.sa {
-            background: var(--u);
-            color: #fff
-        }
-
-        .dot.sd {
-            background: var(--gbg);
-            color: var(--green)
-        }
-
-        .sclist {
-            display: flex;
-            flex-direction: column;
-            gap: 4px
-        }
-
-        .scitem {
-            display: flex;
-            align-items: center;
-            gap: 9px;
-            padding: 8px 10px;
-            background: var(--bg);
-            border-radius: var(--rSM);
-            font-size: 12px;
-            border: 1px solid var(--br)
-        }
-
-        .scitem label {
-            flex: 1;
-            line-height: 1.5
-        }
-
-        .scitem select {
-            font-size: 11px;
-            padding: 3px 6px;
-            border: 1px solid var(--br);
-            border-radius: 5px;
-            background: var(--sf);
-            font-family: inherit;
-            color: var(--tx);
-            cursor: pointer;
-            flex-shrink: 0
-        }
-
-        .sgrid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 7px;
-            margin-bottom: 12px
-        }
-
-        .scard {
-            background: var(--bg);
-            border: 1px solid var(--br);
-            border-radius: var(--rSM);
-            padding: 11px 12px;
-            font-size: 12px;
-            line-height: 1.65;
-            color: var(--mt)
-        }
-
-        .scard strong {
-            display: block;
-            font-size: 9px;
-            text-transform: uppercase;
-            letter-spacing: .07em;
-            color: var(--lt);
-            margin-bottom: 4px
-        }
-
-        .termlist {
-            display: flex;
-            flex-direction: column
-        }
-
-        .tterm {
-            display: flex;
-            align-items: baseline;
-            gap: 5px;
-            padding: 4px 0;
-            font-size: 11px;
-            border-bottom: 1px solid var(--br)
-        }
-
-        .tterm:last-child {
-            border-bottom: none
-        }
-
-        .tw {
-            font-weight: 600;
-            color: var(--u);
-            white-space: nowrap
-        }
-
-        .tdef {
-            color: var(--mt)
-        }
-
-        .pbtrack {
-            height: 5px;
-            background: var(--umd);
-            border-radius: 3px;
-            overflow: hidden
-        }
-
-        .pbfill {
-            height: 100%;
-            background: var(--u);
-            border-radius: 3px
-        }
-
-        #toast {
-            position: fixed;
-            bottom: 24px;
-            left: 50%;
-            transform: translateX(-50%) translateY(10px);
-            background: #1C1C1C;
-            color: #fff;
-            padding: 9px 18px;
-            border-radius: 10px;
-            font-size: 12px;
-            font-family: inherit;
-            z-index: 9999;
-            opacity: 0;
-            transition: opacity .2s, transform .2s;
-            pointer-events: none;
-            white-space: nowrap
-        }
-
-        /* ?�═ 반응???�이?�웃 ?�═ */
-        *,
-        *::before,
-        *::after {
-            box-sizing: border-box
-        }
-
-        img,
-        canvas,
-        video {
-            max-width: 100%;
-            height: auto;
-            display: block
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse
-        }
-
-        .act-table,
-        .peer-check,
-        .rub {
-            table-layout: fixed;
-            word-break: break-word
-        }
-
-        .act-table td,
-        .act-table th,
-        .rub td,
-        .rub th,
-        .peer-check td,
-        .peer-check th {
-            min-width: 44px;
-            word-break: break-word;
-            overflow-wrap: break-word
-        }
-
-        .act-step>div:not(.act-num) {
-            min-width: 0;
-            flex: 1;
-            overflow-wrap: break-word;
-            word-break: break-word
-        }
-
-        .act-body,
-        .cb {
-            overflow-x: hidden
-        }
-
-        .act-input {
-            width: 100%;
-            box-sizing: border-box
-        }
-
-        .mb-workspace,
-        .mb-row,
-        .mb-indent,
-        .mb-indent2 {
-            flex-wrap: wrap
-        }
-
-        .sim-wrap {
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch
-        }
-
-        /* 1100px ?�하 */
-        @media(max-width:1100px) {
-            .g2 {
-                grid-template-columns: 1fr
-            }
-
-            .ca {
-                position: static;
-                display: flex;
-                flex-direction: row;
-                flex-wrap: wrap;
-                gap: 10px;
-                margin-top: 12px
-            }
-
-            .ca .ap {
-                flex: 1 1 220px;
-                min-width: 180px
-            }
-
-            .crow {
-                grid-template-columns: 1fr
-            }
-
-            .sgrid {
-                grid-template-columns: 1fr 1fr
-            }
-        }
-
-        /* 900px ?�하 */
-        @media(max-width:900px) {
-            .ca {
-                display: flex;
-                flex-direction: row;
-                flex-wrap: wrap;
-                gap: 8px;
-                margin-top: 10px
-            }
-
-            .ca .ap {
-                flex: 1 1 180px;
-                min-width: 160px
-            }
-
-            .page {
-                padding: 16px 14px
-            }
-
-            .cb,
-            .act-body {
-                padding: 13px
-            }
-
-            .sgrid {
-                grid-template-columns: 1fr 1fr
-            }
-
-            .crow {
-                grid-template-columns: 1fr
-            }
-        }
-
-        /* 640px ?�하 */
-        @media(max-width:640px) {
-            .page {
-                padding: 11px 10px
-            }
-
-            .cb,
-            .act-body {
-                padding: 10px
-            }
-
-            .sgrid {
-                grid-template-columns: 1fr
-            }
-
-            .act-step {
-                flex-direction: column;
-                gap: 5px
-            }
-
-            .act-num {
-                margin-bottom: 0
-            }
-
-            .ch h3 {
-                font-size: 12px
-            }
-
-            .btn {
-                font-size: 11px;
-                padding: 5px 8px
-            }
-
-            .act-table td,
-            .act-table th {
-                padding: 5px 6px;
-                font-size: 11px
-            }
-
-            .rub td,
-            .rub th {
-                padding: 5px 6px;
-                font-size: 11px
-            }
-
-            .peer-check td,
-            .peer-check th {
-                padding: 5px 6px;
-                font-size: 10px
-            }
-
-            .scard {
-                font-size: 11px
-            }
-
-            .opt {
-                font-size: 12px;
-                padding: 8px 10px
-            }
-
-            .mb,
-            .mb-hole {
-                font-size: 10px;
-                padding: 4px 7px
-            }
-        }
-
-        /* 480px ?�하 */
-        @media(max-width:480px) {
-            :root {
-                --SW: 0px
-            }
-
-            .sb {
-                display: none
-            }
-
-            .main {
-                margin-left: 0
-            }
-
-            .topbar {
-                padding: 0 10px
-            }
-
-            .page {
-                padding: 8px 9px
-            }
-
-            .cb,
-            .act-body {
-                padding: 9px
-            }
-
-            .tbr .btn:last-child {
-                display: none
-            }
-
-            .sgrid {
-                grid-template-columns: 1fr
-            }
-        }
-    </style>
-</head>
-
-<body>
-    <aside class="sb">
-        <div class="sb-top">
-            <div class="uchip">??Unit I</div>
-            <h2>컴퓨???�스??/h2>
-            <div class="smeta">중단??: 컴퓨???�스?�과 ?��?�?컴퓨??· p.9~12</div>
-        </div>
-        <nav class="sb-nav">
-            <div class="nlbl">?�단??목록</div><a class="na on" href="../lesson-01/index.html">
-                <div class="nn">1</div>컴퓨???�스?�의 구성�??�작 ?�리<span class="nbadge">1차시</span>
-            </a>
-            <a class="na " href="../lesson-02/index.html">
-                <div class="nn">2</div>?��?�?컴퓨???�스?�의 ?�해
-            </a>
-            <a class="na " href="../lesson-03/index.html">
-                <div class="nn">3</div>?�동 ?�수 ?�시 ?�치 만들�?            </a>
-            <a class="na " href="../lesson-04/index.html">
-                <div class="nn">4</div>?�면 ?�도 ?�림???�치 만들�?            </a>
-            <a class="na " href="../lesson-05/index.html">
-                <div class="nn">5</div>?�리??반응?�는 ?�니메이???�치 만들�?            </a>
-            <a class="na " href="../lesson-06/index.html">
-                <div class="nn">6</div>?�심?�심 게임 ?�치 만들�?            </a>
-        </nav>
-        <div class="sb-foot"><a class="ba" href="https://sungce.github.io/lesson/">???�보 교과 ?�습 ?�랫??/a></div>
-    </aside>
-    <main class="main">
-        <header class="topbar">
-            <div class="bc"><a href="https://sungce.github.io/lesson/">?�보 교과 ?�습 ?�랫??/a><span class="bcsep">??/span><a
-                    href="../../index.html">I. 컴퓨???�스??/a><span class="bcsep">??/span><span class="bccur">1. 컴퓨???�스?�의
-                    구성�??�작 ?�리</span></div>
-            <div class="tbr">
-                <button class="btn bsm" onclick="markDone('01')">???�료 ?�시</button>
-                <a class="btn bsm bp" href="../lesson-02/index.html">?�음 ?�단????/a>
-            </div>
-        </header>
-        <div class="page">
-            <div class="g2">
-                <div class="cm">
-
-                    <div class="card" id="sec-goal">
-                        <div class="ch" onclick="toggleSec('sec-goal')">
-                            <div class="sn" style="background:var(--ult);color:var(--u)">01</div>
-                            <h3>?�습목표</h3><span class="st">??5�?/span><span class="carr">??/span>
-                        </div>
-                        <div class="cb">
-                            <div class="ach">
-                                <div class="ach-c">[9??1-01] 컴퓨???�스?�과 ?��?�?컴퓨??/div>
-                                <div class="ach-t">컴퓨???�스?�의 구성 ?�소?� ?�작 ?�리�??�명?�고, ?�영 체제??기능??분석?????�다. (교과??pp.9~12)</div>
-                            </div>
-                            <ul class="glist">
-                                <li>
-                                    <div class="gck">??/div>컴퓨???�스?�의 개념???�명?�고 ?�활 ???��?�?찾을 ???�다.
-                                </li>
-                                <li>
-                                    <div class="gck">??/div>?�드?�어(?�력·처리·기억·출력·?�신)?� ?�프?�웨?��? 구분?�여 ?�명?????�다.
-                                </li>
-                                <li>
-                                    <div class="gck">??/div>?�영 체제????���?컴퓨???�스?�의 ?�작 ?�리�?분석?????�다.
-                                </li>
-                            </ul>
-                            <div class="divl"></div>
-                            <div class="ctags">
-                                <span class="ctag" onclick="goTo('sec-concept')">컴퓨???�스??/span>
-                                <span class="ctag" onclick="goTo('sec-concept')">?�드?�어</span>
-                                <span class="ctag" onclick="goTo('sec-concept')">?�프?�웨??/span>
-                                <span class="ctag" onclick="goTo('sec-concept')">?�영 체제</span>
-                            </div>
-                            <div class="ibox prev">?�� <b>?�원 ?�작:</b> ?�리 ?�활 ???�마?�폰·?�트북·스마트 칠판?� 모두 컴퓨???�스?�입?�다. ?�번 ?�원?�서 구성
-                                ?�리?� ?��?�?컴퓨?�까지 ?�구?�니??</div>
-                        </div>
-                    </div>
-
-                    <div class="card" id="sec-concept">
-                        <div class="ch" onclick="toggleSec('sec-concept')">
-                            <div class="sn" style="background:var(--gbg);color:var(--green)">02</div>
-                            <h3>개념?�명</h3><span class="st">??20�?/span><span class="carr">??/span>
-                        </div>
-                        <div class="cb">
-                            <h4 style="font-size:13px;font-weight:700;margin-bottom:9px">??컴퓨???�스?�이?�?</h4>
-                            <p style="font-size:13px;color:var(--mt);line-height:1.75;margin-bottom:12px">?�프?�웨?��? ?�드?�어가
-                                <strong>?�기?�으�?결합</strong>?�여 문제 ?�결???�용?�는 ?�치. ?�마?�폰·?�트북·신?�등 ?�스?�·인공�????�피�??�이 모두 컴퓨???�스?�입?�다.
-                            </p>
-                            <div class="divl"></div>
-                            <h4 style="font-size:13px;font-weight:700;margin-bottom:9px">???�드?�어 5가지 ?�치</h4>
-                            <div style="overflow-x:auto;margin-bottom:12px">
-                                <table style="width:100%;border-collapse:collapse;font-size:12px">
-                                    <thead>
-                                        <tr style="background:var(--u)">
-                                            <th style="padding:8px 10px;color:#fff;font-size:11px">?�치</th>
-                                            <th style="padding:8px 10px;color:#fff;font-size:11px">??��</th>
-                                            <th style="padding:8px 10px;color:#fff;font-size:11px">컴퓨????/th>
-                                            <th style="padding:8px 10px;color:#fff;font-size:11px">?�마?�기�???/th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td
-                                                style="padding:7px 10px;border-bottom:1px solid var(--br);font-weight:600;color:var(--u)">
-                                                ?�력 ?�치</td>
-                                            <td
-                                                style="padding:7px 10px;border-bottom:1px solid var(--br);color:var(--mt)">
-                                                ?��? ?�이???�력</td>
-                                            <td
-                                                style="padding:7px 10px;border-bottom:1px solid var(--br);color:var(--mt)">
-                                                ?�보?? 마우?? ?�캠, 마이??/td>
-                                            <td
-                                                style="padding:7px 10px;border-bottom:1px solid var(--br);color:var(--mt)">
-                                                ?�치?�크�? 카메?? ?�치 ??/td>
-                                        </tr>
-                                        <tr>
-                                            <td
-                                                style="padding:7px 10px;border-bottom:1px solid var(--br);font-weight:600;color:var(--u)">
-                                                처리 ?�치</td>
-                                            <td
-                                                style="padding:7px 10px;border-bottom:1px solid var(--br);color:var(--mt)">
-                                                명령???�석·처리</td>
-                                            <td
-                                                style="padding:7px 10px;border-bottom:1px solid var(--br);color:var(--mt)">
-                                                CPU, GPU</td>
-                                            <td
-                                                style="padding:7px 10px;border-bottom:1px solid var(--br);color:var(--mt)">
-                                                SoC(CPU+GPU ?�합)</td>
-                                        </tr>
-                                        <tr>
-                                            <td
-                                                style="padding:7px 10px;border-bottom:1px solid var(--br);font-weight:600;color:var(--u)">
-                                                기억 ?�치</td>
-                                            <td
-                                                style="padding:7px 10px;border-bottom:1px solid var(--br);color:var(--mt)">
-                                                명령?�·데?�터 ?�??/td>
-                                            <td
-                                                style="padding:7px 10px;border-bottom:1px solid var(--br);color:var(--mt)">
-                                                HDD, SSD, RAM, USB</td>
-                                            <td
-                                                style="padding:7px 10px;border-bottom:1px solid var(--br);color:var(--mt)">
-                                                RAM, SD카드</td>
-                                        </tr>
-                                        <tr>
-                                            <td
-                                                style="padding:7px 10px;border-bottom:1px solid var(--br);font-weight:600;color:var(--u)">
-                                                출력 ?�치</td>
-                                            <td
-                                                style="padding:7px 10px;border-bottom:1px solid var(--br);color:var(--mt)">
-                                                처리 결과 ?�공</td>
-                                            <td
-                                                style="padding:7px 10px;border-bottom:1px solid var(--br);color:var(--mt)">
-                                                모니?? ?�피�? ?�린??/td>
-                                            <td
-                                                style="padding:7px 10px;border-bottom:1px solid var(--br);color:var(--mt)">
-                                                ?�스?�레?? ?�피�? 진동모터</td>
-                                        </tr>
-                                        <tr>
-                                            <td style="padding:7px 10px;font-weight:600;color:var(--u)">?�신 ?�치</td>
-                                            <td style="padding:7px 10px;color:var(--mt)">?�무???�이???�수??/td>
-                                            <td style="padding:7px 10px;color:var(--mt)">?�카?? 무선공유�?/td>
-                                            <td style="padding:7px 10px;color:var(--mt)">NFC, 블루?�스, Wi-Fi</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="divl"></div>
-                            <h4 style="font-size:13px;font-weight:700;margin-bottom:9px">???�프?�웨??구분</h4>
-                            <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:12px">
-                                <div
-                                    style="background:var(--ult);border:1px solid var(--umd);border-radius:var(--rSM);padding:12px">
-                                    <div style="font-size:12px;font-weight:700;color:var(--u);margin-bottom:6px">?�스??                                        ?�프?�웨??/div>
-                                    <div style="font-size:12px;color:var(--mt);line-height:1.7">?�드?�어�?관�?�운?�하???�용 ?�프?�웨?��?
-                                        ?�작?????�도�?기본 기능 ?�공<br><b>?�??</b> ?�영 체제(OS)<br>??컴퓨?? Windows, Linux, macOS<br>??                                        ?�마?�기�? Android, iOS</div>
-                                </div>
-                                <div
-                                    style="background:var(--gbg);border:1px solid #BFDFAA;border-radius:var(--rSM);padding:12px">
-                                    <div style="font-size:12px;font-weight:700;color:var(--green);margin-bottom:6px">?�용
-                                        ?�프?�웨??/div>
-                                    <div style="font-size:12px;color:var(--mt);line-height:1.7">?�정 목적???�라 ?�용?��? ?�업?????�도�?                                        ?��?<br><b>??</b> 문서?�성·?�진?�집·?�영?�편집·웹브라?��?<br>???�마?�기�? 캘린???? ?�악 ?? 메시지 ??/div>
-                                </div>
-                            </div>
-                            <div class="divl"></div>
-                            <h4 style="font-size:13px;font-weight:700;margin-bottom:9px">???�영???�생 ???�행 과정?�로 보는 ?�작 ?�리
-                            </h4>
-                            <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-bottom:10px">
-                                <div
-                                    style="text-align:center;padding:10px 6px;background:var(--bbg);border:1px solid #BACED8;border-radius:var(--rSM)">
-                                    <div style="font-size:18px;margin-bottom:4px">?��</div>
-                                    <div style="font-size:10px;font-weight:700;color:var(--blue)">???�원 켜기</div>
-                                    <div style="font-size:9px;color:var(--mt);margin-top:3px">?�드?�어 검????OS ?�행</div>
-                                </div>
-                                <div
-                                    style="text-align:center;padding:10px 6px;background:var(--ult);border:1px solid var(--umd);border-radius:var(--rSM)">
-                                    <div style="font-size:18px;margin-bottom:4px">?��</div>
-                                    <div style="font-size:10px;font-weight:700;color:var(--u)">???�력</div>
-                                    <div style="font-size:9px;color:var(--mt);margin-top:3px">???�치 ??OS가 감�?</div>
-                                </div>
-                                <div
-                                    style="text-align:center;padding:10px 6px;background:var(--abg);border:1px solid #EDD070;border-radius:var(--rSM)">
-                                    <div style="font-size:18px;margin-bottom:4px">?�️</div>
-                                    <div style="font-size:10px;font-weight:700;color:var(--amber)">??처리</div>
-                                    <div style="font-size:9px;color:var(--mt);margin-top:3px">CPU+기억?�치�????�행</div>
-                                </div>
-                                <div
-                                    style="text-align:center;padding:10px 6px;background:var(--gbg);border:1px solid #BFDFAA;border-radius:var(--rSM)">
-                                    <div style="font-size:18px;margin-bottom:4px">?��</div>
-                                    <div style="font-size:10px;font-weight:700;color:var(--green)">???�신</div>
-                                    <div style="font-size:9px;color:var(--mt);margin-top:3px">?�신 ?�치�??�일 ?�신</div>
-                                </div>
-                                <div
-                                    style="text-align:center;padding:10px 6px;background:var(--rbg);border:1px solid #F0B8A0;border-radius:var(--rSM)">
-                                    <div style="font-size:18px;margin-bottom:4px">?���?/div>
-                                    <div style="font-size:10px;font-weight:700;color:var(--red)">??출력</div>
-                                    <div style="font-size:9px;color:var(--mt);margin-top:3px">?�스?�레???�피커로 출력</div>
-                                </div>
-                            </div>
-                            <div class="ibox warn">?�️ <b>?�개??</b> ?�영 체제???�드?�어가 ?�닙?�다! ?�프?�웨???�스???�프?�웨???�니?? ?�드?�어?� ?�용???�이?�서
-                                중개 ??��???�니??</div>
-                            <div class="ibox info">?�� <b>교과???�계:</b> pp.9~12</div>
-                        </div>
-                    </div>
-
-                    <!-- ???�행 ?�동: ?�보�???-->
-                    <div class="activity" id="sec-activity">
-                        <div class="act-head" onclick="toggleSec('act-body-01')">
-                            <span class="act-badge">???�행 ?�동</span>
-                            <h3>컴퓨???�스?�의 ?�작 ?�리 분석?�기</h3>
-                            <span style="font-size:10px;color:var(--udk);margin-left:auto">개별 ?�동 | pp.12</span>
-                            <span class="carr" style="color:var(--udk)">??/span>
-                        </div>
-                        <div id="act-body-01" class="act-body">
-                            <div class="ibox ok" style="margin-top:0;margin-bottom:14px">?�� ?��? ?�마?�폰?�서 많이 ?�용?�는 ?�을 ?�택?�고,
-                                '?�영???�생 ???�행 과정'처럼 컴퓨???�스?�의 ?�작 ?�리�?분석?�봅?�다. (교과??p.12 ?�보�?</div>
-                            <div class="act-step">
-                                <div class="act-num">1</div>
-                                <div>
-                                    <h4>???�택?�기</h4>
-                                    <p>?��? ?�주 ?�용?�는 ?�마?�폰 ?�을 1가지 ?�택?�세??</p>
-                                    <input class="act-input" style="min-height:44px;resize:none"
-                                        placeholder="?? 지???? ?�악 ?�트리밍 ?? 게임 ?? 번역 ????..">
-                                </div>
-                            </div>
-                            <div class="act-step">
-                                <div class="act-num">2</div>
-                                <div>
-                                    <h4>?�작 ?�리 분석 ???�성</h4>
-                                    <p>?�택???�이 ?�작?�기 ?�한 �??�계�??�성?�세??</p>
-                                    <div style="overflow-x:auto">
-                                        <table class="act-table">
-                                            <thead>
-                                                <tr>
-                                                    <th style="width:80px">?�계</th>
-                                                    <th>???�에?�는?</th>
-                                                    <th style="width:120px">관???�치</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td style="font-weight:600;color:var(--u)">?�력 과정</td>
-                                                    <td><input class="act-input" style="min-height:44px;resize:none"
-                                                            placeholder="?�용?��? ?�떤 ?�력???�나??"></td>
-                                                    <td><input class="act-input" style="min-height:44px;resize:none"
-                                                            placeholder="?�떤 ?�력 ?�치?"></td>
-                                                </tr>
-                                                <tr>
-                                                    <td style="font-weight:600;color:var(--amber)">처리 과정</td>
-                                                    <td><input class="act-input" style="min-height:44px;resize:none"
-                                                            placeholder="?�영 체제가 ?�떻�?처리?�나??"></td>
-                                                    <td><input class="act-input" style="min-height:44px;resize:none"
-                                                            placeholder="CPU, 기억 ?�치"></td>
-                                                </tr>
-                                                <tr>
-                                                    <td style="font-weight:600;color:var(--green)">?�신 과정</td>
-                                                    <td><input class="act-input" style="min-height:44px;resize:none"
-                                                            placeholder="?��??�서 가?�오???�이?�는?"></td>
-                                                    <td><input class="act-input" style="min-height:44px;resize:none"
-                                                            placeholder="Wi-Fi, 블루?�스?"></td>
-                                                </tr>
-                                                <tr>
-                                                    <td style="font-weight:600;color:var(--red)">출력 과정</td>
-                                                    <td><input class="act-input" style="min-height:44px;resize:none"
-                                                            placeholder="처리 결과가 ?�떻�??�시?�나??"></td>
-                                                    <td><input class="act-input" style="min-height:44px;resize:none"
-                                                            placeholder="?�떤 출력 ?�치?"></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="act-step">
-                                <div class="act-num">3</div>
-                                <div>
-                                    <h4>?�영 체제????�� ?�리</h4>
-                                    <p>???�이 ?�작?�는 과정?�서 ?�영 체제???�떤 ??��???�나??</p>
-                                    <textarea class="act-input"
-                                        placeholder="?�영 체제가 ?�당??기능???�리?�봅?�다. (?? ?�력 감�?, ???�행 관�? ?�신 처리, 출력 ?�치 ?�어 ??"></textarea>
-                                </div>
-                            </div>
-                            <div style="display:flex;gap:8px;margin-top:12px">
-                                <button class="btn bsm bp" onclick="saveActivity('l101_act')">?�� ?�동 ?�??/button>
-                                <button class="btn bsm" onclick="toast('짝과 ?�로 발표?�고 비교?�봅?�다!')">?���?발표?�기</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card" id="sec-assess">
-                        <div class="ch" onclick="toggleSec('sec-assess')">
-                            <div class="sn" style="background:var(--bbg);color:var(--blue)">04</div>
-                            <h3>?�행?��?</h3><span class="st">??5�?/span><span class="carr">??/span>
-                        </div>
-                        <div class="cb">
-                            <div
-                                style="background:var(--bg);border:1px solid var(--br);border-radius:var(--rSM);padding:12px;margin-bottom:12px;border-left:3px solid var(--u)">
-                                <h4 style="font-size:13px;font-weight:700;color:var(--u);margin-bottom:7px">?�� 컴퓨???�스??                                    구성 ?�소 분류</h4>
-                                <p style="font-size:13px;color:var(--mt)">?�리 교실?�나 집에 ?�는 ?�자기기 1가지�??�택?�여 ?�드?�어 구성
-                                    ?�소(?�력·처리·기억·출력·?�신)?� ?�프?�웨?��? 분류?�고 ?�작 ?�리�??�명?�시??</p>
-                            </div>
-                            <table class="rub">
-                                <thead>
-                                    <tr>
-                                        <th>?��? ?�소</th>
-                                        <th class="lv4">매우 ?�함(4)</th>
-                                        <th class="lv3">?�함(3)</th>
-                                        <th class="lv2">보통(2)</th>
-                                        <th class="lv1">?�력 ?�요(1)</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><b>구성 ?�소 분류</b></td>
-                                        <td class="lv4">5가지 ?�치 ?�확 분류</td>
-                                        <td class="lv3">4가지 ?�확</td>
-                                        <td class="lv2">3가지</td>
-                                        <td class="lv1">2가지 ?�하</td>
-                                    </tr>
-                                    <tr>
-                                        <td><b>?�작 ?�리 ?�명</b></td>
-                                        <td class="lv4">?�력?�처리→?�신?�출??명확 ?�술</td>
-                                        <td class="lv3">?�체로 명확</td>
-                                        <td class="lv2">?��?�?/td>
-                                        <td class="lv1">?�음</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <div class="sclist">
-                                <div class="scitem"><label>컴퓨???�스?�의 구성 ?�소�??�명?????�다.</label><select>
-                                        <option value="">?�택</option>
-                                        <option>매우 그렇??/option>
-                                        <option>그렇??/option>
-                                        <option>?�직 모르겠다</option>
-                                    </select></div>
-                                <div class="scitem"><label>?�드?�어?� ?�프?�웨?��? 구분?????�다.</label><select>
-                                        <option value="">?�택</option>
-                                        <option>매우 그렇??/option>
-                                        <option>그렇??/option>
-                                        <option>?�직 모르겠다</option>
-                                    </select></div>
-                                <div class="scitem"><label>?�영 체제??기능�??�작 ?�리�?분석?????�다.</label><select>
-                                        <option value="">?�택</option>
-                                        <option>매우 그렇??/option>
-                                        <option>그렇??/option>
-                                        <option>?�직 모르겠다</option>
-                                    </select></div>
-                            </div>
-                            <button class="btn bsm bok" style="margin-top:10px" onclick="saveSC('l101sc')">?��
-                                ?�??/button>
-                        </div>
-                    </div>
-
-                    <div class="card" id="sec-review">
-                        <div class="ch" onclick="toggleSec('sec-review')">
-                            <div class="sn" style="background:var(--gbg);color:var(--green)">05</div>
-                            <h3>?�인?�기</h3><span class="st">??5�?/span><span class="carr">??/span>
-                        </div>
-                        <div class="cb">
-                            <div class="sgrid">
-                                <div class="scard"><strong>컴퓨???�스??/strong>HW+SW 결합?�로 문제 ?�결. ?�마?�폰·?�호????</div>
-                                <div class="scard"><strong>?�드?�어 5�?/strong>?�력·처리·기억·출력·?�신 ?�치�?구성.</div>
-                                <div class="scard"><strong>?�영 체제</strong>?�스??SW. HW?� ?�용??�?중개 ??��.</div>
-                            </div>
-                            <div
-                                style="background:var(--bg);border:1px solid var(--br);border-radius:var(--rSM);padding:13px;margin-bottom:12px">
-                                <b>?�️ ?�답??</b> 컴퓨???�스?�에???�드?�어�?관리하�??�용?��? ?�드?�어�?중개?�는 ?�스???�프?�웨?��? <span
-                                    style="display:inline-block;width:70px;border-bottom:1.5px solid var(--tx)">&nbsp;</span>(???�고
-                                ?�다.<textarea
-                                    style="display:block;width:100%;margin-top:9px;padding:9px;border:1px solid var(--br);border-radius:var(--rSM);font-size:13px;font-family:inherit;resize:vertical;min-height:48px;background:var(--sf)"
-                                    placeholder="?�답???�력?�세??.."></textarea>
-                            </div>
-                            <div class="qwrap">
-                                <div class="qq">?�음 �?처리 ?�치???�당?�는 것�??</div>
-                                <div class="qopts">
-                                    <div class="opt" onclick="checkQ(this,false,'?�보?�는 ?��? ?�이?��? ?�력?�는 ?�력 ?�치?�니??')"><span
-                                            class="onum">??/span>?�보??/div>
-                                    <div class="opt" onclick="checkQ(this,false,'SSD???�이?��? ?�?�하??기억 ?�치?�니??')"><span
-                                            class="onum">??/span>SSD(?�리???�테?�트 ?�라?�브)</div>
-                                    <div class="opt"
-                                        onclick="checkQ(this,true,'CPU(중앙 처리 ?�치)??명령?��? ?�석?�고 ?�이?��? 처리?�는 처리 ?�치?�니??')"><span
-                                            class="onum">??/span>CPU(중앙 처리 ?�치)</div>
-                                    <div class="opt" onclick="checkQ(this,false,'모니?�는 처리??결과�??�용?�에�?보여주는 출력 ?�치?�니??')">
-                                        <span class="onum">??/span>모니??                                    </div>
-                                </div>
-                                <div class="qfb"></div>
-                            </div>
-                            <div class="ibox ok">?�� <div><strong>?�음 차시 ?�고:</strong> ?�음 ?�단?�에?�는 ?�서�??�경??감�??�는 <strong>?��?�?                                        컴퓨???�스??/strong>??개념�??�작 ?�리�??�구?�니?? (pp.13~16)</div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="ca">
-                    <div class="ap">
-                        <h5>?�습 진행</h5>
-                        <div class="slist">
-                            <div class="si" onclick="goTo('sec-goal')">
-                                <div class="dot sd">1</div>?�습목표
-                            </div>
-                            <div class="si" onclick="goTo('sec-concept')">
-                                <div class="dot">2</div>개념?�명
-                            </div>
-                            <div class="si" onclick="goTo('sec-activity')">
-                                <div class="dot sa">??/div>?�행 ?�동
-                            </div>
-                            <div class="si" onclick="goTo('sec-assess')">
-                                <div class="dot">4</div>?�행?��?
-                            </div>
-                            <div class="si" onclick="goTo('sec-review')">
-                                <div class="dot">5</div>?�인?�기
-                            </div>
-                        </div>
-                    </div>
-                    <div class="ap" style="background:var(--ult);border-color:var(--umd)">
-                        <h5 style="color:var(--u)">?�원 진도</h5>
-                        <div style="display:flex;align-items:center;gap:7px">
-                            <div class="pbtrack" style="flex:1">
-                                <div class="pbfill" style="width:8%"></div>
-                            </div><span style="font-size:11px;font-weight:600;color:var(--u)">1/6</span>
-                        </div>
-                    </div>
-                    <div class="ap">
-                        <h5>?�심 ?�어</h5>
-                        <div class="termlist">
-                            <div class="tterm"><span class="tw">컴퓨???�스??/span><span class="tdef">HW+SW 결합 ?�치</span>
-                            </div>
-                            <div class="tterm"><span class="tw">?�드?�어</span><span class="tdef">물리???�자?�치</span></div>
-                            <div class="tterm"><span class="tw">?�프?�웨??/span><span class="tdef">명령?�·데?�터 집합</span></div>
-                            <div class="tterm"><span class="tw">?�영 체제</span><span class="tdef">?�스??SW, 중개 ??��</span>
-                            </div>
-                            <div class="tterm"><span class="tw">SoC</span><span class="tdef">CPU+GPU ?�합 �?/span></div>
-                        </div>
-                    </div>
-                    <div class="ap" style="background:#F0FDF4;border-color:#BBF7D0">
-                        <h5 style="color:#166534">?�� 마이?�로비트</h5>
-                        <a href="https://makecode.microbit.org" target="_blank" class="btn bsm"
-                            style="width:100%;justify-content:center;background:#0078D4;color:#fff;border-color:#005A9E;margin-bottom:5px">MakeCode
-                            ?�기 ??/a>
-                        <a href="https://makecode.microbit.org/#editor" target="_blank" class="btn bsm"
-                            style="width:100%;justify-content:center;font-size:10px;color:var(--mt)">?��??�이????/a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
-    <div id="toast"></div>
-    <script>
-
-        // ?�?� Google Sheets ?�???�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�
-        var GS_URL = 'https://script.google.com/macros/s/AKfycbwOMGuuboaYzZCHvIQpu3V_Lo-Fu02CiY4nj1BDktSinJM41H_EqAkulbcUsC-2Sxt6/exec';
-        var LESSON_KEY = 'l11';
-        var UNIT_ID = 'I';
-        var LESSON_NAME = '컴퓨???�스?�의 구성�??�작 ?�리';
-
-        function getUserName() {
-            return localStorage.getItem('user_name') || '?�명';
-        }
-
-        function postToSheets(payload) {
-            if (!GS_URL || GS_URL === 'https://script.google.com/macros/s/AKfycbwOMGuuboaYzZCHvIQpu3V_Lo-Fu02CiY4nj1BDktSinJM41H_EqAkulbcUsC-2Sxt6/exec') return;
-            fetch(GS_URL, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            }).catch(function () { });
-        }
-
-
-        function toast(m) { var t = document.getElementById('toast'); t.textContent = m; t.style.opacity = '1'; t.style.transform = 'translateX(-50%) translateY(0)'; clearTimeout(t._t); t._t = setTimeout(function () { t.style.opacity = '0'; t.style.transform = 'translateX(-50%) translateY(10px)'; }, 2400); }
-        function toggleSec(id) { var e = document.getElementById(id); if (e) e.classList.toggle('collapsed'); }
-        function goTo(id) { var e = document.getElementById(id); if (!e) return; window.scrollTo({ top: e.getBoundingClientRect().top + window.pageYOffset - 64, behavior: 'smooth' }); }
-        function checkQ(el, ok, msg) { 
-            el.closest('.qopts').querySelectorAll('.opt').forEach(function (o) { o.classList.add('locked'); }); 
-            el.classList.add(ok ? 'correct' : 'wrong'); 
-            var fb = el.closest('.qwrap').querySelector('.qfb'); 
-            if (fb) { fb.className = 'qfb ' + (ok ? 'ok' : 'err'); fb.innerHTML = (ok ? '???�답: ' : '???�트: ') + msg; } 
-            
-            // ?�즈 결과 ?�??            saveQuizResult();
-        }
-
-        function saveQuizResult() {
-            var correct = document.querySelectorAll('.opt.correct').length;
-            var total = document.querySelectorAll('.qwrap').length;
-            var score = { correct: correct, total: total, ratio: Math.round((correct/total)*100) };
-            localStorage.setItem(LESSON_KEY + '_quiz', JSON.stringify(score));
-            
-            postToSheets({
-                type: 'quiz',
-                userName: getUserName(),
-                unit: UNIT_ID,
-                lessonKey: LESSON_KEY,
-                lessonName: LESSON_NAME,
-                score: score
-            });
-        }
-        function saveSC() {
-            var key = LESSON_KEY + '_sc';
-            var d = {};
-            document.querySelectorAll('.scitem select').forEach(function (s, i) { d['q' + i] = s.value; });
-            try {
-                localStorage.setItem(key, JSON.stringify(d));
-                postToSheets({
-                    type: 'sc',
-                    userName: getUserName(),
-                    unit: UNIT_ID,
-                    lessonKey: LESSON_KEY,
-                    lessonName: LESSON_NAME,
-                    answers: d
-                });
-                toast('?�기?��?가 ?�?�되?�습?�다 ??);
-            } catch (e) { }
-        }
-        function loadSC(key) { try { var d = JSON.parse(localStorage.getItem(key) || '{}'); document.querySelectorAll('.scitem select').forEach(function (s, i) { if (d['q' + i]) s.value = d['q' + i]; }); } catch (e) { } }
-        function markDone() {
-            try {
-                var doneMap = JSON.parse(localStorage.getItem('units_done') || '{}');
-                doneMap[LESSON_KEY] = true;
-                localStorage.setItem('units_done', JSON.stringify(doneMap));
-                
-                postToSheets({
-                    type: 'done',
-                    userName: getUserName(),
-                    unit: UNIT_ID,
-                    lessonKey: LESSON_KEY,
-                    lessonName: LESSON_NAME
-                });
-                toast('???�습 ?�료 ?�시?�었?�니??');
-            } catch (e) { }
-        }
-        function saveActivity() {
-            var key = LESSON_KEY + '_act';
-            var d = {};
-            document.querySelectorAll('.act-input').forEach(function (el, i) { d['a' + i] = el.value; });
-            document.querySelectorAll('.peer-check input[type=radio]:checked').forEach(function (el) { d['r_' + el.name] = el.value; });
-            try {
-                localStorage.setItem(key, JSON.stringify(d));
-                postToSheets({
-                    type: 'act',
-                    userName: getUserName(),
-                    unit: UNIT_ID,
-                    lessonKey: LESSON_KEY,
-                    lessonName: LESSON_NAME,
-                    answers: d
-                });
-                toast('???�행 ?�동???�?�되?�습?�다!');
-            } catch (e) { }
-        }
-        document.addEventListener('DOMContentLoaded', function () { 
-            loadSC(LESSON_KEY + '_sc'); 
-            loadActivity(LESSON_KEY + '_act'); 
-        });
-    </script>
-</body>
-
+﻿<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>I-1. 컴퓨팅 시스템의 구성과 동작 원리 — 정보 교과</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        html {
+            scroll-behavior: smooth
+        }
+
+        body {
+            font-family: 'Noto Sans KR', -apple-system, sans-serif;
+            background: #F5F4F0;
+            color: #1C1C1C;
+            font-size: 14px;
+            line-height: 1.65;
+            display: flex;
+            min-height: 100vh
+        }
+
+        :root {
+            --u: #6C65CC;
+            --udk: #4E48A8;
+            --ult: #ECEAFE;
+            --umd: #C8C4F0;
+            --bg: #F5F4F0;
+            --sf: #FFF;
+            --br: #E2DFD6;
+            --tx: #1C1C1C;
+            --mt: #696760;
+            --lt: #A8A59E;
+            --green: #2A720E;
+            --gbg: #E8F3DC;
+            --amber: #7A4E0A;
+            --abg: #FAF0DC;
+            --red: #8C1E0E;
+            --rbg: #FAEBE6;
+            --blue: #0A4E8C;
+            --bbg: #E4F0FA;
+            --rLG: 14px;
+            --rSM: 8px;
+            --SW: 240px;
+            --TH: 52px
+        }
+
+        .sb {
+            width: var(--SW);
+            background: var(--sf);
+            border-right: 1px solid var(--br);
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            z-index: 100
+        }
+
+        .sb-top {
+            padding: 16px 14px 12px;
+            border-bottom: 1px solid var(--br)
+        }
+
+        .uchip {
+            display: inline-flex;
+            align-items: center;
+            background: var(--ult);
+            color: var(--u);
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            padding: 3px 9px;
+            border-radius: 20px;
+            margin-bottom: 6px
+        }
+
+        .sb-top h2 {
+            font-size: 12px;
+            font-weight: 700;
+            line-height: 1.4
+        }
+
+        .smeta {
+            font-size: 10px;
+            color: var(--lt);
+            margin-top: 3px
+        }
+
+        .sb-nav {
+            padding: 4px 0;
+            flex: 1
+        }
+
+        .nlbl {
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            color: var(--lt);
+            padding: 7px 13px 3px
+        }
+
+        .na {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 7px 13px;
+            font-size: 11px;
+            color: var(--mt);
+            text-decoration: none;
+            border-left: 2.5px solid transparent;
+            transition: background .12s
+        }
+
+        .na:hover {
+            background: var(--bg);
+            color: var(--tx)
+        }
+
+        .na.on {
+            color: var(--u);
+            font-weight: 600;
+            background: var(--ult);
+            border-left-color: var(--u)
+        }
+
+        .na.done .nn {
+            background: var(--gbg);
+            color: var(--green)
+        }
+
+        .nn {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--br);
+            font-size: 9px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            color: var(--mt)
+        }
+
+        .na.on .nn {
+            background: var(--u);
+            color: #fff
+        }
+
+        .nbadge {
+            margin-left: auto;
+            font-size: 9px;
+            color: var(--lt);
+            background: var(--bg);
+            border: 1px solid var(--br);
+            padding: 1px 5px;
+            border-radius: 10px;
+            white-space: nowrap
+        }
+
+        .sb-foot {
+            padding: 10px 13px;
+            border-top: 1px solid var(--br)
+        }
+
+        .ba {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            color: var(--mt);
+            text-decoration: none;
+            padding: 5px 9px;
+            border-radius: var(--rSM);
+            border: 1px solid var(--br);
+            background: var(--sf);
+            transition: all .12s
+        }
+
+        .ba:hover {
+            background: var(--bg)
+        }
+
+        .main {
+            margin-left: var(--SW);
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            min-width: 0
+        }
+
+        .topbar {
+            background: var(--sf);
+            border-bottom: 1px solid var(--br);
+            height: var(--TH);
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            position: sticky;
+            top: 0;
+            z-index: 90
+        }
+
+        .bc {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 12px;
+            color: var(--mt);
+            flex: 1
+        }
+
+        .bc a {
+            color: var(--mt);
+            text-decoration: none
+        }
+
+        .bc a:hover {
+            color: var(--tx)
+        }
+
+        .bcsep {
+            color: var(--br)
+        }
+
+        .bccur {
+            color: var(--tx);
+            font-weight: 500
+        }
+
+        .tbr {
+            display: flex;
+            align-items: center;
+            gap: 6px
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 6px 12px;
+            border-radius: var(--rSM);
+            font-size: 12px;
+            font-family: inherit;
+            font-weight: 500;
+            cursor: pointer;
+            border: 1px solid var(--br);
+            background: var(--sf);
+            color: var(--tx);
+            text-decoration: none;
+            transition: background .12s;
+            white-space: nowrap
+        }
+
+        .btn:hover {
+            background: var(--bg)
+        }
+
+        .bsm {
+            padding: 5px 9px;
+            font-size: 11px
+        }
+
+        .bp {
+            background: var(--u);
+            color: #fff;
+            border-color: var(--u)
+        }
+
+        .bp:hover {
+            background: var(--udk)
+        }
+
+        .bok {
+            background: var(--green);
+            color: #fff;
+            border-color: var(--green)
+        }
+
+        .page {
+            padding: 20px 22px;
+            flex: 1
+        }
+
+        .g2 {
+            display: grid;
+            grid-template-columns: 1fr minmax(0, 248px);
+            gap: 16px;
+            align-items: start
+        }
+
+        .cm {
+            min-width: 0
+        }
+
+        .ca {
+            position: sticky;
+            top: calc(var(--TH)+12px)
+        }
+
+        .card {
+            background: var(--sf);
+            border: 1px solid var(--br);
+            border-radius: var(--rLG);
+            margin-bottom: 11px;
+            overflow: hidden
+        }
+
+        .ch {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            padding: 12px 16px;
+            cursor: pointer;
+            border-bottom: 1px solid var(--br);
+            transition: background .12s;
+            user-select: none
+        }
+
+        .ch:hover {
+            background: var(--bg)
+        }
+
+        .sn {
+            width: 26px;
+            height: 26px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 800;
+            flex-shrink: 0
+        }
+
+        .ch h3 {
+            font-size: 13px;
+            font-weight: 600;
+            flex: 1
+        }
+
+        .st {
+            font-size: 10px;
+            color: var(--lt);
+            background: var(--bg);
+            border: 1px solid var(--br);
+            padding: 2px 7px;
+            border-radius: 20px;
+            white-space: nowrap
+        }
+
+        .carr {
+            font-size: 11px;
+            color: var(--lt);
+            transition: transform .2s
+        }
+
+        .card.collapsed .carr {
+            transform: rotate(-90deg)
+        }
+
+        .cb {
+            padding: 18px
+        }
+
+        .card.collapsed .cb {
+            display: none
+        }
+
+        .ach {
+            background: var(--ult);
+            border: 1px solid var(--umd);
+            border-radius: var(--rSM);
+            padding: 10px 13px;
+            margin-bottom: 14px
+        }
+
+        .ach-c {
+            font-family: monospace;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--u);
+            margin-bottom: 3px
+        }
+
+        .ach-t {
+            font-size: 13px;
+            line-height: 1.6
+        }
+
+        .glist {
+            list-style: none
+        }
+
+        .glist li {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            padding: 6px 0;
+            font-size: 13px;
+            border-bottom: 1px solid var(--br);
+            line-height: 1.6
+        }
+
+        .glist li:last-child {
+            border-bottom: none
+        }
+
+        .gck {
+            width: 17px;
+            height: 17px;
+            border-radius: 50%;
+            background: var(--gbg);
+            color: var(--green);
+            font-size: 9px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 2px
+        }
+
+        .ctags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-bottom: 12px
+        }
+
+        .ctag {
+            font-size: 11px;
+            padding: 3px 10px;
+            background: var(--bg);
+            border: 1px solid var(--br);
+            border-radius: 20px;
+            cursor: pointer;
+            color: var(--mt);
+            transition: all .12s
+        }
+
+        .ctag:hover {
+            background: var(--ult);
+            border-color: var(--umd);
+            color: var(--u)
+        }
+
+        .ibox {
+            display: flex;
+            align-items: flex-start;
+            gap: 9px;
+            padding: 10px 13px;
+            border-radius: var(--rSM);
+            font-size: 12px;
+            line-height: 1.6;
+            margin-top: 10px
+        }
+
+        .prev {
+            background: var(--bg);
+            border: 1px solid var(--br);
+            color: var(--mt)
+        }
+
+        .warn {
+            background: #FFFBEC;
+            border: 1px solid #EDD070;
+            color: #6A5000
+        }
+
+        .info {
+            background: var(--bbg);
+            border: 1px solid #BACED8;
+            color: var(--blue)
+        }
+
+        .ok {
+            background: var(--gbg);
+            border: 1px solid #BFDFAA;
+            color: var(--green)
+        }
+
+        .divl {
+            height: 1px;
+            background: var(--br);
+            margin: 13px 0
+        }
+
+        .crow {
+            display: grid;
+            grid-template-columns: 1fr minmax(0, 148px);
+            gap: 13px;
+            align-items: start;
+            margin-bottom: 13px
+        }
+
+        .ct h4 {
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 7px
+        }
+
+        .ct p {
+            font-size: 13px;
+            color: var(--mt);
+            line-height: 1.75
+        }
+
+        .ct ul {
+            padding-left: 1rem;
+            margin-top: 5px
+        }
+
+        .ct ul li {
+            font-size: 13px;
+            color: var(--mt);
+            margin-bottom: 3px;
+            line-height: 1.6
+        }
+
+        .cvis {
+            background: var(--bg);
+            border: 1px solid var(--br);
+            border-radius: var(--rSM);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px
+        }
+
+        /* ── 수행활동 (해보기) ── */
+        .activity {
+            background: linear-gradient(135deg, var(--ult), #F5F4FF);
+            border: 2px solid var(--umd);
+            border-radius: var(--rLG);
+            margin-bottom: 11px;
+            overflow: hidden
+        }
+
+        .act-head {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            padding: 12px 16px;
+            border-bottom: 1.5px solid var(--umd);
+            background: var(--ult);
+            cursor: pointer;
+            user-select: none
+        }
+
+        .act-head:hover {
+            background: #E4E0FC
+        }
+
+        .act-badge {
+            background: var(--u);
+            color: #fff;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 20px;
+            white-space: nowrap
+        }
+
+        .act-head h3 {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--udk);
+            flex: 1
+        }
+
+        .act-body {
+            padding: 18px
+        }
+
+        .act-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 10px 12px;
+            background: var(--sf);
+            border: 1px solid var(--br);
+            border-radius: var(--rSM);
+            margin-bottom: 8px;
+            min-height: 160px;
+        }
+
+        .act-num {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: var(--u);
+            color: #fff;
+            font-size: 10px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            flex: none;
+            margin-top: 1px
+        }
+
+        .act-step h4 {
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 4px
+        }
+
+        .act-step p {
+            font-size: 12px;
+            color: var(--mt);
+            line-height: 1.65
+        }
+
+        .act-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+            margin-top: 8px
+        }
+
+        .act-table th {
+            background: var(--u);
+            color: #fff;
+            padding: 7px 10px;
+            font-weight: 600;
+            font-size: 11px;
+            text-align: left
+        }
+
+        .act-table td {
+            padding: 8px 10px;
+            border-bottom: 1px solid var(--br);
+            color: var(--mt);
+            vertical-align: top;
+            line-height: 1.55
+        }
+
+        .act-table tr:last-child td {
+            border-bottom: none
+        }
+
+        .act-input {
+            width: 100%;
+            padding: 8px 10px;
+            border: 1.5px solid var(--br);
+            border-radius: var(--rSM);
+            font-size: 12px;
+            font-family: inherit;
+            background: var(--sf);
+            outline: none;
+            resize: vertical;
+            min-height: 88px;
+            margin-top: 4px
+        }
+
+        .act-input:focus {
+            border-color: var(--u)
+        }
+
+        /* ── 마이크로비트 블록 ── */
+        .mb-workspace {
+            background: #1e1e2e;
+            border-radius: var(--rSM);
+            padding: 14px;
+            margin: 8px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 5px
+        }
+
+        .mb-row {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            flex-wrap: wrap
+        }
+
+        .mb-indent {
+            margin-left: 22px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            flex-wrap: wrap
+        }
+
+        .mb-indent2 {
+            margin-left: 44px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            flex-wrap: wrap
+        }
+
+        .mb {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 6px 11px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-family: 'Courier New', monospace;
+            font-weight: 700;
+            color: #fff;
+            cursor: default
+        }
+
+        .mb-hole {
+            display: inline-block;
+            background: rgba(255, 255, 255, .2);
+            border-radius: 3px;
+            padding: 1px 7px;
+            font-size: 10px;
+            min-width: 20px;
+            text-align: center
+        }
+
+        .mb-start {
+            background: #FF8C00;
+            box-shadow: 0 3px 0 #B85A00
+        }
+
+        .mb-motion {
+            background: #4A7ED9;
+            box-shadow: 0 3px 0 #2A50A0
+        }
+
+        .mb-led {
+            background: #9B59B6;
+            box-shadow: 0 3px 0 #6C3483
+        }
+
+        .mb-input {
+            background: #F39C12;
+            box-shadow: 0 3px 0 #C07000
+        }
+
+        .mb-logic {
+            background: #E74C3C;
+            box-shadow: 0 3px 0 #A01010
+        }
+
+        .mb-loop {
+            background: #27AE60;
+            box-shadow: 0 3px 0 #1A7A40
+        }
+
+        .mb-var {
+            background: #3498DB;
+            box-shadow: 0 3px 0 #1A5A9A
+        }
+
+        .mb-music {
+            background: #E91E63;
+            box-shadow: 0 3px 0 #880033
+        }
+
+        .mb-radio {
+            background: #00BCD4;
+            box-shadow: 0 3px 0 #007A88
+        }
+
+        .mb-sensor {
+            background: #FF6B35;
+            box-shadow: 0 3px 0 #C04010
+        }
+
+        /* ── quiz ── */
+        .qwrap {
+            background: var(--bg);
+            border: 1px solid var(--br);
+            border-radius: var(--rSM);
+            padding: 14px;
+            margin-top: 13px
+        }
+
+        .qq {
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 11px;
+            line-height: 1.55
+        }
+
+        .qopts {
+            display: flex;
+            flex-direction: column;
+            gap: 7px
+        }
+
+        .opt {
+            display: flex;
+            align-items: flex-start;
+            gap: 9px;
+            padding: 10px 12px;
+            background: var(--sf);
+            border: 1.5px solid var(--br);
+            border-radius: var(--rSM);
+            cursor: pointer;
+            font-size: 13px;
+            line-height: 1.5;
+            transition: all .12s
+        }
+
+        .opt:hover {
+            border-color: var(--u);
+            background: var(--ult)
+        }
+
+        .opt.correct {
+            border-color: #4A9020;
+            background: var(--gbg);
+            color: #1A5000;
+            pointer-events: none
+        }
+
+        .opt.wrong {
+            border-color: #B03020;
+            background: var(--rbg);
+            color: #6A1000;
+            pointer-events: none
+        }
+
+        .opt.locked {
+            pointer-events: none;
+            opacity: .55
+        }
+
+        .onum {
+            width: 21px;
+            height: 21px;
+            border-radius: 50%;
+            background: var(--br);
+            font-size: 11px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0
+        }
+
+        .opt.correct .onum {
+            background: #4A9020;
+            color: #fff
+        }
+
+        .opt.wrong .onum {
+            background: #B03020;
+            color: #fff
+        }
+
+        .qfb {
+            display: none;
+            margin-top: 9px;
+            padding: 10px 13px;
+            border-radius: var(--rSM);
+            font-size: 12px;
+            line-height: 1.6
+        }
+
+        .qfb.ok {
+            display: block;
+            background: var(--gbg);
+            border: 1px solid #BFDFAA;
+            color: var(--green)
+        }
+
+        .qfb.err {
+            display: block;
+            background: var(--rbg);
+            border: 1px solid #F0B8A0;
+            color: var(--red)
+        }
+
+        /* ── assess ── */
+        .rub {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+            margin-bottom: 12px
+        }
+
+        .rub th {
+            background: var(--bg);
+            padding: 7px 8px;
+            font-weight: 600;
+            border-bottom: 1.5px solid var(--br);
+            text-align: left;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: .04em;
+            color: var(--mt)
+        }
+
+        .rub td {
+            padding: 8px;
+            border-bottom: 1px solid var(--br);
+            color: var(--mt);
+            vertical-align: top;
+            line-height: 1.5
+        }
+
+        .rub tr:last-child td {
+            border-bottom: none
+        }
+
+        .lv4 {
+            color: #1A6000 !important;
+            font-weight: 500
+        }
+
+        .lv3 {
+            color: #2A6830 !important
+        }
+
+        .lv2 {
+            color: #7A4E00 !important
+        }
+
+        .lv1 {
+            color: #8A2000 !important
+        }
+
+        .peer-check {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 11px;
+            margin-top: 10px
+        }
+
+        .peer-check th {
+            background: var(--ult);
+            padding: 6px 9px;
+            font-weight: 600;
+            border-bottom: 1.5px solid var(--umd);
+            text-align: center;
+            color: var(--u);
+            font-size: 10px
+        }
+
+        .peer-check td {
+            padding: 7px 9px;
+            border-bottom: 1px solid var(--br);
+            color: var(--mt);
+            text-align: center
+        }
+
+        .peer-check td:first-child {
+            text-align: left;
+            font-size: 11px
+        }
+
+        .peer-check input[type=radio] {
+            accent-color: var(--u)
+        }
+
+        /* ── sidebar ── */
+        .ap {
+            background: var(--sf);
+            border: 1px solid var(--br);
+            border-radius: var(--rLG);
+            padding: 13px;
+            margin-bottom: 10px
+        }
+
+        .ap h5 {
+            font-size: 9px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .1em;
+            color: var(--lt);
+            margin-bottom: 8px
+        }
+
+        .slist {
+            display: flex;
+            flex-direction: column;
+            gap: 3px
+        }
+
+        .si {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            padding: 6px 8px;
+            border-radius: var(--rSM);
+            font-size: 11px;
+            color: var(--mt);
+            cursor: pointer;
+            transition: background .12s
+        }
+
+        .si:hover {
+            background: var(--bg)
+        }
+
+        .dot {
+            width: 19px;
+            height: 19px;
+            border-radius: 50%;
+            background: var(--br);
+            color: var(--lt);
+            font-size: 9px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0
+        }
+
+        .dot.sa {
+            background: var(--u);
+            color: #fff
+        }
+
+        .dot.sd {
+            background: var(--gbg);
+            color: var(--green)
+        }
+
+        .sclist {
+            display: flex;
+            flex-direction: column;
+            gap: 4px
+        }
+
+        .scitem {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            padding: 8px 10px;
+            background: var(--bg);
+            border-radius: var(--rSM);
+            font-size: 12px;
+            border: 1px solid var(--br)
+        }
+
+        .scitem label {
+            flex: 1;
+            line-height: 1.5
+        }
+
+        .scitem select {
+            font-size: 11px;
+            padding: 3px 6px;
+            border: 1px solid var(--br);
+            border-radius: 5px;
+            background: var(--sf);
+            font-family: inherit;
+            color: var(--tx);
+            cursor: pointer;
+            flex-shrink: 0
+        }
+
+        .sgrid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 7px;
+            margin-bottom: 12px
+        }
+
+        .scard {
+            background: var(--bg);
+            border: 1px solid var(--br);
+            border-radius: var(--rSM);
+            padding: 11px 12px;
+            font-size: 12px;
+            line-height: 1.65;
+            color: var(--mt)
+        }
+
+        .scard strong {
+            display: block;
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: .07em;
+            color: var(--lt);
+            margin-bottom: 4px
+        }
+
+        .termlist {
+            display: flex;
+            flex-direction: column
+        }
+
+        .tterm {
+            display: flex;
+            align-items: baseline;
+            gap: 5px;
+            padding: 4px 0;
+            font-size: 11px;
+            border-bottom: 1px solid var(--br)
+        }
+
+        .tterm:last-child {
+            border-bottom: none
+        }
+
+        .tw {
+            font-weight: 600;
+            color: var(--u);
+            white-space: nowrap
+        }
+
+        .tdef {
+            color: var(--mt)
+        }
+
+        .pbtrack {
+            height: 5px;
+            background: var(--umd);
+            border-radius: 3px;
+            overflow: hidden
+        }
+
+        .pbfill {
+            height: 100%;
+            background: var(--u);
+            border-radius: 3px
+        }
+
+        #toast {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%) translateY(10px);
+            background: #1C1C1C;
+            color: #fff;
+            padding: 9px 18px;
+            border-radius: 10px;
+            font-size: 12px;
+            font-family: inherit;
+            z-index: 9999;
+            opacity: 0;
+            transition: opacity .2s, transform .2s;
+            pointer-events: none;
+            white-space: nowrap
+        }
+
+        /* ══ 반응형 레이아웃 ══ */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box
+        }
+
+        img,
+        canvas,
+        video {
+            max-width: 100%;
+            height: auto;
+            display: block
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse
+        }
+
+        .act-table,
+        .peer-check,
+        .rub {
+            table-layout: fixed;
+            word-break: break-word
+        }
+
+        .act-table td,
+        .act-table th,
+        .rub td,
+        .rub th,
+        .peer-check td,
+        .peer-check th {
+            min-width: 44px;
+            word-break: break-word;
+            overflow-wrap: break-word
+        }
+
+        .act-step>div:not(.act-num) {
+            min-width: 0;
+            flex: 1;
+            overflow-wrap: break-word;
+            word-break: break-word
+        }
+
+        .act-body,
+        .cb {
+            overflow-x: hidden
+        }
+
+        .act-input {
+            width: 100%;
+            box-sizing: border-box
+        }
+
+        .mb-workspace,
+        .mb-row,
+        .mb-indent,
+        .mb-indent2 {
+            flex-wrap: wrap
+        }
+
+        .sim-wrap {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch
+        }
+
+        /* 1100px 이하 */
+        @media(max-width:1100px) {
+            .g2 {
+                grid-template-columns: 1fr
+            }
+
+            .ca {
+                position: static;
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 10px;
+                margin-top: 12px
+            }
+
+            .ca .ap {
+                flex: 1 1 220px;
+                min-width: 180px
+            }
+
+            .crow {
+                grid-template-columns: 1fr
+            }
+
+            .sgrid {
+                grid-template-columns: 1fr 1fr
+            }
+        }
+
+        /* 900px 이하 */
+        @media(max-width:900px) {
+            .ca {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 8px;
+                margin-top: 10px
+            }
+
+            .ca .ap {
+                flex: 1 1 180px;
+                min-width: 160px
+            }
+
+            .page {
+                padding: 16px 14px
+            }
+
+            .cb,
+            .act-body {
+                padding: 13px
+            }
+
+            .sgrid {
+                grid-template-columns: 1fr 1fr
+            }
+
+            .crow {
+                grid-template-columns: 1fr
+            }
+        }
+
+        /* 640px 이하 */
+        @media(max-width:640px) {
+            .page {
+                padding: 11px 10px
+            }
+
+            .cb,
+            .act-body {
+                padding: 10px
+            }
+
+            .sgrid {
+                grid-template-columns: 1fr
+            }
+
+            .act-step {
+                flex-direction: column;
+                gap: 5px
+            }
+
+            .act-num {
+                margin-bottom: 0
+            }
+
+            .ch h3 {
+                font-size: 12px
+            }
+
+            .btn {
+                font-size: 11px;
+                padding: 5px 8px
+            }
+
+            .act-table td,
+            .act-table th {
+                padding: 5px 6px;
+                font-size: 11px
+            }
+
+            .rub td,
+            .rub th {
+                padding: 5px 6px;
+                font-size: 11px
+            }
+
+            .peer-check td,
+            .peer-check th {
+                padding: 5px 6px;
+                font-size: 10px
+            }
+
+            .scard {
+                font-size: 11px
+            }
+
+            .opt {
+                font-size: 12px;
+                padding: 8px 10px
+            }
+
+            .mb,
+            .mb-hole {
+                font-size: 10px;
+                padding: 4px 7px
+            }
+        }
+
+        /* 480px 이하 */
+        @media(max-width:480px) {
+            :root {
+                --SW: 0px
+            }
+
+            .sb {
+                display: none
+            }
+
+            .main {
+                margin-left: 0
+            }
+
+            .topbar {
+                padding: 0 10px
+            }
+
+            .page {
+                padding: 8px 9px
+            }
+
+            .cb,
+            .act-body {
+                padding: 9px
+            }
+
+            .tbr .btn:last-child {
+                display: none
+            }
+
+            .sgrid {
+                grid-template-columns: 1fr
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <aside class="sb">
+        <div class="sb-top">
+            <div class="uchip">◈ Unit I</div>
+            <h2>컴퓨팅 시스템</h2>
+            <div class="smeta">중단원1: 컴퓨팅 시스템과 피지컬 컴퓨팅 · p.9~12</div>
+        </div>
+        <nav class="sb-nav">
+            <div class="nlbl">소단원 목록</div><a class="na on" href="../lesson-01/index.html">
+                <div class="nn">1</div>컴퓨팅 시스템의 구성과 동작 원리<span class="nbadge">1차시</span>
+            </a>
+            <a class="na " href="../lesson-02/index.html">
+                <div class="nn">2</div>피지컬 컴퓨팅 시스템의 이해
+            </a>
+            <a class="na " href="../lesson-03/index.html">
+                <div class="nn">3</div>운동 횟수 표시 장치 만들기
+            </a>
+            <a class="na " href="../lesson-04/index.html">
+                <div class="nn">4</div>수면 온도 알림이 장치 만들기
+            </a>
+            <a class="na " href="../lesson-05/index.html">
+                <div class="nn">5</div>소리에 반응하는 애니메이션 장치 만들기
+            </a>
+            <a class="na " href="../lesson-06/index.html">
+                <div class="nn">6</div>이심전심 게임 장치 만들기
+            </a>
+        </nav>
+        <div class="sb-foot"><a class="ba" href="https://sungce.github.io/lesson/">← 정보 교과 학습 플랫폼</a></div>
+    </aside>
+    <main class="main">
+        <header class="topbar">
+            <div class="bc"><a href="https://sungce.github.io/lesson/">정보 교과 학습 플랫폼</a><span class="bcsep">›</span><a
+                    href="../../index.html">I. 컴퓨팅 시스템</a><span class="bcsep">›</span><span class="bccur">1. 컴퓨팅 시스템의
+                    구성과 동작 원리</span></div>
+            <div class="tbr">
+                <button class="btn bsm" onclick="markDone('01')">✓ 완료 표시</button>
+                <a class="btn bsm bp" href="../lesson-02/index.html">다음 소단원 →</a>
+            </div>
+        </header>
+        <div class="page">
+            <div class="g2">
+                <div class="cm">
+
+                    <div class="card" id="sec-goal">
+                        <div class="ch" onclick="toggleSec('sec-goal')">
+                            <div class="sn" style="background:var(--ult);color:var(--u)">01</div>
+                            <h3>학습목표</h3><span class="st">⏱ 5분</span><span class="carr">▾</span>
+                        </div>
+                        <div class="cb">
+                            <div class="ach">
+                                <div class="ach-c">[9정01-01] 컴퓨팅 시스템과 피지컬 컴퓨팅</div>
+                                <div class="ach-t">컴퓨팅 시스템의 구성 요소와 동작 원리를 설명하고, 운영 체제의 기능을 분석할 수 있다. (교과서 pp.9~12)</div>
+                            </div>
+                            <ul class="glist">
+                                <li>
+                                    <div class="gck">✓</div>컴퓨팅 시스템의 개념을 설명하고 생활 속 사례를 찾을 수 있다.
+                                </li>
+                                <li>
+                                    <div class="gck">✓</div>하드웨어(입력·처리·기억·출력·통신)와 소프트웨어를 구분하여 설명할 수 있다.
+                                </li>
+                                <li>
+                                    <div class="gck">✓</div>운영 체제의 역할과 컴퓨팅 시스템의 동작 원리를 분석할 수 있다.
+                                </li>
+                            </ul>
+                            <div class="divl"></div>
+                            <div class="ctags">
+                                <span class="ctag" onclick="goTo('sec-concept')">컴퓨팅 시스템</span>
+                                <span class="ctag" onclick="goTo('sec-concept')">하드웨어</span>
+                                <span class="ctag" onclick="goTo('sec-concept')">소프트웨어</span>
+                                <span class="ctag" onclick="goTo('sec-concept')">운영 체제</span>
+                            </div>
+                            <div class="ibox prev">📌 <b>단원 시작:</b> 우리 생활 속 스마트폰·노트북·스마트 칠판은 모두 컴퓨팅 시스템입니다. 이번 단원에서 구성
+                                원리와 피지컬 컴퓨팅까지 탐구합니다.</div>
+                        </div>
+                    </div>
+
+                    <div class="card" id="sec-concept">
+                        <div class="ch" onclick="toggleSec('sec-concept')">
+                            <div class="sn" style="background:var(--gbg);color:var(--green)">02</div>
+                            <h3>개념설명</h3><span class="st">⏱ 20분</span><span class="carr">▾</span>
+                        </div>
+                        <div class="cb">
+                            <h4 style="font-size:13px;font-weight:700;margin-bottom:9px">① 컴퓨팅 시스템이란?</h4>
+                            <p style="font-size:13px;color:var(--mt);line-height:1.75;margin-bottom:12px">소프트웨어와 하드웨어가
+                                <strong>유기적으로 결합</strong>하여 문제 해결에 활용되는 장치. 스마트폰·노트북·신호등 시스템·인공지능 스피커 등이 모두 컴퓨팅 시스템입니다.
+                            </p>
+                            <div class="divl"></div>
+                            <h4 style="font-size:13px;font-weight:700;margin-bottom:9px">② 하드웨어 5가지 장치</h4>
+                            <div style="overflow-x:auto;margin-bottom:12px">
+                                <table style="width:100%;border-collapse:collapse;font-size:12px">
+                                    <thead>
+                                        <tr style="background:var(--u)">
+                                            <th style="padding:8px 10px;color:#fff;font-size:11px">장치</th>
+                                            <th style="padding:8px 10px;color:#fff;font-size:11px">역할</th>
+                                            <th style="padding:8px 10px;color:#fff;font-size:11px">컴퓨터 예</th>
+                                            <th style="padding:8px 10px;color:#fff;font-size:11px">스마트기기 예</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td
+                                                style="padding:7px 10px;border-bottom:1px solid var(--br);font-weight:600;color:var(--u)">
+                                                입력 장치</td>
+                                            <td
+                                                style="padding:7px 10px;border-bottom:1px solid var(--br);color:var(--mt)">
+                                                외부 데이터 입력</td>
+                                            <td
+                                                style="padding:7px 10px;border-bottom:1px solid var(--br);color:var(--mt)">
+                                                키보드, 마우스, 웹캠, 마이크</td>
+                                            <td
+                                                style="padding:7px 10px;border-bottom:1px solid var(--br);color:var(--mt)">
+                                                터치스크린, 카메라, 터치 펜</td>
+                                        </tr>
+                                        <tr>
+                                            <td
+                                                style="padding:7px 10px;border-bottom:1px solid var(--br);font-weight:600;color:var(--u)">
+                                                처리 장치</td>
+                                            <td
+                                                style="padding:7px 10px;border-bottom:1px solid var(--br);color:var(--mt)">
+                                                명령어 해석·처리</td>
+                                            <td
+                                                style="padding:7px 10px;border-bottom:1px solid var(--br);color:var(--mt)">
+                                                CPU, GPU</td>
+                                            <td
+                                                style="padding:7px 10px;border-bottom:1px solid var(--br);color:var(--mt)">
+                                                SoC(CPU+GPU 통합)</td>
+                                        </tr>
+                                        <tr>
+                                            <td
+                                                style="padding:7px 10px;border-bottom:1px solid var(--br);font-weight:600;color:var(--u)">
+                                                기억 장치</td>
+                                            <td
+                                                style="padding:7px 10px;border-bottom:1px solid var(--br);color:var(--mt)">
+                                                명령어·데이터 저장</td>
+                                            <td
+                                                style="padding:7px 10px;border-bottom:1px solid var(--br);color:var(--mt)">
+                                                HDD, SSD, RAM, USB</td>
+                                            <td
+                                                style="padding:7px 10px;border-bottom:1px solid var(--br);color:var(--mt)">
+                                                RAM, SD카드</td>
+                                        </tr>
+                                        <tr>
+                                            <td
+                                                style="padding:7px 10px;border-bottom:1px solid var(--br);font-weight:600;color:var(--u)">
+                                                출력 장치</td>
+                                            <td
+                                                style="padding:7px 10px;border-bottom:1px solid var(--br);color:var(--mt)">
+                                                처리 결과 제공</td>
+                                            <td
+                                                style="padding:7px 10px;border-bottom:1px solid var(--br);color:var(--mt)">
+                                                모니터, 스피커, 프린터</td>
+                                            <td
+                                                style="padding:7px 10px;border-bottom:1px solid var(--br);color:var(--mt)">
+                                                디스플레이, 스피커, 진동모터</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding:7px 10px;font-weight:600;color:var(--u)">통신 장치</td>
+                                            <td style="padding:7px 10px;color:var(--mt)">유무선 데이터 송수신</td>
+                                            <td style="padding:7px 10px;color:var(--mt)">랜카드, 무선공유기</td>
+                                            <td style="padding:7px 10px;color:var(--mt)">NFC, 블루투스, Wi-Fi</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="divl"></div>
+                            <h4 style="font-size:13px;font-weight:700;margin-bottom:9px">③ 소프트웨어 구분</h4>
+                            <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:12px">
+                                <div
+                                    style="background:var(--ult);border:1px solid var(--umd);border-radius:var(--rSM);padding:12px">
+                                    <div style="font-size:12px;font-weight:700;color:var(--u);margin-bottom:6px">시스템
+                                        소프트웨어</div>
+                                    <div style="font-size:12px;color:var(--mt);line-height:1.7">하드웨어를 관리·운영하여 응용 소프트웨어가
+                                        동작할 수 있도록 기본 기능 제공<br><b>대표:</b> 운영 체제(OS)<br>• 컴퓨터: Windows, Linux, macOS<br>•
+                                        스마트기기: Android, iOS</div>
+                                </div>
+                                <div
+                                    style="background:var(--gbg);border:1px solid #BFDFAA;border-radius:var(--rSM);padding:12px">
+                                    <div style="font-size:12px;font-weight:700;color:var(--green);margin-bottom:6px">응용
+                                        소프트웨어</div>
+                                    <div style="font-size:12px;color:var(--mt);line-height:1.7">특정 목적에 따라 사용자가 작업할 수 있도록
+                                        도움<br><b>예:</b> 문서작성·사진편집·동영상편집·웹브라우저<br>• 스마트기기: 캘린더 앱, 음악 앱, 메시지 앱</div>
+                                </div>
+                            </div>
+                            <div class="divl"></div>
+                            <h4 style="font-size:13px;font-weight:700;margin-bottom:9px">④ 동영상 재생 앱 실행 과정으로 보는 동작 원리
+                            </h4>
+                            <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-bottom:10px">
+                                <div
+                                    style="text-align:center;padding:10px 6px;background:var(--bbg);border:1px solid #BACED8;border-radius:var(--rSM)">
+                                    <div style="font-size:18px;margin-bottom:4px">🔌</div>
+                                    <div style="font-size:10px;font-weight:700;color:var(--blue)">① 전원 켜기</div>
+                                    <div style="font-size:9px;color:var(--mt);margin-top:3px">하드웨어 검사 → OS 실행</div>
+                                </div>
+                                <div
+                                    style="text-align:center;padding:10px 6px;background:var(--ult);border:1px solid var(--umd);border-radius:var(--rSM)">
+                                    <div style="font-size:18px;margin-bottom:4px">👆</div>
+                                    <div style="font-size:10px;font-weight:700;color:var(--u)">② 입력</div>
+                                    <div style="font-size:9px;color:var(--mt);margin-top:3px">앱 터치 → OS가 감지</div>
+                                </div>
+                                <div
+                                    style="text-align:center;padding:10px 6px;background:var(--abg);border:1px solid #EDD070;border-radius:var(--rSM)">
+                                    <div style="font-size:18px;margin-bottom:4px">⚙️</div>
+                                    <div style="font-size:10px;font-weight:700;color:var(--amber)">③ 처리</div>
+                                    <div style="font-size:9px;color:var(--mt);margin-top:3px">CPU+기억장치로 앱 실행</div>
+                                </div>
+                                <div
+                                    style="text-align:center;padding:10px 6px;background:var(--gbg);border:1px solid #BFDFAA;border-radius:var(--rSM)">
+                                    <div style="font-size:18px;margin-bottom:4px">📡</div>
+                                    <div style="font-size:10px;font-weight:700;color:var(--green)">④ 통신</div>
+                                    <div style="font-size:9px;color:var(--mt);margin-top:3px">통신 장치로 파일 수신</div>
+                                </div>
+                                <div
+                                    style="text-align:center;padding:10px 6px;background:var(--rbg);border:1px solid #F0B8A0;border-radius:var(--rSM)">
+                                    <div style="font-size:18px;margin-bottom:4px">🖥️</div>
+                                    <div style="font-size:10px;font-weight:700;color:var(--red)">⑤ 출력</div>
+                                    <div style="font-size:9px;color:var(--mt);margin-top:3px">디스플레이+스피커로 출력</div>
+                                </div>
+                            </div>
+                            <div class="ibox warn">⚠️ <b>오개념:</b> 운영 체제는 하드웨어가 아닙니다! 소프트웨어(시스템 소프트웨어)입니다. 하드웨어와 사용자 사이에서
+                                중개 역할을 합니다.</div>
+                            <div class="ibox info">📖 <b>교과서 연계:</b> pp.9~12</div>
+                        </div>
+                    </div>
+
+                    <!-- ★ 수행 활동: 해보기 ★ -->
+                    <div class="activity" id="sec-activity">
+                        <div class="act-head" onclick="toggleSec('act-body-01')">
+                            <span class="act-badge">★ 수행 활동</span>
+                            <h3>컴퓨팅 시스템의 동작 원리 분석하기</h3>
+                            <span style="font-size:10px;color:var(--udk);margin-left:auto">개별 활동 | pp.12</span>
+                            <span class="carr" style="color:var(--udk)">▾</span>
+                        </div>
+                        <div id="act-body-01" class="act-body">
+                            <div class="ibox ok" style="margin-top:0;margin-bottom:14px">💡 내가 스마트폰에서 많이 사용하는 앱을 선택하고,
+                                '동영상 재생 앱 실행 과정'처럼 컴퓨팅 시스템의 동작 원리를 분석해봅니다. (교과서 p.12 해보기)</div>
+                            <div class="act-step">
+                                <div class="act-num">1</div>
+                                <div>
+                                    <h4>앱 선택하기</h4>
+                                    <p>내가 자주 사용하는 스마트폰 앱을 1가지 선택하세요.</p>
+                                    <input class="act-input" style="min-height:44px;resize:none"
+                                        placeholder="예) 지도 앱, 음악 스트리밍 앱, 게임 앱, 번역 앱 등...">
+                                </div>
+                            </div>
+                            <div class="act-step">
+                                <div class="act-num">2</div>
+                                <div>
+                                    <h4>동작 원리 분석 표 작성</h4>
+                                    <p>선택한 앱이 동작하기 위한 각 단계를 작성하세요.</p>
+                                    <div style="overflow-x:auto">
+                                        <table class="act-table">
+                                            <thead>
+                                                <tr>
+                                                    <th style="width:80px">단계</th>
+                                                    <th>이 앱에서는?</th>
+                                                    <th style="width:120px">관련 장치</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td style="font-weight:600;color:var(--u)">입력 과정</td>
+                                                    <td><input class="act-input" style="min-height:44px;resize:none"
+                                                            placeholder="사용자가 어떤 입력을 하나요?"></td>
+                                                    <td><input class="act-input" style="min-height:44px;resize:none"
+                                                            placeholder="어떤 입력 장치?"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="font-weight:600;color:var(--amber)">처리 과정</td>
+                                                    <td><input class="act-input" style="min-height:44px;resize:none"
+                                                            placeholder="운영 체제가 어떻게 처리하나요?"></td>
+                                                    <td><input class="act-input" style="min-height:44px;resize:none"
+                                                            placeholder="CPU, 기억 장치"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="font-weight:600;color:var(--green)">통신 과정</td>
+                                                    <td><input class="act-input" style="min-height:44px;resize:none"
+                                                            placeholder="외부에서 가져오는 데이터는?"></td>
+                                                    <td><input class="act-input" style="min-height:44px;resize:none"
+                                                            placeholder="Wi-Fi, 블루투스?"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="font-weight:600;color:var(--red)">출력 과정</td>
+                                                    <td><input class="act-input" style="min-height:44px;resize:none"
+                                                            placeholder="처리 결과가 어떻게 표시되나요?"></td>
+                                                    <td><input class="act-input" style="min-height:44px;resize:none"
+                                                            placeholder="어떤 출력 장치?"></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="act-step">
+                                <div class="act-num">3</div>
+                                <div>
+                                    <h4>운영 체제의 역할 정리</h4>
+                                    <p>이 앱이 동작하는 과정에서 운영 체제는 어떤 역할을 했나요?</p>
+                                    <textarea class="act-input"
+                                        placeholder="운영 체제가 담당한 기능을 정리해봅시다. (예: 입력 감지, 앱 실행 관리, 통신 처리, 출력 장치 제어 등)"></textarea>
+                                </div>
+                            </div>
+                            <div style="display:flex;gap:8px;margin-top:12px">
+                                <button class="btn bsm bp" onclick="saveActivity('l101_act')">💾 활동 저장</button>
+                                <button class="btn bsm" onclick="toast('짝과 서로 발표하고 비교해봅시다!')">🗣️ 발표하기</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card" id="sec-assess">
+                        <div class="ch" onclick="toggleSec('sec-assess')">
+                            <div class="sn" style="background:var(--bbg);color:var(--blue)">04</div>
+                            <h3>수행평가</h3><span class="st">⏱ 5분</span><span class="carr">▾</span>
+                        </div>
+                        <div class="cb">
+                            <div
+                                style="background:var(--bg);border:1px solid var(--br);border-radius:var(--rSM);padding:12px;margin-bottom:12px;border-left:3px solid var(--u)">
+                                <h4 style="font-size:13px;font-weight:700;color:var(--u);margin-bottom:7px">📋 컴퓨팅 시스템
+                                    구성 요소 분류</h4>
+                                <p style="font-size:13px;color:var(--mt)">우리 교실이나 집에 있는 전자기기 1가지를 선택하여 하드웨어 구성
+                                    요소(입력·처리·기억·출력·통신)와 소프트웨어를 분류하고 동작 원리를 설명하시오.</p>
+                            </div>
+                            <table class="rub">
+                                <thead>
+                                    <tr>
+                                        <th>평가 요소</th>
+                                        <th class="lv4">매우 잘함(4)</th>
+                                        <th class="lv3">잘함(3)</th>
+                                        <th class="lv2">보통(2)</th>
+                                        <th class="lv1">노력 필요(1)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><b>구성 요소 분류</b></td>
+                                        <td class="lv4">5가지 장치 정확 분류</td>
+                                        <td class="lv3">4가지 정확</td>
+                                        <td class="lv2">3가지</td>
+                                        <td class="lv1">2가지 이하</td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>동작 원리 설명</b></td>
+                                        <td class="lv4">입력→처리→통신→출력 명확 서술</td>
+                                        <td class="lv3">대체로 명확</td>
+                                        <td class="lv2">일부만</td>
+                                        <td class="lv1">없음</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="sclist">
+                                <div class="scitem"><label>컴퓨팅 시스템의 구성 요소를 설명할 수 있다.</label><select>
+                                        <option value="">선택</option>
+                                        <option>매우 그렇다</option>
+                                        <option>그렇다</option>
+                                        <option>아직 모르겠다</option>
+                                    </select></div>
+                                <div class="scitem"><label>하드웨어와 소프트웨어를 구분할 수 있다.</label><select>
+                                        <option value="">선택</option>
+                                        <option>매우 그렇다</option>
+                                        <option>그렇다</option>
+                                        <option>아직 모르겠다</option>
+                                    </select></div>
+                                <div class="scitem"><label>운영 체제의 기능과 동작 원리를 분석할 수 있다.</label><select>
+                                        <option value="">선택</option>
+                                        <option>매우 그렇다</option>
+                                        <option>그렇다</option>
+                                        <option>아직 모르겠다</option>
+                                    </select></div>
+                            </div>
+                            <button class="btn bsm bok" style="margin-top:10px" onclick="saveSC('l101sc')">💾
+                                저장</button>
+                        </div>
+                    </div>
+
+                    <div class="card" id="sec-review">
+                        <div class="ch" onclick="toggleSec('sec-review')">
+                            <div class="sn" style="background:var(--gbg);color:var(--green)">05</div>
+                            <h3>확인하기</h3><span class="st">⏱ 5분</span><span class="carr">▾</span>
+                        </div>
+                        <div class="cb">
+                            <div class="sgrid">
+                                <div class="scard"><strong>컴퓨팅 시스템</strong>HW+SW 결합으로 문제 해결. 스마트폰·신호등 등.</div>
+                                <div class="scard"><strong>하드웨어 5종</strong>입력·처리·기억·출력·통신 장치로 구성.</div>
+                                <div class="scard"><strong>운영 체제</strong>시스템 SW. HW와 사용자 간 중개 역할.</div>
+                            </div>
+                            <div
+                                style="background:var(--bg);border:1px solid var(--br);border-radius:var(--rSM);padding:13px;margin-bottom:12px">
+                                <b>✏️ 단답형:</b> 컴퓨팅 시스템에서 하드웨어를 관리하고 사용자와 하드웨어를 중개하는 시스템 소프트웨어를 <span
+                                    style="display:inline-block;width:70px;border-bottom:1.5px solid var(--tx)">&nbsp;</span>(이)라고
+                                한다.<textarea
+                                    style="display:block;width:100%;margin-top:9px;padding:9px;border:1px solid var(--br);border-radius:var(--rSM);font-size:13px;font-family:inherit;resize:vertical;min-height:48px;background:var(--sf)"
+                                    placeholder="정답을 입력하세요..."></textarea>
+                            </div>
+                            <div class="qwrap">
+                                <div class="qq">다음 중 처리 장치에 해당하는 것은?</div>
+                                <div class="qopts">
+                                    <div class="opt" onclick="checkQ(this,false,'키보드는 외부 데이터를 입력하는 입력 장치입니다.')"><span
+                                            class="onum">①</span>키보드</div>
+                                    <div class="opt" onclick="checkQ(this,false,'SSD는 데이터를 저장하는 기억 장치입니다.')"><span
+                                            class="onum">②</span>SSD(솔리드 스테이트 드라이브)</div>
+                                    <div class="opt"
+                                        onclick="checkQ(this,true,'CPU(중앙 처리 장치)는 명령어를 해석하고 데이터를 처리하는 처리 장치입니다.')"><span
+                                            class="onum">③</span>CPU(중앙 처리 장치)</div>
+                                    <div class="opt" onclick="checkQ(this,false,'모니터는 처리된 결과를 사용자에게 보여주는 출력 장치입니다.')">
+                                        <span class="onum">④</span>모니터
+                                    </div>
+                                </div>
+                                <div class="qfb"></div>
+                            </div>
+                            <div class="ibox ok">📖 <div><strong>다음 차시 예고:</strong> 다음 소단원에서는 센서로 환경을 감지하는 <strong>피지컬
+                                        컴퓨팅 시스템</strong>의 개념과 동작 원리를 탐구합니다! (pp.13~16)</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="ca">
+                    <div class="ap">
+                        <h5>학습 진행</h5>
+                        <div class="slist">
+                            <div class="si" onclick="goTo('sec-goal')">
+                                <div class="dot sd">1</div>학습목표
+                            </div>
+                            <div class="si" onclick="goTo('sec-concept')">
+                                <div class="dot">2</div>개념설명
+                            </div>
+                            <div class="si" onclick="goTo('sec-activity')">
+                                <div class="dot sa">★</div>수행 활동
+                            </div>
+                            <div class="si" onclick="goTo('sec-assess')">
+                                <div class="dot">4</div>수행평가
+                            </div>
+                            <div class="si" onclick="goTo('sec-review')">
+                                <div class="dot">5</div>확인하기
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ap" style="background:var(--ult);border-color:var(--umd)">
+                        <h5 style="color:var(--u)">단원 진도</h5>
+                        <div style="display:flex;align-items:center;gap:7px">
+                            <div class="pbtrack" style="flex:1">
+                                <div class="pbfill" style="width:8%"></div>
+                            </div><span style="font-size:11px;font-weight:600;color:var(--u)">1/6</span>
+                        </div>
+                    </div>
+                    <div class="ap">
+                        <h5>핵심 용어</h5>
+                        <div class="termlist">
+                            <div class="tterm"><span class="tw">컴퓨팅 시스템</span><span class="tdef">HW+SW 결합 장치</span>
+                            </div>
+                            <div class="tterm"><span class="tw">하드웨어</span><span class="tdef">물리적 전자장치</span></div>
+                            <div class="tterm"><span class="tw">소프트웨어</span><span class="tdef">명령어·데이터 집합</span></div>
+                            <div class="tterm"><span class="tw">운영 체제</span><span class="tdef">시스템 SW, 중개 역할</span>
+                            </div>
+                            <div class="tterm"><span class="tw">SoC</span><span class="tdef">CPU+GPU 통합 칩</span></div>
+                        </div>
+                    </div>
+                    <div class="ap" style="background:#F0FDF4;border-color:#BBF7D0">
+                        <h5 style="color:#166534">🔧 마이크로비트</h5>
+                        <a href="https://makecode.microbit.org" target="_blank" class="btn bsm"
+                            style="width:100%;justify-content:center;background:#0078D4;color:#fff;border-color:#005A9E;margin-bottom:5px">MakeCode
+                            열기 ↗</a>
+                        <a href="https://makecode.microbit.org/#editor" target="_blank" class="btn bsm"
+                            style="width:100%;justify-content:center;font-size:10px;color:var(--mt)">시뮬레이터 ↗</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <div id="toast"></div>
+    <script>
+
+        // ── Google Sheets 저장 ──────────────────────────────────
+        var GS_URL = 'YOUR_APPS_SCRIPT_WEB_APP_URL';
+
+        function getUserName() {
+            return localStorage.getItem('user_name') || '익명';
+        }
+
+        function postToSheets(payload) {
+            if (!GS_URL || GS_URL === 'YOUR_APPS_SCRIPT_WEB_APP_URL') return;
+            fetch(GS_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            }).catch(function () { });
+        }
+
+
+        function toast(m) { var t = document.getElementById('toast'); t.textContent = m; t.style.opacity = '1'; t.style.transform = 'translateX(-50%) translateY(0)'; clearTimeout(t._t); t._t = setTimeout(function () { t.style.opacity = '0'; t.style.transform = 'translateX(-50%) translateY(10px)'; }, 2400); }
+        function toggleSec(id) { var e = document.getElementById(id); if (e) e.classList.toggle('collapsed'); }
+        function goTo(id) { var e = document.getElementById(id); if (!e) return; window.scrollTo({ top: e.getBoundingClientRect().top + window.pageYOffset - 64, behavior: 'smooth' }); }
+        function checkQ(el, ok, msg) { el.closest('.qopts').querySelectorAll('.opt').forEach(function (o) { o.classList.add('locked'); }); el.classList.add(ok ? 'correct' : 'wrong'); var fb = el.closest('.qwrap').querySelector('.qfb'); if (fb) { fb.className = 'qfb ' + (ok ? 'ok' : 'err'); fb.innerHTML = (ok ? '✓ 정답: ' : '✗ 힌트: ') + msg; } }
+        function saveSC(key) {
+            var d = {};
+            document.querySelectorAll('.scitem select').forEach(function (s, i) { d['q' + i] = s.value; });
+            try {
+                localStorage.setItem(key, JSON.stringify(d));
+                // Google Sheets 저장
+                postToSheets({
+                    type: 'sc',
+                    userName: getUserName(),
+                    lessonKey: 'l11',
+                    lessonName: 'l11',
+                    answers: d
+                });
+                toast('자기평가가 저장되었습니다 ✓');
+            } catch (e) { }
+        }
+        function loadSC(key) { try { var d = JSON.parse(localStorage.getItem(key) || '{}'); document.querySelectorAll('.scitem select').forEach(function (s, i) { if (d['q' + i]) s.value = d['q' + i]; }); } catch (e) { } }
+        function markDone(n) {
+            try {
+                var d = JSON.parse(localStorage.getItem('u01done') || '[]');
+                if (!d.includes(n)) d.push(n);
+                localStorage.setItem('u01done', JSON.stringify(d));
+                // Google Sheets 저장
+                postToSheets({
+                    type: 'done',
+                    userName: getUserName(),
+                    unit: 'I',
+                    lessonNum: n,
+                    lessonName: '컴퓨팅 시스템'
+                });
+            } catch (e) { }
+            toast('✅ 소단원 ' + n + ' 완료 표시!');
+        }
+        function saveActivity(key) {
+            var d = {};
+            document.querySelectorAll('.act-input').forEach(function (el, i) { d['a' + i] = el.value; });
+            document.querySelectorAll('.peer-check input[type=radio]:checked').forEach(function (el) { d['r_' + el.name] = el.value; });
+            try {
+                localStorage.setItem(key, JSON.stringify(d));
+                // Google Sheets 저장
+                postToSheets({
+                    type: 'act',
+                    userName: getUserName(),
+                    lessonKey: 'l11',
+                    lessonName: 'l11',
+                    answers: d
+                });
+                toast('✅ 수행 활동이 저장되었습니다!');
+            } catch (e) { }
+        }
+        function loadActivity(key) {
+            try {
+                var d = JSON.parse(localStorage.getItem(key) || '{}');
+                document.querySelectorAll('.act-input').forEach(function (el, i) { if (d['a' + i]) el.value = d['a' + i]; });
+                Object.keys(d).filter(function (k) { return k.startsWith('r_'); }).forEach(function (k) {
+                    var el = document.querySelector('input[type=radio][name="' + k.slice(2) + '"][value="' + d[k] + '"]');
+                    if (el) el.checked = true;
+                });
+            } catch (e) { }
+        }
+
+
+        document.addEventListener('DOMContentLoaded', function () { loadSC('l101sc'); loadActivity('l101sc_act'); });
+    </script>
+</body>
+
 </html>

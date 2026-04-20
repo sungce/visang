@@ -1,1979 +1,1979 @@
-<!DOCTYPE html>
-<html lang="ko">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <title>I-6. ÀÌ½ÉÀü½É °ÔÀÓ ÀåÄ¡ ¸¸µé±â ? Á¤º¸ ±³°ú</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
-    <style>
-        *,
-        *::before,
-        *::after {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0
-        }
-
-        html {
-            scroll-behavior: smooth
-        }
-
-        body {
-            font-family: 'Noto Sans KR', -apple-system, sans-serif;
-            background: #F5F4F0;
-            color: #1C1C1C;
-            font-size: 14px;
-            line-height: 1.65;
-            display: flex;
-            min-height: 100vh
-        }
-
-        :root {
-            --u: #6C65CC;
-            --udk: #4E48A8;
-            --ult: #ECEAFE;
-            --umd: #C8C4F0;
-            --bg: #F5F4F0;
-            --sf: #FFF;
-            --br: #E2DFD6;
-            --tx: #1C1C1C;
-            --mt: #696760;
-            --lt: #A8A59E;
-            --green: #2A720E;
-            --gbg: #E8F3DC;
-            --amber: #7A4E0A;
-            --abg: #FAF0DC;
-            --red: #8C1E0E;
-            --rbg: #FAEBE6;
-            --blue: #0A4E8C;
-            --bbg: #E4F0FA;
-            --rLG: 14px;
-            --rSM: 8px;
-            --SW: 240px;
-            --TH: 52px
-        }
-
-        .sb {
-            width: var(--SW);
-            background: var(--sf);
-            border-right: 1px solid var(--br);
-            position: fixed;
-            top: 0;
-            left: 0;
-            bottom: 0;
-            display: flex;
-            flex-direction: column;
-            overflow-y: auto;
-            z-index: 100
-        }
-
-        .sb-top {
-            padding: 16px 14px 12px;
-            border-bottom: 1px solid var(--br)
-        }
-
-        .uchip {
-            display: inline-flex;
-            align-items: center;
-            background: var(--ult);
-            color: var(--u);
-            font-size: 10px;
-            font-weight: 700;
-            letter-spacing: .1em;
-            text-transform: uppercase;
-            padding: 3px 9px;
-            border-radius: 20px;
-            margin-bottom: 6px
-        }
-
-        .sb-top h2 {
-            font-size: 12px;
-            font-weight: 700;
-            line-height: 1.4
-        }
-
-        .smeta {
-            font-size: 10px;
-            color: var(--lt);
-            margin-top: 3px
-        }
-
-        .sb-nav {
-            padding: 4px 0;
-            flex: 1
-        }
-
-        .nlbl {
-            font-size: 9px;
-            font-weight: 700;
-            letter-spacing: .1em;
-            text-transform: uppercase;
-            color: var(--lt);
-            padding: 7px 13px 3px
-        }
-
-        .na {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 7px 13px;
-            font-size: 11px;
-            color: var(--mt);
-            text-decoration: none;
-            border-left: 2.5px solid transparent;
-            transition: background .12s
-        }
-
-        .na:hover {
-            background: var(--bg);
-            color: var(--tx)
-        }
-
-        .na.on {
-            color: var(--u);
-            font-weight: 600;
-            background: var(--ult);
-            border-left-color: var(--u)
-        }
-
-        .na.done .nn {
-            background: var(--gbg);
-            color: var(--green)
-        }
-
-        .nn {
-            width: 18px;
-            height: 18px;
-            border-radius: 50%;
-            background: var(--br);
-            font-size: 9px;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            color: var(--mt)
-        }
-
-        .na.on .nn {
-            background: var(--u);
-            color: #fff
-        }
-
-        .nbadge {
-            margin-left: auto;
-            font-size: 9px;
-            color: var(--lt);
-            background: var(--bg);
-            border: 1px solid var(--br);
-            padding: 1px 5px;
-            border-radius: 10px;
-            white-space: nowrap
-        }
-
-        .sb-foot {
-            padding: 10px 13px;
-            border-top: 1px solid var(--br)
-        }
-
-        .ba {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 11px;
-            color: var(--mt);
-            text-decoration: none;
-            padding: 5px 9px;
-            border-radius: var(--rSM);
-            border: 1px solid var(--br);
-            background: var(--sf);
-            transition: all .12s
-        }
-
-        .ba:hover {
-            background: var(--bg)
-        }
-
-        .main {
-            margin-left: var(--SW);
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            min-width: 0
-        }
-
-        .topbar {
-            background: var(--sf);
-            border-bottom: 1px solid var(--br);
-            height: var(--TH);
-            padding: 0 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            position: sticky;
-            top: 0;
-            z-index: 90
-        }
-
-        .bc {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            font-size: 12px;
-            color: var(--mt);
-            flex: 1
-        }
-
-        .bc a {
-            color: var(--mt);
-            text-decoration: none
-        }
-
-        .bc a:hover {
-            color: var(--tx)
-        }
-
-        .bcsep {
-            color: var(--br)
-        }
-
-        .bccur {
-            color: var(--tx);
-            font-weight: 500
-        }
-
-        .tbr {
-            display: flex;
-            align-items: center;
-            gap: 6px
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            padding: 6px 12px;
-            border-radius: var(--rSM);
-            font-size: 12px;
-            font-family: inherit;
-            font-weight: 500;
-            cursor: pointer;
-            border: 1px solid var(--br);
-            background: var(--sf);
-            color: var(--tx);
-            text-decoration: none;
-            transition: background .12s;
-            white-space: nowrap
-        }
-
-        .btn:hover {
-            background: var(--bg)
-        }
-
-        .bsm {
-            padding: 5px 9px;
-            font-size: 11px
-        }
-
-        .bp {
-            background: var(--u);
-            color: #fff;
-            border-color: var(--u)
-        }
-
-        .bp:hover {
-            background: var(--udk)
-        }
-
-        .bok {
-            background: var(--green);
-            color: #fff;
-            border-color: var(--green)
-        }
-
-        .page {
-            padding: 20px 22px;
-            flex: 1
-        }
-
-        .g2 {
-            display: grid;
-            grid-template-columns: 1fr minmax(0, 248px);
-            gap: 16px;
-            align-items: start
-        }
-
-        .cm {
-            min-width: 0
-        }
-
-        .ca {
-            position: sticky;
-            top: calc(var(--TH)+12px)
-        }
-
-        .card {
-            background: var(--sf);
-            border: 1px solid var(--br);
-            border-radius: var(--rLG);
-            margin-bottom: 11px;
-            overflow: hidden
-        }
-
-        .ch {
-            display: flex;
-            align-items: center;
-            gap: 9px;
-            padding: 12px 16px;
-            cursor: pointer;
-            border-bottom: 1px solid var(--br);
-            transition: background .12s;
-            user-select: none
-        }
-
-        .ch:hover {
-            background: var(--bg)
-        }
-
-        .sn {
-            width: 26px;
-            height: 26px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 11px;
-            font-weight: 800;
-            flex-shrink: 0
-        }
-
-        .ch h3 {
-            font-size: 13px;
-            font-weight: 600;
-            flex: 1
-        }
-
-        .st {
-            font-size: 10px;
-            color: var(--lt);
-            background: var(--bg);
-            border: 1px solid var(--br);
-            padding: 2px 7px;
-            border-radius: 20px;
-            white-space: nowrap
-        }
-
-        .carr {
-            font-size: 11px;
-            color: var(--lt);
-            transition: transform .2s
-        }
-
-        .card.collapsed .carr {
-            transform: rotate(-90deg)
-        }
-
-        .cb {
-            padding: 18px
-        }
-
-        .card.collapsed .cb {
-            display: none
-        }
-
-        .ach {
-            background: var(--ult);
-            border: 1px solid var(--umd);
-            border-radius: var(--rSM);
-            padding: 10px 13px;
-            margin-bottom: 14px
-        }
-
-        .ach-c {
-            font-family: monospace;
-            font-size: 11px;
-            font-weight: 700;
-            color: var(--u);
-            margin-bottom: 3px
-        }
-
-        .ach-t {
-            font-size: 13px;
-            line-height: 1.6
-        }
-
-        .glist {
-            list-style: none
-        }
-
-        .glist li {
-            display: flex;
-            align-items: flex-start;
-            gap: 8px;
-            padding: 6px 0;
-            font-size: 13px;
-            border-bottom: 1px solid var(--br);
-            line-height: 1.6
-        }
-
-        .glist li:last-child {
-            border-bottom: none
-        }
-
-        .gck {
-            width: 17px;
-            height: 17px;
-            border-radius: 50%;
-            background: var(--gbg);
-            color: var(--green);
-            font-size: 9px;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            margin-top: 2px
-        }
-
-        .ctags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 5px;
-            margin-bottom: 12px
-        }
-
-        .ctag {
-            font-size: 11px;
-            padding: 3px 10px;
-            background: var(--bg);
-            border: 1px solid var(--br);
-            border-radius: 20px;
-            cursor: pointer;
-            color: var(--mt);
-            transition: all .12s
-        }
-
-        .ctag:hover {
-            background: var(--ult);
-            border-color: var(--umd);
-            color: var(--u)
-        }
-
-        .ibox {
-            display: flex;
-            align-items: flex-start;
-            gap: 9px;
-            padding: 10px 13px;
-            border-radius: var(--rSM);
-            font-size: 12px;
-            line-height: 1.6;
-            margin-top: 10px
-        }
-
-        .prev {
-            background: var(--bg);
-            border: 1px solid var(--br);
-            color: var(--mt)
-        }
-
-        .warn {
-            background: #FFFBEC;
-            border: 1px solid #EDD070;
-            color: #6A5000
-        }
-
-        .info {
-            background: var(--bbg);
-            border: 1px solid #BACED8;
-            color: var(--blue)
-        }
-
-        .ok {
-            background: var(--gbg);
-            border: 1px solid #BFDFAA;
-            color: var(--green)
-        }
-
-        .divl {
-            height: 1px;
-            background: var(--br);
-            margin: 13px 0
-        }
-
-        .crow {
-            display: grid;
-            grid-template-columns: 1fr minmax(0, 148px);
-            gap: 13px;
-            align-items: start;
-            margin-bottom: 13px
-        }
-
-        .ct h4 {
-            font-size: 13px;
-            font-weight: 700;
-            margin-bottom: 7px
-        }
-
-        .ct p {
-            font-size: 13px;
-            color: var(--mt);
-            line-height: 1.75
-        }
-
-        .ct ul {
-            padding-left: 1rem;
-            margin-top: 5px
-        }
-
-        .ct ul li {
-            font-size: 13px;
-            color: var(--mt);
-            margin-bottom: 3px;
-            line-height: 1.6
-        }
-
-        .cvis {
-            background: var(--bg);
-            border: 1px solid var(--br);
-            border-radius: var(--rSM);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 8px
-        }
-
-        /* ¦¡¦¡ ¼öÇàÈ°µ¿ (ÇØº¸±â) ¦¡¦¡ */
-        .activity {
-            background: linear-gradient(135deg, var(--ult), #F5F4FF);
-            border: 2px solid var(--umd);
-            border-radius: var(--rLG);
-            margin-bottom: 11px;
-            overflow: hidden
-        }
-
-        .act-head {
-            display: flex;
-            align-items: center;
-            gap: 9px;
-            padding: 12px 16px;
-            border-bottom: 1.5px solid var(--umd);
-            background: var(--ult);
-            cursor: pointer;
-            user-select: none
-        }
-
-        .act-head:hover {
-            background: #E4E0FC
-        }
-
-        .act-badge {
-            background: var(--u);
-            color: #fff;
-            font-size: 10px;
-            font-weight: 700;
-            padding: 3px 10px;
-            border-radius: 20px;
-            white-space: nowrap
-        }
-
-        .act-head h3 {
-            font-size: 13px;
-            font-weight: 700;
-            color: var(--udk);
-            flex: 1
-        }
-
-        .act-body {
-            padding: 18px
-        }
-
-        .act-step {
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            padding: 10px 12px;
-            background: var(--sf);
-            border: 1px solid var(--br);
-            border-radius: var(--rSM);
-            margin-bottom: 8px;
-            min-height: 160px;
-        }
-
-        .act-num {
-            width: 22px;
-            height: 22px;
-            border-radius: 50%;
-            background: var(--u);
-            color: #fff;
-            font-size: 10px;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            flex: none;
-            margin-top: 1px
-        }
-
-        .act-step h4 {
-            font-size: 12px;
-            font-weight: 700;
-            margin-bottom: 4px
-        }
-
-        .act-step p {
-            font-size: 12px;
-            color: var(--mt);
-            line-height: 1.65
-        }
-
-        .act-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 12px;
-            margin-top: 8px
-        }
-
-        .act-table th {
-            background: var(--u);
-            color: #fff;
-            padding: 7px 10px;
-            font-weight: 600;
-            font-size: 11px;
-            text-align: left
-        }
-
-        .act-table td {
-            padding: 8px 10px;
-            border-bottom: 1px solid var(--br);
-            color: var(--mt);
-            vertical-align: top;
-            line-height: 1.55
-        }
-
-        .act-table tr:last-child td {
-            border-bottom: none
-        }
-
-        .act-input {
-            width: 100%;
-            padding: 8px 10px;
-            border: 1.5px solid var(--br);
-            border-radius: var(--rSM);
-            font-size: 12px;
-            font-family: inherit;
-            background: var(--sf);
-            outline: none;
-            resize: vertical;
-            min-height: 88px;
-            margin-top: 4px
-        }
-
-        .act-input:focus {
-            border-color: var(--u)
-        }
-
-        /* ¦¡¦¡ ¸¶ÀÌÅ©·ÎºñÆ® ºí·Ï ¦¡¦¡ */
-        .mb-workspace {
-            background: #1e1e2e;
-            border-radius: var(--rSM);
-            padding: 14px;
-            margin: 8px 0;
-            display: flex;
-            flex-direction: column;
-            gap: 5px
-        }
-
-        .mb-row {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            flex-wrap: wrap
-        }
-
-        .mb-indent {
-            margin-left: 22px;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            flex-wrap: wrap
-        }
-
-        .mb-indent2 {
-            margin-left: 44px;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            flex-wrap: wrap
-        }
-
-        .mb {
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            padding: 6px 11px;
-            border-radius: 6px;
-            font-size: 11px;
-            font-family: 'Courier New', monospace;
-            font-weight: 700;
-            color: #fff;
-            cursor: default
-        }
-
-        .mb-hole {
-            display: inline-block;
-            background: rgba(255, 255, 255, .2);
-            border-radius: 3px;
-            padding: 1px 7px;
-            font-size: 10px;
-            min-width: 20px;
-            text-align: center
-        }
-
-        .mb-start {
-            background: #FF8C00;
-            box-shadow: 0 3px 0 #B85A00
-        }
-
-        .mb-motion {
-            background: #4A7ED9;
-            box-shadow: 0 3px 0 #2A50A0
-        }
-
-        .mb-led {
-            background: #9B59B6;
-            box-shadow: 0 3px 0 #6C3483
-        }
-
-        .mb-input {
-            background: #F39C12;
-            box-shadow: 0 3px 0 #C07000
-        }
-
-        .mb-logic {
-            background: #E74C3C;
-            box-shadow: 0 3px 0 #A01010
-        }
-
-        .mb-loop {
-            background: #27AE60;
-            box-shadow: 0 3px 0 #1A7A40
-        }
-
-        .mb-var {
-            background: #3498DB;
-            box-shadow: 0 3px 0 #1A5A9A
-        }
-
-        .mb-music {
-            background: #E91E63;
-            box-shadow: 0 3px 0 #880033
-        }
-
-        .mb-radio {
-            background: #00BCD4;
-            box-shadow: 0 3px 0 #007A88
-        }
-
-        .mb-sensor {
-            background: #FF6B35;
-            box-shadow: 0 3px 0 #C04010
-        }
-
-        /* ¦¡¦¡ quiz ¦¡¦¡ */
-        .qwrap {
-            background: var(--bg);
-            border: 1px solid var(--br);
-            border-radius: var(--rSM);
-            padding: 14px;
-            margin-top: 13px
-        }
-
-        .qq {
-            font-size: 14px;
-            font-weight: 500;
-            margin-bottom: 11px;
-            line-height: 1.55
-        }
-
-        .qopts {
-            display: flex;
-            flex-direction: column;
-            gap: 7px
-        }
-
-        .opt {
-            display: flex;
-            align-items: flex-start;
-            gap: 9px;
-            padding: 10px 12px;
-            background: var(--sf);
-            border: 1.5px solid var(--br);
-            border-radius: var(--rSM);
-            cursor: pointer;
-            font-size: 13px;
-            line-height: 1.5;
-            transition: all .12s
-        }
-
-        .opt:hover {
-            border-color: var(--u);
-            background: var(--ult)
-        }
-
-        .opt.correct {
-            border-color: #4A9020;
-            background: var(--gbg);
-            color: #1A5000;
-            pointer-events: none
-        }
-
-        .opt.wrong {
-            border-color: #B03020;
-            background: var(--rbg);
-            color: #6A1000;
-            pointer-events: none
-        }
-
-        .opt.locked {
-            pointer-events: none;
-            opacity: .55
-        }
-
-        .onum {
-            width: 21px;
-            height: 21px;
-            border-radius: 50%;
-            background: var(--br);
-            font-size: 11px;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0
-        }
-
-        .opt.correct .onum {
-            background: #4A9020;
-            color: #fff
-        }
-
-        .opt.wrong .onum {
-            background: #B03020;
-            color: #fff
-        }
-
-        .qfb {
-            display: none;
-            margin-top: 9px;
-            padding: 10px 13px;
-            border-radius: var(--rSM);
-            font-size: 12px;
-            line-height: 1.6
-        }
-
-        .qfb.ok {
-            display: block;
-            background: var(--gbg);
-            border: 1px solid #BFDFAA;
-            color: var(--green)
-        }
-
-        .qfb.err {
-            display: block;
-            background: var(--rbg);
-            border: 1px solid #F0B8A0;
-            color: var(--red)
-        }
-
-        /* ¦¡¦¡ assess ¦¡¦¡ */
-        .rub {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 12px;
-            margin-bottom: 12px
-        }
-
-        .rub th {
-            background: var(--bg);
-            padding: 7px 8px;
-            font-weight: 600;
-            border-bottom: 1.5px solid var(--br);
-            text-align: left;
-            font-size: 10px;
-            text-transform: uppercase;
-            letter-spacing: .04em;
-            color: var(--mt)
-        }
-
-        .rub td {
-            padding: 8px;
-            border-bottom: 1px solid var(--br);
-            color: var(--mt);
-            vertical-align: top;
-            line-height: 1.5
-        }
-
-        .rub tr:last-child td {
-            border-bottom: none
-        }
-
-        .lv4 {
-            color: #1A6000 !important;
-            font-weight: 500
-        }
-
-        .lv3 {
-            color: #2A6830 !important
-        }
-
-        .lv2 {
-            color: #7A4E00 !important
-        }
-
-        .lv1 {
-            color: #8A2000 !important
-        }
-
-        .peer-check {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 11px;
-            margin-top: 10px
-        }
-
-        .peer-check th {
-            background: var(--ult);
-            padding: 6px 9px;
-            font-weight: 600;
-            border-bottom: 1.5px solid var(--umd);
-            text-align: center;
-            color: var(--u);
-            font-size: 10px
-        }
-
-        .peer-check td {
-            padding: 7px 9px;
-            border-bottom: 1px solid var(--br);
-            color: var(--mt);
-            text-align: center
-        }
-
-        .peer-check td:first-child {
-            text-align: left;
-            font-size: 11px
-        }
-
-        .peer-check input[type=radio] {
-            accent-color: var(--u)
-        }
-
-        /* ¦¡¦¡ sidebar ¦¡¦¡ */
-        .ap {
-            background: var(--sf);
-            border: 1px solid var(--br);
-            border-radius: var(--rLG);
-            padding: 13px;
-            margin-bottom: 10px
-        }
-
-        .ap h5 {
-            font-size: 9px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: .1em;
-            color: var(--lt);
-            margin-bottom: 8px
-        }
-
-        .slist {
-            display: flex;
-            flex-direction: column;
-            gap: 3px
-        }
-
-        .si {
-            display: flex;
-            align-items: center;
-            gap: 7px;
-            padding: 6px 8px;
-            border-radius: var(--rSM);
-            font-size: 11px;
-            color: var(--mt);
-            cursor: pointer;
-            transition: background .12s
-        }
-
-        .si:hover {
-            background: var(--bg)
-        }
-
-        .dot {
-            width: 19px;
-            height: 19px;
-            border-radius: 50%;
-            background: var(--br);
-            color: var(--lt);
-            font-size: 9px;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0
-        }
-
-        .dot.sa {
-            background: var(--u);
-            color: #fff
-        }
-
-        .dot.sd {
-            background: var(--gbg);
-            color: var(--green)
-        }
-
-        .sclist {
-            display: flex;
-            flex-direction: column;
-            gap: 4px
-        }
-
-        .scitem {
-            display: flex;
-            align-items: center;
-            gap: 9px;
-            padding: 8px 10px;
-            background: var(--bg);
-            border-radius: var(--rSM);
-            font-size: 12px;
-            border: 1px solid var(--br)
-        }
-
-        .scitem label {
-            flex: 1;
-            line-height: 1.5
-        }
-
-        .scitem select {
-            font-size: 11px;
-            padding: 3px 6px;
-            border: 1px solid var(--br);
-            border-radius: 5px;
-            background: var(--sf);
-            font-family: inherit;
-            color: var(--tx);
-            cursor: pointer;
-            flex-shrink: 0
-        }
-
-        .sgrid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 7px;
-            margin-bottom: 12px
-        }
-
-        .scard {
-            background: var(--bg);
-            border: 1px solid var(--br);
-            border-radius: var(--rSM);
-            padding: 11px 12px;
-            font-size: 12px;
-            line-height: 1.65;
-            color: var(--mt)
-        }
-
-        .scard strong {
-            display: block;
-            font-size: 9px;
-            text-transform: uppercase;
-            letter-spacing: .07em;
-            color: var(--lt);
-            margin-bottom: 4px
-        }
-
-        .termlist {
-            display: flex;
-            flex-direction: column
-        }
-
-        .tterm {
-            display: flex;
-            align-items: baseline;
-            gap: 5px;
-            padding: 4px 0;
-            font-size: 11px;
-            border-bottom: 1px solid var(--br)
-        }
-
-        .tterm:last-child {
-            border-bottom: none
-        }
-
-        .tw {
-            font-weight: 600;
-            color: var(--u);
-            white-space: nowrap
-        }
-
-        .tdef {
-            color: var(--mt)
-        }
-
-        .pbtrack {
-            height: 5px;
-            background: var(--umd);
-            border-radius: 3px;
-            overflow: hidden
-        }
-
-        .pbfill {
-            height: 100%;
-            background: var(--u);
-            border-radius: 3px
-        }
-
-        #toast {
-            position: fixed;
-            bottom: 24px;
-            left: 50%;
-            transform: translateX(-50%) translateY(10px);
-            background: #1C1C1C;
-            color: #fff;
-            padding: 9px 18px;
-            border-radius: 10px;
-            font-size: 12px;
-            font-family: inherit;
-            z-index: 9999;
-            opacity: 0;
-            transition: opacity .2s, transform .2s;
-            pointer-events: none;
-            white-space: nowrap
-        }
-
-        /* ?? ¹İÀÀÇü ·¹ÀÌ¾Æ¿ô ?? */
-        *,
-        *::before,
-        *::after {
-            box-sizing: border-box
-        }
-
-        img,
-        canvas,
-        video {
-            max-width: 100%;
-            height: auto;
-            display: block
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse
-        }
-
-        .act-table,
-        .peer-check,
-        .rub {
-            table-layout: fixed;
-            word-break: break-word
-        }
-
-        .act-table td,
-        .act-table th,
-        .rub td,
-        .rub th,
-        .peer-check td,
-        .peer-check th {
-            min-width: 44px;
-            word-break: break-word;
-            overflow-wrap: break-word
-        }
-
-        .act-step>div:not(.act-num) {
-            min-width: 0;
-            flex: 1;
-            overflow-wrap: break-word;
-            word-break: break-word
-        }
-
-        .act-body,
-        .cb {
-            overflow-x: hidden
-        }
-
-        .act-input {
-            width: 100%;
-            box-sizing: border-box
-        }
-
-        .mb-workspace,
-        .mb-row,
-        .mb-indent,
-        .mb-indent2 {
-            flex-wrap: wrap
-        }
-
-        .sim-wrap {
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch
-        }
-
-        /* 1100px ÀÌÇÏ */
-        @media(max-width:1100px) {
-            .g2 {
-                grid-template-columns: 1fr
-            }
-
-            .ca {
-                position: static;
-                display: flex;
-                flex-direction: row;
-                flex-wrap: wrap;
-                gap: 10px;
-                margin-top: 12px
-            }
-
-            .ca .ap {
-                flex: 1 1 220px;
-                min-width: 180px
-            }
-
-            .crow {
-                grid-template-columns: 1fr
-            }
-
-            .sgrid {
-                grid-template-columns: 1fr 1fr
-            }
-        }
-
-        /* 900px ÀÌÇÏ */
-        @media(max-width:900px) {
-            .ca {
-                display: flex;
-                flex-direction: row;
-                flex-wrap: wrap;
-                gap: 8px;
-                margin-top: 10px
-            }
-
-            .ca .ap {
-                flex: 1 1 180px;
-                min-width: 160px
-            }
-
-            .page {
-                padding: 16px 14px
-            }
-
-            .cb,
-            .act-body {
-                padding: 13px
-            }
-
-            .sgrid {
-                grid-template-columns: 1fr 1fr
-            }
-
-            .crow {
-                grid-template-columns: 1fr
-            }
-        }
-
-        /* 640px ÀÌÇÏ */
-        @media(max-width:640px) {
-            .page {
-                padding: 11px 10px
-            }
-
-            .cb,
-            .act-body {
-                padding: 10px
-            }
-
-            .sgrid {
-                grid-template-columns: 1fr
-            }
-
-            .act-step {
-                flex-direction: column;
-                gap: 5px
-            }
-
-            .act-num {
-                margin-bottom: 0
-            }
-
-            .ch h3 {
-                font-size: 12px
-            }
-
-            .btn {
-                font-size: 11px;
-                padding: 5px 8px
-            }
-
-            .act-table td,
-            .act-table th {
-                padding: 5px 6px;
-                font-size: 11px
-            }
-
-            .rub td,
-            .rub th {
-                padding: 5px 6px;
-                font-size: 11px
-            }
-
-            .peer-check td,
-            .peer-check th {
-                padding: 5px 6px;
-                font-size: 10px
-            }
-
-            .scard {
-                font-size: 11px
-            }
-
-            .opt {
-                font-size: 12px;
-                padding: 8px 10px
-            }
-
-            .mb,
-            .mb-hole {
-                font-size: 10px;
-                padding: 4px 7px
-            }
-        }
-
-        /* 480px ÀÌÇÏ */
-        @media(max-width:480px) {
-            :root {
-                --SW: 0px
-            }
-
-            .sb {
-                display: none
-            }
-
-            .main {
-                margin-left: 0
-            }
-
-            .topbar {
-                padding: 0 10px
-            }
-
-            .page {
-                padding: 8px 9px
-            }
-
-            .cb,
-            .act-body {
-                padding: 9px
-            }
-
-            .tbr .btn:last-child {
-                display: none
-            }
-
-            .sgrid {
-                grid-template-columns: 1fr
-            }
-        }
-    </style>
-</head>
-
-<body>
-    <aside class="sb">
-        <div class="sb-top">
-            <div class="uchip">¢Â Unit I</div>
-            <h2>ÄÄÇ»ÆÃ ½Ã½ºÅÛ</h2>
-            <div class="smeta">Áß´Ü¿ø2: ÇÇÁöÄÃ ÄÄÇ»ÆÃ ÇÁ·Î±×·¡¹Ö ¡¤ p.32~35</div>
-        </div>
-        <nav class="sb-nav">
-            <div class="nlbl">¼Ò´Ü¿ø ¸ñ·Ï</div><a class="na done" href="../lesson-01/index.html">
-                <div class="nn">?</div>ÄÄÇ»ÆÃ ½Ã½ºÅÛÀÇ ±¸¼º°ú µ¿ÀÛ ¿ø¸®
-            </a>
-            <a class="na done" href="../lesson-02/index.html">
-                <div class="nn">?</div>ÇÇÁöÄÃ ÄÄÇ»ÆÃ ½Ã½ºÅÛÀÇ ÀÌÇØ
-            </a>
-            <a class="na done" href="../lesson-03/index.html">
-                <div class="nn">?</div>¿îµ¿ È½¼ö Ç¥½Ã ÀåÄ¡ ¸¸µé±â
-            </a>
-            <a class="na done" href="../lesson-04/index.html">
-                <div class="nn">?</div>¼ö¸é ¿Âµµ ¾Ë¸²ÀÌ ÀåÄ¡ ¸¸µé±â
-            </a>
-            <a class="na done" href="../lesson-05/index.html">
-                <div class="nn">?</div>¼Ò¸®¿¡ ¹İÀÀÇÏ´Â ¾Ö´Ï¸ŞÀÌ¼Ç ÀåÄ¡ ¸¸µé±â
-            </a>
-            <a class="na on" href="../lesson-06/index.html">
-                <div class="nn">6</div>ÀÌ½ÉÀü½É °ÔÀÓ ÀåÄ¡ ¸¸µé±â<span class="nbadge">3Â÷½Ã</span>
-            </a>
-        </nav>
-        <div class="sb-foot"><a class="ba" href="https://sungce.github.io/lesson/">¡ç Á¤º¸ ±³°ú ÇĞ½À ÇÃ·§Æû</a></div>
-    </aside>
-    <main class="main">
-        <header class="topbar">
-            <div class="bc"><a href="https://sungce.github.io/lesson/">Á¤º¸ ±³°ú ÇĞ½À ÇÃ·§Æû</a><span class="bcsep">?</span><a
-                    href="../../index.html">I. ÄÄÇ»ÆÃ ½Ã½ºÅÛ</a><span class="bcsep">?</span><span class="bccur">6. ÀÌ½ÉÀü½É °ÔÀÓ ÀåÄ¡
-                    ¸¸µé±â</span></div>
-            <div class="tbr">
-                <button class="btn bsm" onclick="markDone('06')">? ¿Ï·á Ç¥½Ã</button>
-                <a class="btn bsm bp" href="../../index.html">´Ü¿ø ¸ñÂ÷·Î ¡æ</a>
-            </div>
-        </header>
-        <div class="page">
-            <div class="g2">
-                <div class="cm">
-
-                    <div class="card" id="sec-goal">
-                        <div class="ch" onclick="toggleSec('sec-goal')">
-                            <div class="sn" style="background:var(--ult);color:var(--u)">01</div>
-                            <h3>ÇĞ½À¸ñÇ¥</h3><span class="st">? 5ºĞ</span><span class="carr">?</span>
-                        </div>
-                        <div class="cb">
-                            <div class="ach">
-                                <div class="ach-c">[9Á¤01-06] ÇÇÁöÄÃ ÄÄÇ»ÆÃ ÇÁ·Î±×·¡¹Ö</div>
-                                <div class="ach-t">¹«¼± ¶óµğ¿À Åë½ÅÀ» ÀÌ¿ëÇÏ¿© µÎ ÀåÄ¡ °£ ¼±ÅÃ Á¤º¸¸¦ Àü¼ÛÇÏ°í °á°ú¸¦ È®ÀÎÇÏ´Â ÀÌ½ÉÀü½É °ÔÀÓ ÀåÄ¡¸¦ Á¦ÀÛÇÒ ¼ö ÀÖ´Ù.
-                                    (pp.32~35)</div>
-                            </div>
-                            <ul class="glist">
-                                <li>
-                                    <div class="gck">?</div>¶óµğ¿À Åë½ÅÀÇ ¿ø¸®¿Í ±×·ì ¼³Á¤ ¹æ¹ıÀ» ¼³¸íÇÒ ¼ö ÀÖ´Ù.
-                                </li>
-                                <li>
-                                    <div class="gck">?</div>¹«¼± Åë½ÅÀ» È°¿ëÇÑ ¾Ë°í¸®ÁòÀ» ¼³°èÇÒ ¼ö ÀÖ´Ù.
-                                </li>
-                                <li>
-                                    <div class="gck">?</div>ÀÌ½ÉÀü½É °ÔÀÓ ÀåÄ¡¸¦ MakeCode·Î ¿Ï¼ºÇÏ°í °¡À§¹ÙÀ§º¸ °ÔÀÓÀ» ¸¸µé ¼ö ÀÖ´Ù.
-                                </li>
-                            </ul>
-                            <div class="divl"></div>
-                            <div class="ctags">
-                                <span class="ctag" onclick="goTo('sec-concept')">¶óµğ¿À Åë½Å</span>
-                                <span class="ctag" onclick="goTo('sec-concept')">±×·ì ¼³Á¤</span>
-                                <span class="ctag" onclick="goTo('sec-concept')">Àü¼Û¡¤¼ö½Å</span>
-                                <span class="ctag" onclick="goTo('sec-concept')">ÀÌ½ÉÀü½É °ÔÀÓ</span>
-                            </div>
-                            <div class="ibox prev">?? <b>´Ü¿ø ¸¶¹«¸®:</b> ÀÌ¹ø ¼Ò´Ü¿øÀº I´Ü¿øÀÇ ¸¶Áö¸· È°µ¿ÀÔ´Ï´Ù! ¹«¼± ¶óµğ¿À Åë½ÅÀ¸·Î µÎ ¸¶ÀÌÅ©·ÎºñÆ®°¡ ¼ÒÅëÇÏ´Â
-                                ÀÌ½ÉÀü½É °ÔÀÓÀ» ¸¸µé¾îº¾´Ï´Ù.</div>
-                        </div>
-                    </div>
-
-                    <div class="card" id="sec-concept">
-                        <div class="ch" onclick="toggleSec('sec-concept')">
-                            <div class="sn" style="background:var(--gbg);color:var(--green)">02</div>
-                            <h3>°³³ä¼³¸í</h3><span class="st">? 20ºĞ</span><span class="carr">?</span>
-                        </div>
-                        <div class="cb">
-                            <div class="crow">
-                                <div class="ct">
-                                    <h4>¶óµğ¿À Åë½Å(Radio)</h4>
-                                    <p>¹«¼± Åë½Å ¹æ½Ä Áß ÇÏ³ª·Î, <strong>°°Àº ±×·ì(0~255)À¸·Î ¼³Á¤ÇÑ ¿©·¯ ¸¶ÀÌÅ©·ÎºñÆ®¿¡ µ¿½Ã¿¡ ½ÅÈ£¸¦ Àü´Ş</strong>ÇÕ´Ï´Ù.</p>
-                                    <ul>
-                                        <li><b>±×·ì ¼³Á¤:</b> 0~255 Áß ÇÏ³ª. °ÔÀÓ Âü°¡ÀÚ¸¸ °°Àº ¹øÈ£</li>
-                                        <li><b>Àü¼Û:</b> ¼ıÀÚ¡¤¹®ÀÚ¸¦ ¶óµğ¿À·Î ¼Û½Å</li>
-                                        <li><b>¼ö½Å:</b> °°Àº ±×·ì¿¡¼­ º¸³½ ¼ıÀÚ ¼ö½Å</li>
-                                        <li><b>µ¿½Ã Àü¼Û:</b> °°Àº ±×·ì ÀüÃ¼¿¡ ½ÅÈ£ Àü´Ş</li>
-                                    </ul>
-                                    <div class="ibox info" style="margin-top:8px;font-size:11px">?? °ÔÀÓ¿¡ Âü°¡ÇÒ µÎ ¸í¸¸ °°Àº ±×·ì
-                                        ¹øÈ£¸¦ ¼³Á¤ÇØ¾ß ÇÕ´Ï´Ù!</div>
-                                </div>
-                                <div class="cvis">
-                                    <svg viewBox="0 0 130 110" width="130">
-                                        <rect x="2" y="20" width="50" height="40" rx="6" fill="#1e1e2e"
-                                            stroke="var(--u)" stroke-width="1.5" />
-                                        <text x="27" y="38" font-size="8" fill="var(--umd)" text-anchor="middle"
-                                            font-family="sans-serif" font-weight="bold">micro:bit</text>
-                                        <text x="27" y="50" font-size="8" fill="#aaa" text-anchor="middle"
-                                            font-family="sans-serif">±×·ì: 1</text>
-                                        <text x="27" y="62" font-size="9" fill="#FF6B35" text-anchor="middle"
-                                            font-family="sans-serif" font-weight="bold">A¹öÆ° ¡æ 1 Àü¼Û</text>
-                                        <rect x="78" y="20" width="50" height="40" rx="6" fill="#1e1e2e"
-                                            stroke="var(--u)" stroke-width="1.5" />
-                                        <text x="103" y="38" font-size="8" fill="var(--umd)" text-anchor="middle"
-                                            font-family="sans-serif" font-weight="bold">micro:bit</text>
-                                        <text x="103" y="50" font-size="8" fill="#aaa" text-anchor="middle"
-                                            font-family="sans-serif">±×·ì: 1</text>
-                                        <text x="103" y="62" font-size="9" fill="#4A9020" text-anchor="middle"
-                                            font-family="sans-serif" font-weight="bold">¼ö½Å ¡æ ÀúÀå</text>
-                                        <path d="M52 40 C 65 25 65 55 78 40" stroke="var(--u)" stroke-width="1.5"
-                                            fill="none" stroke-dasharray="4,2" marker-end="url(#rda)" />
-                                        <text x="65" y="80" font-size="8" fill="var(--lt)" text-anchor="middle"
-                                            font-family="sans-serif">¶óµğ¿À ±×·ì: 1</text>
-                                        <text x="65" y="92" font-size="8" fill="var(--lt)" text-anchor="middle"
-                                            font-family="sans-serif">¹«¼± ¼Û¼ö½Å</text>
-                                        <defs>
-                                            <marker id="rda" markerWidth="5" markerHeight="5" refX="2.5" refY="2.5"
-                                                orient="auto">
-                                                <path d="M0,0 L5,2.5 L0,5 Z" fill="var(--u)" />
-                                            </marker>
-                                        </defs>
-                                    </svg>
-                                </div>
-                            </div>
-                            <div class="divl"></div>
-                            <h4 style="font-size:13px;font-weight:700;margin-bottom:9px">¾Ë°í¸®Áò ¼³°è (4´Ü°è)</h4>
-                            <div
-                                style="background:var(--bg);border:1px solid var(--br);border-radius:var(--rSM);padding:13px;font-size:12px;color:var(--mt);line-height:2;margin-bottom:12px">
-                                ? ½ÃÀÛ ¡æ ¶óµğ¿À ±×·ì 1·Î ¼³Á¤, '¼±ÅÃ °á°ú'¡¤'¼ö½Å °á°ú' º¯¼ö 0À¸·Î ÃÊ±âÈ­<br>
-                                ? A ¹öÆ° ¡æ 1 Àü¼Û + '¼±ÅÃ °á°ú'=1 ÀúÀå + 'Å°µæÅ°µæ' ¼Ò¸®<br>
-                                &nbsp;&nbsp;&nbsp;B ¹öÆ° ¡æ 2 Àü¼Û + '¼±ÅÃ °á°ú'=2 ÀúÀå + 'Å°µæÅ°µæ' ¼Ò¸®<br>
-                                ? ¶óµğ¿À ¼ö½Å ¡æ '¼ö½Å °á°ú'¿¡ ¼ö½Å ¼ıÀÚ ÀúÀå<br>
-                                ? µÎ º¯¼ö °ö > 0 ÀÌ¸é ¡æ °°À¸¸é ¢¾, ´Ù¸£¸é ? LED Ãâ·Â
-                            </div>
-                            <h4 style="font-size:13px;font-weight:700;margin-bottom:9px">MakeCode ºí·Ï ¿¹½Ã</h4>
-                            <div class="mb-workspace">
-                                <div class="mb-row"><span class="mb mb-start">?? ½ÃÀÛÇÏ¸é</span></div>
-                                <div class="mb-indent"><span class="mb mb-radio">?? ¶óµğ¿À ±×·ì 1·Î ¼³Á¤</span></div>
-                                <div class="mb-indent"><span class="mb mb-var">¼±ÅÃ°á°ú ¡ç 0 / ¼ö½Å°á°ú ¡ç 0</span></div>
-                                <div class="mb-row"><span class="mb mb-input">??? A ¹öÆ°</span></div>
-                                <div class="mb-indent"><span class="mb mb-radio">?? ¶óµğ¿À·Î 1 Àü¼Û</span></div>
-                                <div class="mb-indent"><span class="mb mb-var">¼±ÅÃ°á°ú ¡ç 1</span></div>
-                                <div class="mb-indent"><span class="mb mb-music">?? Å°µæÅ°µæ ¼Ò¸®</span></div>
-                                <div class="mb-row"><span class="mb mb-radio">?? ¶óµğ¿À ¼ö½Å ½Ã (¼ıÀÚ)</span></div>
-                                <div class="mb-indent"><span class="mb mb-var">¼ö½Å°á°ú ¡ç ¹ŞÀº ¼ıÀÚ</span></div>
-                                <div class="mb-row"><span class="mb mb-loop">?? ¹«ÇÑ ¹İº¹</span></div>
-                                <div class="mb-indent"><span class="mb mb-logic">¸¸¾à ¼ö½Å°á°ú ¡¿ ¼±ÅÃ°á°ú > 0</span></div>
-                                <div class="mb-indent"><span class="mb mb-logic">¸¸¾à ¼ö½Å°á°ú = ¼±ÅÃ°á°ú</span></div>
-                                <div class="mb-indent2"><span class="mb mb-led">LED: ¢¾ (ÀÌ½ÉÀü½É!)</span></div>
-                                <div class="mb-indent"><span class="mb mb-logic">¾Æ´Ï¸é</span></div>
-                                <div class="mb-indent2"><span class="mb mb-led">LED: ? (´Ù¸¥ ¼±ÅÃ)</span></div>
-                            </div>
-                            <div class="ibox info">?? <b>±³°ú¼­ ¿¬°è:</b> pp.32~35 / µÎ º¯¼öÀÇ °öÀÌ 0º¸´Ù Å©¸é = µÎ »ç¶÷ ¸ğµÎ ¹öÆ°À» ´©¸¥ »óÅÂ
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- ¡Ú ¼öÇà È°µ¿ ¡Ú -->
-                    <div class="activity" id="sec-activity">
-                        <div class="act-head" onclick="toggleSec('act-body-06')">
-                            <span class="act-badge">¡Ú ¼öÇà È°µ¿</span>
-                            <h3>¹«¼± Åë½ÅÀ» È°¿ëÇÑ ÀåÄ¡ ¸¸µé±â</h3>
-                            <span style="font-size:10px;color:var(--udk);margin-left:auto">¸ğµÒ È°µ¿ | pp.35</span>
-                            <span class="carr" style="color:var(--udk)">?</span>
-                        </div>
-                        <div id="act-body-06" class="act-body">
-                            <div class="ibox ok" style="margin-top:0;margin-bottom:14px">?? ¶óµğ¿À Åë½ÅÀ¸·Î µÎ °¡Áö È°µ¿À» ¸¸µé¾îº¾´Ï´Ù.
-                                (±³°ú¼­ p.35 ÇØº¸±â)</div>
-
-                            <!-- È°µ¿ 1: °¡À§¹ÙÀ§º¸ °ÔÀÓ -->
-                            <div
-                                style="background:var(--sf);border:2px solid var(--umd);border-radius:var(--rSM);padding:14px;margin-bottom:14px">
-                                <div style="font-size:12px;font-weight:700;color:var(--u);margin-bottom:8px">?? È°µ¿ 1 ?
-                                    °¡À§¹ÙÀ§º¸ °ÔÀÓ ÀåÄ¡ ¸¸µé±â (pp.35)</div>
-                                <div
-                                    style="background:var(--bg);border:1px solid var(--br);border-radius:var(--rSM);padding:11px;margin-bottom:10px;font-size:12px;color:var(--mt);line-height:1.9">
-                                    <b>¹æ¹ı:</b><br>¨ç °°Àº ¶óµğ¿À ±×·ì ¼³Á¤<br>¨è A ¹öÆ°=°¡À§(Àü¼Û:1), B ¹öÆ°=¹ÙÀ§(Àü¼Û:2), A+B=º¸(Àü¼Û:3)<br>¨é Àü¼ÛµÈ
-                                    ¼ıÀÚ¿Í ºñ±³ÇÏ¿© ½Â¡¤¹«¡¤ÆĞ Ãâ·Â
-                                </div>
-                                <div style="font-size:12px;font-weight:600;color:var(--mt);margin-bottom:7px">½Â¡¤¹«¡¤ÆĞ ÆÇº°
-                                    ¾Ë°í¸®Áò ÀÛ¼º</div>
-                                <textarea class="act-input"
-                                    placeholder="°¡À§=1, ¹ÙÀ§=2, º¸=3 ÀÏ ¶§&#10;¸¸¾à ³»¼±ÅÃ=1(°¡À§) AND »ó´ë=3(º¸) ¡æ ½Â&#10;¸¸¾à ³»¼±ÅÃ=2(¹ÙÀ§) AND »ó´ë=1(°¡À§) ¡æ ½Â&#10;¸¸¾à ³»¼±ÅÃ=3(º¸) AND »ó´ë=2(¹ÙÀ§) ¡æ ½Â&#10;¸¸¾à ³»¼±ÅÃ=»ó´ë ¡æ ¹«&#10;³ª¸ÓÁö ¡æ ÆĞ"></textarea>
-
-                                <!-- °¡À§¹ÙÀ§º¸ ½Ã¹Ä·¹ÀÌÅÍ -->
-                                <div style="background:#1e1e2e;border-radius:var(--rSM);padding:14px;margin-top:10px">
-                                    <div style="font-size:10px;color:#aaa;text-align:center;margin-bottom:10px">°¡À§¹ÙÀ§º¸
-                                        ½Ã¹Ä·¹ÀÌÅÍ (È¥ÀÚ Ã¼Çè)</div>
-                                    <div style="display:flex;justify-content:center;gap:10px;margin-bottom:10px">
-                                        <button onclick="rpsPlay('°¡À§','??',1)" class="btn"
-                                            style="background:#333;color:#fff;border-color:#555;font-size:18px;padding:10px 14px">??
-                                            <div style="font-size:10px">°¡À§(A)</div></button>
-                                        <button onclick="rpsPlay('¹ÙÀ§','?',2)" class="btn"
-                                            style="background:#333;color:#fff;border-color:#555;font-size:18px;padding:10px 14px">?
-                                            <div style="font-size:10px">¹ÙÀ§(B)</div></button>
-                                        <button onclick="rpsPlay('º¸','???',3)" class="btn"
-                                            style="background:#333;color:#fff;border-color:#555;font-size:18px;padding:10px 14px">???
-                                            <div style="font-size:10px">º¸(A+B)</div></button>
-                                    </div>
-                                    <div id="rps-result"
-                                        style="text-align:center;min-height:60px;display:flex;align-items:center;justify-content:center;flex-direction:column">
-                                        <div style="font-size:12px;color:#aaa">¹öÆ°À» ´­·¯ °¡À§¹ÙÀ§º¸¸¦ ÇØº¸¼¼¿ä</div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- È°µ¿ 2: Âù¹İ ÅõÇ¥ -->
-                            <div
-                                style="background:var(--sf);border:2px solid var(--umd);border-radius:var(--rSM);padding:14px">
-                                <div style="font-size:12px;font-weight:700;color:var(--u);margin-bottom:8px">?? È°µ¿ 2 ?
-                                    Âù¹İ ÅõÇ¥ ¼Û½Å±â¡¤¼ö½Å±â ¸¸µé±â (pp.35)</div>
-                                <div
-                                    style="background:var(--bg);border:1px solid var(--br);border-radius:var(--rSM);padding:11px;margin-bottom:10px;font-size:12px;color:var(--mt);line-height:1.9">
-                                    <b>¼Û½Å±â:</b> A ¹öÆ° ¡æ ¶óµğ¿À 1 Àü¼Û + ? Ãâ·Â / B ¹öÆ° ¡æ ¶óµğ¿À 2 Àü¼Û + ? Ãâ·Â<br>
-                                    <b>¼ö½Å±â:</b> A ¹öÆ° ¡æ Âù¼º¡¤¹İ´ë ¼ö Ãâ·Â / A+B ¡æ ÃÊ±âÈ­
-                                </div>
-                                <!-- ÅõÇ¥ ½Ã¹Ä·¹ÀÌÅÍ -->
-                                <div
-                                    style="background:#1e1e2e;border-radius:var(--rSM);padding:14px;margin-bottom:10px">
-                                    <div style="font-size:10px;color:#aaa;text-align:center;margin-bottom:10px">Âù¹İ ÅõÇ¥
-                                        ½Ã¹Ä·¹ÀÌÅÍ</div>
-                                    <div style="display:flex;justify-content:center;gap:12px;margin-bottom:10px">
-                                        <button onclick="voteClick('yes')" class="btn"
-                                            style="background:#27AE60;color:#fff;border-color:#1A7A40;font-size:18px;padding:10px 18px">?
-                                            <div style="font-size:10px">A¹öÆ° Âù¼º</div></button>
-                                        <button onclick="voteClick('no')" class="btn"
-                                            style="background:#E74C3C;color:#fff;border-color:#A01010;font-size:18px;padding:10px 18px">?
-                                            <div style="font-size:10px">B¹öÆ° ¹İ´ë</div></button>
-                                        <button onclick="voteReset()" class="btn"
-                                            style="background:#555;color:#fff;border-color:#333;font-size:12px;padding:10px">A+B
-                                            <div style="font-size:9px">ÃÊ±âÈ­</div></button>
-                                    </div>
-                                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-                                        <div style="text-align:center">
-                                            <div id="yes-count" style="font-size:32px;font-weight:700;color:#27AE60">0
-                                            </div>
-                                            <div style="font-size:11px;color:#aaa">? Âù¼º</div>
-                                            <div id="yes-bar-wrap"
-                                                style="height:8px;background:#333;border-radius:4px;margin-top:5px;overflow:hidden">
-                                                <div id="yes-bar"
-                                                    style="height:100%;background:#27AE60;width:0%;transition:width .3s;border-radius:4px">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div style="text-align:center">
-                                            <div id="no-count" style="font-size:32px;font-weight:700;color:#E74C3C">0
-                                            </div>
-                                            <div style="font-size:11px;color:#aaa">? ¹İ´ë</div>
-                                            <div id="no-bar-wrap"
-                                                style="height:8px;background:#333;border-radius:4px;margin-top:5px;overflow:hidden">
-                                                <div id="no-bar"
-                                                    style="height:100%;background:#E74C3C;width:0%;transition:width .3s;border-radius:4px">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <textarea class="act-input"
-                                    placeholder="¼ö½Å±â ¾Ë°í¸®Áò ÀÛ¼º:&#10;¶óµğ¿À·Î 1 ¼ö½Å ¡æ Âù¼º ¼ö +1&#10;¶óµğ¿À·Î 2 ¼ö½Å ¡æ ¹İ´ë ¼ö +1&#10;A ¹öÆ° ¡æ '?: Âù¼º ¼ö ?: ¹İ´ë ¼ö' LED Ãâ·Â&#10;A+B ¡æ Âù¼º ¼ö, ¹İ´ë ¼ö 0À¸·Î ÃÊ±âÈ­"></textarea>
-                            </div>
-
-                            <!-- Æò°¡ÇÏ±â -->
-                            <div style="margin-top:14px">
-                                <div style="font-size:12px;font-weight:700;color:var(--mt);margin-bottom:8px">?? Æò°¡ÇÏ±â
-                                    (±³°ú¼­ p.34)</div>
-                                <div style="overflow-x:auto;margin-top:12px">
-                                    <table class="peer-check">
-                                        <thead>
-                                            <tr>
-                                                <th style="text-align:left">Æò°¡ Ç×¸ñ</th>
-                                                <th colspan="2">ÀÚ±â Æò°¡</th>
-                                                <th colspan="2">µ¿·á Æò°¡</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>¼³Á¤ÇÑ ¶óµğ¿À ±×·ìÀÌ µ¿ÀÏÇÑ°¡?</td>
-                                                <td><label><input type="radio" name="pe0a" value="¿¹"> ¿¹</label></td>
-                                                <td><label><input type="radio" name="pe0a" value="¾Æ´Ï¿ä"> ¾Æ´Ï¿ä</label></td>
-                                                <td><label><input type="radio" name="pe0b" value="¿¹"> ¿¹</label></td>
-                                                <td><label><input type="radio" name="pe0b" value="¾Æ´Ï¿ä"> ¾Æ´Ï¿ä</label></td>
-                                            </tr>
-                                            <tr>
-                                                <td>¹öÆ°À» ´©¸£¸é ¾È³»¿ë ¼Ò¸®°¡ µé¸®´Â°¡?</td>
-                                                <td><label><input type="radio" name="pe1a" value="¿¹"> ¿¹</label></td>
-                                                <td><label><input type="radio" name="pe1a" value="¾Æ´Ï¿ä"> ¾Æ´Ï¿ä</label></td>
-                                                <td><label><input type="radio" name="pe1b" value="¿¹"> ¿¹</label></td>
-                                                <td><label><input type="radio" name="pe1b" value="¾Æ´Ï¿ä"> ¾Æ´Ï¿ä</label></td>
-                                            </tr>
-                                            <tr>
-                                                <td>µÎ ¸íÀÌ ¸ğµÎ ¹öÆ°À» ´­·¯¾ß °á°ú°¡ ³ªÅ¸³ª´Â°¡?</td>
-                                                <td><label><input type="radio" name="pe2a" value="¿¹"> ¿¹</label></td>
-                                                <td><label><input type="radio" name="pe2a" value="¾Æ´Ï¿ä"> ¾Æ´Ï¿ä</label></td>
-                                                <td><label><input type="radio" name="pe2b" value="¿¹"> ¿¹</label></td>
-                                                <td><label><input type="radio" name="pe2b" value="¾Æ´Ï¿ä"> ¾Æ´Ï¿ä</label></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                            <div style="display:flex;gap:8px;margin-top:12px">
-                                <button class="btn bsm bp" onclick="saveActivity('l106_act')">?? È°µ¿ ÀúÀå</button>
-                                <a href="https://makecode.microbit.org" target="_blank" class="btn bsm"
-                                    style="background:#0078D4;color:#fff;border-color:#005A9E">MakeCode ¿­±â ¢Ö</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card" id="sec-assess">
-                        <div class="ch" onclick="toggleSec('sec-assess')">
-                            <div class="sn" style="background:var(--bbg);color:var(--blue)">04</div>
-                            <h3>¼öÇàÆò°¡ ? ´Ü¿ø ¸¶¹«¸®</h3><span class="st">? 5ºĞ</span><span class="carr">?</span>
-                        </div>
-                        <div class="cb">
-                            <div
-                                style="background:var(--bg);border:1px solid var(--br);border-radius:var(--rSM);padding:12px;margin-bottom:12px;border-left:3px solid var(--u)">
-                                <h4 style="font-size:13px;font-weight:700;color:var(--u);margin-bottom:7px">?? ÀÌ½ÉÀü½É °ÔÀÓ +
-                                    °¡À§¹ÙÀ§º¸ °ÔÀÓ ¿Ï¼º</h4>
-                                <p style="font-size:13px;color:var(--mt)">¶óµğ¿À Åë½ÅÀ» È°¿ëÇÑ ¹«¼± ÇÇÁöÄÃ ÄÄÇ»ÆÃ ÇÁ·Î±×·¥ 2°¡Áö¸¦ MakeCode·Î
-                                    ¿Ï¼ºÇÏ°í ½ÇÁ¦ µÎ ¸¶ÀÌÅ©·ÎºñÆ®·Î µ¿ÀÛÀ» ½Ã¿¬ÇÏ½Ã¿À.</p>
-                            </div>
-                            <table class="rub">
-                                <thead>
-                                    <tr>
-                                        <th>Æò°¡ ¿ä¼Ò</th>
-                                        <th class="lv4">¸Å¿ì ÀßÇÔ(4)</th>
-                                        <th class="lv3">ÀßÇÔ(3)</th>
-                                        <th class="lv2">º¸Åë(2)</th>
-                                        <th class="lv1">³ë·Â ÇÊ¿ä(1)</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><b>¶óµğ¿À Åë½Å</b></td>
-                                        <td class="lv4">±×·ì ¼³Á¤¡¤¼Û¼ö½Å Á¤È®</td>
-                                        <td class="lv3">´ëÃ¼·Î Á¤È®</td>
-                                        <td class="lv2">¼³Á¤¸¸</td>
-                                        <td class="lv1">¾øÀ½</td>
-                                    </tr>
-                                    <tr>
-                                        <td><b>°ÔÀÓ ±¸Çö</b></td>
-                                        <td class="lv4">ÀÌ½ÉÀü½É¡¤°¡À§¹ÙÀ§º¸ ¸ğµÎ</td>
-                                        <td class="lv3">1°¡Áö ¿Ï¼º</td>
-                                        <td class="lv2">ºÎºĞ ÀÛµ¿</td>
-                                        <td class="lv1">¾øÀ½</td>
-                                    </tr>
-                                    <tr>
-                                        <td><b>½Ã¿¬¡¤¹ßÇ¥</b></td>
-                                        <td class="lv4">¿ø¸® ¼³¸í+½ÇÁ¦ ½Ã¿¬</td>
-                                        <td class="lv3">½Ã¿¬¸¸</td>
-                                        <td class="lv2">¼³¸í¸¸</td>
-                                        <td class="lv1">¾øÀ½</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <div class="sclist">
-                                <div class="scitem"><label>¶óµğ¿À Åë½ÅÀÇ ¿ø¸®¿Í ±×·ì ¼³Á¤À» ¼³¸íÇÒ ¼ö ÀÖ´Ù.</label><select>
-                                        <option value="">¼±ÅÃ</option>
-                                        <option>¸Å¿ì ±×·¸´Ù</option>
-                                        <option>±×·¸´Ù</option>
-                                        <option>¾ÆÁ÷ ¸ğ¸£°Ú´Ù</option>
-                                    </select></div>
-                                <div class="scitem"><label>¹«¼± ¼Û¼ö½Å ¾Ë°í¸®ÁòÀ» ¼³°èÇÒ ¼ö ÀÖ´Ù.</label><select>
-                                        <option value="">¼±ÅÃ</option>
-                                        <option>¸Å¿ì ±×·¸´Ù</option>
-                                        <option>±×·¸´Ù</option>
-                                        <option>¾ÆÁ÷ ¸ğ¸£°Ú´Ù</option>
-                                    </select></div>
-                                <div class="scitem"><label>ÀÌ½ÉÀü½É °ÔÀÓ ÇÁ·Î±×·¥À» MakeCode·Î ¿Ï¼ºÇÒ ¼ö ÀÖ´Ù.</label><select>
-                                        <option value="">¼±ÅÃ</option>
-                                        <option>¸Å¿ì ±×·¸´Ù</option>
-                                        <option>±×·¸´Ù</option>
-                                        <option>¾ÆÁ÷ ¸ğ¸£°Ú´Ù</option>
-                                    </select></div>
-                            </div>
-                            <button class="btn bsm bok" style="margin-top:10px" onclick="saveSC('l106sc')">??
-                                ÀúÀå</button>
-                        </div>
-                    </div>
-
-                    <div class="card" id="sec-review">
-                        <div class="ch" onclick="toggleSec('sec-review')">
-                            <div class="sn" style="background:var(--gbg);color:var(--green)">05</div>
-                            <h3>È®ÀÎÇÏ±â ? I´Ü¿ø ¸¶¹«¸®</h3><span class="st">? 5ºĞ</span><span class="carr">?</span>
-                        </div>
-                        <div class="cb">
-                            <div
-                                style="background:linear-gradient(135deg,var(--ult),var(--gbg));border:1px solid var(--umd);border-radius:var(--rSM);padding:16px;margin-bottom:12px;text-align:center">
-                                <div style="font-size:22px;margin-bottom:6px">??</div>
-                                <div style="font-size:14px;font-weight:700;color:var(--udk)">I´Ü¿ø ÄÄÇ»ÆÃ ½Ã½ºÅÛ ¿Ï·á!</div>
-                                <div style="font-size:12px;color:var(--mt);margin-top:4px">ÄÄÇ»ÆÃ ½Ã½ºÅÛ ±¸¼ººÎÅÍ ¸¶ÀÌÅ©·ÎºñÆ® ÇÇÁöÄÃ ÄÄÇ»ÆÃ
-                                    ÇÁ·Î±×·¡¹Ö±îÁö ¿Ï¼º!</div>
-                            </div>
-                            <div class="sgrid">
-                                <div class="scard"><strong>¶óµğ¿À Åë½Å</strong>°°Àº ±×·ì(0~255) ¼³Á¤. ¹«¼± ¼ıÀÚ¡¤¹®ÀÚ ¼Û¼ö½Å.</div>
-                                <div class="scard"><strong>±×·ì Áß¿ä¼º</strong>°°Àº ±×·ì³¢¸®¸¸ Åë½Å. Âü°¡ÀÚ¸¸ °°Àº ¹øÈ£!</div>
-                                <div class="scard"><strong>ÀÌ½ÉÀü½É ¿ø¸®</strong>µÎ º¯¼ö °ö > 0 ¡æ µÑ ´Ù ¼±ÅÃ¿Ï·á.</div>
-                            </div>
-                            <div
-                                style="background:var(--bg);border:1px solid var(--br);border-radius:var(--rSM);padding:13px;margin-bottom:12px">
-                                <b>?? ´Ü´äÇü:</b> ¶óµğ¿À Åë½Å¿¡¼­ °°Àº <span
-                                    style="display:inline-block;width:50px;border-bottom:1.5px solid var(--tx)">&nbsp;</span>À¸·Î
-                                ¼³Á¤µÈ ¸¶ÀÌÅ©·ÎºñÆ®³¢¸® ½ÅÈ£¸¦ ÁÖ°í¹ŞÀ» ¼ö ÀÖ´Ù.<textarea
-                                    style="display:block;width:100%;margin-top:9px;padding:9px;border:1px solid var(--br);border-radius:var(--rSM);font-size:13px;font-family:inherit;resize:vertical;min-height:48px;background:var(--sf)"
-                                    placeholder="Á¤´äÀ» ÀÔ·ÂÇÏ¼¼¿ä..."></textarea></div>
-                            <div class="ibox ok">?? <div><strong>´ÙÀ½ ´Ü¿ø ¿¹°í:</strong> II´Ü¿ø <strong>µ¥ÀÌÅÍ</strong>¿¡¼­´Â µğÁöÅĞ Ç¥Çö°ú
-                                    µ¥ÀÌÅÍ ºĞ¼®À» Å½±¸ÇÕ´Ï´Ù!</div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="ca">
-                    <div class="ap">
-                        <h5>ÇĞ½À ÁøÇà</h5>
-                        <div class="slist">
-                            <div class="si" onclick="goTo('sec-goal')">
-                                <div class="dot sd">1</div>ÇĞ½À¸ñÇ¥
-                            </div>
-                            <div class="si" onclick="goTo('sec-concept')">
-                                <div class="dot">2</div>°³³ä¼³¸í
-                            </div>
-                            <div class="si" onclick="goTo('sec-activity')">
-                                <div class="dot sa">¡Ú</div>¼öÇà È°µ¿
-                            </div>
-                            <div class="si" onclick="goTo('sec-assess')">
-                                <div class="dot">4</div>¼öÇàÆò°¡
-                            </div>
-                            <div class="si" onclick="goTo('sec-review')">
-                                <div class="dot">5</div>È®ÀÎÇÏ±â
-                            </div>
-                        </div>
-                    </div>
-                    <div class="ap" style="background:var(--ult);border-color:var(--umd)">
-                        <h5 style="color:var(--u)">´Ü¿ø Áøµµ</h5>
-                        <div style="display:flex;align-items:center;gap:7px">
-                            <div class="pbtrack" style="flex:1">
-                                <div class="pbfill" style="width:100%"></div>
-                            </div><span style="font-size:11px;font-weight:600;color:var(--u)">6/6</span>
-                        </div>
-                    </div>
-                    <div class="ap">
-                        <h5>ÇÙ½É ¿ë¾î</h5>
-                        <div class="termlist">
-                            <div class="tterm"><span class="tw">¶óµğ¿À Åë½Å</span><span class="tdef">°°Àº ±×·ì ¹«¼± Åë½Å</span></div>
-                            <div class="tterm"><span class="tw">±×·ì ¼³Á¤</span><span class="tdef">0~255 Ã¤³Î ¼±ÅÃ</span></div>
-                            <div class="tterm"><span class="tw">Àü¼Û</span><span class="tdef">¼ıÀÚ¡¤¹®ÀÚ ¼Û½Å</span></div>
-                            <div class="tterm"><span class="tw">¼ö½Å</span><span class="tdef">°°Àº ±×·ì ½ÅÈ£ ¼ö½Å</span></div>
-                            <div class="tterm"><span class="tw">º¯¼ö ºñ±³</span><span class="tdef">¼±ÅÃ°á°ú=¼ö½Å°á°ú ÆÇº°</span></div>
-                        </div>
-                    </div>
-                    <div class="ap" style="background:#F0FDF4;border-color:#BBF7D0">
-                        <h5 style="color:#166534">?? ¸¶ÀÌÅ©·ÎºñÆ®</h5>
-                        <a href="https://makecode.microbit.org" target="_blank" class="btn bsm"
-                            style="width:100%;justify-content:center;background:#0078D4;color:#fff;border-color:#005A9E;margin-bottom:5px">MakeCode
-                            ¿­±â ¢Ö</a>
-                        <a href="https://makecode.microbit.org/#editor" target="_blank" class="btn bsm"
-                            style="width:100%;justify-content:center;font-size:10px;color:var(--mt)">½Ã¹Ä·¹ÀÌÅÍ ¢Ö</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
-    <div id="toast"></div>
-    <script>
-
-        // ¦¡¦¡ Google Sheets ÀúÀå ¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡
-        var GS_URL = 'https://script.google.com/macros/s/AKfycbwOMGuuboaYzZCHvIQpu3V_Lo-Fu02CiY4nj1BDktSinJM41H_EqAkulbcUsC-2Sxt6/exec';
-
-        function getUserName() {
-            return localStorage.getItem('user_name') || 'ÀÍ¸í';
-        }
-
-        function postToSheets(payload) {
-            if (!GS_URL || GS_URL === 'https://script.google.com/macros/s/AKfycbwOMGuuboaYzZCHvIQpu3V_Lo-Fu02CiY4nj1BDktSinJM41H_EqAkulbcUsC-2Sxt6/exec') return;
-            fetch(GS_URL, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            }).catch(function () { });
-        }
-
-
-        function toast(m) { var t = document.getElementById('toast'); t.textContent = m; t.style.opacity = '1'; t.style.transform = 'translateX(-50%) translateY(0)'; clearTimeout(t._t); t._t = setTimeout(function () { t.style.opacity = '0'; t.style.transform = 'translateX(-50%) translateY(10px)'; }, 2400); }
-        function toggleSec(id) { var e = document.getElementById(id); if (e) e.classList.toggle('collapsed'); }
-        function goTo(id) { var e = document.getElementById(id); if (!e) return; window.scrollTo({ top: e.getBoundingClientRect().top + window.pageYOffset - 64, behavior: 'smooth' }); }
-        function checkQ(el, ok, msg) { el.closest('.qopts').querySelectorAll('.opt').forEach(function (o) { o.classList.add('locked'); }); el.classList.add(ok ? 'correct' : 'wrong'); var fb = el.closest('.qwrap').querySelector('.qfb'); if (fb) { fb.className = 'qfb ' + (ok ? 'ok' : 'err'); fb.innerHTML = (ok ? '? Á¤´ä: ' : '? ÈùÆ®: ') + msg; } }
-        function saveSC(key) {
-            var d = {};
-            document.querySelectorAll('.scitem select').forEach(function (s, i) { d['q' + i] = s.value; });
-            try {
-                localStorage.setItem(key, JSON.stringify(d));
-                // Google Sheets ÀúÀå
-                postToSheets({
-                    type: 'sc',
-                    userName: getUserName(),
-                    lessonKey: 'l16',
-                    lessonName: 'l16',
-                    answers: d
-                });
-                toast('ÀÚ±âÆò°¡°¡ ÀúÀåµÇ¾ú½À´Ï´Ù ?');
-            } catch (e) { }
-        }
-        function loadSC(key) { try { var d = JSON.parse(localStorage.getItem(key) || '{}'); document.querySelectorAll('.scitem select').forEach(function (s, i) { if (d['q' + i]) s.value = d['q' + i]; }); } catch (e) { } }
-        function markDone(n) {
-            try {
-                var d = JSON.parse(localStorage.getItem('u01done') || '[]');
-                if (!d.includes(n)) d.push(n);
-                localStorage.setItem('u01done', JSON.stringify(d));
-                // Google Sheets ÀúÀå
-                postToSheets({
-                    type: 'done',
-                    userName: getUserName(),
-                    unit: 'I',
-                    lessonNum: n,
-                    lessonName: 'ÄÄÇ»ÆÃ ½Ã½ºÅÛ'
-                });
-            } catch (e) { }
-            toast('? ¼Ò´Ü¿ø ' + n + ' ¿Ï·á Ç¥½Ã!');
-        }
-        function saveActivity(key) {
-            var d = {};
-            document.querySelectorAll('.act-input').forEach(function (el, i) { d['a' + i] = el.value; });
-            document.querySelectorAll('.peer-check input[type=radio]:checked').forEach(function (el) { d['r_' + el.name] = el.value; });
-            try {
-                localStorage.setItem(key, JSON.stringify(d));
-                // Google Sheets ÀúÀå
-                postToSheets({
-                    type: 'act',
-                    userName: getUserName(),
-                    lessonKey: 'l16',
-                    lessonName: 'l16',
-                    answers: d
-                });
-                toast('? ¼öÇà È°µ¿ÀÌ ÀúÀåµÇ¾ú½À´Ï´Ù!');
-            } catch (e) { }
-        }
-        function loadActivity(key) {
-            try {
-                var d = JSON.parse(localStorage.getItem(key) || '{}');
-                document.querySelectorAll('.act-input').forEach(function (el, i) { if (d['a' + i]) el.value = d['a' + i]; });
-                Object.keys(d).filter(function (k) { return k.startsWith('r_'); }).forEach(function (k) {
-                    var el = document.querySelector('input[type=radio][name="' + k.slice(2) + '"][value="' + d[k] + '"]');
-                    if (el) el.checked = true;
-                });
-            } catch (e) { }
-        }
-
-
-        var rpsMap = { 1: '°¡À§', 2: '¹ÙÀ§', 3: 'º¸' };
-        var rpsWin = { 1: 3, 2: 1, 3: 2 }; // ³»°¡ ÀÌ±â·Á¸é »ó´ë°¡ ÀÌ °ªÀÌ¾î¾ß ÇÔ
-        function rpsPlay(name, icon, val) {
-            var compVal = Math.floor(Math.random() * 3) + 1;
-            var compName = rpsMap[compVal];
-            var compIcons = { °¡À§: '??', ¹ÙÀ§: '?', º¸: '???' };
-            var r = document.getElementById('rps-result');
-            if (!r) return;
-            var outcome, color;
-            if (val === compVal) { outcome = '¹«½ÂºÎ ??'; color = '#aaa'; }
-            else if (rpsWin[val] === compVal) { outcome = '½Â¸® ??'; color = '#27AE60'; }
-            else { outcome = 'ÆĞ¹è ??'; color = '#E74C3C'; }
-            r.innerHTML = '<div style="font-size:22px;margin-bottom:6px">' + icon + ' vs ' + compIcons[compName] + '</div>' +
-                '<div style="font-size:13px;color:#aaa;margin-bottom:4px">³ª: ' + name + ' / »ó´ë: ' + compName + '</div>' +
-                '<div style="font-size:18px;font-weight:700;color:' + color + '">' + outcome + '</div>';
-        }
-        var voteY = 0, voteN = 0;
-        function voteClick(v) {
-            if (v === 'yes') voteY++; else voteN++;
-            document.getElementById('yes-count').textContent = voteY;
-            document.getElementById('no-count').textContent = voteN;
-            var total = voteY + voteN || 1;
-            document.getElementById('yes-bar').style.width = (voteY / total * 100) + '%';
-            document.getElementById('no-bar').style.width = (voteN / total * 100) + '%';
-        }
-        function voteReset() { voteY = 0; voteN = 0; voteClick(''); voteClick(''); }
-
-        document.addEventListener('DOMContentLoaded', function () { loadSC('l106sc'); loadActivity('l106sc_act'); });
-    </script>
-</body>
-
+ï»¿<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>I-6. ì´ì‹¬ì „ì‹¬ ê²Œì„ ì¥ì¹˜ ë§Œë“¤ê¸° â€” ì •ë³´ êµê³¼</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        html {
+            scroll-behavior: smooth
+        }
+
+        body {
+            font-family: 'Noto Sans KR', -apple-system, sans-serif;
+            background: #F5F4F0;
+            color: #1C1C1C;
+            font-size: 14px;
+            line-height: 1.65;
+            display: flex;
+            min-height: 100vh
+        }
+
+        :root {
+            --u: #6C65CC;
+            --udk: #4E48A8;
+            --ult: #ECEAFE;
+            --umd: #C8C4F0;
+            --bg: #F5F4F0;
+            --sf: #FFF;
+            --br: #E2DFD6;
+            --tx: #1C1C1C;
+            --mt: #696760;
+            --lt: #A8A59E;
+            --green: #2A720E;
+            --gbg: #E8F3DC;
+            --amber: #7A4E0A;
+            --abg: #FAF0DC;
+            --red: #8C1E0E;
+            --rbg: #FAEBE6;
+            --blue: #0A4E8C;
+            --bbg: #E4F0FA;
+            --rLG: 14px;
+            --rSM: 8px;
+            --SW: 240px;
+            --TH: 52px
+        }
+
+        .sb {
+            width: var(--SW);
+            background: var(--sf);
+            border-right: 1px solid var(--br);
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            z-index: 100
+        }
+
+        .sb-top {
+            padding: 16px 14px 12px;
+            border-bottom: 1px solid var(--br)
+        }
+
+        .uchip {
+            display: inline-flex;
+            align-items: center;
+            background: var(--ult);
+            color: var(--u);
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            padding: 3px 9px;
+            border-radius: 20px;
+            margin-bottom: 6px
+        }
+
+        .sb-top h2 {
+            font-size: 12px;
+            font-weight: 700;
+            line-height: 1.4
+        }
+
+        .smeta {
+            font-size: 10px;
+            color: var(--lt);
+            margin-top: 3px
+        }
+
+        .sb-nav {
+            padding: 4px 0;
+            flex: 1
+        }
+
+        .nlbl {
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            color: var(--lt);
+            padding: 7px 13px 3px
+        }
+
+        .na {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 7px 13px;
+            font-size: 11px;
+            color: var(--mt);
+            text-decoration: none;
+            border-left: 2.5px solid transparent;
+            transition: background .12s
+        }
+
+        .na:hover {
+            background: var(--bg);
+            color: var(--tx)
+        }
+
+        .na.on {
+            color: var(--u);
+            font-weight: 600;
+            background: var(--ult);
+            border-left-color: var(--u)
+        }
+
+        .na.done .nn {
+            background: var(--gbg);
+            color: var(--green)
+        }
+
+        .nn {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--br);
+            font-size: 9px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            color: var(--mt)
+        }
+
+        .na.on .nn {
+            background: var(--u);
+            color: #fff
+        }
+
+        .nbadge {
+            margin-left: auto;
+            font-size: 9px;
+            color: var(--lt);
+            background: var(--bg);
+            border: 1px solid var(--br);
+            padding: 1px 5px;
+            border-radius: 10px;
+            white-space: nowrap
+        }
+
+        .sb-foot {
+            padding: 10px 13px;
+            border-top: 1px solid var(--br)
+        }
+
+        .ba {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            color: var(--mt);
+            text-decoration: none;
+            padding: 5px 9px;
+            border-radius: var(--rSM);
+            border: 1px solid var(--br);
+            background: var(--sf);
+            transition: all .12s
+        }
+
+        .ba:hover {
+            background: var(--bg)
+        }
+
+        .main {
+            margin-left: var(--SW);
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            min-width: 0
+        }
+
+        .topbar {
+            background: var(--sf);
+            border-bottom: 1px solid var(--br);
+            height: var(--TH);
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            position: sticky;
+            top: 0;
+            z-index: 90
+        }
+
+        .bc {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 12px;
+            color: var(--mt);
+            flex: 1
+        }
+
+        .bc a {
+            color: var(--mt);
+            text-decoration: none
+        }
+
+        .bc a:hover {
+            color: var(--tx)
+        }
+
+        .bcsep {
+            color: var(--br)
+        }
+
+        .bccur {
+            color: var(--tx);
+            font-weight: 500
+        }
+
+        .tbr {
+            display: flex;
+            align-items: center;
+            gap: 6px
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 6px 12px;
+            border-radius: var(--rSM);
+            font-size: 12px;
+            font-family: inherit;
+            font-weight: 500;
+            cursor: pointer;
+            border: 1px solid var(--br);
+            background: var(--sf);
+            color: var(--tx);
+            text-decoration: none;
+            transition: background .12s;
+            white-space: nowrap
+        }
+
+        .btn:hover {
+            background: var(--bg)
+        }
+
+        .bsm {
+            padding: 5px 9px;
+            font-size: 11px
+        }
+
+        .bp {
+            background: var(--u);
+            color: #fff;
+            border-color: var(--u)
+        }
+
+        .bp:hover {
+            background: var(--udk)
+        }
+
+        .bok {
+            background: var(--green);
+            color: #fff;
+            border-color: var(--green)
+        }
+
+        .page {
+            padding: 20px 22px;
+            flex: 1
+        }
+
+        .g2 {
+            display: grid;
+            grid-template-columns: 1fr minmax(0, 248px);
+            gap: 16px;
+            align-items: start
+        }
+
+        .cm {
+            min-width: 0
+        }
+
+        .ca {
+            position: sticky;
+            top: calc(var(--TH)+12px)
+        }
+
+        .card {
+            background: var(--sf);
+            border: 1px solid var(--br);
+            border-radius: var(--rLG);
+            margin-bottom: 11px;
+            overflow: hidden
+        }
+
+        .ch {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            padding: 12px 16px;
+            cursor: pointer;
+            border-bottom: 1px solid var(--br);
+            transition: background .12s;
+            user-select: none
+        }
+
+        .ch:hover {
+            background: var(--bg)
+        }
+
+        .sn {
+            width: 26px;
+            height: 26px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 800;
+            flex-shrink: 0
+        }
+
+        .ch h3 {
+            font-size: 13px;
+            font-weight: 600;
+            flex: 1
+        }
+
+        .st {
+            font-size: 10px;
+            color: var(--lt);
+            background: var(--bg);
+            border: 1px solid var(--br);
+            padding: 2px 7px;
+            border-radius: 20px;
+            white-space: nowrap
+        }
+
+        .carr {
+            font-size: 11px;
+            color: var(--lt);
+            transition: transform .2s
+        }
+
+        .card.collapsed .carr {
+            transform: rotate(-90deg)
+        }
+
+        .cb {
+            padding: 18px
+        }
+
+        .card.collapsed .cb {
+            display: none
+        }
+
+        .ach {
+            background: var(--ult);
+            border: 1px solid var(--umd);
+            border-radius: var(--rSM);
+            padding: 10px 13px;
+            margin-bottom: 14px
+        }
+
+        .ach-c {
+            font-family: monospace;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--u);
+            margin-bottom: 3px
+        }
+
+        .ach-t {
+            font-size: 13px;
+            line-height: 1.6
+        }
+
+        .glist {
+            list-style: none
+        }
+
+        .glist li {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            padding: 6px 0;
+            font-size: 13px;
+            border-bottom: 1px solid var(--br);
+            line-height: 1.6
+        }
+
+        .glist li:last-child {
+            border-bottom: none
+        }
+
+        .gck {
+            width: 17px;
+            height: 17px;
+            border-radius: 50%;
+            background: var(--gbg);
+            color: var(--green);
+            font-size: 9px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 2px
+        }
+
+        .ctags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-bottom: 12px
+        }
+
+        .ctag {
+            font-size: 11px;
+            padding: 3px 10px;
+            background: var(--bg);
+            border: 1px solid var(--br);
+            border-radius: 20px;
+            cursor: pointer;
+            color: var(--mt);
+            transition: all .12s
+        }
+
+        .ctag:hover {
+            background: var(--ult);
+            border-color: var(--umd);
+            color: var(--u)
+        }
+
+        .ibox {
+            display: flex;
+            align-items: flex-start;
+            gap: 9px;
+            padding: 10px 13px;
+            border-radius: var(--rSM);
+            font-size: 12px;
+            line-height: 1.6;
+            margin-top: 10px
+        }
+
+        .prev {
+            background: var(--bg);
+            border: 1px solid var(--br);
+            color: var(--mt)
+        }
+
+        .warn {
+            background: #FFFBEC;
+            border: 1px solid #EDD070;
+            color: #6A5000
+        }
+
+        .info {
+            background: var(--bbg);
+            border: 1px solid #BACED8;
+            color: var(--blue)
+        }
+
+        .ok {
+            background: var(--gbg);
+            border: 1px solid #BFDFAA;
+            color: var(--green)
+        }
+
+        .divl {
+            height: 1px;
+            background: var(--br);
+            margin: 13px 0
+        }
+
+        .crow {
+            display: grid;
+            grid-template-columns: 1fr minmax(0, 148px);
+            gap: 13px;
+            align-items: start;
+            margin-bottom: 13px
+        }
+
+        .ct h4 {
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 7px
+        }
+
+        .ct p {
+            font-size: 13px;
+            color: var(--mt);
+            line-height: 1.75
+        }
+
+        .ct ul {
+            padding-left: 1rem;
+            margin-top: 5px
+        }
+
+        .ct ul li {
+            font-size: 13px;
+            color: var(--mt);
+            margin-bottom: 3px;
+            line-height: 1.6
+        }
+
+        .cvis {
+            background: var(--bg);
+            border: 1px solid var(--br);
+            border-radius: var(--rSM);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px
+        }
+
+        /* â”€â”€ ìˆ˜í–‰í™œë™ (í•´ë³´ê¸°) â”€â”€ */
+        .activity {
+            background: linear-gradient(135deg, var(--ult), #F5F4FF);
+            border: 2px solid var(--umd);
+            border-radius: var(--rLG);
+            margin-bottom: 11px;
+            overflow: hidden
+        }
+
+        .act-head {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            padding: 12px 16px;
+            border-bottom: 1.5px solid var(--umd);
+            background: var(--ult);
+            cursor: pointer;
+            user-select: none
+        }
+
+        .act-head:hover {
+            background: #E4E0FC
+        }
+
+        .act-badge {
+            background: var(--u);
+            color: #fff;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 20px;
+            white-space: nowrap
+        }
+
+        .act-head h3 {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--udk);
+            flex: 1
+        }
+
+        .act-body {
+            padding: 18px
+        }
+
+        .act-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 10px 12px;
+            background: var(--sf);
+            border: 1px solid var(--br);
+            border-radius: var(--rSM);
+            margin-bottom: 8px;
+            min-height: 160px;
+        }
+
+        .act-num {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: var(--u);
+            color: #fff;
+            font-size: 10px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            flex: none;
+            margin-top: 1px
+        }
+
+        .act-step h4 {
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 4px
+        }
+
+        .act-step p {
+            font-size: 12px;
+            color: var(--mt);
+            line-height: 1.65
+        }
+
+        .act-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+            margin-top: 8px
+        }
+
+        .act-table th {
+            background: var(--u);
+            color: #fff;
+            padding: 7px 10px;
+            font-weight: 600;
+            font-size: 11px;
+            text-align: left
+        }
+
+        .act-table td {
+            padding: 8px 10px;
+            border-bottom: 1px solid var(--br);
+            color: var(--mt);
+            vertical-align: top;
+            line-height: 1.55
+        }
+
+        .act-table tr:last-child td {
+            border-bottom: none
+        }
+
+        .act-input {
+            width: 100%;
+            padding: 8px 10px;
+            border: 1.5px solid var(--br);
+            border-radius: var(--rSM);
+            font-size: 12px;
+            font-family: inherit;
+            background: var(--sf);
+            outline: none;
+            resize: vertical;
+            min-height: 88px;
+            margin-top: 4px
+        }
+
+        .act-input:focus {
+            border-color: var(--u)
+        }
+
+        /* â”€â”€ ë§ˆì´í¬ë¡œë¹„íŠ¸ ë¸”ë¡ â”€â”€ */
+        .mb-workspace {
+            background: #1e1e2e;
+            border-radius: var(--rSM);
+            padding: 14px;
+            margin: 8px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 5px
+        }
+
+        .mb-row {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            flex-wrap: wrap
+        }
+
+        .mb-indent {
+            margin-left: 22px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            flex-wrap: wrap
+        }
+
+        .mb-indent2 {
+            margin-left: 44px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            flex-wrap: wrap
+        }
+
+        .mb {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 6px 11px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-family: 'Courier New', monospace;
+            font-weight: 700;
+            color: #fff;
+            cursor: default
+        }
+
+        .mb-hole {
+            display: inline-block;
+            background: rgba(255, 255, 255, .2);
+            border-radius: 3px;
+            padding: 1px 7px;
+            font-size: 10px;
+            min-width: 20px;
+            text-align: center
+        }
+
+        .mb-start {
+            background: #FF8C00;
+            box-shadow: 0 3px 0 #B85A00
+        }
+
+        .mb-motion {
+            background: #4A7ED9;
+            box-shadow: 0 3px 0 #2A50A0
+        }
+
+        .mb-led {
+            background: #9B59B6;
+            box-shadow: 0 3px 0 #6C3483
+        }
+
+        .mb-input {
+            background: #F39C12;
+            box-shadow: 0 3px 0 #C07000
+        }
+
+        .mb-logic {
+            background: #E74C3C;
+            box-shadow: 0 3px 0 #A01010
+        }
+
+        .mb-loop {
+            background: #27AE60;
+            box-shadow: 0 3px 0 #1A7A40
+        }
+
+        .mb-var {
+            background: #3498DB;
+            box-shadow: 0 3px 0 #1A5A9A
+        }
+
+        .mb-music {
+            background: #E91E63;
+            box-shadow: 0 3px 0 #880033
+        }
+
+        .mb-radio {
+            background: #00BCD4;
+            box-shadow: 0 3px 0 #007A88
+        }
+
+        .mb-sensor {
+            background: #FF6B35;
+            box-shadow: 0 3px 0 #C04010
+        }
+
+        /* â”€â”€ quiz â”€â”€ */
+        .qwrap {
+            background: var(--bg);
+            border: 1px solid var(--br);
+            border-radius: var(--rSM);
+            padding: 14px;
+            margin-top: 13px
+        }
+
+        .qq {
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 11px;
+            line-height: 1.55
+        }
+
+        .qopts {
+            display: flex;
+            flex-direction: column;
+            gap: 7px
+        }
+
+        .opt {
+            display: flex;
+            align-items: flex-start;
+            gap: 9px;
+            padding: 10px 12px;
+            background: var(--sf);
+            border: 1.5px solid var(--br);
+            border-radius: var(--rSM);
+            cursor: pointer;
+            font-size: 13px;
+            line-height: 1.5;
+            transition: all .12s
+        }
+
+        .opt:hover {
+            border-color: var(--u);
+            background: var(--ult)
+        }
+
+        .opt.correct {
+            border-color: #4A9020;
+            background: var(--gbg);
+            color: #1A5000;
+            pointer-events: none
+        }
+
+        .opt.wrong {
+            border-color: #B03020;
+            background: var(--rbg);
+            color: #6A1000;
+            pointer-events: none
+        }
+
+        .opt.locked {
+            pointer-events: none;
+            opacity: .55
+        }
+
+        .onum {
+            width: 21px;
+            height: 21px;
+            border-radius: 50%;
+            background: var(--br);
+            font-size: 11px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0
+        }
+
+        .opt.correct .onum {
+            background: #4A9020;
+            color: #fff
+        }
+
+        .opt.wrong .onum {
+            background: #B03020;
+            color: #fff
+        }
+
+        .qfb {
+            display: none;
+            margin-top: 9px;
+            padding: 10px 13px;
+            border-radius: var(--rSM);
+            font-size: 12px;
+            line-height: 1.6
+        }
+
+        .qfb.ok {
+            display: block;
+            background: var(--gbg);
+            border: 1px solid #BFDFAA;
+            color: var(--green)
+        }
+
+        .qfb.err {
+            display: block;
+            background: var(--rbg);
+            border: 1px solid #F0B8A0;
+            color: var(--red)
+        }
+
+        /* â”€â”€ assess â”€â”€ */
+        .rub {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+            margin-bottom: 12px
+        }
+
+        .rub th {
+            background: var(--bg);
+            padding: 7px 8px;
+            font-weight: 600;
+            border-bottom: 1.5px solid var(--br);
+            text-align: left;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: .04em;
+            color: var(--mt)
+        }
+
+        .rub td {
+            padding: 8px;
+            border-bottom: 1px solid var(--br);
+            color: var(--mt);
+            vertical-align: top;
+            line-height: 1.5
+        }
+
+        .rub tr:last-child td {
+            border-bottom: none
+        }
+
+        .lv4 {
+            color: #1A6000 !important;
+            font-weight: 500
+        }
+
+        .lv3 {
+            color: #2A6830 !important
+        }
+
+        .lv2 {
+            color: #7A4E00 !important
+        }
+
+        .lv1 {
+            color: #8A2000 !important
+        }
+
+        .peer-check {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 11px;
+            margin-top: 10px
+        }
+
+        .peer-check th {
+            background: var(--ult);
+            padding: 6px 9px;
+            font-weight: 600;
+            border-bottom: 1.5px solid var(--umd);
+            text-align: center;
+            color: var(--u);
+            font-size: 10px
+        }
+
+        .peer-check td {
+            padding: 7px 9px;
+            border-bottom: 1px solid var(--br);
+            color: var(--mt);
+            text-align: center
+        }
+
+        .peer-check td:first-child {
+            text-align: left;
+            font-size: 11px
+        }
+
+        .peer-check input[type=radio] {
+            accent-color: var(--u)
+        }
+
+        /* â”€â”€ sidebar â”€â”€ */
+        .ap {
+            background: var(--sf);
+            border: 1px solid var(--br);
+            border-radius: var(--rLG);
+            padding: 13px;
+            margin-bottom: 10px
+        }
+
+        .ap h5 {
+            font-size: 9px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .1em;
+            color: var(--lt);
+            margin-bottom: 8px
+        }
+
+        .slist {
+            display: flex;
+            flex-direction: column;
+            gap: 3px
+        }
+
+        .si {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            padding: 6px 8px;
+            border-radius: var(--rSM);
+            font-size: 11px;
+            color: var(--mt);
+            cursor: pointer;
+            transition: background .12s
+        }
+
+        .si:hover {
+            background: var(--bg)
+        }
+
+        .dot {
+            width: 19px;
+            height: 19px;
+            border-radius: 50%;
+            background: var(--br);
+            color: var(--lt);
+            font-size: 9px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0
+        }
+
+        .dot.sa {
+            background: var(--u);
+            color: #fff
+        }
+
+        .dot.sd {
+            background: var(--gbg);
+            color: var(--green)
+        }
+
+        .sclist {
+            display: flex;
+            flex-direction: column;
+            gap: 4px
+        }
+
+        .scitem {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            padding: 8px 10px;
+            background: var(--bg);
+            border-radius: var(--rSM);
+            font-size: 12px;
+            border: 1px solid var(--br)
+        }
+
+        .scitem label {
+            flex: 1;
+            line-height: 1.5
+        }
+
+        .scitem select {
+            font-size: 11px;
+            padding: 3px 6px;
+            border: 1px solid var(--br);
+            border-radius: 5px;
+            background: var(--sf);
+            font-family: inherit;
+            color: var(--tx);
+            cursor: pointer;
+            flex-shrink: 0
+        }
+
+        .sgrid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 7px;
+            margin-bottom: 12px
+        }
+
+        .scard {
+            background: var(--bg);
+            border: 1px solid var(--br);
+            border-radius: var(--rSM);
+            padding: 11px 12px;
+            font-size: 12px;
+            line-height: 1.65;
+            color: var(--mt)
+        }
+
+        .scard strong {
+            display: block;
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: .07em;
+            color: var(--lt);
+            margin-bottom: 4px
+        }
+
+        .termlist {
+            display: flex;
+            flex-direction: column
+        }
+
+        .tterm {
+            display: flex;
+            align-items: baseline;
+            gap: 5px;
+            padding: 4px 0;
+            font-size: 11px;
+            border-bottom: 1px solid var(--br)
+        }
+
+        .tterm:last-child {
+            border-bottom: none
+        }
+
+        .tw {
+            font-weight: 600;
+            color: var(--u);
+            white-space: nowrap
+        }
+
+        .tdef {
+            color: var(--mt)
+        }
+
+        .pbtrack {
+            height: 5px;
+            background: var(--umd);
+            border-radius: 3px;
+            overflow: hidden
+        }
+
+        .pbfill {
+            height: 100%;
+            background: var(--u);
+            border-radius: 3px
+        }
+
+        #toast {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%) translateY(10px);
+            background: #1C1C1C;
+            color: #fff;
+            padding: 9px 18px;
+            border-radius: 10px;
+            font-size: 12px;
+            font-family: inherit;
+            z-index: 9999;
+            opacity: 0;
+            transition: opacity .2s, transform .2s;
+            pointer-events: none;
+            white-space: nowrap
+        }
+
+        /* â•â• ë°˜ì‘í˜• ë ˆì´ì•„ì›ƒ â•â• */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box
+        }
+
+        img,
+        canvas,
+        video {
+            max-width: 100%;
+            height: auto;
+            display: block
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse
+        }
+
+        .act-table,
+        .peer-check,
+        .rub {
+            table-layout: fixed;
+            word-break: break-word
+        }
+
+        .act-table td,
+        .act-table th,
+        .rub td,
+        .rub th,
+        .peer-check td,
+        .peer-check th {
+            min-width: 44px;
+            word-break: break-word;
+            overflow-wrap: break-word
+        }
+
+        .act-step>div:not(.act-num) {
+            min-width: 0;
+            flex: 1;
+            overflow-wrap: break-word;
+            word-break: break-word
+        }
+
+        .act-body,
+        .cb {
+            overflow-x: hidden
+        }
+
+        .act-input {
+            width: 100%;
+            box-sizing: border-box
+        }
+
+        .mb-workspace,
+        .mb-row,
+        .mb-indent,
+        .mb-indent2 {
+            flex-wrap: wrap
+        }
+
+        .sim-wrap {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch
+        }
+
+        /* 1100px ì´í•˜ */
+        @media(max-width:1100px) {
+            .g2 {
+                grid-template-columns: 1fr
+            }
+
+            .ca {
+                position: static;
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 10px;
+                margin-top: 12px
+            }
+
+            .ca .ap {
+                flex: 1 1 220px;
+                min-width: 180px
+            }
+
+            .crow {
+                grid-template-columns: 1fr
+            }
+
+            .sgrid {
+                grid-template-columns: 1fr 1fr
+            }
+        }
+
+        /* 900px ì´í•˜ */
+        @media(max-width:900px) {
+            .ca {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 8px;
+                margin-top: 10px
+            }
+
+            .ca .ap {
+                flex: 1 1 180px;
+                min-width: 160px
+            }
+
+            .page {
+                padding: 16px 14px
+            }
+
+            .cb,
+            .act-body {
+                padding: 13px
+            }
+
+            .sgrid {
+                grid-template-columns: 1fr 1fr
+            }
+
+            .crow {
+                grid-template-columns: 1fr
+            }
+        }
+
+        /* 640px ì´í•˜ */
+        @media(max-width:640px) {
+            .page {
+                padding: 11px 10px
+            }
+
+            .cb,
+            .act-body {
+                padding: 10px
+            }
+
+            .sgrid {
+                grid-template-columns: 1fr
+            }
+
+            .act-step {
+                flex-direction: column;
+                gap: 5px
+            }
+
+            .act-num {
+                margin-bottom: 0
+            }
+
+            .ch h3 {
+                font-size: 12px
+            }
+
+            .btn {
+                font-size: 11px;
+                padding: 5px 8px
+            }
+
+            .act-table td,
+            .act-table th {
+                padding: 5px 6px;
+                font-size: 11px
+            }
+
+            .rub td,
+            .rub th {
+                padding: 5px 6px;
+                font-size: 11px
+            }
+
+            .peer-check td,
+            .peer-check th {
+                padding: 5px 6px;
+                font-size: 10px
+            }
+
+            .scard {
+                font-size: 11px
+            }
+
+            .opt {
+                font-size: 12px;
+                padding: 8px 10px
+            }
+
+            .mb,
+            .mb-hole {
+                font-size: 10px;
+                padding: 4px 7px
+            }
+        }
+
+        /* 480px ì´í•˜ */
+        @media(max-width:480px) {
+            :root {
+                --SW: 0px
+            }
+
+            .sb {
+                display: none
+            }
+
+            .main {
+                margin-left: 0
+            }
+
+            .topbar {
+                padding: 0 10px
+            }
+
+            .page {
+                padding: 8px 9px
+            }
+
+            .cb,
+            .act-body {
+                padding: 9px
+            }
+
+            .tbr .btn:last-child {
+                display: none
+            }
+
+            .sgrid {
+                grid-template-columns: 1fr
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <aside class="sb">
+        <div class="sb-top">
+            <div class="uchip">â—ˆ Unit I</div>
+            <h2>ì»´í“¨íŒ… ì‹œìŠ¤í…œ</h2>
+            <div class="smeta">ì¤‘ë‹¨ì›2: í”¼ì§€ì»¬ ì»´í“¨íŒ… í”„ë¡œê·¸ë˜ë° Â· p.32~35</div>
+        </div>
+        <nav class="sb-nav">
+            <div class="nlbl">ì†Œë‹¨ì› ëª©ë¡</div><a class="na done" href="../lesson-01/index.html">
+                <div class="nn">âœ“</div>ì»´í“¨íŒ… ì‹œìŠ¤í…œì˜ êµ¬ì„±ê³¼ ë™ì‘ ì›ë¦¬
+            </a>
+            <a class="na done" href="../lesson-02/index.html">
+                <div class="nn">âœ“</div>í”¼ì§€ì»¬ ì»´í“¨íŒ… ì‹œìŠ¤í…œì˜ ì´í•´
+            </a>
+            <a class="na done" href="../lesson-03/index.html">
+                <div class="nn">âœ“</div>ìš´ë™ íšŸìˆ˜ í‘œì‹œ ì¥ì¹˜ ë§Œë“¤ê¸°
+            </a>
+            <a class="na done" href="../lesson-04/index.html">
+                <div class="nn">âœ“</div>ìˆ˜ë©´ ì˜¨ë„ ì•Œë¦¼ì´ ì¥ì¹˜ ë§Œë“¤ê¸°
+            </a>
+            <a class="na done" href="../lesson-05/index.html">
+                <div class="nn">âœ“</div>ì†Œë¦¬ì— ë°˜ì‘í•˜ëŠ” ì• ë‹ˆë©”ì´ì…˜ ì¥ì¹˜ ë§Œë“¤ê¸°
+            </a>
+            <a class="na on" href="../lesson-06/index.html">
+                <div class="nn">6</div>ì´ì‹¬ì „ì‹¬ ê²Œì„ ì¥ì¹˜ ë§Œë“¤ê¸°<span class="nbadge">3ì°¨ì‹œ</span>
+            </a>
+        </nav>
+        <div class="sb-foot"><a class="ba" href="https://sungce.github.io/lesson/">â† ì •ë³´ êµê³¼ í•™ìŠµ í”Œë«í¼</a></div>
+    </aside>
+    <main class="main">
+        <header class="topbar">
+            <div class="bc"><a href="https://sungce.github.io/lesson/">ì •ë³´ êµê³¼ í•™ìŠµ í”Œë«í¼</a><span class="bcsep">â€º</span><a
+                    href="../../index.html">I. ì»´í“¨íŒ… ì‹œìŠ¤í…œ</a><span class="bcsep">â€º</span><span class="bccur">6. ì´ì‹¬ì „ì‹¬ ê²Œì„ ì¥ì¹˜
+                    ë§Œë“¤ê¸°</span></div>
+            <div class="tbr">
+                <button class="btn bsm" onclick="markDone('06')">âœ“ ì™„ë£Œ í‘œì‹œ</button>
+                <a class="btn bsm bp" href="../../index.html">ë‹¨ì› ëª©ì°¨ë¡œ â†’</a>
+            </div>
+        </header>
+        <div class="page">
+            <div class="g2">
+                <div class="cm">
+
+                    <div class="card" id="sec-goal">
+                        <div class="ch" onclick="toggleSec('sec-goal')">
+                            <div class="sn" style="background:var(--ult);color:var(--u)">01</div>
+                            <h3>í•™ìŠµëª©í‘œ</h3><span class="st">â± 5ë¶„</span><span class="carr">â–¾</span>
+                        </div>
+                        <div class="cb">
+                            <div class="ach">
+                                <div class="ach-c">[9ì •01-06] í”¼ì§€ì»¬ ì»´í“¨íŒ… í”„ë¡œê·¸ë˜ë°</div>
+                                <div class="ach-t">ë¬´ì„  ë¼ë””ì˜¤ í†µì‹ ì„ ì´ìš©í•˜ì—¬ ë‘ ì¥ì¹˜ ê°„ ì„ íƒ ì •ë³´ë¥¼ ì „ì†¡í•˜ê³  ê²°ê³¼ë¥¼ í™•ì¸í•˜ëŠ” ì´ì‹¬ì „ì‹¬ ê²Œì„ ì¥ì¹˜ë¥¼ ì œì‘í•  ìˆ˜ ìˆë‹¤.
+                                    (pp.32~35)</div>
+                            </div>
+                            <ul class="glist">
+                                <li>
+                                    <div class="gck">âœ“</div>ë¼ë””ì˜¤ í†µì‹ ì˜ ì›ë¦¬ì™€ ê·¸ë£¹ ì„¤ì • ë°©ë²•ì„ ì„¤ëª…í•  ìˆ˜ ìˆë‹¤.
+                                </li>
+                                <li>
+                                    <div class="gck">âœ“</div>ë¬´ì„  í†µì‹ ì„ í™œìš©í•œ ì•Œê³ ë¦¬ì¦˜ì„ ì„¤ê³„í•  ìˆ˜ ìˆë‹¤.
+                                </li>
+                                <li>
+                                    <div class="gck">âœ“</div>ì´ì‹¬ì „ì‹¬ ê²Œì„ ì¥ì¹˜ë¥¼ MakeCodeë¡œ ì™„ì„±í•˜ê³  ê°€ìœ„ë°”ìœ„ë³´ ê²Œì„ì„ ë§Œë“¤ ìˆ˜ ìˆë‹¤.
+                                </li>
+                            </ul>
+                            <div class="divl"></div>
+                            <div class="ctags">
+                                <span class="ctag" onclick="goTo('sec-concept')">ë¼ë””ì˜¤ í†µì‹ </span>
+                                <span class="ctag" onclick="goTo('sec-concept')">ê·¸ë£¹ ì„¤ì •</span>
+                                <span class="ctag" onclick="goTo('sec-concept')">ì „ì†¡Â·ìˆ˜ì‹ </span>
+                                <span class="ctag" onclick="goTo('sec-concept')">ì´ì‹¬ì „ì‹¬ ê²Œì„</span>
+                            </div>
+                            <div class="ibox prev">ğŸ“Œ <b>ë‹¨ì› ë§ˆë¬´ë¦¬:</b> ì´ë²ˆ ì†Œë‹¨ì›ì€ Ië‹¨ì›ì˜ ë§ˆì§€ë§‰ í™œë™ì…ë‹ˆë‹¤! ë¬´ì„  ë¼ë””ì˜¤ í†µì‹ ìœ¼ë¡œ ë‘ ë§ˆì´í¬ë¡œë¹„íŠ¸ê°€ ì†Œí†µí•˜ëŠ”
+                                ì´ì‹¬ì „ì‹¬ ê²Œì„ì„ ë§Œë“¤ì–´ë´…ë‹ˆë‹¤.</div>
+                        </div>
+                    </div>
+
+                    <div class="card" id="sec-concept">
+                        <div class="ch" onclick="toggleSec('sec-concept')">
+                            <div class="sn" style="background:var(--gbg);color:var(--green)">02</div>
+                            <h3>ê°œë…ì„¤ëª…</h3><span class="st">â± 20ë¶„</span><span class="carr">â–¾</span>
+                        </div>
+                        <div class="cb">
+                            <div class="crow">
+                                <div class="ct">
+                                    <h4>ë¼ë””ì˜¤ í†µì‹ (Radio)</h4>
+                                    <p>ë¬´ì„  í†µì‹  ë°©ì‹ ì¤‘ í•˜ë‚˜ë¡œ, <strong>ê°™ì€ ê·¸ë£¹(0~255)ìœ¼ë¡œ ì„¤ì •í•œ ì—¬ëŸ¬ ë§ˆì´í¬ë¡œë¹„íŠ¸ì— ë™ì‹œì— ì‹ í˜¸ë¥¼ ì „ë‹¬</strong>í•©ë‹ˆë‹¤.</p>
+                                    <ul>
+                                        <li><b>ê·¸ë£¹ ì„¤ì •:</b> 0~255 ì¤‘ í•˜ë‚˜. ê²Œì„ ì°¸ê°€ìë§Œ ê°™ì€ ë²ˆí˜¸</li>
+                                        <li><b>ì „ì†¡:</b> ìˆ«ìÂ·ë¬¸ìë¥¼ ë¼ë””ì˜¤ë¡œ ì†¡ì‹ </li>
+                                        <li><b>ìˆ˜ì‹ :</b> ê°™ì€ ê·¸ë£¹ì—ì„œ ë³´ë‚¸ ìˆ«ì ìˆ˜ì‹ </li>
+                                        <li><b>ë™ì‹œ ì „ì†¡:</b> ê°™ì€ ê·¸ë£¹ ì „ì²´ì— ì‹ í˜¸ ì „ë‹¬</li>
+                                    </ul>
+                                    <div class="ibox info" style="margin-top:8px;font-size:11px">âš ï¸ ê²Œì„ì— ì°¸ê°€í•  ë‘ ëª…ë§Œ ê°™ì€ ê·¸ë£¹
+                                        ë²ˆí˜¸ë¥¼ ì„¤ì •í•´ì•¼ í•©ë‹ˆë‹¤!</div>
+                                </div>
+                                <div class="cvis">
+                                    <svg viewBox="0 0 130 110" width="130">
+                                        <rect x="2" y="20" width="50" height="40" rx="6" fill="#1e1e2e"
+                                            stroke="var(--u)" stroke-width="1.5" />
+                                        <text x="27" y="38" font-size="8" fill="var(--umd)" text-anchor="middle"
+                                            font-family="sans-serif" font-weight="bold">micro:bit</text>
+                                        <text x="27" y="50" font-size="8" fill="#aaa" text-anchor="middle"
+                                            font-family="sans-serif">ê·¸ë£¹: 1</text>
+                                        <text x="27" y="62" font-size="9" fill="#FF6B35" text-anchor="middle"
+                                            font-family="sans-serif" font-weight="bold">Aë²„íŠ¼ â†’ 1 ì „ì†¡</text>
+                                        <rect x="78" y="20" width="50" height="40" rx="6" fill="#1e1e2e"
+                                            stroke="var(--u)" stroke-width="1.5" />
+                                        <text x="103" y="38" font-size="8" fill="var(--umd)" text-anchor="middle"
+                                            font-family="sans-serif" font-weight="bold">micro:bit</text>
+                                        <text x="103" y="50" font-size="8" fill="#aaa" text-anchor="middle"
+                                            font-family="sans-serif">ê·¸ë£¹: 1</text>
+                                        <text x="103" y="62" font-size="9" fill="#4A9020" text-anchor="middle"
+                                            font-family="sans-serif" font-weight="bold">ìˆ˜ì‹  â†’ ì €ì¥</text>
+                                        <path d="M52 40 C 65 25 65 55 78 40" stroke="var(--u)" stroke-width="1.5"
+                                            fill="none" stroke-dasharray="4,2" marker-end="url(#rda)" />
+                                        <text x="65" y="80" font-size="8" fill="var(--lt)" text-anchor="middle"
+                                            font-family="sans-serif">ë¼ë””ì˜¤ ê·¸ë£¹: 1</text>
+                                        <text x="65" y="92" font-size="8" fill="var(--lt)" text-anchor="middle"
+                                            font-family="sans-serif">ë¬´ì„  ì†¡ìˆ˜ì‹ </text>
+                                        <defs>
+                                            <marker id="rda" markerWidth="5" markerHeight="5" refX="2.5" refY="2.5"
+                                                orient="auto">
+                                                <path d="M0,0 L5,2.5 L0,5 Z" fill="var(--u)" />
+                                            </marker>
+                                        </defs>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="divl"></div>
+                            <h4 style="font-size:13px;font-weight:700;margin-bottom:9px">ì•Œê³ ë¦¬ì¦˜ ì„¤ê³„ (4ë‹¨ê³„)</h4>
+                            <div
+                                style="background:var(--bg);border:1px solid var(--br);border-radius:var(--rSM);padding:13px;font-size:12px;color:var(--mt);line-height:2;margin-bottom:12px">
+                                âŠ ì‹œì‘ â†’ ë¼ë””ì˜¤ ê·¸ë£¹ 1ë¡œ ì„¤ì •, 'ì„ íƒ ê²°ê³¼'Â·'ìˆ˜ì‹  ê²°ê³¼' ë³€ìˆ˜ 0ìœ¼ë¡œ ì´ˆê¸°í™”<br>
+                                â‹ A ë²„íŠ¼ â†’ 1 ì „ì†¡ + 'ì„ íƒ ê²°ê³¼'=1 ì €ì¥ + 'í‚¤ë“í‚¤ë“' ì†Œë¦¬<br>
+                                &nbsp;&nbsp;&nbsp;B ë²„íŠ¼ â†’ 2 ì „ì†¡ + 'ì„ íƒ ê²°ê³¼'=2 ì €ì¥ + 'í‚¤ë“í‚¤ë“' ì†Œë¦¬<br>
+                                âŒ ë¼ë””ì˜¤ ìˆ˜ì‹  â†’ 'ìˆ˜ì‹  ê²°ê³¼'ì— ìˆ˜ì‹  ìˆ«ì ì €ì¥<br>
+                                â ë‘ ë³€ìˆ˜ ê³± > 0 ì´ë©´ â†’ ê°™ìœ¼ë©´ â™¥, ë‹¤ë¥´ë©´ âœ• LED ì¶œë ¥
+                            </div>
+                            <h4 style="font-size:13px;font-weight:700;margin-bottom:9px">MakeCode ë¸”ë¡ ì˜ˆì‹œ</h4>
+                            <div class="mb-workspace">
+                                <div class="mb-row"><span class="mb mb-start">ğŸŸ¢ ì‹œì‘í•˜ë©´</span></div>
+                                <div class="mb-indent"><span class="mb mb-radio">ğŸ“¡ ë¼ë””ì˜¤ ê·¸ë£¹ 1ë¡œ ì„¤ì •</span></div>
+                                <div class="mb-indent"><span class="mb mb-var">ì„ íƒê²°ê³¼ â† 0 / ìˆ˜ì‹ ê²°ê³¼ â† 0</span></div>
+                                <div class="mb-row"><span class="mb mb-input">ğŸ…°ï¸ A ë²„íŠ¼</span></div>
+                                <div class="mb-indent"><span class="mb mb-radio">ğŸ“¡ ë¼ë””ì˜¤ë¡œ 1 ì „ì†¡</span></div>
+                                <div class="mb-indent"><span class="mb mb-var">ì„ íƒê²°ê³¼ â† 1</span></div>
+                                <div class="mb-indent"><span class="mb mb-music">ğŸµ í‚¤ë“í‚¤ë“ ì†Œë¦¬</span></div>
+                                <div class="mb-row"><span class="mb mb-radio">ğŸ“¡ ë¼ë””ì˜¤ ìˆ˜ì‹  ì‹œ (ìˆ«ì)</span></div>
+                                <div class="mb-indent"><span class="mb mb-var">ìˆ˜ì‹ ê²°ê³¼ â† ë°›ì€ ìˆ«ì</span></div>
+                                <div class="mb-row"><span class="mb mb-loop">ğŸ” ë¬´í•œ ë°˜ë³µ</span></div>
+                                <div class="mb-indent"><span class="mb mb-logic">ë§Œì•½ ìˆ˜ì‹ ê²°ê³¼ Ã— ì„ íƒê²°ê³¼ > 0</span></div>
+                                <div class="mb-indent"><span class="mb mb-logic">ë§Œì•½ ìˆ˜ì‹ ê²°ê³¼ = ì„ íƒê²°ê³¼</span></div>
+                                <div class="mb-indent2"><span class="mb mb-led">LED: â™¥ (ì´ì‹¬ì „ì‹¬!)</span></div>
+                                <div class="mb-indent"><span class="mb mb-logic">ì•„ë‹ˆë©´</span></div>
+                                <div class="mb-indent2"><span class="mb mb-led">LED: âœ• (ë‹¤ë¥¸ ì„ íƒ)</span></div>
+                            </div>
+                            <div class="ibox info">ğŸ“– <b>êµê³¼ì„œ ì—°ê³„:</b> pp.32~35 / ë‘ ë³€ìˆ˜ì˜ ê³±ì´ 0ë³´ë‹¤ í¬ë©´ = ë‘ ì‚¬ëŒ ëª¨ë‘ ë²„íŠ¼ì„ ëˆ„ë¥¸ ìƒíƒœ
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- â˜… ìˆ˜í–‰ í™œë™ â˜… -->
+                    <div class="activity" id="sec-activity">
+                        <div class="act-head" onclick="toggleSec('act-body-06')">
+                            <span class="act-badge">â˜… ìˆ˜í–‰ í™œë™</span>
+                            <h3>ë¬´ì„  í†µì‹ ì„ í™œìš©í•œ ì¥ì¹˜ ë§Œë“¤ê¸°</h3>
+                            <span style="font-size:10px;color:var(--udk);margin-left:auto">ëª¨ë‘  í™œë™ | pp.35</span>
+                            <span class="carr" style="color:var(--udk)">â–¾</span>
+                        </div>
+                        <div id="act-body-06" class="act-body">
+                            <div class="ibox ok" style="margin-top:0;margin-bottom:14px">ğŸ’¡ ë¼ë””ì˜¤ í†µì‹ ìœ¼ë¡œ ë‘ ê°€ì§€ í™œë™ì„ ë§Œë“¤ì–´ë´…ë‹ˆë‹¤.
+                                (êµê³¼ì„œ p.35 í•´ë³´ê¸°)</div>
+
+                            <!-- í™œë™ 1: ê°€ìœ„ë°”ìœ„ë³´ ê²Œì„ -->
+                            <div
+                                style="background:var(--sf);border:2px solid var(--umd);border-radius:var(--rSM);padding:14px;margin-bottom:14px">
+                                <div style="font-size:12px;font-weight:700;color:var(--u);margin-bottom:8px">ğŸ“‹ í™œë™ 1 â€”
+                                    ê°€ìœ„ë°”ìœ„ë³´ ê²Œì„ ì¥ì¹˜ ë§Œë“¤ê¸° (pp.35)</div>
+                                <div
+                                    style="background:var(--bg);border:1px solid var(--br);border-radius:var(--rSM);padding:11px;margin-bottom:10px;font-size:12px;color:var(--mt);line-height:1.9">
+                                    <b>ë°©ë²•:</b><br>â‘  ê°™ì€ ë¼ë””ì˜¤ ê·¸ë£¹ ì„¤ì •<br>â‘¡ A ë²„íŠ¼=ê°€ìœ„(ì „ì†¡:1), B ë²„íŠ¼=ë°”ìœ„(ì „ì†¡:2), A+B=ë³´(ì „ì†¡:3)<br>â‘¢ ì „ì†¡ëœ
+                                    ìˆ«ìì™€ ë¹„êµí•˜ì—¬ ìŠ¹Â·ë¬´Â·íŒ¨ ì¶œë ¥
+                                </div>
+                                <div style="font-size:12px;font-weight:600;color:var(--mt);margin-bottom:7px">ìŠ¹Â·ë¬´Â·íŒ¨ íŒë³„
+                                    ì•Œê³ ë¦¬ì¦˜ ì‘ì„±</div>
+                                <textarea class="act-input"
+                                    placeholder="ê°€ìœ„=1, ë°”ìœ„=2, ë³´=3 ì¼ ë•Œ&#10;ë§Œì•½ ë‚´ì„ íƒ=1(ê°€ìœ„) AND ìƒëŒ€=3(ë³´) â†’ ìŠ¹&#10;ë§Œì•½ ë‚´ì„ íƒ=2(ë°”ìœ„) AND ìƒëŒ€=1(ê°€ìœ„) â†’ ìŠ¹&#10;ë§Œì•½ ë‚´ì„ íƒ=3(ë³´) AND ìƒëŒ€=2(ë°”ìœ„) â†’ ìŠ¹&#10;ë§Œì•½ ë‚´ì„ íƒ=ìƒëŒ€ â†’ ë¬´&#10;ë‚˜ë¨¸ì§€ â†’ íŒ¨"></textarea>
+
+                                <!-- ê°€ìœ„ë°”ìœ„ë³´ ì‹œë®¬ë ˆì´í„° -->
+                                <div style="background:#1e1e2e;border-radius:var(--rSM);padding:14px;margin-top:10px">
+                                    <div style="font-size:10px;color:#aaa;text-align:center;margin-bottom:10px">ê°€ìœ„ë°”ìœ„ë³´
+                                        ì‹œë®¬ë ˆì´í„° (í˜¼ì ì²´í—˜)</div>
+                                    <div style="display:flex;justify-content:center;gap:10px;margin-bottom:10px">
+                                        <button onclick="rpsPlay('ê°€ìœ„','âœŒï¸',1)" class="btn"
+                                            style="background:#333;color:#fff;border-color:#555;font-size:18px;padding:10px 14px">âœŒï¸
+                                            <div style="font-size:10px">ê°€ìœ„(A)</div></button>
+                                        <button onclick="rpsPlay('ë°”ìœ„','âœŠ',2)" class="btn"
+                                            style="background:#333;color:#fff;border-color:#555;font-size:18px;padding:10px 14px">âœŠ
+                                            <div style="font-size:10px">ë°”ìœ„(B)</div></button>
+                                        <button onclick="rpsPlay('ë³´','ğŸ–ï¸',3)" class="btn"
+                                            style="background:#333;color:#fff;border-color:#555;font-size:18px;padding:10px 14px">ğŸ–ï¸
+                                            <div style="font-size:10px">ë³´(A+B)</div></button>
+                                    </div>
+                                    <div id="rps-result"
+                                        style="text-align:center;min-height:60px;display:flex;align-items:center;justify-content:center;flex-direction:column">
+                                        <div style="font-size:12px;color:#aaa">ë²„íŠ¼ì„ ëˆŒëŸ¬ ê°€ìœ„ë°”ìœ„ë³´ë¥¼ í•´ë³´ì„¸ìš”</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- í™œë™ 2: ì°¬ë°˜ íˆ¬í‘œ -->
+                            <div
+                                style="background:var(--sf);border:2px solid var(--umd);border-radius:var(--rSM);padding:14px">
+                                <div style="font-size:12px;font-weight:700;color:var(--u);margin-bottom:8px">ğŸ“‹ í™œë™ 2 â€”
+                                    ì°¬ë°˜ íˆ¬í‘œ ì†¡ì‹ ê¸°Â·ìˆ˜ì‹ ê¸° ë§Œë“¤ê¸° (pp.35)</div>
+                                <div
+                                    style="background:var(--bg);border:1px solid var(--br);border-radius:var(--rSM);padding:11px;margin-bottom:10px;font-size:12px;color:var(--mt);line-height:1.9">
+                                    <b>ì†¡ì‹ ê¸°:</b> A ë²„íŠ¼ â†’ ë¼ë””ì˜¤ 1 ì „ì†¡ + â­• ì¶œë ¥ / B ë²„íŠ¼ â†’ ë¼ë””ì˜¤ 2 ì „ì†¡ + âœ• ì¶œë ¥<br>
+                                    <b>ìˆ˜ì‹ ê¸°:</b> A ë²„íŠ¼ â†’ ì°¬ì„±Â·ë°˜ëŒ€ ìˆ˜ ì¶œë ¥ / A+B â†’ ì´ˆê¸°í™”
+                                </div>
+                                <!-- íˆ¬í‘œ ì‹œë®¬ë ˆì´í„° -->
+                                <div
+                                    style="background:#1e1e2e;border-radius:var(--rSM);padding:14px;margin-bottom:10px">
+                                    <div style="font-size:10px;color:#aaa;text-align:center;margin-bottom:10px">ì°¬ë°˜ íˆ¬í‘œ
+                                        ì‹œë®¬ë ˆì´í„°</div>
+                                    <div style="display:flex;justify-content:center;gap:12px;margin-bottom:10px">
+                                        <button onclick="voteClick('yes')" class="btn"
+                                            style="background:#27AE60;color:#fff;border-color:#1A7A40;font-size:18px;padding:10px 18px">â­•
+                                            <div style="font-size:10px">Aë²„íŠ¼ ì°¬ì„±</div></button>
+                                        <button onclick="voteClick('no')" class="btn"
+                                            style="background:#E74C3C;color:#fff;border-color:#A01010;font-size:18px;padding:10px 18px">âœ•
+                                            <div style="font-size:10px">Bë²„íŠ¼ ë°˜ëŒ€</div></button>
+                                        <button onclick="voteReset()" class="btn"
+                                            style="background:#555;color:#fff;border-color:#333;font-size:12px;padding:10px">A+B
+                                            <div style="font-size:9px">ì´ˆê¸°í™”</div></button>
+                                    </div>
+                                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+                                        <div style="text-align:center">
+                                            <div id="yes-count" style="font-size:32px;font-weight:700;color:#27AE60">0
+                                            </div>
+                                            <div style="font-size:11px;color:#aaa">â­• ì°¬ì„±</div>
+                                            <div id="yes-bar-wrap"
+                                                style="height:8px;background:#333;border-radius:4px;margin-top:5px;overflow:hidden">
+                                                <div id="yes-bar"
+                                                    style="height:100%;background:#27AE60;width:0%;transition:width .3s;border-radius:4px">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div style="text-align:center">
+                                            <div id="no-count" style="font-size:32px;font-weight:700;color:#E74C3C">0
+                                            </div>
+                                            <div style="font-size:11px;color:#aaa">âœ• ë°˜ëŒ€</div>
+                                            <div id="no-bar-wrap"
+                                                style="height:8px;background:#333;border-radius:4px;margin-top:5px;overflow:hidden">
+                                                <div id="no-bar"
+                                                    style="height:100%;background:#E74C3C;width:0%;transition:width .3s;border-radius:4px">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <textarea class="act-input"
+                                    placeholder="ìˆ˜ì‹ ê¸° ì•Œê³ ë¦¬ì¦˜ ì‘ì„±:&#10;ë¼ë””ì˜¤ë¡œ 1 ìˆ˜ì‹  â†’ ì°¬ì„± ìˆ˜ +1&#10;ë¼ë””ì˜¤ë¡œ 2 ìˆ˜ì‹  â†’ ë°˜ëŒ€ ìˆ˜ +1&#10;A ë²„íŠ¼ â†’ 'â­•: ì°¬ì„± ìˆ˜ âœ•: ë°˜ëŒ€ ìˆ˜' LED ì¶œë ¥&#10;A+B â†’ ì°¬ì„± ìˆ˜, ë°˜ëŒ€ ìˆ˜ 0ìœ¼ë¡œ ì´ˆê¸°í™”"></textarea>
+                            </div>
+
+                            <!-- í‰ê°€í•˜ê¸° -->
+                            <div style="margin-top:14px">
+                                <div style="font-size:12px;font-weight:700;color:var(--mt);margin-bottom:8px">ğŸ“ í‰ê°€í•˜ê¸°
+                                    (êµê³¼ì„œ p.34)</div>
+                                <div style="overflow-x:auto;margin-top:12px">
+                                    <table class="peer-check">
+                                        <thead>
+                                            <tr>
+                                                <th style="text-align:left">í‰ê°€ í•­ëª©</th>
+                                                <th colspan="2">ìê¸° í‰ê°€</th>
+                                                <th colspan="2">ë™ë£Œ í‰ê°€</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>ì„¤ì •í•œ ë¼ë””ì˜¤ ê·¸ë£¹ì´ ë™ì¼í•œê°€?</td>
+                                                <td><label><input type="radio" name="pe0a" value="ì˜ˆ"> ì˜ˆ</label></td>
+                                                <td><label><input type="radio" name="pe0a" value="ì•„ë‹ˆìš”"> ì•„ë‹ˆìš”</label></td>
+                                                <td><label><input type="radio" name="pe0b" value="ì˜ˆ"> ì˜ˆ</label></td>
+                                                <td><label><input type="radio" name="pe0b" value="ì•„ë‹ˆìš”"> ì•„ë‹ˆìš”</label></td>
+                                            </tr>
+                                            <tr>
+                                                <td>ë²„íŠ¼ì„ ëˆ„ë¥´ë©´ ì•ˆë‚´ìš© ì†Œë¦¬ê°€ ë“¤ë¦¬ëŠ”ê°€?</td>
+                                                <td><label><input type="radio" name="pe1a" value="ì˜ˆ"> ì˜ˆ</label></td>
+                                                <td><label><input type="radio" name="pe1a" value="ì•„ë‹ˆìš”"> ì•„ë‹ˆìš”</label></td>
+                                                <td><label><input type="radio" name="pe1b" value="ì˜ˆ"> ì˜ˆ</label></td>
+                                                <td><label><input type="radio" name="pe1b" value="ì•„ë‹ˆìš”"> ì•„ë‹ˆìš”</label></td>
+                                            </tr>
+                                            <tr>
+                                                <td>ë‘ ëª…ì´ ëª¨ë‘ ë²„íŠ¼ì„ ëˆŒëŸ¬ì•¼ ê²°ê³¼ê°€ ë‚˜íƒ€ë‚˜ëŠ”ê°€?</td>
+                                                <td><label><input type="radio" name="pe2a" value="ì˜ˆ"> ì˜ˆ</label></td>
+                                                <td><label><input type="radio" name="pe2a" value="ì•„ë‹ˆìš”"> ì•„ë‹ˆìš”</label></td>
+                                                <td><label><input type="radio" name="pe2b" value="ì˜ˆ"> ì˜ˆ</label></td>
+                                                <td><label><input type="radio" name="pe2b" value="ì•„ë‹ˆìš”"> ì•„ë‹ˆìš”</label></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div style="display:flex;gap:8px;margin-top:12px">
+                                <button class="btn bsm bp" onclick="saveActivity('l106_act')">ğŸ’¾ í™œë™ ì €ì¥</button>
+                                <a href="https://makecode.microbit.org" target="_blank" class="btn bsm"
+                                    style="background:#0078D4;color:#fff;border-color:#005A9E">MakeCode ì—´ê¸° â†—</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card" id="sec-assess">
+                        <div class="ch" onclick="toggleSec('sec-assess')">
+                            <div class="sn" style="background:var(--bbg);color:var(--blue)">04</div>
+                            <h3>ìˆ˜í–‰í‰ê°€ â€” ë‹¨ì› ë§ˆë¬´ë¦¬</h3><span class="st">â± 5ë¶„</span><span class="carr">â–¾</span>
+                        </div>
+                        <div class="cb">
+                            <div
+                                style="background:var(--bg);border:1px solid var(--br);border-radius:var(--rSM);padding:12px;margin-bottom:12px;border-left:3px solid var(--u)">
+                                <h4 style="font-size:13px;font-weight:700;color:var(--u);margin-bottom:7px">ğŸ“‹ ì´ì‹¬ì „ì‹¬ ê²Œì„ +
+                                    ê°€ìœ„ë°”ìœ„ë³´ ê²Œì„ ì™„ì„±</h4>
+                                <p style="font-size:13px;color:var(--mt)">ë¼ë””ì˜¤ í†µì‹ ì„ í™œìš©í•œ ë¬´ì„  í”¼ì§€ì»¬ ì»´í“¨íŒ… í”„ë¡œê·¸ë¨ 2ê°€ì§€ë¥¼ MakeCodeë¡œ
+                                    ì™„ì„±í•˜ê³  ì‹¤ì œ ë‘ ë§ˆì´í¬ë¡œë¹„íŠ¸ë¡œ ë™ì‘ì„ ì‹œì—°í•˜ì‹œì˜¤.</p>
+                            </div>
+                            <table class="rub">
+                                <thead>
+                                    <tr>
+                                        <th>í‰ê°€ ìš”ì†Œ</th>
+                                        <th class="lv4">ë§¤ìš° ì˜í•¨(4)</th>
+                                        <th class="lv3">ì˜í•¨(3)</th>
+                                        <th class="lv2">ë³´í†µ(2)</th>
+                                        <th class="lv1">ë…¸ë ¥ í•„ìš”(1)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><b>ë¼ë””ì˜¤ í†µì‹ </b></td>
+                                        <td class="lv4">ê·¸ë£¹ ì„¤ì •Â·ì†¡ìˆ˜ì‹  ì •í™•</td>
+                                        <td class="lv3">ëŒ€ì²´ë¡œ ì •í™•</td>
+                                        <td class="lv2">ì„¤ì •ë§Œ</td>
+                                        <td class="lv1">ì—†ìŒ</td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>ê²Œì„ êµ¬í˜„</b></td>
+                                        <td class="lv4">ì´ì‹¬ì „ì‹¬Â·ê°€ìœ„ë°”ìœ„ë³´ ëª¨ë‘</td>
+                                        <td class="lv3">1ê°€ì§€ ì™„ì„±</td>
+                                        <td class="lv2">ë¶€ë¶„ ì‘ë™</td>
+                                        <td class="lv1">ì—†ìŒ</td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>ì‹œì—°Â·ë°œí‘œ</b></td>
+                                        <td class="lv4">ì›ë¦¬ ì„¤ëª…+ì‹¤ì œ ì‹œì—°</td>
+                                        <td class="lv3">ì‹œì—°ë§Œ</td>
+                                        <td class="lv2">ì„¤ëª…ë§Œ</td>
+                                        <td class="lv1">ì—†ìŒ</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="sclist">
+                                <div class="scitem"><label>ë¼ë””ì˜¤ í†µì‹ ì˜ ì›ë¦¬ì™€ ê·¸ë£¹ ì„¤ì •ì„ ì„¤ëª…í•  ìˆ˜ ìˆë‹¤.</label><select>
+                                        <option value="">ì„ íƒ</option>
+                                        <option>ë§¤ìš° ê·¸ë ‡ë‹¤</option>
+                                        <option>ê·¸ë ‡ë‹¤</option>
+                                        <option>ì•„ì§ ëª¨ë¥´ê² ë‹¤</option>
+                                    </select></div>
+                                <div class="scitem"><label>ë¬´ì„  ì†¡ìˆ˜ì‹  ì•Œê³ ë¦¬ì¦˜ì„ ì„¤ê³„í•  ìˆ˜ ìˆë‹¤.</label><select>
+                                        <option value="">ì„ íƒ</option>
+                                        <option>ë§¤ìš° ê·¸ë ‡ë‹¤</option>
+                                        <option>ê·¸ë ‡ë‹¤</option>
+                                        <option>ì•„ì§ ëª¨ë¥´ê² ë‹¤</option>
+                                    </select></div>
+                                <div class="scitem"><label>ì´ì‹¬ì „ì‹¬ ê²Œì„ í”„ë¡œê·¸ë¨ì„ MakeCodeë¡œ ì™„ì„±í•  ìˆ˜ ìˆë‹¤.</label><select>
+                                        <option value="">ì„ íƒ</option>
+                                        <option>ë§¤ìš° ê·¸ë ‡ë‹¤</option>
+                                        <option>ê·¸ë ‡ë‹¤</option>
+                                        <option>ì•„ì§ ëª¨ë¥´ê² ë‹¤</option>
+                                    </select></div>
+                            </div>
+                            <button class="btn bsm bok" style="margin-top:10px" onclick="saveSC('l106sc')">ğŸ’¾
+                                ì €ì¥</button>
+                        </div>
+                    </div>
+
+                    <div class="card" id="sec-review">
+                        <div class="ch" onclick="toggleSec('sec-review')">
+                            <div class="sn" style="background:var(--gbg);color:var(--green)">05</div>
+                            <h3>í™•ì¸í•˜ê¸° â€” Ië‹¨ì› ë§ˆë¬´ë¦¬</h3><span class="st">â± 5ë¶„</span><span class="carr">â–¾</span>
+                        </div>
+                        <div class="cb">
+                            <div
+                                style="background:linear-gradient(135deg,var(--ult),var(--gbg));border:1px solid var(--umd);border-radius:var(--rSM);padding:16px;margin-bottom:12px;text-align:center">
+                                <div style="font-size:22px;margin-bottom:6px">ğŸ‰</div>
+                                <div style="font-size:14px;font-weight:700;color:var(--udk)">Ië‹¨ì› ì»´í“¨íŒ… ì‹œìŠ¤í…œ ì™„ë£Œ!</div>
+                                <div style="font-size:12px;color:var(--mt);margin-top:4px">ì»´í“¨íŒ… ì‹œìŠ¤í…œ êµ¬ì„±ë¶€í„° ë§ˆì´í¬ë¡œë¹„íŠ¸ í”¼ì§€ì»¬ ì»´í“¨íŒ…
+                                    í”„ë¡œê·¸ë˜ë°ê¹Œì§€ ì™„ì„±!</div>
+                            </div>
+                            <div class="sgrid">
+                                <div class="scard"><strong>ë¼ë””ì˜¤ í†µì‹ </strong>ê°™ì€ ê·¸ë£¹(0~255) ì„¤ì •. ë¬´ì„  ìˆ«ìÂ·ë¬¸ì ì†¡ìˆ˜ì‹ .</div>
+                                <div class="scard"><strong>ê·¸ë£¹ ì¤‘ìš”ì„±</strong>ê°™ì€ ê·¸ë£¹ë¼ë¦¬ë§Œ í†µì‹ . ì°¸ê°€ìë§Œ ê°™ì€ ë²ˆí˜¸!</div>
+                                <div class="scard"><strong>ì´ì‹¬ì „ì‹¬ ì›ë¦¬</strong>ë‘ ë³€ìˆ˜ ê³± > 0 â†’ ë‘˜ ë‹¤ ì„ íƒì™„ë£Œ.</div>
+                            </div>
+                            <div
+                                style="background:var(--bg);border:1px solid var(--br);border-radius:var(--rSM);padding:13px;margin-bottom:12px">
+                                <b>âœï¸ ë‹¨ë‹µí˜•:</b> ë¼ë””ì˜¤ í†µì‹ ì—ì„œ ê°™ì€ <span
+                                    style="display:inline-block;width:50px;border-bottom:1.5px solid var(--tx)">&nbsp;</span>ìœ¼ë¡œ
+                                ì„¤ì •ëœ ë§ˆì´í¬ë¡œë¹„íŠ¸ë¼ë¦¬ ì‹ í˜¸ë¥¼ ì£¼ê³ ë°›ì„ ìˆ˜ ìˆë‹¤.<textarea
+                                    style="display:block;width:100%;margin-top:9px;padding:9px;border:1px solid var(--br);border-radius:var(--rSM);font-size:13px;font-family:inherit;resize:vertical;min-height:48px;background:var(--sf)"
+                                    placeholder="ì •ë‹µì„ ì…ë ¥í•˜ì„¸ìš”..."></textarea></div>
+                            <div class="ibox ok">ğŸ“– <div><strong>ë‹¤ìŒ ë‹¨ì› ì˜ˆê³ :</strong> IIë‹¨ì› <strong>ë°ì´í„°</strong>ì—ì„œëŠ” ë””ì§€í„¸ í‘œí˜„ê³¼
+                                    ë°ì´í„° ë¶„ì„ì„ íƒêµ¬í•©ë‹ˆë‹¤!</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="ca">
+                    <div class="ap">
+                        <h5>í•™ìŠµ ì§„í–‰</h5>
+                        <div class="slist">
+                            <div class="si" onclick="goTo('sec-goal')">
+                                <div class="dot sd">1</div>í•™ìŠµëª©í‘œ
+                            </div>
+                            <div class="si" onclick="goTo('sec-concept')">
+                                <div class="dot">2</div>ê°œë…ì„¤ëª…
+                            </div>
+                            <div class="si" onclick="goTo('sec-activity')">
+                                <div class="dot sa">â˜…</div>ìˆ˜í–‰ í™œë™
+                            </div>
+                            <div class="si" onclick="goTo('sec-assess')">
+                                <div class="dot">4</div>ìˆ˜í–‰í‰ê°€
+                            </div>
+                            <div class="si" onclick="goTo('sec-review')">
+                                <div class="dot">5</div>í™•ì¸í•˜ê¸°
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ap" style="background:var(--ult);border-color:var(--umd)">
+                        <h5 style="color:var(--u)">ë‹¨ì› ì§„ë„</h5>
+                        <div style="display:flex;align-items:center;gap:7px">
+                            <div class="pbtrack" style="flex:1">
+                                <div class="pbfill" style="width:100%"></div>
+                            </div><span style="font-size:11px;font-weight:600;color:var(--u)">6/6</span>
+                        </div>
+                    </div>
+                    <div class="ap">
+                        <h5>í•µì‹¬ ìš©ì–´</h5>
+                        <div class="termlist">
+                            <div class="tterm"><span class="tw">ë¼ë””ì˜¤ í†µì‹ </span><span class="tdef">ê°™ì€ ê·¸ë£¹ ë¬´ì„  í†µì‹ </span></div>
+                            <div class="tterm"><span class="tw">ê·¸ë£¹ ì„¤ì •</span><span class="tdef">0~255 ì±„ë„ ì„ íƒ</span></div>
+                            <div class="tterm"><span class="tw">ì „ì†¡</span><span class="tdef">ìˆ«ìÂ·ë¬¸ì ì†¡ì‹ </span></div>
+                            <div class="tterm"><span class="tw">ìˆ˜ì‹ </span><span class="tdef">ê°™ì€ ê·¸ë£¹ ì‹ í˜¸ ìˆ˜ì‹ </span></div>
+                            <div class="tterm"><span class="tw">ë³€ìˆ˜ ë¹„êµ</span><span class="tdef">ì„ íƒê²°ê³¼=ìˆ˜ì‹ ê²°ê³¼ íŒë³„</span></div>
+                        </div>
+                    </div>
+                    <div class="ap" style="background:#F0FDF4;border-color:#BBF7D0">
+                        <h5 style="color:#166534">ğŸ”§ ë§ˆì´í¬ë¡œë¹„íŠ¸</h5>
+                        <a href="https://makecode.microbit.org" target="_blank" class="btn bsm"
+                            style="width:100%;justify-content:center;background:#0078D4;color:#fff;border-color:#005A9E;margin-bottom:5px">MakeCode
+                            ì—´ê¸° â†—</a>
+                        <a href="https://makecode.microbit.org/#editor" target="_blank" class="btn bsm"
+                            style="width:100%;justify-content:center;font-size:10px;color:var(--mt)">ì‹œë®¬ë ˆì´í„° â†—</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <div id="toast"></div>
+    <script>
+
+        // â”€â”€ Google Sheets ì €ì¥ â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+        var GS_URL = 'YOUR_APPS_SCRIPT_WEB_APP_URL';
+
+        function getUserName() {
+            return localStorage.getItem('user_name') || 'ìµëª…';
+        }
+
+        function postToSheets(payload) {
+            if (!GS_URL || GS_URL === 'YOUR_APPS_SCRIPT_WEB_APP_URL') return;
+            fetch(GS_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            }).catch(function () { });
+        }
+
+
+        function toast(m) { var t = document.getElementById('toast'); t.textContent = m; t.style.opacity = '1'; t.style.transform = 'translateX(-50%) translateY(0)'; clearTimeout(t._t); t._t = setTimeout(function () { t.style.opacity = '0'; t.style.transform = 'translateX(-50%) translateY(10px)'; }, 2400); }
+        function toggleSec(id) { var e = document.getElementById(id); if (e) e.classList.toggle('collapsed'); }
+        function goTo(id) { var e = document.getElementById(id); if (!e) return; window.scrollTo({ top: e.getBoundingClientRect().top + window.pageYOffset - 64, behavior: 'smooth' }); }
+        function checkQ(el, ok, msg) { el.closest('.qopts').querySelectorAll('.opt').forEach(function (o) { o.classList.add('locked'); }); el.classList.add(ok ? 'correct' : 'wrong'); var fb = el.closest('.qwrap').querySelector('.qfb'); if (fb) { fb.className = 'qfb ' + (ok ? 'ok' : 'err'); fb.innerHTML = (ok ? 'âœ“ ì •ë‹µ: ' : 'âœ— íŒíŠ¸: ') + msg; } }
+        function saveSC(key) {
+            var d = {};
+            document.querySelectorAll('.scitem select').forEach(function (s, i) { d['q' + i] = s.value; });
+            try {
+                localStorage.setItem(key, JSON.stringify(d));
+                // Google Sheets ì €ì¥
+                postToSheets({
+                    type: 'sc',
+                    userName: getUserName(),
+                    lessonKey: 'l16',
+                    lessonName: 'l16',
+                    answers: d
+                });
+                toast('ìê¸°í‰ê°€ê°€ ì €ì¥ë˜ì—ˆìŠµë‹ˆë‹¤ âœ“');
+            } catch (e) { }
+        }
+        function loadSC(key) { try { var d = JSON.parse(localStorage.getItem(key) || '{}'); document.querySelectorAll('.scitem select').forEach(function (s, i) { if (d['q' + i]) s.value = d['q' + i]; }); } catch (e) { } }
+        function markDone(n) {
+            try {
+                var d = JSON.parse(localStorage.getItem('u01done') || '[]');
+                if (!d.includes(n)) d.push(n);
+                localStorage.setItem('u01done', JSON.stringify(d));
+                // Google Sheets ì €ì¥
+                postToSheets({
+                    type: 'done',
+                    userName: getUserName(),
+                    unit: 'I',
+                    lessonNum: n,
+                    lessonName: 'ì»´í“¨íŒ… ì‹œìŠ¤í…œ'
+                });
+            } catch (e) { }
+            toast('âœ… ì†Œë‹¨ì› ' + n + ' ì™„ë£Œ í‘œì‹œ!');
+        }
+        function saveActivity(key) {
+            var d = {};
+            document.querySelectorAll('.act-input').forEach(function (el, i) { d['a' + i] = el.value; });
+            document.querySelectorAll('.peer-check input[type=radio]:checked').forEach(function (el) { d['r_' + el.name] = el.value; });
+            try {
+                localStorage.setItem(key, JSON.stringify(d));
+                // Google Sheets ì €ì¥
+                postToSheets({
+                    type: 'act',
+                    userName: getUserName(),
+                    lessonKey: 'l16',
+                    lessonName: 'l16',
+                    answers: d
+                });
+                toast('âœ… ìˆ˜í–‰ í™œë™ì´ ì €ì¥ë˜ì—ˆìŠµë‹ˆë‹¤!');
+            } catch (e) { }
+        }
+        function loadActivity(key) {
+            try {
+                var d = JSON.parse(localStorage.getItem(key) || '{}');
+                document.querySelectorAll('.act-input').forEach(function (el, i) { if (d['a' + i]) el.value = d['a' + i]; });
+                Object.keys(d).filter(function (k) { return k.startsWith('r_'); }).forEach(function (k) {
+                    var el = document.querySelector('input[type=radio][name="' + k.slice(2) + '"][value="' + d[k] + '"]');
+                    if (el) el.checked = true;
+                });
+            } catch (e) { }
+        }
+
+
+        var rpsMap = { 1: 'ê°€ìœ„', 2: 'ë°”ìœ„', 3: 'ë³´' };
+        var rpsWin = { 1: 3, 2: 1, 3: 2 }; // ë‚´ê°€ ì´ê¸°ë ¤ë©´ ìƒëŒ€ê°€ ì´ ê°’ì´ì–´ì•¼ í•¨
+        function rpsPlay(name, icon, val) {
+            var compVal = Math.floor(Math.random() * 3) + 1;
+            var compName = rpsMap[compVal];
+            var compIcons = { ê°€ìœ„: 'âœŒï¸', ë°”ìœ„: 'âœŠ', ë³´: 'ğŸ–ï¸' };
+            var r = document.getElementById('rps-result');
+            if (!r) return;
+            var outcome, color;
+            if (val === compVal) { outcome = 'ë¬´ìŠ¹ë¶€ ğŸ¤'; color = '#aaa'; }
+            else if (rpsWin[val] === compVal) { outcome = 'ìŠ¹ë¦¬ ğŸ†'; color = '#27AE60'; }
+            else { outcome = 'íŒ¨ë°° ğŸ’€'; color = '#E74C3C'; }
+            r.innerHTML = '<div style="font-size:22px;margin-bottom:6px">' + icon + ' vs ' + compIcons[compName] + '</div>' +
+                '<div style="font-size:13px;color:#aaa;margin-bottom:4px">ë‚˜: ' + name + ' / ìƒëŒ€: ' + compName + '</div>' +
+                '<div style="font-size:18px;font-weight:700;color:' + color + '">' + outcome + '</div>';
+        }
+        var voteY = 0, voteN = 0;
+        function voteClick(v) {
+            if (v === 'yes') voteY++; else voteN++;
+            document.getElementById('yes-count').textContent = voteY;
+            document.getElementById('no-count').textContent = voteN;
+            var total = voteY + voteN || 1;
+            document.getElementById('yes-bar').style.width = (voteY / total * 100) + '%';
+            document.getElementById('no-bar').style.width = (voteN / total * 100) + '%';
+        }
+        function voteReset() { voteY = 0; voteN = 0; voteClick(''); voteClick(''); }
+
+        document.addEventListener('DOMContentLoaded', function () { loadSC('l106sc'); loadActivity('l106sc_act'); });
+    </script>
+</body>
+
 </html>

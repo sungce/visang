@@ -1,317 +1,82 @@
 <!DOCTYPE html>
-<html lang="ko" class="scroll-smooth">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>?•ë³´êµê³¼ ?™ìŠµ ?Œë«??- 2022 ê°œì • êµìœ¡ê³¼ì •</title>
-    
-    <!-- Tailwind CSS CDN -->
+    <title>ì •ë³´ êµê³¼ ì›¹ í•™ìŠµ í”Œë«í¼</title>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
     <!-- Phosphor Icons -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
-    
-    <!-- Pretendard Font -->
-    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard.css" />
-    
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Pretendard', 'sans-serif'],
-                    },
-                    colors: {
-                        darkbg: '#0B1120',
-                    },
-                    animation: {
-                        'float': 'float 6s ease-in-out infinite',
-                        'float-delayed': 'float 6s ease-in-out 3s infinite',
-                        'blob': 'blob 7s infinite',
-                    },
-                    keyframes: {
-                        float: {
-                            '0%, 100%': { transform: 'translateY(0)' },
-                            '50%': { transform: 'translateY(-20px)' },
-                        },
-                        blob: {
-                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
-                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
-                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
-                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-    
+    <!-- Google Fonts: Inter & Outfit -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
-        body {
-            background-color: #0B1120;
-            color: #f8fafc;
+        :root {
+            --primary: #6366f1;
+            --primary-light: #818cf8;
+            --primary-dark: #4f46e5;
+            --bg-dark: #030712;
+            --card-bg: rgba(17, 24, 39, 0.7);
         }
-        
-        /* Glassmorphism */
-        .glass-card {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-        }
-        
-        .glass-nav {
-            background: rgba(11, 17, 32, 0.6);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
-        
-        /* Typography Gradients */
-        .text-gradient {
-            background: linear-gradient(135deg, #a5b4fc 0%, #c084fc 50%, #f472b6 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        
-        /* Abstract Background Elements */
-        .hero-bg {
-            position: fixed;
-            inset: 0;
-            overflow: hidden;
-            z-index: -1;
-            pointer-events: none;
-        }
-        
-        .glow-circle {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.5;
-        }
-        
-        /* Custom Scrollbar for dark theme */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #0f172a; 
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #334155; 
-            border-radius: 10px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #475569; 
-        }
+        body { font-family: 'Inter', 'Outfit', sans-serif; background-color: var(--bg-dark); color: #f9fafb; overflow-x: hidden; }
+        .glass { background: var(--card-bg); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .hero-gradient { background: radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.15) 0%, rgba(0, 0, 0, 0) 70%); }
     </style>
 </head>
-<body class="antialiased selection:bg-indigo-500/30 selection:text-indigo-200">
-
-    <!-- Ambient Abstract Background -->
-    <div class="hero-bg">
-        <div class="glow-circle w-[600px] h-[600px] top-[-20%] left-[-10%] bg-indigo-600/20 animate-blob"></div>
-        <div class="glow-circle w-[500px] h-[500px] top-[20%] right-[-10%] bg-purple-600/20 animate-blob" style="animation-delay: 2s"></div>
-        <div class="glow-circle w-[700px] h-[700px] bottom-[-20%] left-[10%] bg-blue-600/10 animate-blob" style="animation-delay: 4s"></div>
-    </div>
+<body>
+    <div class="fixed inset-0 hero-gradient pointer-events-none"></div>
 
     <!-- Navigation -->
-    <header class="fixed w-full top-0 z-50 transition-all duration-300 glass-nav">
-        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-            <!-- Logo -->
-            <div class="flex items-center gap-3">
-                <div class="w-10 h-10 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg shadow-indigo-500/20">
-                    <i class="ph ph-terminal-window text-white text-xl"></i>
+    <nav class="sticky top-0 z-50 glass border-b border-white/5 py-4">
+        <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <div class="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center shadow-lg shadow-indigo-500/20">
+                    <i class="ph-bold ph-terminal-window text-white text-xl"></i>
                 </div>
-                <span class="text-xl font-extrabold tracking-tight text-white">?•ë³´<span class="text-indigo-400">?™ìŠµ?Œë«??/span></span>
+                <span class="text-xl font-extrabold tracking-tight text-white">ì •ë³´<span class="text-indigo-400">í•™ìŠµí”Œë«í¼</span></span>
             </div>
-            
-            <!-- Desktop Menu -->
-            <nav class="hidden md:flex gap-8 text-sm font-semibold text-slate-300">
-                <a href="#hero" class="hover:text-white transition-colors">??/a>
-                <a href="#curriculum" class="hover:text-white transition-colors">êµìœ¡ê³¼ì •</a>
-            </nav>
-            
-            <!-- Action Button -->
-            <a href="admin.html" class="group bg-white/10 hover:bg-white/15 border border-white/10 text-white px-6 py-2.5 rounded-full text-sm font-bold transition-all shadow-lg backdrop-blur-sm flex items-center gap-2">
-                ?Œë«???…ì¥ 
-                <i class="ph-bold ph-arrow-right group-hover:translate-x-1 transition-transform"></i>
-            </a>
+            <div class="hidden md:flex items-center gap-8">
+                <a href="#features" class="text-sm font-medium text-slate-300 hover:text-white transition-colors">ì£¼ìš” ê¸°ëŠ¥</a>
+                <a href="#curriculum" class="text-sm font-medium text-slate-300 hover:text-white transition-colors">ì»¤ë¦¬í˜ëŸ¼</a>
+                <a href="admin.html" class="px-5 py-2.5 bg-white text-slate-900 rounded-full text-sm font-bold hover:bg-slate-100 transition-all shadow-xl shadow-white/5">í•™ìŠµ ì‹œì‘í•˜ê¸°</a>
+            </div>
         </div>
-    </header>
+    </nav>
 
-    <!-- Main Hero Section -->
-    <section id="hero" class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 min-h-screen flex flex-col items-center justify-center text-center px-4 z-10">
-        
-        <!-- Badge -->
-        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card text-xs font-bold tracking-widest text-indigo-300 mb-8 uppercase cursor-default border-indigo-500/30 bg-indigo-500/10">
-            <span class="w-2 h-2 rounded-full bg-indigo-500 shadow-[0_0_10px_#6366f1] animate-pulse"></span>
+    <!-- Hero Section -->
+    <section class="h-[80vh] flex flex-col items-center justify-center relative px-6 text-center">
+        <div class="mb-6 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-bold uppercase tracking-wider">
+            <span class="relative flex h-2 w-2">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
+            </span>
             2022 ê°œì • êµìœ¡ê³¼ì • ë°˜ì˜
         </div>
-        
-        <!-- Headline -->
-        <h1 class="text-5xl lg:text-7xl font-extrabold tracking-tight mb-8 leading-tight">
-            ë¯¸ë˜ë¥??”ì?¸í•˜??<br>
-            <span class="text-gradient">?„ë¦¬ë¯¸ì—„ ?™ìŠµ ê²½í—˜</span>
+        <h1 class="text-5xl md:text-7xl lg:text-8xl font-black text-white mb-8 tracking-tighter leading-none">
+            ë¯¸ë˜ë¥¼ ì—¬ëŠ” <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400">ë””ì§€í„¸ ë¦¬í„°ëŸ¬ì‹œ</span>
         </h1>
-        
-        <!-- Subheading -->
-        <p class="text-slate-400 text-lg lg:text-xl max-w-2xl mx-auto mb-12 font-medium leading-relaxed">
-            ì»´í“¨???¬ê³ ???¥ìƒë¶€??ìµœì‹  ?¸ê³µì§€???¤ë¦¬ê¹Œì?.<br> 
-            ?”ìš± ì§ê??ì´ê³??¸í„°?™í‹°ë¸Œí•œ ??ê¸°ë°˜ ?™ìŠµ ?˜ê²½??ë§Œë‚˜ë³´ì„¸??
-        </p>
-        
-        <!-- CTA Buttons -->
-        <div class="flex flex-col sm:flex-row gap-5 w-full sm:w-auto">
-            <a href="admin.html" class="bg-indigo-600 hover:bg-indigo-500 text-white px-8 py-4 rounded-full text-lg font-bold transition-all shadow-[0_0_40px_rgba(79,70,229,0.4)] hover:shadow-[0_0_60px_rgba(79,70,229,0.6)] hover:-translate-y-1 flex items-center justify-center gap-2">
-                ê°•ì˜??ë°”ë¡œê°€ê¸?<i class="ph-bold ph-rocket-launch text-xl"></i>
-            </a>
-            <a href="#curriculum" class="glass-card hover:bg-white/10 text-white px-8 py-4 rounded-full text-lg font-bold transition-all flex items-center justify-center gap-2">
-                êµìœ¡ê³¼ì • ?´í´ë³´ê¸° <i class="ph-bold ph-caret-down"></i>
-            </a>
-        </div>
-        
-        <!-- Floating Visual Elements (Hidden on mobile) -->
-        <div class="absolute hidden lg:flex right-[10%] top-[25%] animate-float">
-            <div class="glass-card p-4 rounded-2xl flex items-center gap-4">
-                <div class="p-3 bg-blue-500/20 text-blue-400 rounded-xl border border-blue-500/30"><i class="ph-fill ph-code text-2xl"></i></div>
-                <div class="text-left">
-                    <div class="text-[10px] uppercase tracking-wider text-slate-400 font-bold mb-1">PROGRAMMING</div>
-                    <div class="font-mono text-sm text-indigo-200">print("Hello World")</div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="absolute hidden lg:flex left-[10%] bottom-[30%] animate-float-delayed">
-            <div class="glass-card p-4 rounded-2xl flex items-center gap-4">
-                <div class="p-3 bg-pink-500/20 text-pink-400 rounded-xl border border-pink-500/30"><i class="ph-fill ph-brain text-2xl"></i></div>
-                <div class="text-left">
-                    <div class="text-[10px] uppercase tracking-wider text-slate-400 font-bold mb-1">ARTIFICIAL INTELLIGENCE</div>
-                    <div class="font-bold text-sm text-pink-200">Neural Networks</div>
-                </div>
-            </div>
+        <p class="max-w-2xl text-lg text-slate-400 mb-12 font-medium">ì»´í“¨íŒ… ì‚¬ê³ ë ¥ê³¼ ì¸ê³µì§€ëŠ¥ í™œìš© ëŠ¥ë ¥ì„ í‚¤ìš°ëŠ” ìµœê³ ì˜ ì •ë³´ êµê³¼ í•™ìŠµ ê²½í—˜ì„ ì‹œì‘í•´ ë³´ì„¸ìš”.</p>
+        <div class="flex flex-col sm:flex-row gap-4">
+            <a href="admin.html" class="px-8 py-4 bg-indigo-600 text-white rounded-2xl text-lg font-bold hover:bg-indigo-500 transition-all shadow-2xl shadow-indigo-500/30">í”Œë«í¼ ì…ì¥í•˜ê¸°</a>
+            <a href="#curriculum" class="px-8 py-4 glass text-white rounded-2xl text-lg font-bold hover:bg-white/10 transition-all">ë‘˜ëŸ¬ë³´ê¸°</a>
         </div>
     </section>
 
-    <!-- Core Curriculum Features Grid -->
-    <section id="curriculum" class="py-24 relative z-10 border-t border-white/5">
-        <div class="max-w-7xl mx-auto px-6">
-            
-            <div class="text-center mb-16 lg:mb-24">
-                <h2 class="text-3xl lg:text-5xl font-extrabold mb-6">5?€ ?µì‹¬ ?ì—­</h2>
-                <p class="text-slate-400 text-lg max-w-2xl mx-auto">ì²´ê³„?ìœ¼ë¡?êµ¬ì„±???¨ì›???µí•´ ?”ì????¤ì´?°ë¸Œ ?¸ë??ê²Œ ê¼??„ìš”????Ÿ‰???˜ë‚˜??ì±„ì›Œ?˜ê°‘?ˆë‹¤.</p>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-                
-                <!-- Unit 1 -->
-                <div class="glass-card p-8 rounded-3xl hover:bg-white/5 transition-all duration-300 group">
-                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500/20 to-blue-600/10 border border-blue-500/20 flex items-center justify-center text-blue-400 text-3xl mb-8 group-hover:scale-110 transition-transform">
-                        <i class="ph-fill ph-cpu"></i>
-                    </div>
-                    <div class="flex items-center gap-2 mb-3 text-blue-400 font-bold text-sm">
-                        <span>?¨ì› I</span>
-                        <div class="h-px bg-blue-500/30 flex-1"></div>
-                    </div>
-                    <h3 class="text-2xl font-bold text-white mb-4">ì»´í“¨???œìŠ¤??/h3>
-                    <p class="text-slate-400 text-sm leading-relaxed">?˜ë“œ?¨ì–´?€ ?Œí”„?¸ì›¨?´ì˜ ??• ???´í•´?˜ê³ , ?¼ì„œ?€ ?¡ì¶”?ì´?°ë? ?œìš©???¼ì?ì»?ì»´í“¨??ê¸°ì´ˆë¥??¤ì§‘?ˆë‹¤.</p>
-                </div>
-                
-                <!-- Unit 2 -->
-                <div class="glass-card p-8 rounded-3xl hover:bg-white/5 transition-all duration-300 group">
-                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-green-500/20 to-green-600/10 border border-green-500/20 flex items-center justify-center text-green-400 text-3xl mb-8 group-hover:scale-110 transition-transform">
-                        <i class="ph-fill ph-database"></i>
-                    </div>
-                    <div class="flex items-center gap-2 mb-3 text-green-400 font-bold text-sm">
-                        <span>?¨ì› II</span>
-                        <div class="h-px bg-green-500/30 flex-1"></div>
-                    </div>
-                    <h3 class="text-2xl font-bold text-white mb-4">?°ì´??/h3>
-                    <p class="text-slate-400 text-sm leading-relaxed">?•ë³´???ìˆ˜ ?ì—???˜ë? ?ˆëŠ” ?°ì´?°ë? ?˜ì§‘?˜ê³  êµ¬ì¡°?”í•˜ë©? ?œê°?”ë? ?µí•´ ?ˆë¡œ??ê°€ì¹˜ë? ë°œê²¬?©ë‹ˆ??</p>
-                </div>
-                
-                <!-- Unit 3 -->
-                <div class="glass-card p-8 rounded-3xl hover:bg-white/5 transition-all duration-300 group lg:translate-y-4">
-                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-pink-500/20 to-pink-600/10 border border-pink-500/20 flex items-center justify-center text-pink-400 text-3xl mb-8 group-hover:scale-110 transition-transform">
-                        <i class="ph-fill ph-code-block"></i>
-                    </div>
-                    <div class="flex items-center gap-2 mb-3 text-pink-400 font-bold text-sm">
-                        <span>?¨ì› III</span>
-                        <div class="h-px bg-pink-500/30 flex-1"></div>
-                    </div>
-                    <h3 class="text-2xl font-bold text-white mb-4">?Œê³ ë¦¬ì¦˜ê³??„ë¡œê·¸ë˜ë°?/h3>
-                    <p class="text-slate-400 text-sm leading-relaxed">ë³µì¡??ë¬¸ì œë¥??‘ê²Œ ?˜ëˆ„??ë¶„ì„?˜ê³ , ?¼ë¦¬?ì¸ ?Œê³ ë¦¬ì¦˜???¤ê³„??ì§ì ‘ ì½”ë“œë¡?êµ¬í˜„?˜ëŠ” ?¥ë ¥???¤ì›?ˆë‹¤.</p>
-                </div>
-                
-                <!-- Unit 4 -->
-                <div class="glass-card p-8 rounded-3xl hover:bg-white/5 transition-all duration-300 group">
-                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-orange-500/20 to-orange-600/10 border border-orange-500/20 flex items-center justify-center text-orange-400 text-3xl mb-8 group-hover:scale-110 transition-transform">
-                        <i class="ph-fill ph-robot"></i>
-                    </div>
-                    <div class="flex items-center gap-2 mb-3 text-orange-400 font-bold text-sm">
-                        <span>?¨ì› IV</span>
-                        <div class="h-px bg-orange-500/30 flex-1"></div>
-                    </div>
-                    <h3 class="text-2xl font-bold text-white mb-4">?¸ê³µì§€??/h3>
-                    <p class="text-slate-400 text-sm leading-relaxed">?°ë¦¬ ?¶ì— ê¹Šì´ ?¤ì–´???¸ê³µì§€?¥ì˜ ?ë¦¬ë¥?ê¹¨ìš°ì¹˜ê³ , ê¸°ê³„?™ìŠµ ëª¨ë¸??ì§ì ‘ ë§Œë“¤?´ë³´ë©??œê³„?€ ê°€?¥ì„±??ì²´í—˜?©ë‹ˆ??</p>
-                </div>
-                
-                <!-- Unit 5 -->
-                <div class="glass-card p-8 rounded-3xl hover:bg-white/5 transition-all duration-300 group">
-                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-500/20 to-purple-600/10 border border-purple-500/20 flex items-center justify-center text-purple-400 text-3xl mb-8 group-hover:scale-110 transition-transform">
-                        <i class="ph-fill ph-globe-hemisphere-west"></i>
-                    </div>
-                    <div class="flex items-center gap-2 mb-3 text-purple-400 font-bold text-sm">
-                        <span>?¨ì› V</span>
-                        <div class="h-px bg-purple-500/30 flex-1"></div>
-                    </div>
-                    <h3 class="text-2xl font-bold text-white mb-4">?”ì???ë¬¸í™”</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed">?ˆì „?˜ê³  ?¤ë¦¬?ì¸ ?”ì????í™œ???„í•œ ?œë? ?˜ì‹??ë°°ìš°ê³? ì§€???¬ì‚°ê¶?ë³´í˜¸??ì¤‘ìš”?±ì„ ?´í•´?©ë‹ˆ??</p>
-                </div>
-                
-                <!-- Decorative Card -->
-                <div class="glass-card p-8 rounded-3xl bg-gradient-to-br from-indigo-900/40 to-purple-900/40 border-indigo-500/30 flex flex-col justify-center items-center text-center lg:-translate-y-4">
-                    <div class="w-16 h-16 rounded-full bg-indigo-500/20 flex items-center justify-center text-indigo-300 mb-6 animate-pulse">
-                        <i class="ph-bold ph-sparkle text-2xl"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-white mb-2">?„ë¦¬ë¯¸ì—„ ?ë??Œí¬</h3>
-                    <p class="text-indigo-200/70 text-sm">?¤ìš´ë¡œë“œ???¤ì¹˜ ?†ì´, ??ë¸Œë¼?°ì? ?ˆì—??ëª¨ë“  ?¤ìŠµê³??‰ê?ê°€ ?„ë²½?˜ê²Œ ?´ë£¨?´ì§‘?ˆë‹¤.</p>
-                </div>
-                
-            </div>
-        </div>
-    </section>
-    
-    <!-- Deep Dive CTA Section -->
-    <section class="py-24 relative z-10">
-        <div class="max-w-5xl mx-auto px-6">
-            <div class="glass-card rounded-[3rem] p-10 lg:p-16 text-center relative overflow-hidden border-t border-l border-white/20">
-                <!-- Inner glow -->
-                <div class="absolute inset-0 bg-gradient-to-br from-indigo-500/10 via-transparent to-purple-500/10"></div>
-                
-                <div class="relative z-10">
-                    <span class="text-indigo-400 font-bold tracking-widest uppercase text-sm mb-4 block">Let's Get Started</span>
-                    <h2 class="text-3xl lg:text-5xl font-extrabold mb-6 text-white">?™ìŠµ???ˆë¡œ??ê¸°ì???ê²½í—˜?˜ì„¸??/h2>
-                    <p class="text-slate-300 text-lg mb-10 max-w-2xl mx-auto">?¸ì œ ?´ë””?œë‚˜ ?‘ì†?????ˆëŠ” ?´ë¼?°ë“œ ê¸°ë°˜ ?˜ê²½?ì„œ ?¬ëŸ¬ë¶„ì˜ ì½”ë”© ?¬ì •???œì‘?˜ì„¸??</p>
-                    <a href="admin.html" class="inline-flex bg-white text-indigo-950 px-10 py-4 rounded-full text-lg mx-auto font-extrabold transition-all shadow-xl hover:-translate-y-1 hover:shadow-2xl items-center gap-3">
-                        <i class="ph-fill ph-google-logo text-blue-500 text-xl"></i> êµ¬ê? ê³„ì •?¼ë¡œ ë¡œê·¸??(?™ìƒ/êµì‚¬)
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Minimal Footer -->
+    <!-- Footer -->
     <footer class="border-t border-white/10 py-12 relative z-10 bg-black/20">
         <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
             <div class="flex items-center gap-2">
                 <i class="ph-fill ph-terminal-window text-indigo-500 text-2xl"></i>
-                <span class="font-bold text-white tracking-tight">?•ë³´?™ìŠµ?Œë«??/span>
+                <span class="font-bold text-white tracking-tight">ì •ë³´í•™ìŠµí”Œë«í¼</span>
             </div>
             <p class="text-slate-500 text-sm font-medium hover:text-slate-300 transition-colors cursor-default">Â© 2026 Middle School Informatics. All rights reserved.</p>
         </div>
     </footer>
 
+    <script>
+        lucide.createIcons();
+    </script>
 </body>
 </html>
