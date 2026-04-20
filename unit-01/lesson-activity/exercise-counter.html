@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>운동 횟수 표시 장치 — Lab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F5F4F0;--sf:#FFF;--br:#E2DFD6;--u:#6C65CC;--udk:#4E48A8;--ult:#ECEAFE;--tx:#1C1C1C;--mt:#696760;--umd:#C8C4F0;}
+body{font-family:'Noto Sans KR',sans-serif;margin:0;padding:0;background:var(--bg);color:var(--tx);display:flex;flex-direction:column;height:100vh;}
+.header{height:54px;background:var(--sf);border-bottom:1px solid var(--br);display:flex;align-items:center;padding:0 24px;flex-shrink:0;}
+.header h1{font-size:16px;margin:0;display:flex;align-items:center;gap:10px;font-weight:700;color:var(--tx);}
+.back{text-decoration:none;color:var(--mt);font-size:13px;border:1px solid var(--br);padding:6px 12px;border-radius:6px;transition:all 0.2s;font-weight:500;}
+.back:hover{background:var(--bg);color:var(--tx);}
+.content{display:flex;flex:1;overflow:hidden;}
+.panel-left{width:380px;background:var(--sf);border-right:1px solid var(--br);padding:28px;overflow-y:auto;box-shadow:2px 0 10px rgba(0,0,0,0.02);z-index:10;}
+.panel-right{flex:1;background:var(--bg);position:relative;}
+iframe{width:100%;height:100%;border:none;display:block;}
+.step{margin-bottom:20px;padding:16px;background:var(--bg);border-radius:10px;border:1px solid var(--br);}
+.step-num{display:inline-block;width:24px;height:24px;background:var(--u);color:#fff;border-radius:50%;text-align:center;line-height:24px;font-size:12px;font-weight:700;margin-bottom:8px;}
+.step h3{margin:0 0 10px 0;font-size:14px;color:var(--tx);}
+.step p{margin:0;font-size:13px;color:var(--mt);line-height:1.65;}
+code{background:var(--ult);padding:2px 6px;border-radius:4px;color:var(--u);font-size:12px;font-family:monospace;border:1px solid var(--umd);}
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #ddd; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #ccc; }
+</style>
+</head>
+<body>
+<div class="header">
+  <a href="index.html" class="back">← 목록으로</a>
+  <div style="flex:1"></div>
+  <h1>🏃 운동 횟수 표시 장치</h1>
+</div>
+<div class="content">
+  <div class="panel-left">
+    <div style="display:inline-block;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:700;background:var(--ult);color:var(--u);margin-bottom:12px;">가속도 센서 활용</div>
+    <h2 style="font-size:20px;margin-top:0;margin-bottom:12px;font-weight:700;">미션: 흔들림 감지 카운터</h2>
+    <p style="font-size:13px;color:var(--mt);line-height:1.6;margin-bottom:24px;">오른쪽 에디터에서 마이크로비트가 흔들릴 때마다 횟수를 세어주는 프로그램을 만들어봅시다.</p>
+    
+    <div class="step">
+      <div class="step-num">1</div>
+      <h3>변수 만들기</h3>
+      <p>먼저 숫자를 저장할 공간이 필요해요. '변수' 카테고리에서 <code>운동횟수</code> 변수를 생성하고, '시작하면' 블록 안에서 값을 0으로 초기화하세요.</p>
+    </div>
+    
+    <div class="step">
+      <div class="step-num">2</div>
+      <h3>흔들림 감지하기</h3>
+      <p>입력 탭에서 <code>'흔들림 감지하면 실행'</code> 블록을 가져옵니다.<br>그 안에서 <code>운동횟수</code> 변수를 1씩 증가시키세요.</p>
+    </div>
+    
+    <div class="step">
+      <div class="step-num">3</div>
+      <h3>화면에 출력하기</h3>
+      <p><code>A버튼 누르면 실행</code> 블록에서는 현재까지의 <code>운동횟수</code>를 LED 스크린에 숫자로 출력합니다.<br><code>B버튼 누르면 실행</code> 블록에서는 기록을 다시 0으로 만들고 화면을 지워주세요!</p>
+    </div>
+    
+    <div style="margin-top:30px;padding:16px;background:#FFF9E6;border-radius:10px;border:1px solid #EDD070;font-size:12px;color:#7A4E0A;line-height:1.6;">
+      <strong>💡 힌트:</strong> 가속도 센서는 X, Y, Z 세 방향의 움직임을 감지합니다. '흔들림(shake)' 이벤트는 마이크로비트를 가볍게 위아래로 흔들면 발생합니다!
+    </div>
+  </div>
+  <div class="panel-right">
+    <iframe src="https://makecode.microbit.org/---editor?nested=1"></iframe>
+  </div>
+</div>
+</body>
+</html>

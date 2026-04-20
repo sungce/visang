@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>정보교과 학습 플랫폼</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- 폰트 설정 (Pretendard) -->
+    <link rel="stylesheet" as="style" crossorigin
+        href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard.css" />
+
+    <style>
+        body {
+            font-family: 'Pretendard', sans-serif;
+        }
+
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            height: 300px;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .feedback-animate {
+            animation: slideDown 0.3s ease-out forwards;
+        }
+
+        #toast-container {
+            z-index: 9999;
+        }
+    </style>
+</head>
+
+<body
+    class="bg-gray-50 flex h-screen overflow-hidden text-gray-800 selection:bg-blue-100 selection:text-blue-900 relative">
+
+    <div id="toast-container" class="fixed top-4 right-4 flex flex-col gap-2"></div>
+
+    <!-- 첫 페이지: 로그인 및 계정 선택 화면 -->
+    <div id="login-screen"
+        class="absolute inset-0 z-50 flex flex-col items-center justify-center bg-gray-50/80 backdrop-blur-sm">
+        <!-- 메인 로그인 박스 -->
+        <div id="login-main-box"
+            class="bg-white p-10 rounded-3xl shadow-2xl border border-gray-200 w-full max-w-md text-center transform transition-all duration-500 animate-in zoom-in-95">
+            <div
+                class="w-20 h-20 bg-blue-600 rounded-2xl mx-auto flex items-center justify-center mb-6 shadow-lg shadow-blue-200">
+                <i class="ph ph-terminal-window text-white text-4xl"></i>
+            </div>
+            <h1 class="text-3xl font-extrabold tracking-tight text-gray-900 mb-2">정보교과 <span class="text-blue-600">학습
+                    플랫폼</span></h1>
+            <p class="text-gray-500 mb-10 font-medium">스스로 탐구하고 배우는 맞춤형 학습 공간</p>
+
+            <button onclick="showAccountChooser()"
+                class="w-full flex items-center justify-center gap-3 bg-white border border-gray-300 text-gray-700 font-bold py-3.5 px-6 rounded-xl hover:bg-gray-50 hover:shadow-md transition-all">
+                <i class="ph-fill ph-google-logo text-xl text-blue-500"></i>
+                Google 계정으로 시작하기
+            </button>
+            <p class="mt-6 text-xs text-gray-400">학교에서 발급받은 구글 워크스페이스 계정을 권장합니다.</p>
+        </div>
+
+        <!-- 모의 구글 계정 선택 박스 (초기 숨김) -->
+        <div id="account-chooser-box"
+            class="hidden bg-white p-8 rounded-3xl shadow-2xl border border-gray-200 w-full max-w-sm text-center transform transition-all duration-300 animate-in zoom-in-95">
+            <i class="ph-fill ph-google-logo text-4xl text-blue-500 mb-4 block"></i>
+            <h2 class="text-2xl font-bold mb-2 text-gray-900">계정 선택</h2>
+            <p class="text-gray-500 text-sm mb-6">정보교과 학습 플랫폼으로 이동하여 계속하세요</p>
+
+            <div class="space-y-3">
+                <button onclick="selectAccount('홍길동', 'student1@school.edu', 'student')"
+                    class="w-full flex items-center gap-4 p-3 border border-gray-200 rounded-xl hover:bg-blue-50 hover:border-blue-200 transition-colors text-left group">
+                    <div
+                        class="w-10 h-10 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center group-hover:shadow-md transition-all shrink-0">
+                        <i class="ph-fill ph-graduation-cap text-xl"></i>
+                    </div>
+                    <div class="overflow-hidden flex-1">
+                        <p class="font-bold text-gray-900 text-sm truncate">홍길동 (학생)</p>
+                        <p class="text-xs text-gray-500 truncate">student1@school.edu</p>
+                    </div>
+                </button>
+
+                <button onclick="selectAccount('김정보', 'teacher@school.edu', 'teacher')"
+                    class="w-full flex items-center gap-4 p-3 border border-gray-200 rounded-xl hover:bg-blue-50 hover:border-blue-200 transition-colors text-left group">
+                    <div
+                        class="w-10 h-10 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center group-hover:shadow-md transition-all shrink-0">
+                        <i class="ph-fill ph-chalkboard-teacher text-xl"></i>
+                    </div>
+                    <div class="overflow-hidden flex-1">
+                        <p class="font-bold text-gray-900 text-sm truncate">김정보 (선생님)</p>
+                        <p class="text-xs text-gray-500 truncate">teacher@school.edu</p>
+                    </div>
+                </button>
+
+                <button onclick="useAnotherAccount()"
+                    class="w-full flex items-center gap-4 p-3 border border-gray-200 rounded-xl hover:bg-gray-50 transition-colors text-left group">
+                    <div
+                        class="w-10 h-10 rounded-full bg-gray-100 text-gray-600 flex items-center justify-center shrink-0">
+                        <i class="ph-bold ph-user-circle-plus text-xl"></i>
+                    </div>
+                    <div class="overflow-hidden flex-1">
+                        <p class="font-bold text-gray-700 text-sm">다른 계정 사용</p>
+                    </div>
+                </button>
+            </div>
+
+            <button onclick="hideAccountChooser()"
+                class="mt-6 text-sm font-bold text-gray-400 hover:text-gray-600 transition-colors">취소</button>
+        </div>
+    </div>
+
+    <!-- 앱 래퍼 -->
+    <div id="app-wrapper" class="flex h-full w-full hidden animate-in fade-in duration-500">
+
+        <!-- 좌측 고정 사이드바 -->
+        <aside
+            class="w-72 bg-white border-r border-gray-200 flex flex-col h-full flex-shrink-0 z-20 shadow-[4px_0_24px_rgba(0,0,0,0.02)]">
+            <div class="h-16 flex items-center px-6 border-b border-gray-100 cursor-pointer hover:bg-gray-50 transition-colors"
+                onclick="switchView('dashboard')">
+                <div class="bg-blue-600 p-1.5 rounded-lg mr-3 shadow-md shadow-blue-200">
+                    <i class="ph ph-terminal-window text-white text-xl"></i>
+                </div>
+                <h1 class="text-lg font-extrabold tracking-tight text-gray-900 leading-tight">정보교과<br><span
+                        class="text-blue-600">학습 플랫폼</span></h1>
+            </div>
+
+            <div class="p-6 pb-2">
+                <div class="flex justify-between items-end mb-2">
+                    <span class="text-xs font-bold text-gray-400 uppercase tracking-widest">전체 진도율</span>
+                    <span class="text-sm font-bold text-blue-600">32%</span>
+                </div>
+                <div class="w-full bg-gray-100 rounded-full h-2 overflow-hidden">
+                    <div class="bg-blue-500 h-full rounded-full transition-all duration-1000" style="width: 32%"></div>
+                </div>
+            </div>
+
+            <!-- 네비게이션 메뉴 (단원 지도 계획 반영) -->
+            <nav class="flex-1 overflow-y-auto px-4 py-4 space-y-1 custom-scrollbar">
+                <button onclick="switchView('dashboard')"
+                    class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-blue-700 bg-blue-50 transition-colors"
+                    id="nav-dashboard">
+                    <i class="ph-fill ph-squares-four text-lg"></i> 학습 대시보드
+                </button>
+                <button onclick="switchView('submissions')"
+                    class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors"
+                    id="nav-submissions">
+                    <i class="ph-fill ph-archive-box text-lg"></i> 나의 학습 기록 <span
+                        class="ml-auto bg-blue-100 text-blue-600 text-[10px] px-2 py-0.5 rounded-full font-bold"
+                        id="sidebar-sub-count">0</span>
+                </button>
+
+                <div class="my-4 border-t border-gray-100"></div>
+                <p class="px-3 text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-2">단원 학습실</p>
+
+                <!-- I. 컴퓨팅 시스템 -->
+                <div class="space-y-1">
+                    <button onclick="toggleFolder('folder-unit1', this)"
+                        class="w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-bold text-gray-800 bg-blue-50/50 hover:bg-blue-50 transition-colors">
+                        <div class="flex items-center gap-2"><i
+                                class="ph-fill ph-folder-open text-blue-500 text-lg folder-icon"></i> I. 컴퓨팅 시스템</div>
+                        <i class="ph ph-caret-down text-gray-500 transition-transform duration-200 chevron-icon"
+                            style="transform: rotate(0deg);"></i>
+                    </button>
+                    <div id="folder-unit1" class="pl-4 space-y-1 overflow-hidden transition-all duration-300 block">
+                        <!-- 중단원 1 -->
+                        <button onclick="toggleFolder('folder-unit1-1', this)"
+                            class="w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm font-semibold text-gray-700 hover:bg-gray-100 transition-colors mt-1">
+                            <div class="flex items-center gap-2"><i
+                                    class="ph-fill ph-folder-open text-blue-400 folder-icon"></i> 1. 시스템과 피지컬 컴퓨팅</div>
+                            <i class="ph ph-caret-down text-gray-400 text-xs transition-transform duration-200 chevron-icon"
+                                style="transform: rotate(0deg);"></i>
+                        </button>
+                        <div id="folder-unit1-1" class="pl-6 space-y-1 block">
+                            <button onclick="navigateTo(1, 1, this)"
+                                class="lesson-btn w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-blue-50 hover:text-blue-700 transition-colors"><i
+                                    class="ph-fill ph-file-text text-gray-400"></i> 01. 구성과 동작 원리</button>
+                            <button onclick="navigateTo(1, 2, this)"
+                                class="lesson-btn w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-blue-50 hover:text-blue-700 transition-colors"><i
+                                    class="ph-fill ph-file-text text-gray-400"></i> 02. 피지컬 컴퓨팅의 이해</button>
+                        </div>
+                        <!-- 중단원 2 -->
+                        <button onclick="toggleFolder('folder-unit1-2', this)"
+                            class="w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm font-semibold text-gray-700 hover:bg-gray-100 transition-colors mt-1">
+                            <div class="flex items-center gap-2"><i
+                                    class="ph-fill ph-folder text-blue-400 folder-icon"></i> 2. 피지컬 프로그래밍</div>
+                            <i class="ph ph-caret-down text-gray-400 text-xs transition-transform duration-200 chevron-icon"
+                                style="transform: rotate(-90deg);"></i>
+                        </button>
+                        <div id="folder-unit1-2" class="pl-6 space-y-1 hidden">
+                            <button onclick="navigateTo(1, 3, this)"
+                                class="lesson-btn w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-blue-50 hover:text-blue-700 transition-colors"><i
+                                    class="ph-fill ph-file-text text-gray-400"></i> 01. 운동 횟수 표시 장치</button>
+                            <button onclick="navigateTo(1, 4, this)"
+                                class="lesson-btn w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-blue-50 hover:text-blue-700 transition-colors"><i
+                                    class="ph-fill ph-file-text text-gray-400"></i> 02. 수면 온도 알림이</button>
+                            <button onclick="navigateTo(1, 5, this)"
+                                class="lesson-btn w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-blue-50 hover:text-blue-700 transition-colors"><i
+                                    class="ph-fill ph-file-text text-gray-400"></i> 03. 소리 반응 애니메이션</button>
+                            <button onclick="navigateTo(1, 6, this)"
+                                class="lesson-btn w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-blue-50 hover:text-blue-700 transition-colors"><i
+                                    class="ph-fill ph-file-text text-gray-400"></i> 04. 이심전심 게임 장치</button>
+                        </div>
+
+                        <!-- 수행평가 -->
+                        <div class="mt-2 pt-2 border-t border-gray-100">
+                            <button onclick="navigateTo(1, 'activity', this)"
+                                class="lesson-btn w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-bold text-blue-700 hover:bg-blue-50 transition-colors">
+                                <i class="ph-fill ph-medal text-blue-500"></i> 과정 중심의 수행활동
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- II. 데이터 -->
+                <div class="space-y-1">
+                    <button onclick="toggleFolder('folder-unit2', this)"
+                        class="w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-bold text-gray-800 bg-green-50/50 hover:bg-green-50 transition-colors mt-1">
+                        <div class="flex items-center gap-2"><i
+                                class="ph-fill ph-folder text-green-500 text-lg folder-icon"></i> II. 데이터</div>
+                        <i class="ph ph-caret-down text-gray-500 transition-transform duration-200 chevron-icon"
+                            style="transform: rotate(-90deg);"></i>
+                    </button>
+                    <div id="folder-unit2" class="pl-4 space-y-1 overflow-hidden transition-all duration-300 hidden">
+                        <!-- 중단원 1 -->
+                        <button onclick="toggleFolder('folder-unit2-1', this)"
+                            class="w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm font-semibold text-gray-700 hover:bg-gray-100 transition-colors mt-1">
+                            <div class="flex items-center gap-2"><i
+                                    class="ph-fill ph-folder text-green-400 folder-icon"></i> 1. 데이터의 표현</div>
+                            <i class="ph ph-caret-down text-gray-400 text-xs transition-transform duration-200 chevron-icon"
+                                style="transform: rotate(-90deg);"></i>
+                        </button>
+                        <div id="folder-unit2-1" class="pl-6 space-y-1 hidden">
+                            <button onclick="navigateTo(2, 1, this)"
+                                class="lesson-btn w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-green-50 hover:text-green-700 transition-colors"><i
+                                    class="ph-fill ph-file-text text-gray-400"></i> 01. 디지털 형태의 데이터</button>
+                            <button onclick="navigateTo(2, 2, this)"
+                                class="lesson-btn w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-green-50 hover:text-green-700 transition-colors"><i
+                                    class="ph-fill ph-file-text text-gray-400"></i> 02. 다양한 데이터 표현</button>
+                        </div>
+                        <!-- 중단원 2 -->
+                        <button onclick="toggleFolder('folder-unit2-2', this)"
+                            class="w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm font-semibold text-gray-700 hover:bg-gray-100 transition-colors mt-1">
+                            <div class="flex items-center gap-2"><i
+                                    class="ph-fill ph-folder text-green-400 folder-icon"></i> 2. 데이터 분석</div>
+                            <i class="ph ph-caret-down text-gray-400 text-xs transition-transform duration-200 chevron-icon"
+                                style="transform: rotate(-90deg);"></i>
+                        </button>
+                        <div id="folder-unit2-2" class="pl-6 space-y-1 hidden">
+                            <button onclick="navigateTo(2, 3, this)"
+                                class="lesson-btn w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-green-50 hover:text-green-700 transition-colors"><i
+                                    class="ph-fill ph-file-text text-gray-400"></i> 01. 데이터의 수집과 관리</button>
+                            <button onclick="navigateTo(2, 4, this)"
+                                class="lesson-btn w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-green-50 hover:text-green-700 transition-colors"><i
+                                    class="ph-fill ph-file-text text-gray-400"></i> 02. 구조화와 분석</button>
+                            <button onclick="navigateTo(2, 5, this)"
+                                class="lesson-btn w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-green-50 hover:text-green-700 transition-colors"><i
+                                    class="ph-fill ph-file-text text-gray-400"></i> 03. 인기 공유 동영상 데이터 분석</button>
+                            <button onclick="navigateTo(2, 6, this)"
+                                class="lesson-btn w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-green-50 hover:text-green-700 transition-colors"><i
+                                    class="ph-fill ph-file-text text-gray-400"></i> 04. 급식 잔반 데이터 분석</button>
+                        </div>
+
+                        <!-- 수행평가 -->
+                        <div class="mt-2 pt-2 border-t border-gray-100">
+                            <button onclick="navigateTo(2, 'activity', this)"
+                                class="lesson-btn w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-bold text-green-700 hover:bg-green-50 transition-colors">
+                                <i class="ph-fill ph-medal text-green-500"></i> 과정 중심의 수행활동
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- III. 알고리즘과 프로그래밍 -->
+                <div class="space-y-1">
+                    <button onclick="toggleFolder('folder-unit3', this)"
+                        class="w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-bold text-gray-800 bg-pink-50/50 hover:bg-pink-50 transition-colors mt-1">
+                        <div class="flex items-center gap-2"><i
+                                class="ph-fill ph-folder text-pink-500 text-lg folder-icon"></i> III. 알고리즘과 프로그래밍</div>
+                        <i class="ph ph-caret-down text-gray-500 transition-transform duration-200 chevron-icon"
+                            style="transform: rotate(-90deg);"></i>
+                    </button>
+                    <div id="folder-unit3" class="pl-4 space-y-1 overflow-hidden transition-all duration-300 hidden">
+                        <!-- 중단원 1 -->
+                        <button onclick="toggleFolder('folder-unit3-1', this)"
+                            class="w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm font-semibold text-gray-700 hover:bg-gray-100 transition-colors mt-1">
+                            <div class="flex items-center gap-2"><i
+                                    class="ph-fill ph-folder text-pink-400 folder-icon"></i> 1. 추상화와 알고리즘</div>
+                            <i class="ph ph-caret-down text-gray-400 text-xs transition-transform duration-200 chevron-icon"
+                                style="transform: rotate(-90deg);"></i>
+                        </button>
+                        <div id="folder-unit3-1" class="pl-6 space-y-1 hidden">
+                            <button onclick="navigateTo(3, 1, this)"
+                                class="lesson-btn w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-pink-50 hover:text-pink-700 transition-colors"><i
+                                    class="ph-fill ph-file-text text-gray-400"></i> 01. 문제의 상태와 구조화</button>
+                            <button onclick="navigateTo(3, 2, this)"
+                                class="lesson-btn w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-pink-50 hover:text-pink-700 transition-colors"><i
+                                    class="ph-fill ph-file-text text-gray-400"></i> 02. 문제의 추상화</button>
+                            <button onclick="navigateTo(3, 3, this)"
+                                class="lesson-btn w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-pink-50 hover:text-pink-700 transition-colors"><i
+                                    class="ph-fill ph-file-text text-gray-400"></i> 03. 알고리즘 이해/표현</button>
+                            <button onclick="navigateTo(3, 4, this)"
+                                class="lesson-btn w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-pink-50 hover:text-pink-700 transition-colors"><i
+                                    class="ph-fill ph-file-text text-gray-400"></i> 04. 알고리즘 분석/설계</button>
+                        </div>
+                        <!-- 중단원 2 -->
+                        <button onclick="toggleFolder('folder-unit3-2', this)"
+                            class="w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm font-semibold text-gray-700 hover:bg-gray-100 transition-colors mt-1">
+                            <div class="flex items-center gap-2"><i
+                                    class="ph-fill ph-folder text-pink-400 folder-icon"></i> 2. 프로그래밍</div>
+                            <i class="ph ph-caret-down text-gray-400 text-xs transition-transform duration-200 chevron-icon"
+                                style="transform: rotate(-90deg);"></i>
+                        </button>
+                        <div id="folder-unit3-2" class="pl-6 space-y-1 hidden">
+                            <button onclick="navigateTo(3, 5, this)"
+                                class="lesson-btn w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-pink-50 hover:text-pink-700 transition-colors"><i
+                                    class="ph-fill ph-file-text text-gray-400"></i> 01. 프로그래밍 시작하기</button>
+                            <button onclick="navigateTo(3, 6, this)"
+                                class="lesson-btn w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-pink-50 hover:text-pink-700 transition-colors"><i
+                                    class="ph-fill ph-file-text text-gray-400"></i> 02. 논리 연산 프로그래밍</button>
+                            <button onclick="navigateTo(3, 7, this)"
+                                class="lesson-btn w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-pink-50 hover:text-pink-700 transition-colors"><i
+                                    class="ph-fill ph-file-text text-gray-400"></i> 03. 중첩 제어 구조</button>
+                            <button onclick="navigateTo(3, 8, this)"
+                                class="lesson-btn w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-pink-50 hover:text-pink-700 transition-colors"><i
+                                    class="ph-fill ph-file-text text-gray-400"></i> 04. 리스트와 프로그래밍</button>
+                            <button onclick="navigateTo(3, 9, this)"
+                                class="lesson-btn w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-pink-50 hover:text-pink-700 transition-colors"><i
+                                    class="ph-fill ph-file-text text-gray-400"></i> 05. 함수와 디버깅</button>
+                            <button onclick="navigateTo(3, 10, this)"
+                                class="lesson-btn w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-pink-50 hover:text-pink-700 transition-colors"><i
+                                    class="ph-fill ph-file-text text-gray-400"></i> 06. 실생활 문제 해결</button>
+                        </div>
+                        <div class="mt-2 pt-2 border-t border-gray-100">
+                            <button onclick="navigateTo(3, 'activity', this)"
+                                class="lesson-btn w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-bold text-pink-700 hover:bg-pink-50 transition-colors">
+                                <i class="ph-fill ph-medal text-pink-500"></i> 과정 중심의 수행활동
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- IV. 인공지능 -->
+                <div class="space-y-1">
+                    <button onclick="toggleFolder('folder-unit4', this)"
+                        class="w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-bold text-gray-800 bg-orange-50/50 hover:bg-orange-50 transition-colors mt-1">
+                        <div class="flex items-center gap-2"><i
+                                class="ph-fill ph-folder text-orange-500 text-lg folder-icon"></i> IV. 인공지능</div>
+                        <i class="ph ph-caret-down text-gray-500 transition-transform duration-200 chevron-icon"
+                            style="transform: rotate(-90deg);"></i>
+                    </button>
+                    <div id="folder-unit4" class="pl-4 space-y-1 overflow-hidden transition-all duration-300 hidden">
+                        <!-- 중단원 1 -->
+                        <button onclick="toggleFolder('folder-unit4-1', this)"
+                            class="w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm font-semibold text-gray-700 hover:bg-gray-100 transition-colors mt-1">
+                            <div class="flex items-center gap-2"><i
+                                    class="ph-fill ph-folder text-orange-400 folder-icon"></i> 1. 인공지능과 학습</div>
+                            <i class="ph ph-caret-down text-gray-400 text-xs transition-transform duration-200 chevron-icon"
+                                style="transform: rotate(-90deg);"></i>
+                        </button>
+                        <div id="folder-unit4-1" class="pl-6 space-y-1 hidden">
+                            <button onclick="navigateTo(4, 1, this)"
+                                class="lesson-btn w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-orange-50 hover:text-orange-700 transition-colors"><i
+                                    class="ph-fill ph-file-text text-gray-400"></i> 01. 인공지능 개념과 특성</button>
+                            <button onclick="navigateTo(4, 2, this)"
+                                class="lesson-btn w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-orange-50 hover:text-orange-700 transition-colors"><i
+                                    class="ph-fill ph-file-text text-gray-400"></i> 02. 데이터와 학습</button>
+                        </div>
+                        <!-- 중단원 2 -->
+                        <button onclick="toggleFolder('folder-unit4-2', this)"
+                            class="w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm font-semibold text-gray-700 hover:bg-gray-100 transition-colors mt-1">
+                            <div class="flex items-center gap-2"><i
+                                    class="ph-fill ph-folder text-orange-400 folder-icon"></i> 2. 인공지능과 문제 해결</div>
+                            <i class="ph ph-caret-down text-gray-400 text-xs transition-transform duration-200 chevron-icon"
+                                style="transform: rotate(-90deg);"></i>
+                        </button>
+                        <div id="folder-unit4-2" class="pl-6 space-y-1 hidden">
+                            <button onclick="navigateTo(4, 3, this)"
+                                class="lesson-btn w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-orange-50 hover:text-orange-700 transition-colors"><i
+                                    class="ph-fill ph-file-text text-gray-400"></i> 01. 팔 이미지 (운동 도우미)</button>
+                            <button onclick="navigateTo(4, 4, this)"
+                                class="lesson-btn w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-orange-50 hover:text-orange-700 transition-colors"><i
+                                    class="ph-fill ph-file-text text-gray-400"></i> 02. 소리 데이터 (웃음 계수)</button>
+                            <button onclick="navigateTo(4, 5, this)"
+                                class="lesson-btn w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-orange-50 hover:text-orange-700 transition-colors"><i
+                                    class="ph-fill ph-file-text text-gray-400"></i> 03. 텍스트 (영화 평가)</button>
+                            <button onclick="navigateTo(4, 6, this)"
+                                class="lesson-btn w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-orange-50 hover:text-orange-700 transition-colors"><i
+                                    class="ph-fill ph-file-text text-gray-400"></i> 04. 윤리적 문제 해결</button>
+                        </div>
+
+                        <!-- 수행평가 -->
+                        <div class="mt-2 pt-2 border-t border-gray-100">
+                            <button onclick="navigateTo(4, 'activity', this)"
+                                class="lesson-btn w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-bold text-orange-700 hover:bg-orange-50 transition-colors">
+                                <i class="ph-fill ph-medal text-orange-500"></i> 과정 중심의 수행활동
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- V. 디지털 문화 -->
+                <div class="space-y-1">
+                    <button onclick="toggleFolder('folder-unit5', this)"
+                        class="w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-bold text-gray-800 bg-purple-50/50 hover:bg-purple-50 transition-colors mt-1">
+                        <div class="flex items-center gap-2"><i
+                                class="ph-fill ph-folder text-purple-500 text-lg folder-icon"></i> V. 디지털 문화</div>
+                        <i class="ph ph-caret-down text-gray-500 transition-transform duration-200 chevron-icon"
+                            style="transform: rotate(-90deg);"></i>
+                    </button>
+                    <div id="folder-unit5" class="pl-4 space-y-1 overflow-hidden transition-all duration-300 hidden">
+                        <!-- 중단원 1 -->
+                        <button onclick="toggleFolder('folder-unit5-1', this)"
+                            class="w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm font-semibold text-gray-700 hover:bg-gray-100 transition-colors mt-1">
+                            <div class="flex items-center gap-2"><i
+                                    class="ph-fill ph-folder text-purple-400 folder-icon"></i> 1. 디지털 사회</div>
+                            <i class="ph ph-caret-down text-gray-400 text-xs transition-transform duration-200 chevron-icon"
+                                style="transform: rotate(-90deg);"></i>
+                        </button>
+                        <div id="folder-unit5-1" class="pl-6 space-y-1 hidden">
+                            <button onclick="navigateTo(5, 1, this)"
+                                class="lesson-btn w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-purple-50 hover:text-purple-700 transition-colors"><i
+                                    class="ph-fill ph-file-text text-gray-400"></i> 01. 디지털 사회 특성</button>
+                            <button onclick="navigateTo(5, 2, this)"
+                                class="lesson-btn w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-purple-50 hover:text-purple-700 transition-colors"><i
+                                    class="ph-fill ph-file-text text-gray-400"></i> 02. 디지털 사회와 직업</button>
+                        </div>
+                        <!-- 중단원 2 -->
+                        <button onclick="toggleFolder('folder-unit5-2', this)"
+                            class="w-full flex items-center justify-between px-3 py-2 rounded-lg text-sm font-semibold text-gray-700 hover:bg-gray-100 transition-colors mt-1">
+                            <div class="flex items-center gap-2"><i
+                                    class="ph-fill ph-folder text-purple-400 folder-icon"></i> 2. 디지털 윤리</div>
+                            <i class="ph ph-caret-down text-gray-400 text-xs transition-transform duration-200 chevron-icon"
+                                style="transform: rotate(-90deg);"></i>
+                        </button>
+                        <div id="folder-unit5-2" class="pl-6 space-y-1 hidden">
+                            <button onclick="navigateTo(5, 3, this)"
+                                class="lesson-btn w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-purple-50 hover:text-purple-700 transition-colors"><i
+                                    class="ph-fill ph-file-text text-gray-400"></i> 01. 사이버 폭력과 스마트폰 과의존 예방</button>
+                            <button onclick="navigateTo(5, 4, this)"
+                                class="lesson-btn w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-purple-50 hover:text-purple-700 transition-colors"><i
+                                    class="ph-fill ph-file-text text-gray-400"></i> 02. 개인 정보 보호와 지식 재산권 보호</button>
+                        </div>
+                        <!-- 수행평가 -->
+                        <div class="mt-2 pt-2 border-t border-gray-100">
+                            <button onclick="navigateTo(5, 'activity', this)"
+                                class="lesson-btn w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-bold text-purple-700 hover:bg-purple-50 transition-colors">
+                                <i class="ph-fill ph-medal text-purple-500"></i> 과정 중심의 수행활동
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </nav>
+
+            <div class="p-4 border-t border-gray-100 bg-gray-50/50 flex justify-between items-center">
+                <div class="flex items-center gap-3 overflow-hidden">
+                    <div id="user-profile-img"
+                        class="w-10 h-10 rounded-full bg-gradient-to-tr from-blue-100 to-blue-200 flex items-center justify-center font-bold text-blue-700 border border-blue-300 shrink-0">
+                        <i class="ph-fill ph-user"></i>
+                    </div>
+                    <div class="overflow-hidden">
+                        <p class="text-sm font-bold text-gray-900 truncate" id="user-name-display">로그인 중...</p>
+                        <p class="text-[10px] font-bold text-gray-500 uppercase tracking-widest truncate"
+                            id="user-email-display">Student</p>
+                    </div>
+                </div>
+                <button onclick="logoutGoogle()"
+                    class="text-gray-400 hover:text-red-500 transition-colors p-2 rounded-lg hover:bg-red-50"
+                    title="로그아웃">
+                    <i class="ph-bold ph-sign-out text-lg"></i>
+                </button>
+            </div>
+        </aside>
+
+        <!-- 메인 컨텐츠 영역 -->
+        <main class="flex-1 flex flex-col h-full overflow-hidden bg-white/50 relative">
+
+            <header
+                class="h-16 bg-white/80 backdrop-blur-md border-b border-gray-200 px-8 flex items-center justify-between z-10 sticky top-0 shrink-0">
+                <div class="flex items-center text-sm font-medium text-gray-500 transition-all" id="breadcrumb">
+                    <i class="ph-fill ph-squares-four mr-2 text-blue-600 text-lg"></i> <span
+                        class="font-bold text-gray-900">학습 대시보드</span>
+                </div>
+                <div class="flex items-center gap-3">
+                    <button onclick="switchView('submissions')"
+                        class="flex items-center gap-2 text-sm font-semibold text-gray-600 hover:text-gray-900 bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded-lg transition-colors">
+                        <i class="ph-fill ph-archive-box text-blue-600"></i> 과제함 가기
+                    </button>
+                </div>
+            </header>
+
+            <div class="flex-1 overflow-y-auto p-8 custom-scrollbar scroll-smooth" id="main-scroll-area">
+
+                <!-- 뷰 1: 대시보드 -->
+                <div id="view-dashboard" class="max-w-6xl mx-auto space-y-8 block animate-in fade-in duration-500">
+                    <div class="flex justify-between items-end pb-4 border-b border-gray-200">
+                        <div>
+                            <h2 class="text-3xl font-extrabold tracking-tight text-gray-900">학습 코스</h2>
+                            <p class="text-gray-500 mt-2 font-medium">2022 개정 교육과정 기반 정보 교과 학습을 시작하세요.</p>
+                        </div>
+                    </div>
+
+                    <!-- 차트 영역 -->
+                    <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-8 mb-8">
+                        <h3 class="text-xl font-bold mb-6 text-gray-900 flex items-center gap-2"><i
+                                class="ph-fill ph-chart-bar text-blue-500"></i> 단원별 학습 진행률</h3>
+                        <div class="chart-container">
+                            <canvas id="unitProgressChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- 단원 카드 그리드 -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                        <!-- I 단원 -->
+                        <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden flex flex-col h-[400px] hover:shadow-lg transition-all group cursor-pointer"
+                            onclick="toggleFolder('folder-unit1', document.querySelector('[onclick*=\\\'folder-unit1\\\']'))">
+                            <div class="h-1.5 bg-blue-500 w-full group-hover:h-2 transition-all"></div>
+                            <div class="p-6 flex-1 flex flex-col">
+                                <div class="flex justify-between items-start mb-4">
+                                    <div
+                                        class="w-12 h-12 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
+                                        <i class="ph-fill ph-cpu"></i></div>
+                                    <span class="bg-blue-100 text-blue-700 text-[10px] font-black px-2 py-1 rounded">학습
+                                        중</span>
+                                </div>
+                                <h3 class="text-xl font-bold mb-2 text-gray-900">I. 컴퓨팅 시스템</h3>
+                                <div class="flex items-center gap-3 mb-4">
+                                    <div class="flex-1 bg-gray-100 h-2 rounded-full overflow-hidden">
+                                        <div class="bg-blue-500 h-full rounded-full" style="width: 40%"></div>
+                                    </div>
+                                    <span class="text-xs font-bold text-gray-500">40%</span>
+                                </div>
+                                <p class="text-sm text-gray-500 flex-1">하드웨어와 소프트웨어의 역할을 이해하고 피지컬 컴퓨팅 장치를 만듭니다.</p>
+                                <button
+                                    class="w-full mt-auto text-blue-600 font-bold bg-blue-50 py-2 rounded-lg text-sm hover:bg-blue-100">단원
+                                    폴더 열기</button>
+                            </div>
+                        </div>
+
+                        <!-- II 단원 -->
+                        <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden flex flex-col h-[400px] hover:shadow-lg transition-all group cursor-pointer"
+                            onclick="toggleFolder('folder-unit2', document.querySelector('[onclick*=\\\'folder-unit2\\\']'))">
+                            <div class="h-1.5 bg-green-500 w-full group-hover:h-2 transition-all"></div>
+                            <div class="p-6 flex-1 flex flex-col">
+                                <div class="flex justify-between items-start mb-4">
+                                    <div
+                                        class="w-12 h-12 bg-green-50 text-green-600 rounded-xl flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
+                                        <i class="ph-fill ph-database"></i></div>
+                                    <span class="bg-gray-100 text-gray-500 text-[10px] font-black px-2 py-1 rounded">대기
+                                        중</span>
+                                </div>
+                                <h3 class="text-xl font-bold mb-2 text-gray-900">II. 데이터</h3>
+                                <div class="flex items-center gap-3 mb-4">
+                                    <div class="flex-1 bg-gray-100 h-2 rounded-full overflow-hidden">
+                                        <div class="bg-green-500 h-full rounded-full" style="width: 10%"></div>
+                                    </div>
+                                    <span class="text-xs font-bold text-gray-500">10%</span>
+                                </div>
+                                <p class="text-sm text-gray-500 flex-1">실생활 데이터를 수집, 분석, 시각화하여 유용한 정보를 추출합니다.</p>
+                                <button
+                                    class="w-full mt-auto text-green-600 font-bold bg-green-50 py-2 rounded-lg text-sm hover:bg-green-100">단원
+                                    폴더 열기</button>
+                            </div>
+                        </div>
+
+                        <!-- III 단원 -->
+                        <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden flex flex-col h-[400px] hover:shadow-lg transition-all group cursor-pointer"
+                            onclick="toggleFolder('folder-unit3', document.querySelector('[onclick*=\\\'folder-unit3\\\']'))">
+                            <div class="h-1.5 bg-pink-500 w-full group-hover:h-2 transition-all"></div>
+                            <div class="p-6 flex-1 flex flex-col">
+                                <div class="flex justify-between items-start mb-4">
+                                    <div
+                                        class="w-12 h-12 bg-pink-50 text-pink-600 rounded-xl flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
+                                        <i class="ph-fill ph-code"></i></div>
+                                    <span class="bg-gray-100 text-gray-500 text-[10px] font-black px-2 py-1 rounded">대기
+                                        중</span>
+                                </div>
+                                <h3 class="text-xl font-bold mb-2 text-gray-900">III. 알고리즘과 프로그래밍</h3>
+                                <div class="flex items-center gap-3 mb-4">
+                                    <div class="flex-1 bg-gray-100 h-2 rounded-full overflow-hidden">
+                                        <div class="bg-pink-500 h-full rounded-full" style="width: 0%"></div>
+                                    </div>
+                                    <span class="text-xs font-bold text-gray-400">0%</span>
+                                </div>
+                                <p class="text-sm text-gray-500 flex-1">복잡한 문제를 분해하고 알고리즘을 설계하여 코드로 구현합니다.</p>
+                                <button
+                                    class="w-full mt-auto text-pink-600 font-bold bg-pink-50 py-2 rounded-lg text-sm hover:bg-pink-100">단원
+                                    폴더 열기</button>
+                            </div>
+                        </div>
+
+                        <!-- IV 단원 -->
+                        <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden flex flex-col h-[400px] hover:shadow-lg transition-all group cursor-pointer"
+                            onclick="toggleFolder('folder-unit4', document.querySelector('[onclick*=\\\'folder-unit4\\\']'))">
+                            <div class="h-1.5 bg-orange-500 w-full group-hover:h-2 transition-all"></div>
+                            <div class="p-6 flex-1 flex flex-col">
+                                <div class="flex justify-between items-start mb-4">
+                                    <div
+                                        class="w-12 h-12 bg-orange-50 text-orange-600 rounded-xl flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
+                                        <i class="ph-fill ph-brain"></i></div>
+                                    <span class="bg-gray-100 text-gray-500 text-[10px] font-black px-2 py-1 rounded">대기
+                                        중</span>
+                                </div>
+                                <h3 class="text-xl font-bold mb-2 text-gray-900">IV. 인공지능</h3>
+                                <div class="flex items-center gap-3 mb-4">
+                                    <div class="flex-1 bg-gray-100 h-2 rounded-full overflow-hidden">
+                                        <div class="bg-orange-500 h-full rounded-full" style="width: 0%"></div>
+                                    </div>
+                                    <span class="text-xs font-bold text-gray-400">0%</span>
+                                </div>
+                                <p class="text-sm text-gray-500 flex-1">인공지능의 원리를 이해하고, 실생활 데이터를 활용해 다양한 인공지능 모델을 만들어
+                                    봅니다.</p>
+                                <button
+                                    class="w-full mt-auto text-orange-600 font-bold bg-orange-50 py-2 rounded-lg text-sm hover:bg-orange-100">단원
+                                    폴더 열기</button>
+                            </div>
+                        </div>
+
+                        <!-- V 단원 -->
+                        <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden flex flex-col h-[400px] hover:shadow-lg transition-all group cursor-pointer"
+                            onclick="toggleFolder('folder-unit5', document.querySelector('[onclick*=\\\'folder-unit5\\\']'))">
+                            <div class="h-1.5 bg-purple-500 w-full group-hover:h-2 transition-all"></div>
+                            <div class="p-6 flex-1 flex flex-col">
+                                <div class="flex justify-between items-start mb-4">
+                                    <div
+                                        class="w-12 h-12 bg-purple-50 text-purple-600 rounded-xl flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
+                                        <i class="ph-fill ph-globe-hemisphere-west"></i></div>
+                                    <span class="bg-gray-100 text-gray-500 text-[10px] font-black px-2 py-1 rounded">대기
+                                        중</span>
+                                </div>
+                                <h3 class="text-xl font-bold mb-2 text-gray-900">V. 디지털 문화</h3>
+                                <div class="flex items-center gap-3 mb-4">
+                                    <div class="flex-1 bg-gray-100 h-2 rounded-full overflow-hidden">
+                                        <div class="bg-purple-500 h-full rounded-full" style="width: 0%"></div>
+                                    </div>
+                                    <span class="text-xs font-bold text-gray-400">0%</span>
+                                </div>
+                                <p class="text-sm text-gray-500 flex-1">디지털 사회의 특성과 직업의 변화를 이해하고, 올바른 디지털 윤리 의식을 함양합니다.
+                                </p>
+                                <button
+                                    class="w-full mt-auto text-purple-600 font-bold bg-purple-50 py-2 rounded-lg text-sm hover:bg-purple-100">단원
+                                    폴더 열기</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 뷰 2: 기록함 -->
+                <div id="view-submissions"
+                    class="max-w-5xl mx-auto hidden pb-24 animate-in fade-in duration-500 space-y-8">
+                    <div class="border-b border-gray-200 pb-6">
+                        <h2 class="text-3xl font-extrabold tracking-tight text-gray-900 flex items-center gap-3">
+                            <i class="ph-fill ph-google-drive-logo text-blue-600"></i> 나의 학습 기록
+                        </h2>
+                        <p class="text-gray-500 mt-2 font-medium">제출한 수행평가 및 과제 내역이 학생의 Google Drive에 안전하게 보관됩니다.</p>
+                    </div>
+                    <div id="submissions-list" class="space-y-4">
+                        <div class="p-8 text-center bg-white rounded-2xl border border-gray-200 shadow-sm">
+                            <i class="ph ph-spinner animate-spin text-3xl text-gray-400 mx-auto mb-4 block"></i>
+                            <p class="text-gray-500 font-medium">데이터를 불러오는 중입니다...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 뷰 3: Iframe 영역 (새로운 페이지 로드용) -->
+                <div id="view-iframe"
+                    class="hidden w-full h-[calc(100vh-130px)] flex-col animate-in fade-in duration-500">
+                    <div
+                        class="bg-white w-full h-full rounded-2xl shadow-sm border border-gray-200 overflow-hidden flex flex-col">
+                        <iframe id="lesson-frame" class="w-full h-full flex-1 border-none bg-gray-50"
+                            src="about:blank"></iframe>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Firebase & Google Drive Logic -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signInWithPopup, GoogleAuthProvider, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+
+        // (Firebase 연동 설정이 비어있으면 로컬 모드로 작동합니다)
+        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
+        let app, auth;
+        try { app = initializeApp(firebaseConfig); auth = getAuth(app); } catch (e) { console.warn("Firebase 미설정, 로컬 모드 진입"); }
+
+        let currentUser = null;
+        const provider = auth ? new GoogleAuthProvider() : null;
+        if (provider) {
+            provider.addScope('https://www.googleapis.com/auth/drive.file');
+        }
+
+        window.showAccountChooser = function () {
+            document.getElementById('login-main-box').classList.add('hidden');
+            document.getElementById('account-chooser-box').classList.remove('hidden');
+        };
+
+        window.hideAccountChooser = function () {
+            document.getElementById('account-chooser-box').classList.add('hidden');
+            document.getElementById('login-main-box').classList.remove('hidden');
+        };
+
+        // 시뮬레이션용 계정 선택 로그인 함수 (Iframe 우회용)
+        window.selectAccount = function (name, email, role) {
+            document.getElementById('login-screen').classList.add('hidden');
+            document.getElementById('app-wrapper').classList.remove('hidden');
+
+            currentUser = { uid: email, displayName: name, email: email, role: role };
+
+            document.getElementById('user-name-display').textContent = name;
+            document.getElementById('user-email-display').textContent = email;
+
+            const iconClass = role === 'teacher' ? 'ph-chalkboard-teacher' : 'ph-graduation-cap';
+            const iconColor = role === 'teacher' ? 'text-indigo-600 bg-indigo-100 border-indigo-300' : 'text-blue-600 bg-blue-100 border-blue-300';
+
+            document.getElementById('user-profile-img').className = `w-10 h-10 rounded-full flex items-center justify-center font-bold border shrink-0 ${iconColor}`;
+            document.getElementById('user-profile-img').innerHTML = `<i class="ph-fill ${iconClass} text-xl"></i>`;
+
+            initCharts();
+            loadSubmissions();
+            showToast(`${name}님, 환영합니다!`, true);
+        };
+
+        // 실제 구글 로그인 및 수동 계정 입력 처리
+        window.useAnotherAccount = async function () {
+            if (auth) {
+                try {
+                    provider.setCustomParameters({ prompt: 'select_account' });
+                    const res = await signInWithPopup(auth, provider);
+                    const cred = GoogleAuthProvider.credentialFromResult(res);
+                    if (cred?.accessToken) sessionStorage.setItem('gDriveToken', cred.accessToken);
+                    hideAccountChooser();
+                } catch (e) {
+                    console.error("Popup Error:", e);
+                    fallbackPromptLogin();
+                }
+            } else {
+                fallbackPromptLogin();
+            }
+        };
+
+        function fallbackPromptLogin() {
+            const email = prompt("사용할 구글 이메일 주소를 입력하세요:", "");
+            if (email) {
+                const defaultName = email.split('@')[0];
+                const name = prompt("이름을 입력하세요:", defaultName);
+                if (name) {
+                    selectAccount(name, email, 'student');
+                }
+            }
+        }
+
+        window.loginGoogle = async function () {
+            if (!auth) {
+                showAccountChooser();
+                return;
+            }
+
+            const btn = document.getElementById('btn-google-login');
+            btn.innerHTML = '<i class="ph ph-spinner animate-spin text-xl"></i> 로그인 중...';
+            try {
+                provider.setCustomParameters({ prompt: 'select_account' });
+                const res = await signInWithPopup(auth, provider);
+                const cred = GoogleAuthProvider.credentialFromResult(res);
+                if (cred?.accessToken) sessionStorage.setItem('gDriveToken', cred.accessToken);
+            } catch (e) {
+                btn.innerHTML = '<i class="ph-fill ph-google-logo text-xl text-blue-500"></i> Google 계정으로 시작하기';
+                showToast("로그인 창을 띄울 수 없습니다. (Iframe 제한 등)", false);
+                showAccountChooser();
+            }
+        };
+
+        window.logoutGoogle = async function () {
+            if (auth && currentUser && !currentUser.role) await signOut(auth);
+            sessionStorage.removeItem('gDriveToken');
+            location.reload();
+        };
+
+        window.showToast = function (msg, success = true) {
+            const cont = document.getElementById('toast-container');
+            const t = document.createElement('div');
+            t.className = `${success ? 'bg-gray-900' : 'bg-red-500'} text-white px-5 py-3 rounded-xl shadow-lg font-bold text-sm flex gap-3 transition-all duration-300 transform -translate-y-5 opacity-0`;
+            t.innerHTML = `<i class="ph-fill ${success ? 'ph-check-circle' : 'ph-warning-circle'} text-xl"></i> ${msg}`;
+            cont.appendChild(t);
+            requestAnimationFrame(() => { t.classList.remove('-translate-y-5', 'opacity-0'); });
+            setTimeout(() => { t.classList.add('-translate-y-5', 'opacity-0'); setTimeout(() => t.remove(), 300); }, 3000);
+        };
+
+        if (auth) {
+            onAuthStateChanged(auth, (user) => {
+                if (currentUser && currentUser.role) return;
+
+                currentUser = user;
+                if (user && !user.isAnonymous) {
+                    document.getElementById('login-screen').classList.add('hidden');
+                    document.getElementById('app-wrapper').classList.remove('hidden');
+                    document.getElementById('user-name-display').textContent = user.displayName;
+                    document.getElementById('user-email-display').textContent = user.email;
+                    initCharts(); loadSubmissions();
+                } else {
+                    document.getElementById('login-screen').classList.remove('hidden');
+                    document.getElementById('app-wrapper').classList.add('hidden');
+                }
+            });
+        }
+
+        window.loadSubmissions = async function () {
+            const listContainer = document.getElementById('submissions-list');
+            let subs = JSON.parse(localStorage.getItem('t_subs') || '[]');
+
+            subs.sort((a, b) => new Date(b.submitted_at) - new Date(a.submitted_at));
+            document.getElementById('sidebar-sub-count').textContent = subs.length;
+
+            if (subs.length === 0) listContainer.innerHTML = '<div class="p-8 text-center bg-white border rounded-xl text-gray-500">제출된 학습 기록이 없습니다. 차시를 진행해 주세요.</div>';
+            else {
+                let h = '';
+                subs.forEach(s => {
+                    const d = new Date(s.submitted_at).toLocaleString('ko-KR');
+                    h += `<div class="bg-white p-6 rounded-2xl border shadow-sm mb-4">
+                        <div class="text-xs font-bold text-blue-600 mb-1">${s.lesson_info.unit}</div>
+                        <div class="font-bold text-lg mb-2">${s.lesson_info.title}</div>
+                        <div class="text-sm text-gray-500 mb-4">${d}</div>
+                        <div class="bg-gray-50 p-4 rounded-xl text-sm break-all">`;
+                    for (const [k, v] of Object.entries(s.content)) h += `<div class="mb-2"><span class="font-bold text-gray-600 w-24 inline-block">${k}</span> ${v}</div>`;
+                    h += `</div></div>`;
+                });
+                listContainer.innerHTML = h;
+            }
+        };
+    </script>
+
+    <!-- UI View 전환 및 라우팅 스크립트 -->
+    <script>
+        function initCharts() {
+            if (window.myChart) window.myChart.destroy();
+            const ctx = document.getElementById('unitProgressChart');
+            if (!ctx) return;
+            window.myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['컴퓨팅 시스템', '데이터', '알고리즘', '인공지능', '디지털 문화'],
+                    datasets: [{ label: '진행률(%)', data: [40, 10, 0, 0, 0], backgroundColor: 'rgba(59, 130, 246, 0.7)', borderRadius: 6 }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, scales: { y: { max: 100 } }, plugins: { legend: { display: false } } }
+            });
+        }
+
+        // 라우팅: 아이프레임(Iframe)을 우측 영역에 로드
+        window.navigateTo = function (unitNum, lessonNum, btnElement) {
+            const unitStr = String(unitNum).padStart(2, '0');
+            const lessonStr = typeof lessonNum === 'number' ? String(lessonNum).padStart(2, '0') : lessonNum;
+            const targetUrl = `unit-${unitStr}/lesson-${lessonStr}/index.html`;
+
+            // Iframe src 적용
+            const frame = document.getElementById('lesson-frame');
+            frame.src = targetUrl;
+
+            // 뷰 전환
+            switchView('iframe');
+
+            // 브레드크럼 업데이트
+            let breadcrumbText = lessonStr === 'activity' ? '과정 중심의 수행활동' : `${lessonStr}차시 학습`;
+            document.getElementById('breadcrumb').innerHTML = `<i class="ph-fill ph-book-open mr-2 text-blue-600 text-lg"></i> <span class="font-bold text-gray-900">${unitNum}단원 - ${breadcrumbText}</span>`;
+
+            // 사이드바 버튼 활성화 스타일 처리
+            document.querySelectorAll('.lesson-btn').forEach(btn => {
+                btn.classList.remove('bg-gray-100', 'font-bold', 'text-gray-900');
+            });
+            if (btnElement) {
+                btnElement.classList.add('bg-gray-100', 'font-bold', 'text-gray-900');
+            }
+        };
+
+        window.switchView = function (view) {
+            document.getElementById('view-dashboard').style.display = view === 'dashboard' ? 'block' : 'none';
+            document.getElementById('view-submissions').style.display = view === 'submissions' ? 'block' : 'none';
+            document.getElementById('view-iframe').style.display = view === 'iframe' ? 'flex' : 'none';
+
+            // 네비게이션 버튼 활성화 토글
+            ['nav-dashboard', 'nav-submissions'].forEach(id => {
+                document.getElementById(id).classList.remove('bg-blue-50', 'text-blue-700');
+                document.getElementById(id).classList.add('text-gray-600');
+            });
+
+            if (view === 'dashboard' || view === 'submissions') {
+                document.getElementById('nav-' + view).classList.add('bg-blue-50', 'text-blue-700');
+
+                // 대시보드/기록함으로 올 때 브레드크럼 및 버튼 포커스 초기화
+                if (view === 'dashboard') {
+                    document.getElementById('breadcrumb').innerHTML = '<i class="ph-fill ph-squares-four mr-2 text-blue-600 text-lg"></i> <span class="font-bold text-gray-900">학습 대시보드</span>';
+                } else if (view === 'submissions') {
+                    document.getElementById('breadcrumb').innerHTML = '<i class="ph-fill ph-archive-box mr-2 text-blue-600 text-lg"></i> <span class="font-bold text-gray-900">나의 학습 기록</span>';
+                }
+
+                document.querySelectorAll('.lesson-btn').forEach(btn => {
+                    btn.classList.remove('bg-gray-100', 'font-bold', 'text-gray-900');
+                });
+
+                // 대시보드로 돌아오면 iframe을 비워서 리소스 낭비 방지
+                if (view === 'dashboard') {
+                    document.getElementById('lesson-frame').src = 'about:blank';
+                }
+            }
+
+            document.getElementById('main-scroll-area').scrollTop = 0;
+        };
+
+        window.toggleFolder = function (id, btn) {
+            const folder = document.getElementById(id);
+            const icon = btn.querySelector('.folder-icon');
+            const chev = btn.querySelector('.chevron-icon');
+            if (folder.classList.contains('hidden')) {
+                folder.classList.remove('hidden');
+                if (icon) icon.classList.replace('ph-folder', 'ph-folder-open');
+                if (chev) chev.style.transform = 'rotate(0deg)';
+            } else {
+                folder.classList.add('hidden');
+                if (icon) icon.classList.replace('ph-folder-open', 'ph-folder');
+                if (chev) chev.style.transform = 'rotate(-90deg)';
+            }
+        };
+
+        // Iframe(자식 창)에서 부모의 switchView를 호출할 수 있도록 리스너 추가
+        window.addEventListener('message', function (event) {
+            if (event.data === 'goDashboard') {
+                switchView('dashboard');
+            }
+        });
+    </script>
+</body>
+
+</html>

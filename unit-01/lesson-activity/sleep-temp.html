@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>수면 온도 알림이 — Lab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F5F4F0;--sf:#FFF;--br:#E2DFD6;--u:#6C65CC;--udk:#4E48A8;--ult:#ECEAFE;--tx:#1C1C1C;--mt:#696760;--umd:#C8C4F0;}
+body{font-family:'Noto Sans KR',sans-serif;margin:0;padding:0;background:var(--bg);color:var(--tx);display:flex;flex-direction:column;height:100vh;}
+.header{height:54px;background:var(--sf);border-bottom:1px solid var(--br);display:flex;align-items:center;padding:0 24px;flex-shrink:0;}
+.header h1{font-size:16px;margin:0;display:flex;align-items:center;gap:10px;font-weight:700;color:var(--tx);}
+.back{text-decoration:none;color:var(--mt);font-size:13px;border:1px solid var(--br);padding:6px 12px;border-radius:6px;transition:all 0.2s;font-weight:500;}
+.back:hover{background:var(--bg);color:var(--tx);}
+.content{display:flex;flex:1;overflow:hidden;}
+.panel-left{width:380px;background:var(--sf);border-right:1px solid var(--br);padding:28px;overflow-y:auto;box-shadow:2px 0 10px rgba(0,0,0,0.02);z-index:10;}
+.panel-right{flex:1;background:var(--bg);position:relative;}
+iframe{width:100%;height:100%;border:none;display:block;}
+.step{margin-bottom:20px;padding:16px;background:var(--bg);border-radius:10px;border:1px solid var(--br);}
+.step-num{display:inline-block;width:24px;height:24px;background:var(--u);color:#fff;border-radius:50%;text-align:center;line-height:24px;font-size:12px;font-weight:700;margin-bottom:8px;}
+.step h3{margin:0 0 10px 0;font-size:14px;color:var(--tx);}
+.step p{margin:0;font-size:13px;color:var(--mt);line-height:1.65;}
+code{background:var(--ult);padding:2px 6px;border-radius:4px;color:var(--u);font-size:12px;font-family:monospace;border:1px solid var(--umd);}
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #ddd; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #ccc; }
+</style>
+</head>
+<body>
+<div class="header">
+  <a href="index.html" class="back">← 목록으로</a>
+  <div style="flex:1"></div>
+  <h1>🌡️ 수면 온도 알림이</h1>
+</div>
+<div class="content">
+  <div class="panel-left">
+    <div style="display:inline-block;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:700;background:var(--ult);color:var(--u);margin-bottom:12px;">온도 및 빛 센서 활용</div>
+    <h2 style="font-size:20px;margin-top:0;margin-bottom:12px;font-weight:700;">미션: 똑똑한 수면 조수</h2>
+    <p style="font-size:13px;color:var(--mt);line-height:1.6;margin-bottom:24px;">밤이 되었는지 빛 센서로 감지하고, 잘 때 방안 온도가 적합한지 알려주는 알림이를 만들어봅니다.</p>
+    
+    <div class="step">
+      <div class="step-num">1</div>
+      <h3>어두움 감지하기</h3>
+      <p>빛 센서값이 128보다 작으면 '밤'으로 생각합니다. <code>'무한반복'</code> 또는 <code>'흔들림 감지 시'</code> 블록 안에 <code>만약(if)</code> 블록을 추가해 빛 센서값을 판단해 보세요.</p>
+    </div>
+    
+    <div class="step">
+      <div class="step-num">2</div>
+      <h3>수면 온도 확인</h3>
+      <p>'밤'일 때, 온도를 확인해야 합니다. 19도 미만이면 너무 춥다는 화살표(↓), 23도를 초과하면 덥다는 화살표(↑)를 LED 스크린에 출력하세요.</p>
+    </div>
+    
+    <div class="step">
+      <div class="step-num">3</div>
+      <h3>적정 온도 표시</h3>
+      <p>19도~23도 사이라면 수면에 딱 좋다는 의미로 하트 아이콘(♥)을 LED에 예쁘게 띄워 적정 온도임을 알려주세요!</p>
+    </div>
+    
+    <div style="margin-top:30px;padding:16px;background:#F0FDF4;border-radius:10px;border:1px solid #BBF7D0;font-size:12px;color:#166534;line-height:1.6;">
+      <strong>💡 힌트:</strong> <code>만약(if)</code> 블록 안에 또 다른 <code>만약(if)</code> 블록을 중첩해서 넣거나, 아니면 <code>만약~아니고 만약~</code> 구조를 사용하면 여러 조건을 단계별로 검사할 수 있습니다.
+    </div>
+  </div>
+  <div class="panel-right">
+    <iframe src="https://makecode.microbit.org/---editor?nested=1"></iframe>
+  </div>
+</div>
+</body>
+</html>
